@@ -21,7 +21,7 @@ override public function set data(value:Object):void
            super.data = value;
 
            // Data (aka value) passed in is a Requirement object
-            if (value instanceof Requirement)
+            if (value is Requirement)
             {
                 trace("value passed in is a Requirement object");
                 var req:Requirement = value as Requirement;
@@ -47,7 +47,7 @@ override public function set data(value:Object):void
                 }
             }
 
-            if (value instanceof String)
+            if (value is String)
             {
                 trace("value passed in is a String, so hide button and display label with String as it's value.");
                 openREMapButton.visible = false;

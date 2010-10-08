@@ -259,18 +259,20 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
     public function handleDeleteMedia(obj:Object):void
     {
         trace("handleDeleteMedia called... value of label = '" + data.@label + "'");
-        if (obj.result.returnCode != 0)
+		var de:DynamicEvent;    
+		
+		if (obj.result.returnCode != 0)
         {
             trace("Bad delete of media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Deleting Media");
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
+            de = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
             AppDynamicEventManager.getInstance().dispatchEvent(de);
             return;
         }
 
         Alert.show("Just deleted Media named '" + data.@label + "'.", "Successfully Deleted Media");
-        var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
+        de = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
     }
 

@@ -101,7 +101,7 @@ public class GameEditorObjectEditorView extends Canvas
             // Load Media Object (if exists)
             if (obj.result.data.media != null)
             {
-                var m:Media = new Media();
+                m = new Media();
                 m.mediaId = obj.result.data.media.media_id;
                 m.name = obj.result.data.media.name;
                 m.type = obj.result.data.media.type;

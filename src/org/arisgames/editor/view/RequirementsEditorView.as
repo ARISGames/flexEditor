@@ -84,7 +84,7 @@ public class RequirementsEditorView extends Panel
     {
         var contentType:String;
         var contentId:Number;
-        if (theData instanceof PlaceMark)
+        if (theData is PlaceMark)
         {
             contentType = AppConstants.REQUIREMENTTYPE_LOCATION;
             contentId = (theData as PlaceMark).id;
@@ -100,7 +100,7 @@ public class RequirementsEditorView extends Panel
 
     public function isPlaceMarkDataLoaded():Boolean
     {
-        if (theData != null && theData instanceof PlaceMark)
+        if (theData != null && theData is PlaceMark)
         {
             return true;
         }
@@ -163,22 +163,28 @@ public class RequirementsEditorView extends Panel
     {
         trace("handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
 
-        if (DataGrid(evt.target).itemEditorInstance instanceof RequirementsEditorRequirementComboBoxMX)
+		var st:String;
+		var r:Requirement;
+		var origR:String;
+		var newR:String;
+		var res:Boolean;
+		
+        if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorRequirementComboBoxMX)
         {
             trace("It's a Requirement ComboBox, so process accordingly.");
             // Disable copying data back to the control.
             evt.preventDefault();
 
             // Get new requirement from editor.
-            var st:String = RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
+            st = RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
             reqs.editedItemRenderer.data = st;
 
             trace("Height Of Row = '" + reqs.rowHeight + "'; Req Editor Height = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).height + "'");
             trace("Width Of Column = '" + reqs.columnWidth + "'; Req Editor Width = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).width + "'");
 
-            var r:Requirement = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
-            var origR:String = r.requirement;
-            var newR:String = AppUtils.convertRequirementHumanLabelToDatabaseLabel(st);
+            r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
+            origR = r.requirement;
+            newR = AppUtils.convertRequirementHumanLabelToDatabaseLabel(st);
             trace("New Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Requirement = '" + origR + "'; New Requirement (Database) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
 
             // Close the cell editor.
@@ -188,7 +194,7 @@ public class RequirementsEditorView extends Panel
             r.requirement = newR;
 
             // Notify the list control to update its display.
-            var res:Boolean = requirements.refresh();
+            res = requirements.refresh();
             trace("Successful refresh? '" + res + "'");
 //        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
 
@@ -217,18 +223,18 @@ public class RequirementsEditorView extends Panel
                 reqs.editedItemPosition = {columnIndex: evt.columnIndex + 1, rowIndex: evt.rowIndex};
             }
         }
-        else if (DataGrid(evt.target).itemEditorInstance instanceof RequirementsEditorObjectComboBoxMX)
+        else if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX)
         {
             trace("It's an Object ComboBox, so process accordingly.");
             evt.preventDefault();
 
             // Get new requirement from editor for renderer to display
-            var st:String = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
+            st = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
             reqs.editedItemRenderer.data = st;
 
-            var r:Requirement = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
-            var origR:String = r.requirementDetail1;
-            var newR:String = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
+            r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
+            origR = r.requirementDetail1;
+            newR = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
             trace("New Object Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Object = '" + origR + "'; New Object (Value) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
 
             // Close the cell editor.
@@ -239,7 +245,7 @@ public class RequirementsEditorView extends Panel
             r.requirementDetail1Human = st;
 
             // Notify the list control to update its display.
-            var res:Boolean = requirements.refresh();
+           	res = requirements.refresh();
             trace("Successful refresh? '" + res + "'");
 //        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
 

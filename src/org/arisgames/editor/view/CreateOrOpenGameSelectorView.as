@@ -2,6 +2,7 @@ package org.arisgames.editor.view
 {
 import flash.events.MouseEvent;
 import flash.utils.Dictionary;
+
 import mx.collections.ArrayCollection;
 import mx.collections.Sort;
 import mx.collections.SortField;
@@ -11,10 +12,11 @@ import mx.controls.Button;
 import mx.controls.DataGrid;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
+import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
-import mx.events.DynamicEvent;
+
 import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Item;
@@ -27,8 +29,8 @@ import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
-import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.util.AppUtils;
 
 
 public class CreateOrOpenGameSelectorView extends Panel
@@ -144,12 +146,13 @@ public class CreateOrOpenGameSelectorView extends Panel
         trace("Starting handleLoadFoldersAndContentForObjectPalette()...");
         var ops:ArrayCollection = new ArrayCollection();
         ops.removeAll();
+		var op:ObjectPaletteItemBO;
 
         trace("Starting to load the folders.");
         // Load Folders
         for (var j:Number = 0; j < obj.result.data.folders.list.length; j++)
         {
-            var op:ObjectPaletteItemBO = new ObjectPaletteItemBO(true);
+            op = new ObjectPaletteItemBO(true);
             op.id = obj.result.data.folders.list.getItemAt(j).folder_id;
             op.name = obj.result.data.folders.list.getItemAt(j).name;
             op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
@@ -174,7 +177,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 
         for (j = 0; j < ops.length; j++)
         {
-            var op:ObjectPaletteItemBO = ops.getItemAt(j) as ObjectPaletteItemBO;
+            op = ops.getItemAt(j) as ObjectPaletteItemBO;
             trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'");
             if (op.parentFolderId == 0)
             {
@@ -194,7 +197,7 @@ public class CreateOrOpenGameSelectorView extends Panel
         // Load Content
         for (j = 0; j < obj.result.data.contents.list.length; j++)
         {
-            var op:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
+            op = new ObjectPaletteItemBO(false);
             op.id = obj.result.data.contents.list.getItemAt(j).object_content_id;
             op.objectId = obj.result.data.contents.list.getItemAt(j).content_id;
             op.objectType = obj.result.data.contents.list.getItemAt(j).content_type;
@@ -202,9 +205,11 @@ public class CreateOrOpenGameSelectorView extends Panel
             op.iconMediaId = obj.result.data.contents.list.getItemAt(j).icon_media_id;
 
             // Load Icon Media Object (if exists)
+			var m:Media;
+			
             if (obj.result.data.contents.list.getItemAt(j).icon_media != null)
             {
-                var m:Media = new Media();
+                m = new Media();
                 m.mediaId = obj.result.data.contents.list.getItemAt(j).icon_media.media_id;
                 m.name = obj.result.data.contents.list.getItemAt(j).icon_media.name;
                 m.type = obj.result.data.contents.list.getItemAt(j).icon_media.type;
@@ -219,7 +224,7 @@ public class CreateOrOpenGameSelectorView extends Panel
             // Load Media Object (if exists)
             if (obj.result.data.contents.list.getItemAt(j).media != null)
             {
-                var m:Media = new Media();
+                m = new Media();
                 m.mediaId = obj.result.data.contents.list.getItemAt(j).media.media_id;
                 m.name = obj.result.data.contents.list.getItemAt(j).media.name;
                 m.type = obj.result.data.contents.list.getItemAt(j).media.type;
@@ -264,7 +269,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 
         for (j = 0; j < ops.length; j++)
         {
-            var op:ObjectPaletteItemBO = ops.getItemAt(j) as ObjectPaletteItemBO;
+            op = ops.getItemAt(j) as ObjectPaletteItemBO;
             trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'");
 
             // if previous folder id == 0, then it's root else it goes on as a child of a folder
@@ -293,7 +298,7 @@ public class CreateOrOpenGameSelectorView extends Panel
      */
     private function loadSpecificDataIntoGameObjects():void
     {
-        for (var j = 0; j < GameModel.getInstance().game.gameObjects.length; j++)
+        for (var j:int = 0; j < GameModel.getInstance().game.gameObjects.length; j++)
         {
             var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
             this.processLoadingSpecificData(obj);
@@ -323,7 +328,7 @@ public class CreateOrOpenGameSelectorView extends Panel
         else
         {
             trace("Check folder for children data to load.");
-            for (var lc = 0; lc < obj.children.length; lc++)
+            for (var lc:int = 0; lc < obj.children.length; lc++)
             {
                 // Need recursive function here - no telling how deep the folder structure goes
                 var co:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
