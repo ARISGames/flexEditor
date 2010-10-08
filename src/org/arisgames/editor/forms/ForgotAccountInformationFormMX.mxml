@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<f:ForgotAccountInformationFormView xmlns:mx="http://www.adobe.com/2006/mxml"
+                                    xmlns:f="org.arisgames.editor.forms.*"
+                                    title="Forgot Username and/or Password?">
+
+    <mx:Form id="forgotAccountInformationForm">
+        <mx:FormHeading id="formHeading"/>
+        <mx:FormItem label="Forgot Which Information?" required="true">
+            <mx:RadioButtonGroup id="forgotWhatRadioGroup"/>
+            <mx:RadioButton id="forgotUsernameButton" label="Forgot Username" groupName="forgotWhatRadioGroup" value="{AppConstants.RADIO_FORGOTUSERNAME}"/>
+            <mx:RadioButton id="forgotPasswordButton" label="Forgot Password" groupName="forgotWhatRadioGroup" value="{AppConstants.RADIO_FORGOTPASSWORD}"/>
+        </mx:FormItem>
+        <mx:FormItem label="Email Address" required="true">
+            <mx:TextInput id="emailAddress" width="200"/>
+        </mx:FormItem>
+    </mx:Form>
+    <mx:ControlBar>
+        <mx:LinkButton id="backToLoginButton" label="Back To Login"/>
+        <mx:Spacer width="100%"/>
+        <mx:Button id="retrieveDataButton" label="Get Information!"/>
+    </mx:ControlBar>
+
+    <mx:EmailValidator id="emailValidator" source="{emailAddress}" property="text" trigger="{retrieveDataButton}" triggerEvent="click"/>
+
+    <mx:Script><![CDATA[
+        import org.arisgames.editor.util.AppConstants;
+        ]]></mx:Script>
+</f:ForgotAccountInformationFormView>

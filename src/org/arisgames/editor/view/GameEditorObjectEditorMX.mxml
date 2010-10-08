@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<v:GameEditorObjectEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+                              xmlns:main="org.arisgames.editor.*"
+                              xmlns:v="org.arisgames.editor.view.*"
+                              xmlns:c="org.arisgames.editor.components.*"
+                              backgroundColor="#869ca7"
+                              >
+
+    <v:ItemEditorFolderMX id="folderEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+    <v:ItemEditorItemMX id="itemEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+    <v:ItemEditorCharacterMX id="characterEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+    <v:ItemEditorPlaqueMX id="plaqueEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+
+</v:GameEditorObjectEditorView>

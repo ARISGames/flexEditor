@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<v:GameEditorObjectPaletteView xmlns:mx="http://www.adobe.com/2006/mxml"
+                  xmlns:main="org.arisgames.editor.*"
+                  xmlns:v="org.arisgames.editor.view.*"
+                  xmlns:c="org.arisgames.editor.components.*"
+                  paddingTop="0"
+                  paddingBottom="0"
+                  paddingLeft="0"
+                  paddingRight="0"
+                  verticalGap="0"
+                  horizontalScrollPolicy="off"
+                  verticalScrollPolicy="auto"
+                  >
+
+
+    <mx:Panel id="objectPalette" title="Object Palette" layout="vertical" width="100%" height="100%" paddingTop="10"
+              paddingRight="10" paddingBottom="10" paddingLeft="10" horizontalAlign="center">
+        <mx:HBox id="topMenuBox" width="100%" horizontalAlign="left" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
+			<mx:Button id="editQuestsButton" label="Edit Quests"/>
+            <mx:Button id="editDialogButton" label="Edit Dialog"/>
+			<mx:Button id="editGoogleMapButton" label="Edit Map"/>
+        </mx:HBox>
+        <c:PaletteTree id="paletteTree" width="100%" showRoot="false" height="95%" dataProvider="{treeModel}"
+                 labelField="name" render="renderTree()" dragEnabled="true" dropEnabled="true" editable="false" doubleClickEnabled="true" iconField="iconPath"/>
+        <mx:HBox id="bottomMenuBox" width="100%" horizontalAlign="left" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
+			<mx:Button id="addObjectButton" label="Add Object"/>
+			<mx:Button id="addFolderButton" label="Add Folder"/>
+			<mx:Spacer width="100%"/>
+            <mx:Image id="trashIcon" source="@Embed(source='assets/img/trashcan-small.png')" showEffect="{glowImage}" dragEnter="trashDragEnterHandler(event);" dragExit="trashDragExitHandler(event);" dragDrop="trashDragDropHandler(event);"/>
+        </mx:HBox>
+    </mx:Panel>
+
+    <mx:Glow id="glowImage" duration="1000" repeatCount="0"
+        alphaFrom="1.0" alphaTo="0"
+        blurXFrom="0.0" blurXTo="50.0"
+        blurYFrom="0.0" blurYTo="50.0"
+        color="0xFF0000" strength="5"/>
+
+</v:GameEditorObjectPaletteView>

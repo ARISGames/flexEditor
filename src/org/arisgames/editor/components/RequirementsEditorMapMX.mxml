@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<c:RequirementsEditorMapView xmlns:mx="http://www.adobe.com/2006/mxml"
+                             xmlns:c="org.arisgames.editor.components.*"
+                             paddingTop="10"
+                             paddingLeft="10"
+                             paddingRight="10"
+                             paddingBottom="10"
+                             width="500"
+                             height="500"
+                             creationPolicy="all"
+                             title="Requirements Editor Map"
+                             >
+
+    <c:RequirementsEditorMap id="reMap" width="100%" height="100%"/>
+
+    <mx:HBox width="100%" horizontalAlign="center">
+        <mx:Label text="Active Range (meters):"/>
+        <mx:NumericStepper id="radius" minimum="0" maximum="100" stepSize="1" value="{parseInt(requirement.requirementDetail3)}"/>
+    </mx:HBox>
+
+    <mx:ApplicationControlBar id="reMapControlBar" width="100%" defaultButton="{mapCloseButton}" horizontalAlign="right">
+        <mx:Button id="mapCloseButton" label="Close"/>
+    </mx:ApplicationControlBar>
+
+</c:RequirementsEditorMapView>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<v:ItemEditorCharacterView xmlns:mx="http://www.adobe.com/2006/mxml"
+                                  xmlns:main="org.arisgames.editor.*"
+                                  xmlns:v="org.arisgames.editor.view.*"
+                                  xmlns:c="org.arisgames.editor.components.*"
+                                  title="Quest Editor"
+                                  paddingTop="10"
+                                  paddingLeft="10"
+                                  paddingRight="10"
+                                  paddingBottom="10"
+                                  >
+
+    <mx:HBox id="hbox">
+        <c:ItemEditorMediaDisplayMX id="mediaDisplay"/>
+        <mx:Form>
+            <mx:FormItem label="Quest Name">
+                <mx:TextInput id="theName" width="200"/>
+            </mx:FormItem>
+            <mx:FormItem label="Active Description">
+                <mx:TextArea id="activeDesc" width="200" height="80"/>
+            </mx:FormItem>
+			<mx:Button id="displayReqs" label="Requirements to Display"/>
+            <mx:FormItem label="Completed Description">
+                <mx:TextArea id="completedDesc" width="200" height="80"/>
+            </mx:FormItem>
+			<mx:Button id="completedReqs" label="Requirements to Complete"/>    
+        </mx:Form>
+    </mx:HBox>
+
+    <mx:ControlBar id="folderControlBar">
+        <mx:Spacer width="100%" id="spacer"/>
+        <mx:Button id="cancelButton" label="Cancel"/>
+        <mx:Button id="saveButton" label="Save And Close"/>
+    </mx:ControlBar>
+
+    <mx:StringValidator id="v1" source="{theName}" property="text" minLength="1" maxLength="50" required="true"/>
+    <mx:StringValidator id="v2" source="{activeDesc}" property="text" minLength="1" maxLength="255" required="false"/>
+    <mx:StringValidator id="v3" source="{completedDesc}" property="text" minLength="1" maxLength="255" required="true"/>
+
+</v:ItemEditorCharacterView>

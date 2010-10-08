@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<v:GameEditorMapView xmlns:mx="http://www.adobe.com/2006/mxml"
+                  xmlns:main="org.arisgames.editor.*"
+                  xmlns:v="org.arisgames.editor.view.*"
+                  xmlns:c="org.arisgames.editor.components.*"
+                  width="100%"
+                  height="100%"
+                  paddingTop="0"
+                  paddingBottom="0"
+                  paddingLeft="0"
+                  paddingRight="0"
+                  verticalGap="0"
+                  creationPolicy="all"
+                >
+
+    <c:NavigationMap id="theMap" width="100%" height="100%"
+                     dragEnter="theMap.paletteObjectDragEnterHandler(event);" dragExit="theMap.paletteObjectDragExitHandler(event);"
+                     dragDrop="theMap.paletteObjectDropHandler(event);"/>
+
+    <mx:ApplicationControlBar id="mapControlBar" width="100%" defaultButton="{mapGoButton}" creationPolicy="all">
+        <mx:Label text="Map Controls" color="#FFFFFF"/>
+        <mx:Label text="Location Search:"/>
+        <mx:TextInput id="mapSearchText" width="200" />
+        <mx:Button id="mapGoButton" label="Go"/>
+    </mx:ApplicationControlBar>
+
+</v:GameEditorMapView>

@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<main:MainView xmlns:mx="http://www.adobe.com/2006/mxml"
+               xmlns:main="org.arisgames.editor.*"
+               xmlns:f="org.arisgames.editor.forms.*"
+               xmlns:v="org.arisgames.editor.view.*"
+               paddingLeft="0"
+               paddingTop="0"
+               paddingBottom="0"
+               paddingRight="0"
+               verticalAlign="middle"
+               currentState="{stateModel.currentState}"
+        >
+
+    <main:states>
+
+        <mx:State name="ViewLogin">
+            <mx:AddChild relativeTo="{this}" position="firstChild" creationPolicy="all">
+                <f:LoginFormMX id="loginForm"/>
+            </mx:AddChild>
+        </mx:State>
+
+        <mx:State name="RegisterForAccount" basedOn="ViewLogin">
+            <mx:RemoveChild target="{loginForm.forgotAccountInformationLink}"/>
+            <mx:SetProperty target="{loginForm.confirm}" name="visible" value="true"/>
+            <mx:SetProperty target="{loginForm.email}" name="visible" value="true"/>
+            <mx:SetProperty target="{loginForm.confirm}" name="includeInLayout" value="true"/>
+            <mx:SetProperty target="{loginForm.email}" name="includeInLayout" value="true"/>
+            <mx:SetProperty target="{loginForm}" name="title" value="Register For Account"/>
+            <mx:SetProperty target="{loginForm.loginButton}" name="label" value="{AppConstants.BUTTON_REGISTER}"/>
+            <mx:SetProperty target="{loginForm.registerLink}" name="label" value="Return To Login"/>
+            <!-- Reset State -->
+            <mx:SetProperty target="{loginForm.username}" name="text" value=""/>
+            <mx:SetProperty target="{loginForm.password}" name="text" value=""/>
+            <mx:SetProperty target="{loginForm.emailAddress}" name="text" value=""/>
+            <mx:SetProperty target="{loginForm.confirmPassword}" name="text" value=""/>
+        </mx:State>
+
+        <mx:State name="ForgotAccountInformation">
+            <mx:AddChild relativeTo="{this}" position="firstChild" creationPolicy="all">
+                <f:ForgotAccountInformationFormMX id="forgotAccountInformationForm" horizontalAlign="center" verticalAlign="middle"/>
+            </mx:AddChild>
+            <!-- Reset State -->
+            <mx:SetProperty target="{forgotAccountInformationForm.forgotPasswordButton}" name="selected" value="true"/>
+            <mx:SetProperty target="{forgotAccountInformationForm.forgotUsernameButton}" name="selected" value="false"/>
+            <mx:SetProperty target="{forgotAccountInformationForm.emailAddress}" name="text" value=""/>
+        </mx:State>
+
+        <mx:State name="ViewCreateOrOpenGameWindow">
+            <mx:AddChild relativeTo="{this}" position="firstChild" creationPolicy="all">
+                <v:CreateOrOpenGameSelectorMX id="createOrOpenGameSelector" width="500"/>
+            </mx:AddChild>
+        </mx:State>
+
+        <mx:State name="ViewGameEditor">
+            <mx:RemoveChild target="{loginForm}"/>
+            <mx:AddChild relativeTo="{this}" position="lastChild" creationPolicy="all">
+                <v:GameEditorContainerMX id="gameEditorContainer" width="100%" height="100%"/>
+			</mx:AddChild>
+        </mx:State>
+
+        <mx:State name="ViewGameEditorPlaceMarkEditor" basedOn="ViewGameEditor">
+<!--
+            <mx:AddChild relativeTo="{gameEditor.gameDataEditor.editorPanel}" position="lastChild" creationPolicy="all">
+                <f:PlaceMarkEditorFormMX id="placeMarkEditor" creationPolicy="all" width="100%" height="100%"
+                                         pmContentTypeVal="{gameModel.currentPlaceMark.contentType}"
+                                         pmNameVal="{gameModel.currentPlaceMark.name}"
+                                         pmDescriptionVal="{gameModel.currentPlaceMark.description}"
+                                         pmQuantityVal="{gameModel.currentPlaceMark.quantity}"
+                                         pmHiddenVal="{gameModel.currentPlaceMark.hidden}"
+                                         pmForcedViewVal="{gameModel.currentPlaceMark.forcedView}"/>
+            </mx:AddChild>
+-->
+        </mx:State>
+
+    </main:states>
+
+<!--
+    <main:transitions>
+-->
+<!--
+        <mx:Transition fromState="ViewGameEditor" toState="ViewGameEditorPlaceMarkEditor">
+            <mx:Sequence target="{placeMarkEditor}">
+                <mx:Iris id="irisIn" duration="2000" showTarget="true"/>
+                <mx:Glow alphaFrom="1" alphaTo="0" duration="1500" color="#00FF7F"
+                         strength="30" blurXFrom="15" blurXTo="0" blurYFrom="15" blurYTo="0"/>
+            </mx:Sequence>
+        </mx:Transition>
+-->
+<!--
+        <mx:Transition fromState="ViewGameEditorPlaceMarkEditor" toState="ViewGameEditor">
+            <mx:Parallel target="{placeMarkEditor}">
+                <mx:WipeLeft duration="5000"/>
+                <mx:Blur blurXFrom="15" blurXTo="0" blurYFrom="15"
+                         blurYTo="0" duration="5000"/>
+            </mx:Parallel>
+        </mx:Transition>
+-->
+
+<!--
+    </main:transitions>
+-->
+
+    <mx:Script><![CDATA[
+        import org.arisgames.editor.util.AppConstants;
+        ]]></mx:Script>
+</main:MainView>

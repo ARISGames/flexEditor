@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<f:LoginFormView xmlns:mx="http://www.adobe.com/2006/mxml"
+                 xmlns:f="org.arisgames.editor.forms.*"
+                 title="Login To ARIS Editor"
+                 paddingTop="10"
+                 paddingLeft="10"
+                 paddingRight="10"
+                 paddingBottom="10"
+                 >
+
+        <mx:Form id="loginForm" width="100%" height="100%" defaultButton="{loginButton}">
+            <mx:FormItem label="Username" required="true">
+                <mx:TextInput id="username" width="200"/>
+            </mx:FormItem>
+            <mx:FormItem label="Password" required="true">
+                <mx:TextInput id="password" width="200" displayAsPassword="true"/>
+            </mx:FormItem>
+            <mx:FormItem id="confirm" label="Confirm:" required="true" visible="false" includeInLayout="false">
+                <mx:TextInput id="confirmPassword" width="200" displayAsPassword="true"/>
+            </mx:FormItem>
+            <mx:FormItem id="email" label="Email:" required="true" visible="false" includeInLayout="false">
+                <mx:TextInput id="emailAddress" width="200"/>
+            </mx:FormItem>
+        </mx:Form>
+
+        <mx:ControlBar id="loginControlBar">
+            <mx:LinkButton  id="registerLink" label="Need To Register?"/>
+            <mx:Spacer width="5" id="spacer1"/>
+            <mx:LinkButton id="forgotAccountInformationLink" label="Forgot?"/>
+            <mx:Spacer width="100%" id="spacer2"/>
+            <mx:Button id="loginButton" label="{AppConstants.BUTTON_LOGIN}"/>
+        </mx:ControlBar>
+
+        <mx:StringValidator source="{username}" property="text" minLength="4" maxLength="12" trigger="{loginButton}" triggerEvent="click"/>
+        <mx:StringValidator source="{password}" property="text" minLength="4" maxLength="12" trigger="{loginButton}" triggerEvent="click"/>
+        <mx:StringValidator source="{confirmPassword}" property="text" minLength="4" maxLength="12" trigger="{loginButton}" triggerEvent="click"/>
+        <mx:EmailValidator source="{emailAddress}" property="text" trigger="{loginButton}" triggerEvent="click"/>
+
+    <mx:Script><![CDATA[
+        import org.arisgames.editor.util.AppConstants;
+        ]]></mx:Script>
+</f:LoginFormView>

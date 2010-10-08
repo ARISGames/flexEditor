@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<v:RequirementsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+                                  xmlns:main="org.arisgames.editor.*"
+                                  xmlns:v="org.arisgames.editor.view.*"
+                                  xmlns:c="org.arisgames.editor.components.*"
+                                  paddingTop="10"
+                                  paddingLeft="10"
+                                  paddingRight="10"
+                                  paddingBottom="10"
+                                  width="600"
+                                  title="Requirements Editor"
+                                  creationPolicy="all"
+                                  >
+
+    <mx:DataGrid id="reqs" width="100%" rowCount="10" editable="true" dataProvider="{requirements}" draggableColumns="false">
+        <mx:columns>
+            <!--<mx:DataGridColumn dataField="requirementId" headerText="Req ID" editable="false" width="50"/>-->
+            <mx:DataGridColumn dataField="requirementHuman" width="250" headerText="Requirement" itemEditor="org.arisgames.editor.components.RequirementsEditorRequirementComboBoxMX"/>
+            <mx:DataGridColumn dataField="requirementDetail1Human" headerText="Objects" itemRenderer="org.arisgames.editor.components.RequirementsEditorObjectRendererMX" itemEditor="org.arisgames.editor.components.RequirementsEditorObjectComboBoxMX"/>
+            <mx:DataGridColumn headerText="Delete" editable="false" width="50">
+                <mx:itemRenderer>
+	                <mx:Component>
+	                    <mx:LinkButton label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
+	                </mx:Component>
+	            </mx:itemRenderer>
+            </mx:DataGridColumn>
+        </mx:columns>
+    </mx:DataGrid>
+
+    <mx:ControlBar width="100%" horizontalAlign="right">
+        <mx:Button id="addRequirementButton" label="+"/>
+    </mx:ControlBar>
+
+    <mx:ControlBar width="100%" horizontalAlign="right">
+        <mx:Button id="closeButton" label="Close"/>
+    </mx:ControlBar>
+
+</v:RequirementsEditorView>

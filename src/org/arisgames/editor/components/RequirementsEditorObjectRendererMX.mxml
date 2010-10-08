@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" horizontalScrollPolicy="off">
+
+<mx:Script>
+<![CDATA[
+
+//  Based on code at following URL:
+//  http://butterfliesandbugs.wordpress.com/2007/09/11/dynamic-itemrenderer-using-a-combobox/
+
+import mx.events.DynamicEvent;
+import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.util.AppUtils;
+
+override public function set data(value:Object):void
+     {
+         trace("RequirementsEditorObjectRendererMX.setData() called with value = '" + value + "'");
+        if(value != null)
+        {
+           super.data = value;
+
+           // Data (aka value) passed in is a Requirement object
+            if (value instanceof Requirement)
+            {
+                trace("value passed in is a Requirement object");
+                var req:Requirement = value as Requirement;
+                if (req == null)
+                {
+                    trace("Cast of non null value in setData() to Requirement produced a NULL value.");
+                }
+                else
+                {
+                    trace("Cast of value in setData() to Requirement worked fine.  It's ID = '" + req.requirementId + "'; it's requirement = '" + req.requirement + "'");
+                }
+
+                if (AppUtils.isUploadMediaItemRequirementType(req))
+                {
+                    openREMapButton.visible = true;
+                    objectLabel.visible = false;
+                }
+                else
+                {
+                    openREMapButton.visible = false;
+                    objectLabel.visible = true;
+                    objectLabel.text = req.requirementDetail1Human;
+                }
+            }
+
+            if (value instanceof String)
+            {
+                trace("value passed in is a String, so hide button and display label with String as it's value.");
+                openREMapButton.visible = false;
+                objectLabel.visible = true;
+                objectLabel.text = value as String;
+            }
+        }
+        else
+        {
+            trace("RequirementsEditorObjectRendererMX.setData() had a NULL value passed in, so can't do anything in the Object Renderer.");
+        }
+     }
+
+     public function handleButtonClick(evt:MouseEvent):void
+     {
+        trace("handleButtonClick called, will send event to open Requiremnts Editor Map now...");
+         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENREQUIREMENTSEDITORMAP);
+         AppDynamicEventManager.getInstance().dispatchEvent(de);
+         //Alert.show("It worked!", "Open RE Map Button Clicked!");
+     }
+
+     public function getObjectLabelText():String
+     {
+        var req:Requirement = data as Requirement;
+        return req.requirementDetail1Human;
+     }
+
+]]>
+</mx:Script>
+
+
+<mx:Button id="openREMapButton" width="100%" label="Open RE Map" click="handleButtonClick(event)"/>
+<mx:Label id="objectLabel"/>
+
+
+</mx:Canvas>

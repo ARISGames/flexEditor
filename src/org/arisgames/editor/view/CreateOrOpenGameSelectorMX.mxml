@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<v:CreateOrOpenGameSelectorView xmlns:mx="http://www.adobe.com/2006/mxml"
+                                xmlns:v="org.arisgames.editor.view.*"
+                                title="Create Or Select Game">
+
+    <mx:TabNavigator id="tn" width="100%" resizeToContent="true" creationPolicy="all">
+
+            <mx:VBox label="Select And Open Existing Game" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+                <mx:DataGrid id="gamesDataGrid" width="100%" rowCount="5" dataProvider="{usersGames}">
+                            <mx:columns>
+                                <mx:DataGridColumn dataField="name" headerText="Name"/>
+                                <mx:DataGridColumn dataField="description" headerText="Description"/>
+                            </mx:columns>
+                </mx:DataGrid>
+                <mx:HBox horizontalAlign="right" width="100%">
+                    <mx:Spacer width="100%"/>
+                    <mx:Button id="loadGameButton" label="Load Game!"/>
+                </mx:HBox>
+            </mx:VBox>
+            
+            <mx:VBox label="Create New Game">
+                <mx:Form>
+                    <mx:FormItem label="Name Of Game:" required="true">
+                        <mx:TextInput id="nameOfGame" width="200"/>
+                    </mx:FormItem>
+                    <mx:FormItem label="Game Description:" required="true">
+                        <mx:TextArea id="gameDescription" width="200"/>
+                    </mx:FormItem>
+                    <mx:FormItem width="100%" direction="horizontal">
+                        <mx:Spacer width="100%"/>
+                        <mx:Button id="createGameButton" label="Create Game!"/>
+                    </mx:FormItem>
+                </mx:Form>
+            </mx:VBox>
+
+
+     </mx:TabNavigator>
+
+    <mx:StringValidator source="{nameOfGame}" property="text" minLength="4" maxLength="20" trigger="{createGameButton}" triggerEvent="click"/>
+    <mx:StringValidator source="{gameDescription}" property="text" minLength="2" maxLength="250" trigger="{createGameButton}" triggerEvent="click"/>
+
+</v:CreateOrOpenGameSelectorView>
