@@ -2,15 +2,19 @@ package org.arisgames.editor.view
 {
 import com.ninem.controls.TreeBrowser;
 import com.ninem.events.TreeBrowserEvent;
+
 import flash.events.MouseEvent;
+
 import mx.containers.Panel;
 import mx.controls.Alert;
 import mx.controls.Button;
+import mx.controls.DataGrid;
 import mx.core.ClassFactory;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.components.ItemEditorMediaPickerCustomEditorMX;
 import org.arisgames.editor.components.ItemEditorMediaPickerUploadFormMX;
 import org.arisgames.editor.data.arisserver.Media;
@@ -52,7 +56,7 @@ public class ItemEditorMediaPickerView extends Panel
         treeBrowser.detailRenderer = cf;
         treeBrowser.addEventListener(TreeBrowserEvent.NODE_SELECTED, onNodeSelected);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
-        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYANMAICEVENT_CLOSEMEDIAUPLOADER, closeMediaUploader);
+        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER, closeMediaUploader);
 
         this.printXMLData();
         // Load Game's Media Into XML

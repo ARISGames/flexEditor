@@ -17,7 +17,7 @@ public class AppConstants
     public static const DYNAMICEVENT_EDITOBJECTPALETTEITEM:String = "EditObjectPaletteItem";
     public static const DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR:String = "CloseObjectPaletteItemEditor";
     public static const DYNAMICEVENT_CLOSEMEDIAPICKER:String = "CloseMediaPicker";
-    public static const DYANMAICEVENT_CLOSEMEDIAUPLOADER:String = "CloseMediaUploader";
+    public static const DYNAMICEVENT_CLOSEMEDIAUPLOADER:String = "CloseMediaUploader";
     public static const DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR:String = "CloseRequirementsEditor";
     public static const DYNAMICEVENT_REFRESHDATAINREQUIREMENTSEDITOR:String = "RefreshDataInRequirementsEditor";
     public static const DYNAMICEVENT_OPENREQUIREMENTSEDITORMAP:String = "OpenRequirementsEditorMap";

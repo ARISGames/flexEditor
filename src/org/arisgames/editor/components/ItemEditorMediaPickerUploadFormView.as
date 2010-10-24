@@ -89,7 +89,7 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
     {
         trace("Cancel button clicked...");
         // This will close editor (as the item is the same that is currently being edited)
-        var de:DynamicEvent = new DynamicEvent(AppConstants.DYANMAICEVENT_CLOSEMEDIAUPLOADER);
+        var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
     }
 
@@ -356,7 +356,7 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
             // Setup GUI to non - upload mode
             this.changeViewModeToUploadView(false);
 
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYANMAICEVENT_CLOSEMEDIAUPLOADER);
+            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
             AppDynamicEventManager.getInstance().dispatchEvent(de);
         }
     }
