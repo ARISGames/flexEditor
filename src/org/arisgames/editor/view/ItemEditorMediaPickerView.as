@@ -130,7 +130,7 @@ public class ItemEditorMediaPickerView extends Panel
                 m.type = o.type;
                 m.urlPath = o.url_path;
                 m.fileName = o.file_name;
-                m.isDefault = o.is_default;
+                m.isDefault = o.is_default; //for both default files and uploaded files
 
                 var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";
 
