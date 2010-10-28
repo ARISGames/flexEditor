@@ -41,6 +41,7 @@ public class NavigationMap extends Map3D
     {
         super();
         this.key = AppConstants.APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY;
+		this.sensor = "false";
         addEventListener(MapEvent.MAP_PREINITIALIZE, onMapPreinitialize);
         addEventListener(MapEvent.MAP_READY, onMapReady);
 //        addEventListener(MapMouseEvent.DOUBLE_CLICK, processMapDoubleClick);
