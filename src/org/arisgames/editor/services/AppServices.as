@@ -165,7 +165,7 @@ public class AppServices
         else
         {
             trace("This Location has an Id (" + loc.locationId + "), so call update Location.");
-            l = AppDAO.getInstance().getLocationServer().updateLocation(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView);
+            l = AppDAO.getInstance().getLocationServer().updateLocation(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView,0);
         }
         l.addResponder(resp);
     }
