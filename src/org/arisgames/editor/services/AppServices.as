@@ -3,6 +3,7 @@ package org.arisgames.editor.services
 
 import mx.rpc.IResponder;
 import org.arisgames.editor.dao.AppDAO;
+import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -329,12 +330,12 @@ public class AppServices
         if (isNaN(req.requirementId))
         {
             trace("This Requirement doesn't have an Id, so call Create Requirement function On Remote Server..");
-            l = AppDAO.getInstance().getRequirementsServer().createRequirement(gid, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3);
+            l = AppDAO.getInstance().getRequirementsServer().createRequirement(gid, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, AppConstants.REQUIREMENT_BOOLEAN_AND_DATABASE);
         }
         else
         {
             trace("This Requirement has an Id (" + req.requirementId + "), so call Update Requirement function on Remote Server.");
-            l = AppDAO.getInstance().getRequirementsServer().updateRequirement(gid, req.requirementId, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3);
+            l = AppDAO.getInstance().getRequirementsServer().updateRequirement(gid, req.requirementId, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, AppConstants.REQUIREMENT_BOOLEAN_AND_DATABASE);
         }
         l.addResponder(resp);
     }
