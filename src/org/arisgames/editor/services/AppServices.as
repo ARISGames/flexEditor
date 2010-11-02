@@ -9,6 +9,7 @@ import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 
 public class AppServices
@@ -359,10 +360,35 @@ public class AppServices
 	
 	public function getQuestsByGameId(gid:Number, resp:IResponder):void
 	{
-		trace("getQuests called with GameID = '" + gid + "'");
+		trace("AppServices: getQuests called with GameID = '" + gid + "'");
 		var l:Object;
 		l = AppDAO.getInstance().getQuestsServer().getQuests(gid);
 		l.addResponder(resp);
 	}
+	public function deleteQuest(gid:Number, quest:Quest, resp:IResponder):void
+	{
+		trace("AppServices: deleteQuest() called with Game Id = '" + gid + "' and Quest Id = '" + quest.questId + "'");
+		var l:Object;
+		l = AppDAO.getInstance().getQuestsServer().deleteQuest(gid, quest.questId);
+		l.addResponder(resp);
+	}
+	public function saveQuest(gid:Number, quest:Quest, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(quest.questId))
+		{
+			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.iconMediaId );
+		}
+		else
+		{
+			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId);
+		}
+		l.addResponder(resp);
+	}
+
+	
+	
 }
 }

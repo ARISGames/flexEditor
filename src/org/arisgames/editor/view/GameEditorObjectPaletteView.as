@@ -157,7 +157,7 @@ public class GameEditorObjectPaletteView extends VBox
 	private function editQuestsButtonOnClick(evt:MouseEvent):void 
 	{
 		trace("editQuestsButtonOnClick() started... ");
-		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENQUESTSMAP);
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR);
 		AppDynamicEventManager.getInstance().dispatchEvent(de);
 	}
 	

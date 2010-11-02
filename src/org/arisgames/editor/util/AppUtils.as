@@ -8,6 +8,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -322,37 +323,63 @@ public class AppUtils
             return null;
         }
     }
+	
+	public static function parseResultDataIntoNode(data:Object):Node
+	{
+		if (data.hasOwnProperty("node_id"))
+		{
+			trace("retObj has an node_id!  It's value = '" + data.node_id + "'.");
+			var node:Node = new Node();
+			
+			node.nodeId = data.node_id;
+			node.title = data.title;
+			node.text = data.text;
+			node.mediaId = data.media_id;
+			node.opt1Text = data.opt1_text;
+			node.opt1NodeId = data.opt1_node_id;
+			node.opt2Text = data.opt2_text;
+			node.opt2NodeId = data.opt2_node_id;
+			node.opt3Text = data.opt3_text;
+			node.opt3NodeId = data.opt3_node_id;
+			node.qaCorrectAnswer = data.require_answer_string;
+			node.qaIncorrectNodeId = data.require_answer_incorrect_node_id;
+			node.qaCorrectNodeId = data.require_answer_correct_node_id;
+			
+			return node;
+		}
+		else
+		{
+			trace("Data passed in was not a Node Result set, returning NULL.");
+			return null;
+		}
+	}
+	
+	
 
-    public static function parseResultDataIntoNode(data:Object):Node
-    {
-        if (data.hasOwnProperty("node_id"))
-        {
-            trace("retObj has an node_id!  It's value = '" + data.node_id + "'.");
-            var node:Node = new Node();
+	public static function parseResultDataIntoQuest(data:Object):Quest
+	{
+		if (data.hasOwnProperty("quest_id"))
+		{
+			trace("AppUtils: parseResultDataIntoQuest: retObj has an id = '" + data.quest_id + "'.");
+			var quest:Quest = new Quest();
+			
+			quest.questId = data.quest_id;
+			quest.title = data.name;
+			quest.activeText = data.description
+			quest.completeText = data.text_when_complete;
+			quest.iconMediaId = data.icon_media_id;
+			return quest;
+		}
+		else
+		{
+			trace("AppUtils: parseResultDataIntoQuest: Data passed in was not a Quest Result set, returning NULL.");
+			return null;
+		}
+	}
 
-            node.nodeId = data.node_id;
-            node.title = data.title;
-            node.text = data.text;
-            node.mediaId = data.media_id;
-            node.opt1Text = data.opt1_text;
-            node.opt1NodeId = data.opt1_node_id;
-            node.opt2Text = data.opt2_text;
-            node.opt2NodeId = data.opt2_node_id;
-            node.opt3Text = data.opt3_text;
-            node.opt3NodeId = data.opt3_node_id;
-            node.qaCorrectAnswer = data.require_answer_string;
-            node.qaIncorrectNodeId = data.require_answer_incorrect_node_id;
-            node.qaCorrectNodeId = data.require_answer_correct_node_id;
 
-            return node;
-        }
-        else
-        {
-            trace("Data passed in was not a Node Result set, returning NULL.");
-            return null;
-        }
-    }
-
+	
+	
     public function setMainView(mv:MainView):void
     {
         this.mainView = mv;

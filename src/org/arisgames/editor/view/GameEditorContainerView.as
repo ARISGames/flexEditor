@@ -4,6 +4,9 @@ import mx.containers.Canvas;
 import mx.effects.Move;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+import mx.managers.PopUpManager;
+import org.arisgames.editor.util.AppUtils;
+
 
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.util.AppConstants;
@@ -12,13 +15,15 @@ import org.arisgames.editor.util.AppDynamicEventManager;
 public class GameEditorContainerView extends Canvas
 {
     [Bindable] public var gameEditorObjectEditor:GameEditorObjectEditorView;
-	[Bindable] public var questsMap:QuestsMapView;
+	//[Bindable] public var questsMap:QuestsMapView; 
+	[Bindable] public var questsEditor:QuestsEditorView;
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"
     [Bindable] public var panelIn:Move;  // WB "IN" actually means "into the toolbox, no longer displaying"
 	[Bindable] public var mapShow:Move;
 	[Bindable] public var mapHide:Move;
     private var isItemEditorVis:Boolean = false;
 	private var isQuestsMapVis:Boolean = false;
+	private var isQuestsEditorVis:Boolean = false;
 
     /**
      * Constructor
@@ -36,6 +41,9 @@ public class GameEditorContainerView extends Canvas
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR, handleCloseItemEditorEventRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSMAP, handleOpenQuestsMapRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSMAP, handleCloseQuestsMapRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR, handleOpenQuestsEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
+		
     }
 
     private function handleItemEditEventRequest(event:DynamicEvent):void
@@ -87,6 +95,49 @@ public class GameEditorContainerView extends Canvas
         }
     }
 	
+	private function handleOpenQuestsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleOpenQuestsEditorRequest() was called");
+		if (!isQuestsEditorVis)
+		{
+			trace("QuestsEditor is currently hidden, so show it!");
+			isQuestsEditorVis = true;
+			questsEditor = new QuestsEditorMX();
+			this.parent.addChild(questsEditor);
+			
+			// Need to validate the display so that entire component is rendered
+			questsEditor.validateNow();
+			
+			PopUpManager.addPopUp(questsEditor, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(questsEditor);
+			questsEditor.setVisible(true);
+			questsEditor.includeInLayout = true;			
+		}
+		else 
+		{
+			trace("QuestsEditor is already visible, so clicking the button again should close it!");
+			isQuestsEditorVis = false;
+		}
+	}	
+	
+	
+	private function handleCloseQuestsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleCloseQuestsEditorRequest() was called");
+
+		if (!isQuestsEditorVis)
+		{
+			trace("Quests Editor already hidden, so don't try to close again!");
+		}
+		else
+		{
+			trace("Closing the QuestsEditor");
+			PopUpManager.removePopUp(questsEditor);
+			questsEditor = null;			
+			isQuestsEditorVis = false;
+		}
+	}	
+	
 	private function handleOpenQuestsMapRequest(event:DynamicEvent):void 
 	{
 		if (!isQuestsMapVis)
@@ -102,6 +153,7 @@ public class GameEditorContainerView extends Canvas
 			isQuestsMapVis = false;
 		}
 	}
+
 	
 	private function handleCloseQuestsMapRequest(event:DynamicEvent):void 
 	{
