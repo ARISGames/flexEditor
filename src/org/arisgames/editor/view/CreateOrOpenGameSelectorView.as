@@ -42,7 +42,6 @@ public class CreateOrOpenGameSelectorView extends Panel
     [Bindable] public var loadGameButton:Button;
     [Bindable] public var usersGames:ArrayCollection;
 
-    private var gamePlacemarks:ArrayCollection;
 
     /**
      * Constructor
@@ -51,7 +50,6 @@ public class CreateOrOpenGameSelectorView extends Panel
     {
         super();
         usersGames = new ArrayCollection();
-        gamePlacemarks = new ArrayCollection();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
     }
 
@@ -101,47 +99,13 @@ public class CreateOrOpenGameSelectorView extends Panel
         GameModel.getInstance().game.description = g.description;
         GameModel.getInstance().game.placeMarks.removeAll();
         GameModel.getInstance().game.gameObjects.removeAll();
-        AppServices.getInstance().getLocationsByGameId(g.gameId, new Responder(handleLoadLocations, handleFault));
+		GameModel.getInstance().loadLocations();
         AppServices.getInstance().getFoldersAndContentByGameId(g.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
 
         StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
     }
 
-    private function handleLoadLocations(obj:Object):void
-    {
-        trace("handleLoadLocations() called...");
-        gamePlacemarks.removeAll();
-
-        for (var j:Number = 0; j < obj.result.data.list.length; j++)
-        {
-            var pm:PlaceMark = new PlaceMark();
-            pm.id = obj.result.data.list.getItemAt(j).location_id;
-            pm.latitude = obj.result.data.list.getItemAt(j).latitude;
-            pm.longitude = obj.result.data.list.getItemAt(j).longitude;
-            pm.name = obj.result.data.list.getItemAt(j).name;
-			pm.qrCode = obj.result.data.list.getItemAt(j).code;
-            pm.contentType = AppUtils.getContentTypeValueByName(obj.result.data.list.getItemAt(j).type);
-            pm.contentId = obj.result.data.list.getItemAt(j).type_id;
-            pm.quantity = obj.result.data.list.getItemAt(j).item_qty;
-            pm.hidden = obj.result.data.list.getItemAt(j).hidden;
-            pm.forcedView = obj.result.data.list.getItemAt(j).force_view;
-            pm.errorRange = obj.result.data.list.getItemAt(j).error;
-			pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
-            gamePlacemarks.addItem(pm);
-        }
-        GameModel.getInstance().game.placeMarks.removeAll();
-        GameModel.getInstance().game.placeMarks.addAll(gamePlacemarks);
-        trace("Done loading and casting the locations.  Size = " + gamePlacemarks.length);
-        
-        trace("Dispatching APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED");
-        var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED);
-        AppDynamicEventManager.getInstance().dispatchEvent(de);
-        
-        trace("Finished with handleLoadLocations.");
-        
-       
-        
-    }
+ 
 
     private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
     {

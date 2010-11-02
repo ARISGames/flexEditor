@@ -711,17 +711,19 @@ public class GameEditorObjectPaletteView extends VBox
 
     public function handleDeleteContent(obj:Object):void
     {
-        trace("In handleDeleteContent() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("GameEditorObjectPalletView: handleDeleteContent() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad delete content attempt... let's see what happened.");
+            trace("GameEditorObjectPalletView: Bad delete content attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Deleting Content");
         }
         else
         {
-            trace("Delete content was successful.");
+            trace("GameEditorObjectPalletView: Delete content was successful. Refresh Object Pallet and Locations");
             this.sortAndSavePaletteObjects();
+			GameModel.getInstance().loadLocations();
+
         }
         trace("Finished with handleDeleteContent().");
     }
