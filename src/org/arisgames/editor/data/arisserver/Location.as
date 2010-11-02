@@ -11,8 +11,11 @@ public class Location
     public var iconMediaId:Number;
     public var error:Number;
     public var quantity:Number;
-    public var hidden:Boolean;
+	public var hidden:Boolean;
     public var forceView:Boolean;
+	public var quickTravel:Boolean;
+	public var qrCode:String;
+	
 
     /**
      * Constructor

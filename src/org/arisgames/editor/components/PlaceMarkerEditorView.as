@@ -29,12 +29,15 @@ public class PlaceMarkerEditorView extends Panel
 
     // Form Components
     [Bindable] public var locLabel:TextInput;
-    [Bindable] public var quantityFI:FormItem;
+	[Bindable] public var qrCode:TextInput;
+	[Bindable] public var quantityFI:FormItem;
     [Bindable] public var quantity:NumericStepper;
     [Bindable] public var errorRange:NumericStepper;
     [Bindable] public var hidden:CheckBox;
     [Bindable] public var autoDisplay:CheckBox;
-    public var deletePlaceMarkDataButton:Button;
+	[Bindable] public var quickTravelFI:FormItem;
+	[Bindable] public var quickTravel:CheckBox;	
+	public var deletePlaceMarkDataButton:Button;
     public var savePlaceMarkDataButton:Button;
     [Bindable] public var openRequirementsEditorButton:Button;
 
@@ -54,7 +57,10 @@ public class PlaceMarkerEditorView extends Panel
         this.title = "PlaceMark Editor (" + placeMark.getContentTypeForPublicDisplayAsString() + ")";
 
         locLabel.text = placeMark.name;
-        errorRange.value = placeMark.errorRange;
+		qrCode.text = placeMark.qrCode;
+		
+
+		errorRange.value = placeMark.errorRange;
         if (placeMark.getContentTypeForDataBaseAsString() == AppConstants.CONTENTTYPE_ITEM_DATABASE)
         {
             quantityFI.visible = true;
@@ -75,6 +81,8 @@ public class PlaceMarkerEditorView extends Panel
         }
         hidden.selected = placeMark.hidden;
         autoDisplay.selected = placeMark.forcedView;
+		quickTravel.selected = placeMark.quickTravel;
+		
         deletePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
         savePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleSaveDataButtonClick);
         openRequirementsEditorButton.addEventListener(MouseEvent.CLICK, handleOpenRequirementsButtonClick);
@@ -86,7 +94,6 @@ public class PlaceMarkerEditorView extends Panel
         trace("Starting handle Open Requirements Button click.");
         this.openRequirementsEditor();
     }
-
     private function openRequirementsEditor():void
     {
         requirementsEditor = new RequirementsEditorMX();
@@ -129,6 +136,7 @@ public class PlaceMarkerEditorView extends Panel
         loc.latitude = placeMark.latitude;
         loc.longitude = placeMark.longitude;
         loc.name = locLabel.text;
+		loc.qrCode = qrCode.text;
         loc.type = AppUtils.getContentTypeForDatabaseAsString(placeMark.contentType);
         loc.typeId = placeMark.contentId;
         loc.error = errorRange.value;
@@ -142,12 +150,15 @@ public class PlaceMarkerEditorView extends Panel
         }
         loc.hidden = hidden.selected;
         loc.forceView = autoDisplay.selected;
+		loc.quickTravel = quickTravel.selected;
 
         // Update Place Mark Data Model
         placeMark.name = loc.name;
+		placeMark.qrCode = loc.qrCode;
         placeMark.quantity = loc.quantity;
         placeMark.hidden = loc.hidden;
         placeMark.forcedView = loc.hidden;
+		placeMark.quickTravel = loc.quickTravel;
         placeMark.errorRange = loc.error;
 
         AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));

@@ -119,12 +119,14 @@ public class CreateOrOpenGameSelectorView extends Panel
             pm.latitude = obj.result.data.list.getItemAt(j).latitude;
             pm.longitude = obj.result.data.list.getItemAt(j).longitude;
             pm.name = obj.result.data.list.getItemAt(j).name;
+			pm.qrCode = obj.result.data.list.getItemAt(j).code;
             pm.contentType = AppUtils.getContentTypeValueByName(obj.result.data.list.getItemAt(j).type);
             pm.contentId = obj.result.data.list.getItemAt(j).type_id;
             pm.quantity = obj.result.data.list.getItemAt(j).item_qty;
             pm.hidden = obj.result.data.list.getItemAt(j).hidden;
             pm.forcedView = obj.result.data.list.getItemAt(j).force_view;
             pm.errorRange = obj.result.data.list.getItemAt(j).error;
+			pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
             gamePlacemarks.addItem(pm);
         }
         GameModel.getInstance().game.placeMarks.removeAll();

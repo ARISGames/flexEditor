@@ -89,6 +89,7 @@ public class PlaceMarker extends Marker
         loc.quantity = placemark.quantity;
         loc.hidden = placemark.hidden;
         loc.forceView = placemark.forcedView;
+		loc.quickTravel = placemark.quickTravel;
         loc.error = placemark.errorRange;
         trace("location type looked up = '" + loc.type + "'");
 

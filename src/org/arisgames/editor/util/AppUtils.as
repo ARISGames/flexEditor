@@ -112,6 +112,7 @@ public class AppUtils
         loc.latitude = pm.latitude;
         loc.longitude = pm.longitude;
         loc.name = pm.name;
+		loc.qrCode = pm.qrCode;
         loc.type = AppUtils.getContentTypeForDatabaseAsString(pm.contentType);
         loc.typeId = pm.contentId;
         loc.iconMediaId = 0;
@@ -119,7 +120,7 @@ public class AppUtils
         loc.quantity = pm.quantity;
         loc.hidden = pm.hidden;
         loc.forceView = pm.forcedView;
-
+		loc.quickTravel = pm.quickTravel;
         return loc;
     }
 

@@ -16,6 +16,9 @@ public class PlaceMark
     public var errorRange:Number;
     public var hidden:Boolean = false;
     public var forcedView:Boolean = false;
+	public var quickTravel:Boolean = false;	
+	public var qrCode:String;
+
 
     /**
      * Constructor
@@ -24,6 +27,15 @@ public class PlaceMark
     {
         super();
         name = "PlaceMark At " + new Date().toString();
+		
+		//Generate a random qr code
+		var a:String = "123456789";
+		var alphabet:Array = a.split("");
+		qrCode = "";
+		for (var i:Number = 0; i < 4; i++){
+			qrCode += alphabet[Math.floor(Math.random() * alphabet.length)];
+		}
+
     }
 
     public function getContentTypeForPublicDisplayAsString():String

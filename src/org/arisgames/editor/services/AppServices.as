@@ -82,7 +82,7 @@ public class AppServices
     {
         var l:Object;
         trace("AppServices:Loading locations for game ID:" + gid);
-        l = AppDAO.getInstance().getLocationServer().getLocations(gid);
+        l = AppDAO.getInstance().getLocationServer().getLocationsWithQrCode(gid);
         l.addResponder(resp);
     }
 
@@ -160,13 +160,14 @@ public class AppServices
         var l:Object;
         if (isNaN(loc.locationId))
         {
-            trace("This Location doesn't have an Id, so call create Location.");
-            l = AppDAO.getInstance().getLocationServer().createLocation(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView,0);
+            trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + "QuickTravel = " + loc.quickTravel);
+
+            l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode);
         }
         else
         {
-            trace("This Location has an Id (" + loc.locationId + "), so call update Location.");
-            l = AppDAO.getInstance().getLocationServer().updateLocation(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView,0);
+            trace("AppServices.as: This Location has an Id (" + loc.locationId + "), so call update Location. Qr Code = " + loc.qrCode  + "QuickTravel = " + loc.quickTravel);
+            l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode);
         }
         l.addResponder(resp);
     }
