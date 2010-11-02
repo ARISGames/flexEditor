@@ -383,7 +383,8 @@ public class AppServices
 		else
 		{
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
-			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId);
+			trace("Updating quest id: " + quest.questId + " title: " + quest.title + " activeText: " + quest.activeText + " completeText: " + quest.completeText + " iconMediaId: " + quest.iconMediaId);
+			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId);
 		}
 		l.addResponder(resp);
 	}

@@ -15,9 +15,9 @@
     <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false">
         <mx:columns>
             <mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>
-            <mx:DataGridColumn dataField="title" headerText="Title" editable="false"/>
-            <mx:DataGridColumn dataField="activeText" headerText="Text when Active" editable="false"/>
-			<mx:DataGridColumn dataField="completeText" headerText="Text when Complete" editable="false"/>
+            <mx:DataGridColumn dataField="title" headerText="Title" editable="true"/>
+            <mx:DataGridColumn dataField="activeText" headerText="Text when Active" editable="true"/>
+			<mx:DataGridColumn dataField="completeText" headerText="Text when Complete" editable="true"/>
 			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>
 	                <mx:Component>

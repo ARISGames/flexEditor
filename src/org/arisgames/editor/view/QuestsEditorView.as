@@ -1,6 +1,7 @@
 package org.arisgames.editor.view
 {
 import flash.events.MouseEvent;
+
 import mx.collections.ArrayCollection;
 import mx.containers.Panel;
 import mx.controls.Alert;
@@ -43,7 +44,8 @@ public class QuestsEditorView extends Panel
     private function handleInit(event:FlexEvent):void
     {
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR, handleRefreshQuestData);
-        addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
+		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);        
+		addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
 		this.reloadTheQuests();
     }
@@ -91,150 +93,30 @@ public class QuestsEditorView extends Panel
         AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleAddQuestSave, handleFault));
     }
 
-	/*
-    public function handleDataEditBeginning(evt:DataGridEvent):void
-    {
-        trace("RequirementsEditor.handleDataEditBeginning()....");
-        var r:Requirement = reqs.selectedItem as Requirement;
-
-        if (AppUtils.isUploadMediaItemRequirementType(r))
-        {
-            trace("This requirement is an Uploaded Media Item, so stop the itemEditor from being setup.");
-            evt.preventDefault();
-        }
-        else
-        {
-            trace("This requirement is not Uploaded Media Item, so let the event continue to be processed.");
-        }
-    }
-
     public function handleDataLineSave(evt:DataGridEvent):void
     {
-        trace("handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
+		var q:Quest = (quests.getItemAt(dg.selectedIndex) as Quest);
 
-		var st:String;
-		var r:Requirement;
-		var origR:String;
-		var newR:String;
-		var res:Boolean;
-		
-        if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorRequirementComboBoxMX)
-        {
-            trace("It's a Requirement ComboBox, so process accordingly.");
-            // Disable copying data back to the control.
-            evt.preventDefault();
+        trace("QuestEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; DataField = '" + evt.dataField + "'; Data = '" + data + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "' Quest Id is '" + q.questId + "'");
 
-            // Get new requirement from editor.
-            st = RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
-            reqs.editedItemRenderer.data = st;
-
-            trace("Height Of Row = '" + reqs.rowHeight + "'; Req Editor Height = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).height + "'");
-            trace("Width Of Column = '" + reqs.columnWidth + "'; Req Editor Width = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).width + "'");
-
-            r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
-            origR = r.requirement;
-            newR = AppUtils.convertRequirementHumanLabelToDatabaseLabel(st);
-            trace("New Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Requirement = '" + origR + "'; New Requirement (Database) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
-
-            // Close the cell editor.
-            reqs.destroyItemEditor();
-
-            // Update the new data choice
-            r.requirement = newR;
-
-            // Notify the list control to update its display.
-            res = requirements.refresh();
-            trace("Successful refresh? '" + res + "'");
-//        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
-
-
-            if (origR == newR)
-            {
-                trace("The 'new' requirement is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
-                return;
-            }
-
-            trace("A new requirement was selected, so save it to the database and clear all old details that may have been in the database record.");
-            r.requirementDetail1 = null;
-            r.requirementDetail2 = null;
-            r.requirementDetail3 = null;
-            AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
-
-            // Renderer The Germane Editor So That The Event Will Be Received
-            if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
-            {
-                trace("The requirement was just changed to Upload Media Item, so popup the Requirements Editor Map.");
-                this.openRequirementsEditorMapView(r);
-            }
-            else
-            {
-                trace("The requirement is not Upload Media Item, so just highlight the regular Object column.");
-                reqs.editedItemPosition = {columnIndex: evt.columnIndex + 1, rowIndex: evt.rowIndex};
-            }
-        }
-        else if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX)
-        {
-            trace("It's an Object ComboBox, so process accordingly.");
-            evt.preventDefault();
-
-            // Get new requirement from editor for renderer to display
-            st = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
-            reqs.editedItemRenderer.data = st;
-
-            r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
-            origR = r.requirementDetail1;
-            newR = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
-            trace("New Object Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Object = '" + origR + "'; New Object (Value) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
-
-            // Close the cell editor.
-            reqs.destroyItemEditor();
-
-            // Update the new data choice
-            r.requirementDetail1 = newR;
-            r.requirementDetail1Human = st;
-
-            // Notify the list control to update its display.
-           	res = requirements.refresh();
-            trace("Successful refresh? '" + res + "'");
-//        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
-
-            if (origR == newR)
-            {
-                trace("The 'new' chosen object is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
-                return;
-            }
-
-            trace("A new object was selected, so save it to the database.");
-            AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
-        }
-        else
-        {
-            trace("It's not a Requirement nor an Object Combo Box Editor, so ignore.");            
-        }
+		AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
+		quests.refresh();
+			
+	
     }
 
-    private function handleUpdateRequirementSave(obj:Object):void
+    private function handleUpdateQuestSave(obj:Object):void
     {
         if (obj.result.returnCode != 0)
         {
-            trace("Bad update requirement attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("Bad update quest attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Updating Requirement");
+            Alert.show("Error Was: " + msg, "Error While Updating Quest");
         }
-        else
-        {
-            var rid:Number = obj.result.data;
-            if (rid == 1)
-            {
-                trace("Update Requirement was successful.  The Requirement Id returned = '" + rid + "'");
-            }
-            else
-            {
-                Alert.show("The database had a problem while updating this record.  Please try again.", "Database Error While Updating Requirement");
-            }
-        }
+        else trace("Update Quest was successful.");
+          
     }
-*/
+
 	
     private function handleAddQuestSave(obj:Object):void
     {
@@ -309,7 +191,8 @@ public class QuestsEditorView extends Panel
     public function handleFault(obj:Object):void
     {
         trace("Fault called: " + obj.message);
-        Alert.show("Error occurred: " + obj.message, "Problems In Quests Editor");
+
+		Alert.show("Error occurred: " + obj.message, "Problems In Quests Editor");
     }
 
 }
