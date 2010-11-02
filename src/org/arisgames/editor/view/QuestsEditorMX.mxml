@@ -7,17 +7,31 @@
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
-                                  width="600"
+                                  width="1000"
                                   title="Quests Editor"
                                   creationPolicy="all"
                                   >
 
     <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false">
         <mx:columns>
-            <mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>
+            <!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
             <mx:DataGridColumn dataField="title" headerText="Title" editable="true"/>
             <mx:DataGridColumn dataField="activeText" headerText="Text when Active" editable="true"/>
+			<mx:DataGridColumn headerText="Requirements for Active" editable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Button label="Requirements" click="outerDocument.handleRequiementsForActiveButtonClick(event)"/>
+					</mx:Component>	
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 			<mx:DataGridColumn dataField="completeText" headerText="Text when Complete" editable="true"/>
+			<mx:DataGridColumn headerText="Requirements for Complete" editable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Button label="Requirements" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>
 	                <mx:Component>

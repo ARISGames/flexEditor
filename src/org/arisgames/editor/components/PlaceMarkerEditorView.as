@@ -97,7 +97,7 @@ public class PlaceMarkerEditorView extends Panel
     private function openRequirementsEditor():void
     {
         requirementsEditor = new RequirementsEditorMX();
-        requirementsEditor.setTheData(placeMark);
+		requirementsEditor.setRequirementTypeAndId(AppConstants.REQUIREMENTTYPE_LOCATION, placeMark.id);
 /*
         mediaPicker.setObjectPaletteItem(objectPaletteItem);
         mediaPicker.setIsIconPicker(isIconMode);

@@ -44,7 +44,7 @@ public class AppConstants
     public static const CONTENTTYPE_PAGE_DATABASE:String = "Node";
     public static const CONTENTTYPE_CHARACTER_DATABASE:String = "Npc";
     public static const CONTENTTYPE_ITEM_DATABASE:String = "Item";
-    public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 20;
+    public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
 
     // Label Constants
     public static const BUTTON_LOGIN:String = "Login!";
@@ -62,6 +62,9 @@ public class AppConstants
 
     // Requirement Types
     public static const REQUIREMENTTYPE_LOCATION:String = "Location";
+	public static const REQUIREMENTTYPE_QUESTDISPLAY:String = "QuestDisplay";
+	public static const REQUIREMENTTYPE_QUESTCOMPLETE:String = "QuestComplete";
+	public static const REQUIREMENTTYPE_NODE:String = "Node";
 
     // Requirement Options
     public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";

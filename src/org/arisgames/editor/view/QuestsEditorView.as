@@ -30,6 +30,7 @@ public class QuestsEditorView extends Panel
     [Bindable] public var addQuestButton:Button;
     [Bindable] public var closeButton:Button;
 
+	private var requirementsEditor:RequirementsEditorMX;
 
     /**
      * Constructor
@@ -44,9 +45,10 @@ public class QuestsEditorView extends Panel
     private function handleInit(event:FlexEvent):void
     {
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR, handleRefreshQuestData);
-		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);        
+		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
 		addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
 		this.reloadTheQuests();
     }
 
@@ -62,6 +64,42 @@ public class QuestsEditorView extends Panel
         AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
     }
 
+	public function handleRequiementsForActiveButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleRequiementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);
+
+	}
+
+	public function handleRequirementsForCompleteButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleRequirementsForCompleteButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTCOMPLETE);
+	}	
+	
+	private function openRequirementsEditor(requirementType:String):void
+	{
+		requirementsEditor = new RequirementsEditorMX();
+		var q:Quest = (quests.getItemAt(dg.selectedIndex) as Quest);
+		requirementsEditor.setRequirementTypeAndId(requirementType, q.questId);//TODO: Make this depend on the col
+
+		this.parent.addChild(requirementsEditor);
+		
+		// Need to validate the display so that entire component is rendered
+		requirementsEditor.validateNow();
+		
+		PopUpManager.addPopUp(requirementsEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(requirementsEditor);
+		requirementsEditor.setVisible(true);
+		requirementsEditor.includeInLayout = true;
+	}
+	
+	private function closeRequirementsEditor(evt:DynamicEvent):void
+	{
+		trace("closeRequirementsEditor called...");
+		PopUpManager.removePopUp(requirementsEditor);
+		requirementsEditor = null;
+	}	
     public function handleDeleteButtonClick(evt:MouseEvent):void
     {
         trace("QuestsEditorView: handleDeleteButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");

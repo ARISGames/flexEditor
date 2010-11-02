@@ -1,6 +1,7 @@
 package org.arisgames.editor.view
 {
 import flash.events.MouseEvent;
+
 import mx.collections.ArrayCollection;
 import mx.containers.Panel;
 import mx.controls.Alert;
@@ -11,6 +12,7 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.components.RequirementsEditorMapMX;
 import org.arisgames.editor.components.RequirementsEditorObjectComboBoxMX;
 import org.arisgames.editor.components.RequirementsEditorRequirementComboBoxMX;
@@ -25,7 +27,8 @@ import org.arisgames.editor.util.AppUtils;
 public class RequirementsEditorView extends Panel
 {
     // Associated Data
-    private var theData:Object;
+    private var requirementObjectId:Number; //The object id to impose requirements
+	private var requirementObjectType:String; //One of the REQUIREMENTTYPES defined in constants
 
     // Data For GUI
     [Bindable] public var requirements:ArrayCollection;
@@ -58,9 +61,6 @@ public class RequirementsEditorView extends Panel
         reqs.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave);
         addRequirementButton.addEventListener(MouseEvent.CLICK, handleAddRequirementButton);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
-
-        // Load Requirement Types
-//        AppServices.getInstance().getRequirementTypeOptions(GameModel.getInstance().game.gameId, new Responder(handleLoadRequirementTypes, handleFault));
     }
 
     public function handleRefreshRequirementsData(evt:DynamicEvent):void
@@ -69,38 +69,25 @@ public class RequirementsEditorView extends Panel
         requirements.refresh();
     }
 
-    public function getTheData():Object
+	/*
+	* Tell this requirements panel what object you want to set requirements for
+	*
+	*/
+    public function setRequirementTypeAndId(t:String, id:Number):void
     {
-        return theData;
-    }
-
-    public function setTheData(value:Object):void
-    {
-        this.theData = value;
+        this.requirementObjectType = t;
+		this.requirementObjectId = id;
         this.reloadTheRequirements();
     }
 
     private function reloadTheRequirements():void
     {
-        var contentType:String;
-        var contentId:Number;
-        if (theData is PlaceMark)
-        {
-            contentType = AppConstants.REQUIREMENTTYPE_LOCATION;
-            contentId = (theData as PlaceMark).id;
-        }
-        else
-        {
-            contentType = "";
-            contentId = 0;
-        }
-
-        AppServices.getInstance().getRequirementsForObject(GameModel.getInstance().game.gameId, contentType, contentId, new Responder(handleLoadRequirements, handleFault));
+        AppServices.getInstance().getRequirementsForObject(GameModel.getInstance().game.gameId, this.requirementObjectType , this.requirementObjectId, new Responder(handleLoadRequirements, handleFault));
     }
 
     public function isPlaceMarkDataLoaded():Boolean
     {
-        if (theData != null && theData is PlaceMark)
+        if (this.requirementObjectType != null && this.requirementObjectType == AppConstants.REQUIREMENTTYPE_LOCATION)
         {
             return true;
         }
@@ -134,11 +121,9 @@ public class RequirementsEditorView extends Panel
         trace("Add Requirement Button clicked...");
         var r:Requirement = new Requirement();
         r.requirement = AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE;
-        if (this.isPlaceMarkDataLoaded())
-        {
-            r.contentType = AppConstants.REQUIREMENTTYPE_LOCATION;
-            r.contentId = (theData as PlaceMark).id;
-        }
+		r.contentType = this.requirementObjectType;
+        r.contentId = this.requirementObjectId;
+        
         requirements.addItem(r);
         AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleAddRequirementSave, handleFault));
     }
@@ -390,14 +375,13 @@ public class RequirementsEditorView extends Panel
         trace("openRequirementsEditorMapView() called for Requirement with ID = '" + r.requirementId + "'");
         requirementsEditorMap = new RequirementsEditorMapMX();
         requirementsEditorMap.requirement = r;
-        var pm:PlaceMark = theData as PlaceMark;
         if (r.requirementDetail1 != null && r.requirementDetail2 != null)
         {
             requirementsEditorMap.setPlacemarkLocation(parseFloat(r.requirementDetail1), parseFloat(r.requirementDetail2));
         }
         else
         {
-            requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
+            //requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
         }
 
 /*
