@@ -12,6 +12,10 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 
+/**
+ * A singleton object that provides parsers, converters and other general utilities
+ */
+
 public class AppUtils
 {
     private var mainView:MainView;
@@ -264,6 +268,14 @@ public class AppUtils
         }
     }
 
+	/**
+	 * Parses a resultData package from the server into an item
+	 * @param Object data The data from the server
+	 * @return item
+	 * @returns a populated item object
+	 * @see item
+	 */
+	
     public static function parseResultDataIntoItem(data:Object):Item
     {
         if (data.hasOwnProperty("item_id"))
@@ -278,6 +290,7 @@ public class AppUtils
             item.mediaId = data.media_id;
             item.dropable = data.dropable;
             item.destroyable = data.destroyable;
+			item.maxQty = data.max_qty_in_inventory;
 
             return item;
         }

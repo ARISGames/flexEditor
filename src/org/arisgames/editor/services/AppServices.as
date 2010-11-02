@@ -113,12 +113,12 @@ public class AppServices
         if (isNaN(item.itemId) || item.itemId == 0)
         {
             trace("This item doesn't have an itemId, so call create Item.");
-            r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, 1);
+            r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.maxQty);
         }
         else
         {
             trace("This item has an itemId (" + item.itemId + "), so call update Item.");
-            r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, 1);
+            r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.maxQty);
         }
         r.addResponder(resp);
     }

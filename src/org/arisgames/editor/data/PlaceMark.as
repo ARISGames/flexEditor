@@ -35,6 +35,8 @@ public class PlaceMark
 		for (var i:Number = 0; i < 4; i++){
 			qrCode += alphabet[Math.floor(Math.random() * alphabet.length)];
 		}
+		
+		quantity = 1;
 
     }
 

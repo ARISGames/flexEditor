@@ -9,6 +9,9 @@ public class Item
     public var mediaId:Number;
     public var dropable:Boolean;
     public var destroyable:Boolean;
+	public var maxQty:Number;
+
+	
 
     /**
      * Constructor
@@ -16,6 +19,8 @@ public class Item
     public function Item()
     {
         super();
+		
+		maxQty = 500;
     }
 }
 }

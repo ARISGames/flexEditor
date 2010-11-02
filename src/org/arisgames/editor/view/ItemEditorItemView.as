@@ -8,6 +8,7 @@ import mx.controls.Button;
 import mx.controls.CheckBox;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
+import mx.controls.NumericStepper;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
@@ -29,6 +30,7 @@ public class ItemEditorItemView extends Panel
     [Bindable] public var description:TextArea;
     [Bindable] public var dropable:CheckBox;
     [Bindable] public var destroyable:CheckBox;
+	[Bindable] public var maxQty:NumericStepper;	
     [Bindable] public var cancelButton:Button;
     [Bindable] public var saveButton:Button;
     [Bindable] public var hbox:HBox;
@@ -76,6 +78,7 @@ public class ItemEditorItemView extends Panel
         description.text = objectPaletteItem.item.description;
         dropable.selected = objectPaletteItem.item.dropable;
         destroyable.selected = objectPaletteItem.item.destroyable;
+		maxQty.value = objectPaletteItem.item.maxQty;
     }
 
     private function isFormValid():Boolean
@@ -108,6 +111,7 @@ public class ItemEditorItemView extends Panel
         objectPaletteItem.item.description = description.text;
         objectPaletteItem.item.dropable = dropable.selected;
         objectPaletteItem.item.destroyable = destroyable.selected;
+		objectPaletteItem.item.maxQty = maxQty.value;
         AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 
         // Save ObjectPaletteItem
