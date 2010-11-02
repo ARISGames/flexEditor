@@ -107,7 +107,7 @@ public class NavigationMap extends Map3D
 
     private function addPlaceMarker(pm:PlaceMark):void
     {
-        trace("adding Place Marker with lat = " + pm.latitude + "; lng = " + pm.longitude);
+        trace("adding Place Marker with lat = " + pm.latitude + " lng = " + pm.longitude + "qrCode = " + pm.qrCode);
         var latLng:LatLng = new LatLng(pm.latitude, pm.longitude);
         var marker:PlaceMarker = new PlaceMarker(latLng, mo, pm, this);
         addOverlay(marker);
@@ -295,6 +295,7 @@ public class NavigationMap extends Map3D
             loc.quantity = 1;
             loc.hidden = pm.hidden;
             loc.forceView = pm.forcedView;
+			loc.quickTravel = pm.quickTravel;
             loc.error = pm.errorRange;
             trace("location type looked up = '" + loc.type + "' for Content Type Number = '" + pm.contentType + "'");
 
