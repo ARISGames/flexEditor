@@ -19,8 +19,9 @@
             <mx:TextArea id="description" width="200" height="110"/>
         </mx:Form>
     	<mx:Form id="checkBoxForm">
-			<mx:FormItem id="maxQtyFI" label="Max Qty in Player Inventory" required="true">
-				<mx:NumericStepper id="maxQty" minimum="1" maximum="500" stepSize="1"/>
+			<mx:FormItem id="maxQtyFI" label="Max Qty Per Player" required="true">
+				<mx:NumericStepper id="maxQty" minimum="1" maximum="500" stepSize="1"
+					width="50"/>
 			</mx:FormItem>
 			<mx:FormItem label="Dropable?">
             	<mx:CheckBox id="dropable"/>
