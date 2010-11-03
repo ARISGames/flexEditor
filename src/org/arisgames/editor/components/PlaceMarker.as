@@ -60,8 +60,8 @@ public class PlaceMarker extends Marker
 //                pme.addEventListener(AppConstants.DYNAMICEVENT_PLACEMARKREQUESTSDELETION, map.deletePlaceMarker);
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
-                iwo.height = 300;
-                iwo.width = 375;
+                iwo.height = 375;
+                iwo.width = 362;
 
                 openInfoWindow(iwo);
             }
