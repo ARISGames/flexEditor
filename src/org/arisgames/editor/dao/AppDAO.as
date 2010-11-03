@@ -18,6 +18,7 @@ public class AppDAO
     private static var mediaServer:RemoteObject;
     private static var requirementsServer:RemoteObject;
 	private static var questsServer:RemoteObject;
+	private static var playerStateChangeServer:RemoteObject;
 
     /**
      * Singleton constructor
@@ -159,5 +160,22 @@ public class AppDAO
 		}
 		return questsServer;
 	}
+	public function getPlayerStateChangeServer():RemoteObject 
+	{
+		if (playerStateChangeServer == null)
+		{
+			playerStateChangeServer = new RemoteObject();
+			playerStateChangeServer.source = "aris.playerStateChanges";
+			playerStateChangeServer.destination = "amfphp";
+			playerStateChangeServer.showBusyCursor = true;
+		}
+		return playerStateChangeServer;
+	}	
+	
+	
+	
+	
+	
+	
 }
 }

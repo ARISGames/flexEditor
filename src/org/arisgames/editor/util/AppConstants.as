@@ -31,7 +31,8 @@ public class AppConstants
 	public static const DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR:String = "RefreshDataInQuestsEditor";
 	public static const DYNAMICEVENT_OPENQUESTSEDITOR:String = "OpenQuestsEditor";
 	public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
-
+	public static const DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR:String = "DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR";
+	public static const DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR:String = "DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR";
     // Placemark Content
     public static const CONTENTTYPE_PAGE:String = "Plaque";
     public static const CONTENTTYPE_CHARACTER:String = "Character";
@@ -60,6 +61,13 @@ public class AppConstants
     public static const MEDIATYPE_ICON:String = "Icon";
     public static const MEDIATYPE_UPLOADNEW:String = "Upload New";
 
+	//Player State Changes
+	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";
+	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE:String = "VIEW_NODE";
+	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NPC:String = "VIEW_NPC";
+	public static const PLAYERSTATECHANGE_ACTION_GIVEITEM:String = "GIVE_ITEM";
+	public static const PLAYERSTATECHANGE_ACTION_TAKEITEM:String = "TAKE_ITEM";
+	
     // Requirement Types
     public static const REQUIREMENTTYPE_LOCATION:String = "Location";
 	public static const REQUIREMENTTYPE_QUESTDISPLAY:String = "QuestDisplay";

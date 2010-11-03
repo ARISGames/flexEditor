@@ -9,6 +9,7 @@ import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.Quest;
+import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -377,6 +378,29 @@ public class AppUtils
 		}
 	}
 
+	
+	public static function parseResultDataIntoPlayerStateChange(data:Object):PlayerStateChange
+	{
+		if (data.hasOwnProperty("id"))
+		{
+			trace("AppUtils: parseResultDataIntoPlayerStateChange: retObj has an id = '" + data.id + "'.");
+			var psc:PlayerStateChange = new PlayerStateChange();
+			
+			psc.playerStateChangeId = data.id;
+			psc.eventType = data.event_type;
+			psc.eventDetail = data.event_detail;
+			psc.action = data.action;
+			psc.actionDetail = data.action_detail;
+			psc.actionAmount = data.action_amount;
+
+			return psc;
+		}
+		else
+		{
+			trace("AppUtils: parseResultDataIntoPlayerStateChange: Data passed in was not a PlayerStateChange Result set, returning NULL.");
+			return null;
+		}
+	}
 
 	
 	

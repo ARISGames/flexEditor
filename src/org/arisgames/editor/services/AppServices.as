@@ -10,6 +10,7 @@ import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.Quest;
+import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 
 public class AppServices
@@ -385,6 +386,38 @@ public class AppServices
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
 			trace("Updating quest id: " + quest.questId + " title: " + quest.title + " activeText: " + quest.activeText + " completeText: " + quest.completeText + " iconMediaId: " + quest.iconMediaId);
 			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId);
+		}
+		l.addResponder(resp);
+	}
+	
+	public function getPlayerStateChangesForObject(gid:Number, eventType:String, eventObjectId:Number, resp:IResponder):void
+	{
+		trace("AppServices: getPlayerStateChangesForObject called with GameID = '" + gid + "'");
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerStateChangeServer().getPlayerStateChangesForObject(gid,eventType,eventObjectId);
+		l.addResponder(resp);
+	}
+	
+	public function deletePlayerStateChange(gid:Number, psc:PlayerStateChange, resp:IResponder):void
+	{
+		trace("AppServices: deletePlayerStateChange() called with Game Id = '" + gid + "' and PSC Id = '" + psc.playerStateChangeId + "'");
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerStateChangeServer().deletePlayerStateChange(gid, psc.playerStateChangeId);
+		l.addResponder(resp);
+	}
+	
+	public function savePlayerStateChange(gid:Number, psc:PlayerStateChange, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(psc.playerStateChangeId))
+		{
+			trace("This PlayerStateChange doesn't have an Id, so call Create PlayerStateChange function On Remote Server..");
+			l = AppDAO.getInstance().getPlayerStateChangeServer().createPlayerStateChange(gid, psc.eventType, psc.eventDetail, psc.action, psc.actionDetail, psc.actionAmount );
+		}
+		else
+		{
+			trace("This PlayerStateChange has an Id (" + psc.playerStateChangeId + "), so call Update PlayerStateChange function on Remote Server.");
+			l = AppDAO.getInstance().getPlayerStateChangeServer().updatePlayerStateChange(gid, psc.playerStateChangeId, psc.eventType, psc.eventDetail, psc.action, psc.actionDetail, psc.actionAmount);
 		}
 		l.addResponder(resp);
 	}

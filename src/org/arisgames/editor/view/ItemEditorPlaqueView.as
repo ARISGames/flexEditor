@@ -22,6 +22,7 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.view.PlayerStateChangesEditorMX;
 
 public class ItemEditorPlaqueView extends Panel
 {
@@ -33,12 +34,16 @@ public class ItemEditorPlaqueView extends Panel
     [Bindable] public var description:TextArea;
     [Bindable] public var cancelButton:Button;
     [Bindable] public var saveButton:Button;
+	[Bindable] public var changePlayerStateButton:Button;
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
     
+	private var pscEditor:PlayerStateChangesEditorMX;
+	
+	
     /**
      * Constructor
      */
@@ -46,6 +51,7 @@ public class ItemEditorPlaqueView extends Panel
     {
         super();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit)
+
     }
 
     private function handleInit(event:FlexEvent):void
@@ -53,6 +59,9 @@ public class ItemEditorPlaqueView extends Panel
         trace("in ItemEditorPlaqueView's handleInit");
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
+		
+
 		// WB Bugfix for MediaPickers losing saved information
 		mediaDisplay.iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		mediaDisplay.mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
@@ -146,6 +155,27 @@ public class ItemEditorPlaqueView extends Panel
         trace("Finished with handleSaveContent().");
     }
 
+	private function handlePlayerInventoryChangeButtonClick(evt:MouseEvent):void
+	{
+		trace("Starting handle Open Requirements Button click.");
+		this.openPlayerStateChangesEditor();
+	}
+	private function openPlayerStateChangesEditor():void
+	{
+		pscEditor = new PlayerStateChangesEditorMX();
+		pscEditor.setEventTypeAndId(AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE, objectPaletteItem.id);
+
+		this.parent.addChild(pscEditor);
+		// Need to validate the display so that entire component is rendered
+		pscEditor.validateNow();
+		
+		PopUpManager.addPopUp(pscEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(pscEditor);
+		pscEditor.setVisible(true);
+		pscEditor.includeInLayout = true;
+	}
+
+	
     public function handleFault(obj:Object):void
     {
         trace("Fault called: " + obj.message);
