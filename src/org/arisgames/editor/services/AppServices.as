@@ -168,7 +168,7 @@ public class AppServices
         }
         else
         {
-            trace("AppServices.as: This Location has an Id (" + loc.locationId + "), so call update Location. Qr Code = " + loc.qrCode  + "QuickTravel = " + loc.quickTravel);
+            trace("AppServices.as: This Location has an Id (" + loc.locationId + "), so call locations.updateLocationWithQrCode. GameId = " + gid + " LocName: " + loc.name + " iconMediaId: " + loc.iconMediaId + " Qr Code = " + loc.qrCode  + "QuickTravel = " + loc.quickTravel);
             l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode);
         }
         l.addResponder(resp);

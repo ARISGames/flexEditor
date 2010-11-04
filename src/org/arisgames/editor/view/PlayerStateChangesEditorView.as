@@ -108,6 +108,13 @@ public class PlayerStateChangesEditorView extends Panel
 
     public function handleDataLineSave(evt:DataGridEvent):void
     {
+		trace("handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
+		
+		var st:String;
+		//var r:Requirement;
+		var origR:String;
+		var newR:String;
+		var res:Boolean;
 		var psc:PlayerStateChange = (pscs.getItemAt(dg.selectedIndex) as PlayerStateChange);
 
         trace("PlayerStateChangeEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; DataField = '" + evt.dataField + "'; Data = '" + data + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "' PSC Id is '" + psc.playerStateChangeId + "'");

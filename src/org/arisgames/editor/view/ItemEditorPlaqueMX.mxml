@@ -22,8 +22,9 @@
         </mx:Form>
 		
 		<mx:HBox horizontalAlign="center" width="100%">
-			<mx:Button id="changePlayerStateButton" label="Change Player Inventory When Viewed"/>
+			<!--<mx:Button id="changePlayerStateButton" label="Change Player Inventory When Viewed"/>-->
 		</mx:HBox>
+		
 	
 <!--
         <v:ItemEditorMediaPickerMX id="mediaPicker" visible="false" includeInLayout="false"/>

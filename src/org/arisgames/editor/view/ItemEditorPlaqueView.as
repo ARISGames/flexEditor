@@ -59,7 +59,7 @@ public class ItemEditorPlaqueView extends Panel
         trace("in ItemEditorPlaqueView's handleInit");
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
-		changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
+		//changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
 		
 
 		// WB Bugfix for MediaPickers losing saved information
