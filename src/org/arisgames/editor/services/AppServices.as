@@ -8,6 +8,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
@@ -421,7 +422,38 @@ public class AppServices
 		}
 		l.addResponder(resp);
 	}
-
+	
+	public function getConversationsForNpc(gid:Number, npcid:Number, resp:IResponder):void
+	{
+		trace("AppServices: getConversationsForNpc called with GameId:" + gid + " NpcId:" + npcid);
+		var l:Object;
+		l = AppDAO.getInstance().getConversationServer().getConversationsForNpc(gid,npcid);
+		l.addResponder(resp);
+	}
+	
+	public function deleteConversation(gid:Number, c:Conversation, resp:IResponder):void
+	{
+		trace("AppServices: deleteConversation() called with Game Id:" + gid + " conversation Id:" + c.conversationId);
+		var l:Object;
+		l = AppDAO.getInstance().getConversationServer().deleteConversation(gid, c.conversationId);
+		l.addResponder(resp);
+	}
+	
+	public function saveConversation(gid:Number, c:Conversation, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(c.conversationId))
+		{
+			trace("This Conversation doesn't have an Id, so call createConversation function On Remote Server..");
+			l = AppDAO.getInstance().getConversationServer().createConversationWithNode(gid, c.npcId, c.linkText, c.scriptText);
+		}
+		else
+		{
+			trace("This Conversation has an Id:" + c.conversationId + " so call updateConversationWithNode function on Remote Server.");
+			l = AppDAO.getInstance().getConversationServer().updateConversationWithNode(gid, c.conversationId, c.linkText, c.scriptText );
+		}
+		l.addResponder(resp);
+	}
 	
 	
 }

@@ -12,7 +12,7 @@
 
     <mx:HBox id="hbox">
         <c:ItemEditorMediaDisplayMX id="mediaDisplay"/> </mx:HBox>
-    <mx:VBox id="vbox">
+    <mx:HBox id="hbox">
         <mx:Form>
             <mx:FormItem label="Character Name"/>
             <mx:TextInput id="theName" width="200"/>
@@ -21,8 +21,42 @@
             <mx:FormItem label="Developer Notes"/>
             <mx:TextArea id="description" width="200" height="110"/>
         </mx:Form>
-    </mx:VBox>
+    </mx:HBox>
 
+	
+	<mx:DataGrid id="dg" width="100%" rowCount="10" dataProvider="{conversations}" editable="true"  draggableColumns="false">
+		<mx:columns>
+			<!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
+			<mx:DataGridColumn dataField="linkText" headerText="Player Option" editable="true"/>
+			<mx:DataGridColumn dataField="scriptText" headerText="Script" editable="true"/>
+			<mx:DataGridColumn headerText="Requirements" editable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Button label="Requirements" />
+					</mx:Component>	
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Give/Take" editable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Button label="Give/Take" click="outerDocument.handleConversationRequirementsButton(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:LinkButton label="X" click="outerDocument.handleConversationInventoryButton(event)" />
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<mx:ControlBar width="100%" horizontalAlign="right">
+		<mx:Button label="+"/>
+	</mx:ControlBar>	
+	
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
         <mx:Button id="cancelButton" label="Cancel"/>

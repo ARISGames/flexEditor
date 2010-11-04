@@ -12,7 +12,8 @@ public class AppDAO
     private static var gameServer:RemoteObject;
     private static var nodeServer:RemoteObject;
     private static var npcServer:RemoteObject;
-    private static var itemServer:RemoteObject;
+	private static var conversationServer:RemoteObject;
+	private static var itemServer:RemoteObject;
     private static var locationServer:RemoteObject;
     private static var contentServer:RemoteObject;
     private static var mediaServer:RemoteObject;
@@ -76,6 +77,17 @@ public class AppDAO
         }
         return nodeServer;
     }
+	public function getConversationServer():RemoteObject
+	{
+		if (conversationServer == null)
+		{
+			conversationServer = new RemoteObject();
+			conversationServer.source = "aris.conversations";
+			conversationServer.destination = "amfphp";
+			conversationServer.showBusyCursor = true;
+		}
+		return nodeServer;
+	}	
 
     public function getNPCServer():RemoteObject
     {

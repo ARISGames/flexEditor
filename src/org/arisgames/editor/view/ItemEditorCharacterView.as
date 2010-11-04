@@ -3,11 +3,14 @@ package org.arisgames.editor.view
 import flash.events.MouseEvent;
 import mx.containers.HBox;
 import mx.containers.Panel;
+import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
 import mx.events.DynamicEvent;
+import mx.controls.DataGrid;
+import mx.events.DataGridEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.validators.Validator;
@@ -22,6 +25,9 @@ public class ItemEditorCharacterView extends Panel
 {
     // Data Object
     private var objectPaletteItem:ObjectPaletteItemBO;
+	
+	// Data For Conversations Table
+	[Bindable] public var conversations:ArrayCollection;
 
     // GUI
     [Bindable] public var theName:TextInput;
@@ -32,6 +38,12 @@ public class ItemEditorCharacterView extends Panel
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
 
+	//Conversations Area
+	[Bindable] public var dg:DataGrid;
+	[Bindable] public var addConversationButton:Button;
+
+	
+	
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
     [Bindable] public var v3:Validator;
@@ -55,6 +67,15 @@ public class ItemEditorCharacterView extends Panel
 		mediaDisplay.mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
     }
 
+	public function handleConversationRequirementsButton(evt:MouseEvent):void
+	{
+	}
+	public function handleConversationInventoryButton(evt:MouseEvent):void
+	{
+	}
+
+	
+	
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
         trace("setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorCharacterView");
