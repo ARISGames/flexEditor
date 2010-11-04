@@ -8,7 +8,8 @@
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
-                                  >
+								  >
+
 	<mx:VBox>
 		<mx:FormItem label="Character Name"/>
 		<mx:TextInput id="theName" width="200"/>
@@ -18,39 +19,39 @@
     	<mx:Form>
 			<mx:VBox>
 				<mx:FormItem label="Greeting"/>
-				<mx:TextArea id="greeting" width="190" height="70"/>
+				<mx:TextArea id="greeting" width="185" height="70"/>
 			</mx:VBox>
 			<mx:VBox>
 				<mx:FormItem label="Developer Notes"/>
-				<mx:TextArea id="description" width="190" height="70"/>
+				<mx:TextArea id="description" width="185" height="70"/>
 			</mx:VBox>
 		</mx:Form>
 	</mx:HBox>
-
+	
 	
 	<mx:DataGrid id="dg" width="415" rowCount="10" dataProvider="{conversations}" editable="true"  draggableColumns="false">
 		<mx:columns>
 			<!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
-			<mx:DataGridColumn dataField="linkText" headerText="Option" editable="true"/>
+			<mx:DataGridColumn dataField="linkText" headerText="Option" editable="true" width="80"/>
 			<mx:DataGridColumn dataField="scriptText" headerText="Script" editable="true"/>
-			<mx:DataGridColumn headerText="Reqs" editable="false">
+			<mx:DataGridColumn headerText="Requires" editable="false" width="65">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="Requirements" click="outerDocument.handleConversationRequirementsButton(event)" />
+						<mx:Button label="+" click="outerDocument.handleConversationRequirementsButton(event)" />
 					</mx:Component>	
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Give/Take" editable="false">
+			<mx:DataGridColumn headerText="Exchange" editable="false" width="65">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="Give/Take"/>
+						<mx:Button label="+"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
+			<mx:DataGridColumn headerText="Delete" editable="false" width="55">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:LinkButton label="X" click="outerDocument.handleConversationInventoryButton(event)" />
+						<mx:LinkButton label="X" click="outerDocument.handleDeleteButtonClick(event)" />
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

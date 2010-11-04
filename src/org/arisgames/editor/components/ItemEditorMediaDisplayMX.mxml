@@ -2,7 +2,7 @@
 <c:ItemEditorMediaDisplayView xmlns:mx="http://www.adobe.com/2006/mxml"
                                        xmlns:c="org.arisgames.editor.components.*"
                                        creationPolicy="all"
-                                       width="200"
+                                       width="50%"
                                        height="100%"
                                        horizontalAlign="center"
                                        verticalAlign="middle"
