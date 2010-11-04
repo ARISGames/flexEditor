@@ -1,25 +1,33 @@
 package org.arisgames.editor.view
 {
 import flash.events.MouseEvent;
+
+import mx.collections.ArrayCollection;
 import mx.containers.HBox;
 import mx.containers.Panel;
-import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.controls.Button;
+import mx.controls.DataGrid;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
-import mx.events.DynamicEvent;
-import mx.controls.DataGrid;
 import mx.events.DataGridEvent;
+import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 import mx.validators.Validator;
+
 import org.arisgames.editor.components.ItemEditorMediaDisplayMX;
+import org.arisgames.editor.data.arisserver.Conversation;
+import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.util.AppUtils;
+
+
 
 public class ItemEditorCharacterView extends Panel
 {
@@ -42,7 +50,9 @@ public class ItemEditorCharacterView extends Panel
 	[Bindable] public var dg:DataGrid;
 	[Bindable] public var addConversationButton:Button;
 
-	
+	//Requirements
+	private var requirementsEditor:RequirementsEditorMX;
+
 	
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
@@ -65,14 +75,207 @@ public class ItemEditorCharacterView extends Panel
 		// WB Bugfix for MediaPickers losing saved information
 		mediaDisplay.iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		mediaDisplay.mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		
+		//Conversations
+		conversations = new ArrayCollection;
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINCONVERSATIONS, handleRefreshConversationData);
+		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
+		addConversationButton.addEventListener(MouseEvent.CLICK, handleAddConversationButton);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
+		this.reloadTheConversations();
     }
 
-	public function handleConversationRequirementsButton(evt:MouseEvent):void
-	{
-	}
 	public function handleConversationInventoryButton(evt:MouseEvent):void
 	{
 	}
+	
+	
+	public function handleRefreshConversationData(evt:DynamicEvent):void
+	{
+		trace("ItemEditorCharaterView: Starting handleRefreshConversationsData()....");
+		conversations.refresh();
+	}
+	
+	private function reloadTheConversations():void
+	{
+		if (objectPaletteItem) {
+			trace("ItemEditorCharaterView: Starting reloadTheConversations() with NpcID:" + objectPaletteItem.id);
+			AppServices.getInstance().getConversationsForNpc(GameModel.getInstance().game.gameId, objectPaletteItem.id, new Responder(handleLoadConversations, handleFault));
+		}
+	}
+	
+	public function handleRequiementsForActiveButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleRequiementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);
+		
+	}
+	
+	public function handleConversationRequirementsButton(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleConversationRequirementsButton() called with Selected Index = '" + dg.selectedIndex + "'");
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_NODE);
+	}	
+	
+	private function openRequirementsEditor(requirementType:String):void
+	{
+		requirementsEditor = new RequirementsEditorMX();
+	
+		var c:Conversation = (conversations.getItemAt(dg.selectedIndex) as Conversation);
+
+		trace("opening requiements editor with type:" + requirementType + "id:" + c.nodeId);
+		requirementsEditor.setRequirementTypeAndId(requirementType, c.nodeId);
+		
+		this.parent.addChild(requirementsEditor);
+		
+		// Need to validate the display so that entire component is rendered
+		requirementsEditor.validateNow();
+		
+		PopUpManager.addPopUp(requirementsEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(requirementsEditor);
+		requirementsEditor.setVisible(true);
+		requirementsEditor.includeInLayout = true;
+		
+	}
+	
+	private function closeRequirementsEditor(evt:DynamicEvent):void
+	{
+		trace("closeRequirementsEditor called...");
+		PopUpManager.removePopUp(requirementsEditor);
+		requirementsEditor = null;
+	}	
+	public function handleDeleteButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleDeleteButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		AppServices.getInstance().deleteConversation(GameModel.getInstance().game.gameId, (conversations.getItemAt(dg.selectedIndex) as Conversation), new Responder(handleDeleteConversation, handleFault));
+	}
+	
+	private function handleDeleteConversation(obj:Object):void
+	{
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad delete conversation attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Deleting Conversation");
+		}
+		else
+		{
+			trace("Deletion of Conversation went well in the database, so now removing it from UI datamodel and UI.");
+			conversations.removeItemAt(dg.selectedIndex);
+			conversations.refresh();
+		}
+	}
+	
+	private function handleAddConversationButton(evt:MouseEvent):void
+	{
+		trace("Add Conversation Button clicked...");
+		var c:Conversation = new Conversation();
+		c.linkText = "New Conversation";
+		conversations.addItem(c);
+		AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, c, new Responder(handleAddConversationSave, handleFault));
+	}
+	
+	public function handleDataLineSave(evt:DataGridEvent):void
+	{
+		var c:Conversation = (conversations.getItemAt(dg.selectedIndex) as Conversation);
+		
+		trace("NpcEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; DataField = '" + evt.dataField + "'; Data = '" + data + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "' Conversation Id is '" + c.conversationId + "'");
+		
+		AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, c, new Responder(handleUpdateConversationSave, handleFault));
+		conversations.refresh();
+		
+		
+	}
+	
+	private function handleUpdateConversationSave(obj:Object):void
+	{
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad update conversation attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Updating Conversation");
+		}
+		else trace("Update Conversation was successful.");
+		
+	}
+	
+	
+	private function handleAddConversationSave(obj:Object):void
+	{
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle add / save conversation attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Adding / Save Conversation");
+		}
+		else
+		{
+			var cid:Number = obj.result.data;
+			trace("Add / Save Conversation was successful.  The Conversation Id returned = '" + cid + "'");
+			
+			if (cid != 0)
+			{
+				trace("Returnned Id was not zero, so going to look through " + conversations.length + " requirements looking for the one with a missing id.");
+				for (var j:Number = 0; j < conversations.length; j++)
+				{
+					var c:Conversation = conversations.getItemAt(j) as Conversation;
+					trace("&&&&& Checking j = '" + j + "'; Conversation Id = '" + c.conversationId + "'");
+					if (isNaN(c.conversationId))
+					{
+						trace("Found previusly added / saved conversation.  Add Id to it and exiting method.");
+						c.conversationId = cid;
+						conversations.refresh();
+						return;
+					}
+				}
+			}
+			else
+			{
+				trace("Returned Id was zero, so this method is done.");
+			}
+		}
+	}
+		
+	private function handleLoadConversations(obj:Object):void
+	{
+		trace("handling load conversations...");
+		conversations.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading conversation attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Quests");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.list.length; j++)
+			{
+				var c:Conversation = new Conversation();
+				c.conversationId = obj.result.data.list.getItemAt(j).conversation_id;
+				c.nodeId = obj.result.data.list.getItemAt(j).node_id;
+				c.linkText = obj.result.data.list.getItemAt(j).text;
+				c.scriptText = obj.result.data.list.getItemAt(j).conversation_text;
+				conversations.addItem(c);
+			}
+			trace("Loaded '" + conversations.length + "' Conversation(s).");
+		}
+	}
+	
+
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	

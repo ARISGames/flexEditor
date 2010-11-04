@@ -44,10 +44,11 @@ public class QuestsEditorView extends Panel
 
     private function handleInit(event:FlexEvent):void
     {
-        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR, handleRefreshQuestData);
+		closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
+
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR, handleRefreshQuestData);
 		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
 		addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
-        closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
 		this.reloadTheQuests();
     }

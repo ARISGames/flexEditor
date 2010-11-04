@@ -86,7 +86,7 @@ public class AppDAO
 			conversationServer.destination = "amfphp";
 			conversationServer.showBusyCursor = true;
 		}
-		return nodeServer;
+		return conversationServer;
 	}	
 
     public function getNPCServer():RemoteObject

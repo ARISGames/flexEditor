@@ -36,14 +36,14 @@
 			<mx:DataGridColumn headerText="Reqs" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="Requirements" />
+						<mx:Button label="Requirements" click="outerDocument.handleConversationRequirementsButton(event)" />
 					</mx:Component>	
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
 			<mx:DataGridColumn headerText="Give/Take" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="Give/Take" click="outerDocument.handleConversationRequirementsButton(event)"/>
+						<mx:Button label="Give/Take"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
@@ -58,7 +58,7 @@
 	</mx:DataGrid>
 	
 	<mx:ControlBar width="100%" horizontalAlign="right">
-		<mx:Button label="+"/>
+		<mx:Button id = "addConversationButton" label="+"/>
 	</mx:ControlBar>	
 	
     <mx:ControlBar id="folderControlBar">
