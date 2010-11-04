@@ -9,27 +9,31 @@
                                   paddingRight="10"
                                   paddingBottom="10"
                                   >
-
+	<mx:VBox>
+		<mx:FormItem label="Character Name"/>
+		<mx:TextInput id="theName" width="200"/>
+	</mx:VBox>
     <mx:HBox id="hbox">
-        <c:ItemEditorMediaDisplayMX id="mediaDisplay"/> </mx:HBox>
-    <mx:HBox id="hbox">
-        <mx:Form>
-            <mx:FormItem label="Character Name"/>
-            <mx:TextInput id="theName" width="200"/>
-            <mx:FormItem label="Greeting"/>
-            <mx:TextArea id="greeting" width="200" height="110"/>
-            <mx:FormItem label="Developer Notes"/>
-            <mx:TextArea id="description" width="200" height="110"/>
-        </mx:Form>
-    </mx:HBox>
+        <c:ItemEditorMediaDisplayMX id="mediaDisplay"/>
+    	<mx:Form>
+			<mx:VBox>
+				<mx:FormItem label="Greeting"/>
+				<mx:TextArea id="greeting" width="190" height="70"/>
+			</mx:VBox>
+			<mx:VBox>
+				<mx:FormItem label="Developer Notes"/>
+				<mx:TextArea id="description" width="190" height="70"/>
+			</mx:VBox>
+		</mx:Form>
+	</mx:HBox>
 
 	
-	<mx:DataGrid id="dg" width="100%" rowCount="10" dataProvider="{conversations}" editable="true"  draggableColumns="false">
+	<mx:DataGrid id="dg" width="415" rowCount="10" dataProvider="{conversations}" editable="true"  draggableColumns="false">
 		<mx:columns>
 			<!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
-			<mx:DataGridColumn dataField="linkText" headerText="Player Option" editable="true"/>
+			<mx:DataGridColumn dataField="linkText" headerText="Option" editable="true"/>
 			<mx:DataGridColumn dataField="scriptText" headerText="Script" editable="true"/>
-			<mx:DataGridColumn headerText="Requirements" editable="false">
+			<mx:DataGridColumn headerText="Reqs" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:Button label="Requirements" />
