@@ -72,17 +72,21 @@ public class ItemEditorCharacterView extends Panel
         trace("in ItemEditorCharacterView's handleInit");
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		
 		// WB Bugfix for MediaPickers losing saved information
 		mediaDisplay.iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		mediaDisplay.mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		
 		//Conversations
-		conversations = new ArrayCollection;
+		conversations = new ArrayCollection();
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINCONVERSATIONS, handleRefreshConversationData);
 		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
 		addConversationButton.addEventListener(MouseEvent.CLICK, handleAddConversationButton);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
-		this.reloadTheConversations();
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM, handleRefreshConversationData);
+		
+		
+		
     }
 
 	public function handleConversationInventoryButton(evt:MouseEvent):void
@@ -96,9 +100,11 @@ public class ItemEditorCharacterView extends Panel
 		conversations.refresh();
 	}
 	
-	private function reloadTheConversations():void
+	public function reloadTheConversations():void
 	{
-		if (objectPaletteItem) {
+		trace("ItemEditorCharaterView: reloadTheConversations() called");
+
+		if (objectPaletteItem != null) {
 			trace("ItemEditorCharaterView: Starting reloadTheConversations() with NpcID:" + objectPaletteItem.id);
 			AppServices.getInstance().getConversationsForNpc(GameModel.getInstance().game.gameId, objectPaletteItem.id, new Responder(handleLoadConversations, handleFault));
 		}
@@ -171,6 +177,7 @@ public class ItemEditorCharacterView extends Panel
 		trace("Add Conversation Button clicked...");
 		var c:Conversation = new Conversation();
 		c.linkText = "New Conversation";
+		c.npcId = objectPaletteItem.objectId ; //set the npc id
 		conversations.addItem(c);
 		AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, c, new Responder(handleAddConversationSave, handleFault));
 	}
@@ -210,7 +217,7 @@ public class ItemEditorCharacterView extends Panel
 		}
 		else
 		{
-			var cid:Number = obj.result.data;
+			var cid:Number = obj.result.data.conversation_id;
 			trace("Add / Save Conversation was successful.  The Conversation Id returned = '" + cid + "'");
 			
 			if (cid != 0)
@@ -224,6 +231,7 @@ public class ItemEditorCharacterView extends Panel
 					{
 						trace("Found previusly added / saved conversation.  Add Id to it and exiting method.");
 						c.conversationId = cid;
+						c.nodeId = obj.result.data.node_id;
 						conversations.refresh();
 						return;
 					}

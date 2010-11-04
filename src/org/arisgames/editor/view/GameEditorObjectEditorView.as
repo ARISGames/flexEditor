@@ -213,6 +213,7 @@ public class GameEditorObjectEditorView extends Canvas
             characterEditor.setObjectPaletteItem(objectPaletteItem);
             characterEditor.setVisible(true);
             characterEditor.includeInLayout = true;
+			characterEditor.reloadTheConversations();
         }
         else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
         {

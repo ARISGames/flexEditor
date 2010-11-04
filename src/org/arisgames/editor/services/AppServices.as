@@ -427,7 +427,7 @@ public class AppServices
 	{
 		trace("AppServices: getConversationsForNpc called with GameId:" + gid + " NpcId:" + npcid);
 		var l:Object;
-		l = AppDAO.getInstance().getConversationServer().getConversationsForNpc(gid,npcid);
+		l = AppDAO.getInstance().getConversationServer().getConversationsWithNodeForNpc(gid,npcid);
 		l.addResponder(resp);
 	}
 	
@@ -435,7 +435,7 @@ public class AppServices
 	{
 		trace("AppServices: deleteConversation() called with Game Id:" + gid + " conversation Id:" + c.conversationId);
 		var l:Object;
-		l = AppDAO.getInstance().getConversationServer().deleteConversation(gid, c.conversationId);
+		l = AppDAO.getInstance().getConversationServer().deleteConversationWithNode(gid, c.conversationId);
 		l.addResponder(resp);
 	}
 	
@@ -444,7 +444,7 @@ public class AppServices
 		var l:Object;
 		if (isNaN(c.conversationId))
 		{
-			trace("This Conversation doesn't have an Id, so call createConversation function On Remote Server..");
+			trace("This Conversation doesn't have an Id, so call createConversation function On Remote Server. npcId: " + c.npcId);
 			l = AppDAO.getInstance().getConversationServer().createConversationWithNode(gid, c.npcId, c.linkText, c.scriptText);
 		}
 		else
