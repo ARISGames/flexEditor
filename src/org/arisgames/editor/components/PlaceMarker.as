@@ -72,8 +72,7 @@ public class PlaceMarker extends Marker
 
     public function handleDragEndEvent(event:MapMouseEvent):void
     {
-        trace("Handle Drag End Event called...");
-        trace("Original Latitude: " + placemark.latitude + "; Original Longitude: " + placemark.longitude);
+        trace("PlaceMarker: Handle Drag End Event called...");
         placemark.latitude = event.latLng.lat();
         placemark.longitude = event.latLng.lng();
         trace("Updated Latitude: " + placemark.latitude + "; Updated Longitude: " + placemark.longitude);
@@ -91,6 +90,7 @@ public class PlaceMarker extends Marker
         loc.forceView = placemark.forcedView;
 		loc.quickTravel = placemark.quickTravel;
         loc.error = placemark.errorRange;
+		loc.qrCode = placemark.qrCode;
         trace("location type looked up = '" + loc.type + "'");
 
         AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
