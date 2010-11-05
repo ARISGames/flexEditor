@@ -105,8 +105,8 @@ public class ItemEditorCharacterView extends Panel
 		trace("ItemEditorCharaterView: reloadTheConversations() called");
 
 		if (objectPaletteItem != null) {
-			trace("ItemEditorCharaterView: Starting reloadTheConversations() with NpcID:" + objectPaletteItem.id);
-			AppServices.getInstance().getConversationsForNpc(GameModel.getInstance().game.gameId, objectPaletteItem.id, new Responder(handleLoadConversations, handleFault));
+			trace("ItemEditorCharaterView: Starting reloadTheConversations() with NpcID:" + objectPaletteItem.objectId);
+			AppServices.getInstance().getConversationsForNpc(GameModel.getInstance().game.gameId, objectPaletteItem.objectId, new Responder(handleLoadConversations, handleFault));
 		}
 	}
 	
