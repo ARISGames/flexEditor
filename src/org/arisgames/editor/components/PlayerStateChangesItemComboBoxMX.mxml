@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<c:PlayerStateChangesItemComboBoxView xmlns:mx="http://www.adobe.com/2006/mxml"
+                                         xmlns:c="org.arisgames.editor.components.*"
+                                         horizontalScrollPolicy="off"
+                                         verticalScrollPolicy="off"
+                                         backgroundColor="yellow"
+                                         >
+
+    <mx:Binding destination="value" source="cbo.value"/>
+
+    <mx:ComboBox id="cbo" width="100%" dataProvider="{possibleObjects}"/>
+
+</c:PlayerStateChangesItemComboBoxView>

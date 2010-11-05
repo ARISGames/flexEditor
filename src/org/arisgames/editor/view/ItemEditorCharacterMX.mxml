@@ -44,7 +44,7 @@
 			<mx:DataGridColumn headerText="Exchange" editable="false" width="65">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="+"/>
+						<mx:Button label="+" click="outerDocument.handleConversationPlayerStateChangesButton(event)" />
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

@@ -109,13 +109,15 @@ public class ItemEditorCharacterView extends Panel
 			AppServices.getInstance().getConversationsForNpc(GameModel.getInstance().game.gameId, objectPaletteItem.objectId, new Responder(handleLoadConversations, handleFault));
 		}
 	}
-	
+
+	/*
 	public function handleRequiementsForActiveButtonClick(evt:MouseEvent):void
 	{
 		trace("QuestsEditorView: handleRequiementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
 		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);
 		
 	}
+	*/
 	
 	public function handleConversationRequirementsButton(evt:MouseEvent):void
 	{
@@ -143,6 +145,38 @@ public class ItemEditorCharacterView extends Panel
 		requirementsEditor.includeInLayout = true;
 		
 	}
+	
+	
+	public function handleConversationPlayerStateChangesButton(evt:MouseEvent):void
+	{
+		trace("CharacterEditorView: handleConversationPlayerStateChangesButton() called with Selected Index = '" + dg.selectedIndex + "'");
+		this.openPlayerStateChangesEditor();
+	}	
+	
+	private function openPlayerStateChangesEditor():void
+	{
+		var playerStateChangesEditor:PlayerStateChangesEditorMX = new PlayerStateChangesEditorMX();
+		
+		var c:Conversation = (conversations.getItemAt(dg.selectedIndex) as Conversation);
+		
+		trace("opening psc editor with event type:" + AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE + "id:" + c.nodeId);
+		playerStateChangesEditor.setEventTypeAndId(AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE,c.nodeId);
+					
+		this.parent.addChild(playerStateChangesEditor);
+		
+		// Need to validate the display so that entire component is rendered
+		playerStateChangesEditor.validateNow();
+		
+		PopUpManager.addPopUp(playerStateChangesEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(playerStateChangesEditor);
+		playerStateChangesEditor.setVisible(true);
+		playerStateChangesEditor.includeInLayout = true;
+		
+	}
+	
+	
+	
+	
 	
 	private function closeRequirementsEditor(evt:DynamicEvent):void
 	{

@@ -14,6 +14,7 @@ import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
+import org.arisgames.editor.components.PlayerStateChangesItemComboBoxMX;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
@@ -97,9 +98,9 @@ public class PlayerStateChangesEditorView extends Panel
     {
         trace("Add Button clicked...");
         var psc:PlayerStateChange = new PlayerStateChange();
-		psc.eventType = AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE;
+		psc.eventType = this.eventType;
+		psc.eventDetail = this.eventObjectId;
 		psc.action = AppConstants.PLAYERSTATECHANGE_ACTION_GIVEITEM;
-		psc.actionDetail = 0;
 		psc.actionAmount = 1;
 
 		pscs.addItem(psc);
@@ -111,19 +112,53 @@ public class PlayerStateChangesEditorView extends Panel
 		trace("handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
 		
 		var st:String;
-		//var r:Requirement;
-		var origR:String;
-		var newR:String;
+		var origPsc:String;
+		var newPsc:String;
 		var res:Boolean;
 		var psc:PlayerStateChange = (pscs.getItemAt(dg.selectedIndex) as PlayerStateChange);
 
         trace("PlayerStateChangeEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; DataField = '" + evt.dataField + "'; Data = '" + data + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "' PSC Id is '" + psc.playerStateChangeId + "'");
+		evt.preventDefault();
 
+		
+		if (DataGrid(evt.target).itemEditorInstance is PlayerStateChangesItemComboBoxMX)
+		{
+			evt.preventDefault();
+			
+			// Get new requirement from editor for renderer to display
+			st = PlayerStateChangesItemComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
+			dg.editedItemRenderer.data = st;
+			
+			/*
+			r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
+			origR = r.requirementDetail1;
+			newR = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
+			*/
+		}		
+		
+		//Save it
 		AppServices.getInstance().savePlayerStateChange(GameModel.getInstance().game.gameId, psc, new Responder(handleUpdateSave, handleFault));
 		pscs.refresh();
-			
-	
     }
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     private function handleUpdateSave(obj:Object):void
     {
@@ -180,6 +215,11 @@ public class PlayerStateChangesEditorView extends Panel
         trace("Close button clicked...");
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
+		
+		//Just do the close now
+		trace("closeRequirementsEditor called...");
+		PopUpManager.removePopUp(this);
+				
     }
 
     private function handleLoad(obj:Object):void

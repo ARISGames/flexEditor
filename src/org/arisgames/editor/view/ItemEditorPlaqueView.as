@@ -41,9 +41,7 @@ public class ItemEditorPlaqueView extends Panel
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
     
-	private var pscEditor:PlayerStateChangesEditorMX;
-	
-	
+		
     /**
      * Constructor
      */
@@ -59,7 +57,7 @@ public class ItemEditorPlaqueView extends Panel
         trace("in ItemEditorPlaqueView's handleInit");
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
-		//changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
+		changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
 		
 
 		// WB Bugfix for MediaPickers losing saved information
@@ -160,9 +158,10 @@ public class ItemEditorPlaqueView extends Panel
 		trace("Starting handle Open Requirements Button click.");
 		this.openPlayerStateChangesEditor();
 	}
+	
 	private function openPlayerStateChangesEditor():void
 	{
-		pscEditor = new PlayerStateChangesEditorMX();
+		var pscEditor:PlayerStateChangesEditorMX = new PlayerStateChangesEditorMX();
 		pscEditor.setEventTypeAndId(AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE, objectPaletteItem.id);
 
 		this.parent.addChild(pscEditor);
