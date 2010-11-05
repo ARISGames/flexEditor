@@ -261,8 +261,8 @@ public class ItemEditorCharacterView extends Panel
 				var c:Conversation = new Conversation();
 				c.conversationId = obj.result.data.list.getItemAt(j).conversation_id;
 				c.nodeId = obj.result.data.list.getItemAt(j).node_id;
-				c.linkText = obj.result.data.list.getItemAt(j).text;
-				c.scriptText = obj.result.data.list.getItemAt(j).conversation_text;
+				c.linkText = obj.result.data.list.getItemAt(j).conversation_text;
+				c.scriptText = obj.result.data.list.getItemAt(j).text;
 				conversations.addItem(c);
 			}
 			trace("Loaded '" + conversations.length + "' Conversation(s).");
