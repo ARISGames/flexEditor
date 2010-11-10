@@ -58,7 +58,9 @@ public class RequirementsEditorView extends Panel
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENREQUIREMENTSEDITORMAP, handleOpenRequirementEditMapDynamicEvent);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITORMAP, closeRequirementsEditorMapView);
         reqs.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleDataEditBeginning);
-        reqs.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave);
+        reqs.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSavePostUpdate, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
+		reqs.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave);       
+
         addRequirementButton.addEventListener(MouseEvent.CLICK, handleAddRequirementButton);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
     }
@@ -191,9 +193,6 @@ public class RequirementsEditorView extends Panel
             }
 
             trace("A new requirement was selected, so save it to the database and clear all old details that may have been in the database record.");
-            r.requirementDetail1 = null;
-            r.requirementDetail2 = null;
-            r.requirementDetail3 = null;
             AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
 
             // Renderer The Germane Editor So That The Event Will Be Received
@@ -245,10 +244,28 @@ public class RequirementsEditorView extends Panel
         }
         else
         {
-            trace("It's not a Requirement nor an Object Combo Box Editor, so ignore.");            
+            trace("It's not a Requirement nor an Object Combo Box Editor, so ignore until post update");  
         }
     }
 
+
+	public function handleDataLineSavePostUpdate(evt:DataGridEvent):void
+	{
+		trace("handleDataLineSavePostUpdate() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
+
+		if (!(DataGrid(evt.target).itemEditorInstance is RequirementsEditorRequirementComboBoxMX) ||
+			!(DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX))
+		{
+			trace("It's not a Requirement nor an Object Combo Box Editor, so just save it as is.");  
+			var r:Requirement = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
+			AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
+			
+		}
+	}
+	
+	
+	
+	
     private function handleUpdateRequirementSave(obj:Object):void
     {
         if (obj.result.returnCode != 0)
@@ -257,18 +274,7 @@ public class RequirementsEditorView extends Panel
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Updating Requirement");
         }
-        else
-        {
-            var rid:Number = obj.result.data;
-            if (rid == 1)
-            {
-                trace("Update Requirement was successful.  The Requirement Id returned = '" + rid + "'");
-            }
-            else
-            {
-                Alert.show("The database had a problem while updating this record.  Please try again.", "Database Error While Updating Requirement");
-            }
-        }
+        
     }
 
     private function handleAddRequirementSave(obj:Object):void

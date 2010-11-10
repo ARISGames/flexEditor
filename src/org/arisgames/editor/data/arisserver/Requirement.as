@@ -3,6 +3,7 @@ package org.arisgames.editor.data.arisserver
 import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
@@ -19,7 +20,7 @@ public class Requirement
     public var requirementDetail3:String;
     public var contentId:Number;
     public var contentType:String;
-
+	
     /**
      * Constructor
      */
@@ -45,6 +46,7 @@ public class Requirement
         requirement = AppUtils.convertRequirementHumanLabelToDatabaseLabel(str);
     }
 
+	
 
     public function get requirementDetail1():String
     {
