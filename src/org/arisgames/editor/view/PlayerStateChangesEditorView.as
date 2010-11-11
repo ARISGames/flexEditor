@@ -132,7 +132,6 @@ public class PlayerStateChangesEditorView extends Panel
 			dg.editedItemRenderer.data = st;	
 			var newAd:Number = PlayerStateChangesItemComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
 
-			
 			// Close the cell editor.
 			dg.destroyItemEditor();
 			
@@ -142,20 +141,22 @@ public class PlayerStateChangesEditorView extends Panel
 			
 			// Notify the list control to update its display.
 			pscs.refresh();
-			
-			
-			
-			
-			
+	
 		}		
 
 		if (DataGrid(evt.target).itemEditorInstance is PlayerStateChangesEditorActionRendererMX)
 		{
+			trace("PlayerStateChangeEditorView: Event CBO");
 			evt.preventDefault();
 			
 			// Get new requirement from editor for renderer to display
 			st = PlayerStateChangesEditorActionRendererMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
 			dg.editedItemRenderer.data = st;
+			psc.actionHuman = st;
+			trace("PlayerStateChangeEditorView: st:" + st);
+
+			
+			
 		}		
 		
 
