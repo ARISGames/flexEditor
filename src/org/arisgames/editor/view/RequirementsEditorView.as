@@ -193,6 +193,7 @@ public class RequirementsEditorView extends Panel
 				r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
 			{
 				trace("RequirementEditorView: This requirement uses QTY");
+				r.requirementDetail2 = "1";
 			}
 			else
 			{
