@@ -132,23 +132,23 @@ public class RequirementsEditorView extends Panel
 
     public function handleDataEditBeginning(evt:DataGridEvent):void
     {
-        trace("RequirementsEditor.handleDataEditBeginning()....");
+        trace("RequirementEditorView: handleDataEditBeginning()....");
         var r:Requirement = reqs.selectedItem as Requirement;
 
         if (AppUtils.isUploadMediaItemRequirementType(r))
         {
-            trace("This requirement is an Uploaded Media Item, so stop the itemEditor from being setup.");
+            trace("RequirementEditorView: This requirement is an Uploaded Media Item, so stop the itemEditor from being setup.");
             evt.preventDefault();
         }
         else
         {
-            trace("This requirement is not Uploaded Media Item, so let the event continue to be processed.");
+            trace("RequirementEditorView: This requirement is not Uploaded Media Item, so let the event continue to be processed.");
         }
     }
 
     public function handleDataLineSave(evt:DataGridEvent):void
     {
-        trace("handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
+        trace("RequirementEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
 
 		var st:String;
 		var r:Requirement;
@@ -158,7 +158,7 @@ public class RequirementsEditorView extends Panel
 		
         if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorRequirementComboBoxMX)
         {
-            trace("It's a Requirement ComboBox, so process accordingly.");
+            trace("RequirementEditorView: It's a Requirement ComboBox, so process accordingly.");
             // Disable copying data back to the control.
             evt.preventDefault();
 
@@ -166,13 +166,12 @@ public class RequirementsEditorView extends Panel
             st = RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
             reqs.editedItemRenderer.data = st;
 
-            trace("Height Of Row = '" + reqs.rowHeight + "'; Req Editor Height = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).height + "'");
-            trace("Width Of Column = '" + reqs.columnWidth + "'; Req Editor Width = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).width + "'");
+            trace("RequirementEditorView: Height Of Row = '" + reqs.rowHeight + "'; Req Editor Height = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).height + "'");
+            trace("RequirementEditorView: Width Of Column = '" + reqs.columnWidth + "'; Req Editor Width = '" + RequirementsEditorRequirementComboBoxMX(DataGrid(evt.target).itemEditorInstance).width + "'");
 
             r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
             origR = r.requirement;
             newR = AppUtils.convertRequirementHumanLabelToDatabaseLabel(st);
-            trace("New Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Requirement = '" + origR + "'; New Requirement (Database) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
 
             // Close the cell editor.
             reqs.destroyItemEditor();
@@ -182,34 +181,43 @@ public class RequirementsEditorView extends Panel
 
             // Notify the list control to update its display.
             res = requirements.refresh();
-            trace("Successful refresh? '" + res + "'");
-//        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
-
 
             if (origR == newR)
             {
-                trace("The 'new' requirement is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
+                trace("RequirementEditorView: The 'new' requirement is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
                 return;
             }
+			
+			//Check if Qty should be used
+			if (r.requirement == AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE || 
+				r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
+			{
+				trace("RequirementEditorView: This requirement uses QTY");
+			}
+			else
+			{
+				trace("RequirementEditorView: This requirement does NOT use QTY");
+				r.requirementDetail2 = "N/A";
+			}
 
-            trace("A new requirement was selected, so save it to the database and clear all old details that may have been in the database record.");
+            trace("RequirementEditorView: A new requirement was selected, so save it to the database");
             AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
 
             // Renderer The Germane Editor So That The Event Will Be Received
             if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
             {
-                trace("The requirement was just changed to Upload Media Item, so popup the Requirements Editor Map.");
+                trace("RequirementEditorView: The requirement was just changed to Upload Media Item, so popup the Requirements Editor Map.");
                 this.openRequirementsEditorMapView(r);
             }
             else
             {
-                trace("The requirement is not Upload Media Item, so just highlight the regular Object column.");
+                trace("RequirementEditorView: The requirement is not Upload Media Item, so just highlight the regular Object column.");
                 reqs.editedItemPosition = {columnIndex: evt.columnIndex + 1, rowIndex: evt.rowIndex};
             }
         }
         else if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX)
         {
-            trace("It's an Object ComboBox, so process accordingly.");
+            trace("RequirementEditorView: It's an Object ComboBox, so process accordingly.");
             evt.preventDefault();
 
             // Get new requirement from editor for renderer to display
@@ -219,7 +227,7 @@ public class RequirementsEditorView extends Panel
             r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
             origR = r.requirementDetail1;
             newR = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
-            trace("New Object Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Object = '" + origR + "'; New Object (Value) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
+            trace("RequirementEditorView: New Object Value Chosen For Requirement Id = '" + r.requirementId + "' In Editor; Original Object = '" + origR + "'; New Object (Value) = '" + newR + "'; New Requirement (Editor) = '" + st + "'");
 
             // Close the cell editor.
             reqs.destroyItemEditor();
@@ -230,33 +238,31 @@ public class RequirementsEditorView extends Panel
 
             // Notify the list control to update its display.
            	res = requirements.refresh();
-            trace("Successful refresh? '" + res + "'");
-//        reqs.dataProvider.itemUpdated(evt.itemRenderer.data);
 
             if (origR == newR)
             {
-                trace("The 'new' chosen object is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
+                trace("RequirementEditorView: The 'new' chosen object is the same as the 'old' one, so no need to update the data nor save it to the database.... just return.");
                 return;
             }
 
-            trace("A new object was selected, so save it to the database.");
+            trace("RequirementEditorView: A new object was selected, so save it to the database.");
             AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
         }
         else
         {
-            trace("It's not a Requirement nor an Object Combo Box Editor, so ignore until post update");  
+            trace("RequirementEditorView: It's not a Requirement nor an Object Combo Box Editor, so ignore until post update");  
         }
     }
 
 
 	public function handleDataLineSavePostUpdate(evt:DataGridEvent):void
 	{
-		trace("handleDataLineSavePostUpdate() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
+		trace("RequirementEditorView: handleDataLineSavePostUpdate() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
 
 		if (!(DataGrid(evt.target).itemEditorInstance is RequirementsEditorRequirementComboBoxMX) ||
 			!(DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX))
 		{
-			trace("It's not a Requirement nor an Object Combo Box Editor, so just save it as is.");  
+			trace("RequirementEditorView: It's not a Requirement nor an Object Combo Box Editor, so just save it as is.");  
 			var r:Requirement = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
 			AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
 			

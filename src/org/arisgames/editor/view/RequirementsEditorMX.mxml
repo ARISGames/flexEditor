@@ -17,7 +17,7 @@
             <!--<mx:DataGridColumn dataField="requirementId" headerText="Req ID" editable="false" width="50"/>-->
             <mx:DataGridColumn dataField="requirementHuman" width="250" headerText="Requirement" itemEditor="org.arisgames.editor.components.RequirementsEditorRequirementComboBoxMX"/>
             <mx:DataGridColumn dataField="requirementDetail1Human" headerText="Objects" itemRenderer="org.arisgames.editor.components.RequirementsEditorObjectRendererMX" itemEditor="org.arisgames.editor.components.RequirementsEditorObjectComboBoxMX"/>
-			<mx:DataGridColumn dataField="requirementDetail2" headerText="Qty"/>
+			<mx:DataGridColumn dataField="requirementDetail2" width="50" headerText="Qty"/>
 			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>
 	                <mx:Component>
