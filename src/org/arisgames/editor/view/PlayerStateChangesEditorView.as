@@ -148,13 +148,20 @@ public class PlayerStateChangesEditorView extends Panel
 		{
 			trace("PlayerStateChangeEditorView: Event CBO");
 			evt.preventDefault();
-			
+						
 			// Get new requirement from editor for renderer to display
 			st = PlayerStateChangesEditorActionRendererMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
 			dg.editedItemRenderer.data = st;
-			psc.actionHuman = st;
 			trace("PlayerStateChangeEditorView: st:" + st);
 
+			// Close the cell editor.
+			dg.destroyItemEditor();
+			
+			// Update the new data choice
+			psc.actionHuman = st;
+
+			// Notify the list control to update its display.
+			pscs.refresh();
 			
 			
 		}		
