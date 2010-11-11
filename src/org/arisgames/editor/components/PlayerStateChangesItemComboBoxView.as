@@ -13,6 +13,7 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.data.arisserver.PlayerStateChange;
 
 public class PlayerStateChangesItemComboBoxView extends VBox implements IDropInListItemRenderer
 {
@@ -41,12 +42,7 @@ public class PlayerStateChangesItemComboBoxView extends VBox implements IDropInL
         trace("PSCEditorObjectComboBoxView's handleInit");
 		this.loadPossibleItems();
     }
-
-	override public function get data():Object
-	{
-		return super.data;
-	}
-	
+/*	
 	override public function set data(value:Object):void
 	{
 		trace("set data called with value = '" + value + "'; what will be assigned = '" + value[_listData.dataField] + "'");
@@ -54,7 +50,29 @@ public class PlayerStateChangesItemComboBoxView extends VBox implements IDropInL
 		//textLabel.text = value[_listData.dataField];
 		this.updateComboBoxSelectedItem();
 	}
+*/
+	
+	override public function get data():Object
+	{
+		return super.data;
+	}
+	
+	override public function set data(value:Object):void
+	{
+		trace("PlayerStateChangedItemComboBox:setData() called with value = '" + value + "'");
+		super.data = value;
+		var psc:PlayerStateChange = value as PlayerStateChange;
+		trace("PlayerStateChangedItemComboBox: data will be set to:" + psc.actionDetail);
+		
+		cbo.data = psc.actionDetail;
+		this.updateComboBoxSelectedItem();
+	}
 
+	
+	
+	
+	
+	
     public function get listData():BaseListData
     {
         trace("getListData called.  Returning = '" + _listData + "'");

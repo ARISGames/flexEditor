@@ -7,15 +7,15 @@
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
-                                  width="1000"
+                                  width="600"
                                   title="Player Inventory Editor"
                                   creationPolicy="all"
                                   >
 
     <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{pscs}" draggableColumns="false">
         <mx:columns>
-            <mx:DataGridColumn dataField="action" headerText="GIVE or TAKE" editable="true"/>
-			<mx:DataGridColumn dataField="actionDetailHuman" width="250" headerText="Item" itemEditor="org.arisgames.editor.components.PlayerStateChangesItemComboBoxMX"/>
+            <mx:DataGridColumn dataField="actionHuman" width="200" headerText="Action" editable="true" itemEditor="org.arisgames.editor.components.PlayerStateChangesEditorActionRendererMX"/>
+			<mx:DataGridColumn dataField="actionDetailHuman" width="200" headerText="Item" itemEditor="org.arisgames.editor.components.PlayerStateChangesItemComboBoxMX"/>
 			<mx:DataGridColumn dataField="actionAmount" headerText="Amount" editable="true"/>
 			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>

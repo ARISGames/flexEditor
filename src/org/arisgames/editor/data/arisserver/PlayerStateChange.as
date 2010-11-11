@@ -26,6 +26,24 @@ package org.arisgames.editor.data.arisserver
 			super();
 		}
 
+		public function get actionHuman():String
+		{
+			if (action != null)
+			{
+				return AppUtils.convertActionDatabaseLabelToHumanLabel(action);
+			}
+			else
+			{
+				return "";
+			}
+		}
+		
+		public function set actionHuman(str:String):void
+		{
+			action = AppUtils.convertActionHumanLabelToDatabaseLabel(str);
+		}		
+		
+		
 		public function get actionDetail():Number {
 			return _actionDetail;
 		}

@@ -489,6 +489,34 @@ public class AppUtils
                 return str;
         }
     }
+	
+	public static function convertActionHumanLabelToDatabaseLabel(str:String):String
+	{
+		switch (str)
+		{
+			case AppConstants.PLAYERSTATECHANGE_ACTION_GIVEITEM_HUMAN:
+				return AppConstants.PLAYERSTATECHANGE_ACTION_GIVEITEM;
+			case AppConstants.PLAYERSTATECHANGE_ACTION_TAKEITEM_HUMAN:
+				return AppConstants.PLAYERSTATECHANGE_ACTION_TAKEITEM;
+			default:
+				return str;
+		}
+	}
+	
+	public static function convertActionDatabaseLabelToHumanLabel(str:String):String
+	{
+		switch (str)
+		{
+			case AppConstants.PLAYERSTATECHANGE_ACTION_GIVEITEM:
+				return AppConstants.PLAYERSTATECHANGE_ACTION_GIVEITEM_HUMAN;
+			case AppConstants.PLAYERSTATECHANGE_ACTION_TAKEITEM:
+				return AppConstants.PLAYERSTATECHANGE_ACTION_TAKEITEM_HUMAN;
+			default:
+				return str;
+		}
+	}	
+	
+	
 
     public static function isUploadMediaItemRequirementType(req:Requirement):Boolean
     {

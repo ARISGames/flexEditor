@@ -15,6 +15,7 @@ import mx.rpc.Responder;
 
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.components.PlayerStateChangesItemComboBoxMX;
+import org.arisgames.editor.components.PlayerStateChangesEditorActionRendererMX;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
@@ -54,7 +55,8 @@ public class PlayerStateChangesEditorView extends Panel
     private function handleInit(event:FlexEvent):void
     {
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR, handleRefreshData);
-		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
+		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSave);     
+		dg.addEventListener(DataGridEvent.ITEM_EDIT_END, handleDataLineSavePostUpdate, false, -100);  //for an explanation of the -100 see http://www.adobe.com/devnet/flash/articles/detecting_datagrid_edits.html       
 		addButton.addEventListener(MouseEvent.CLICK, handleAddButton);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
 		this.reload();
@@ -118,46 +120,57 @@ public class PlayerStateChangesEditorView extends Panel
 		var psc:PlayerStateChange = (pscs.getItemAt(dg.selectedIndex) as PlayerStateChange);
 
         trace("PlayerStateChangeEditorView: handleDataLineSave() called with DataGridEvent type = '" + evt.type + "'; DataField = '" + evt.dataField + "'; Data = '" + data + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "' PSC Id is '" + psc.playerStateChangeId + "'");
-		evt.preventDefault();
-
 		
 		if (DataGrid(evt.target).itemEditorInstance is PlayerStateChangesItemComboBoxMX)
 		{
+			trace("PlayerStateChangeEditorView: Item CBO");
+
 			evt.preventDefault();
 			
 			// Get new requirement from editor for renderer to display
 			st = PlayerStateChangesItemComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
-			dg.editedItemRenderer.data = st;
+			dg.editedItemRenderer.data = st;	
+			var newAd:Number = PlayerStateChangesItemComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
+
 			
-			/*
-			r = (requirements.getItemAt(reqs.selectedIndex) as Requirement);
-			origR = r.requirementDetail1;
-			newR = RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.data;
-			*/
+			// Close the cell editor.
+			dg.destroyItemEditor();
+			
+			// Update the new data choice
+			psc.actionDetail = newAd;
+			psc.actionDetailHuman = st;
+			
+			// Notify the list control to update its display.
+			pscs.refresh();
+			
+			
+			
+			
+			
+		}		
+
+		if (DataGrid(evt.target).itemEditorInstance is PlayerStateChangesEditorActionRendererMX)
+		{
+			evt.preventDefault();
+			
+			// Get new requirement from editor for renderer to display
+			st = PlayerStateChangesEditorActionRendererMX(DataGrid(evt.target).itemEditorInstance).cbo.text;
+			dg.editedItemRenderer.data = st;
 		}		
 		
-		//Save it
-		AppServices.getInstance().savePlayerStateChange(GameModel.getInstance().game.gameId, psc, new Responder(handleUpdateSave, handleFault));
-		pscs.refresh();
+
     }
 	
+	public function handleDataLineSavePostUpdate(evt:DataGridEvent):void
+	{
+		var psc:PlayerStateChange = (pscs.getItemAt(dg.selectedIndex) as PlayerStateChange);
+
+		AppServices.getInstance().savePlayerStateChange(GameModel.getInstance().game.gameId, psc, new Responder(handleUpdateSave, handleFault));
+		pscs.refresh();
 	
-	
-	
-	
-	
+	}	
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
     private function handleUpdateSave(obj:Object):void
