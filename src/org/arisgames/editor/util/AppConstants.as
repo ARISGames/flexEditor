@@ -80,17 +80,17 @@ public class AppConstants
 
     // Requirement Options
     public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
-    public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "Player Has At Least qty of an Item";
+    public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "Player Has At Least Qty of an Item";
     public static const REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE:String = "PLAYER_DOES_NOT_HAVE_ITEM";
-    public static const REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_HUMAN:String = "Player Has Less Than qty of an Item";
+    public static const REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_HUMAN:String = "Player Has Less Than Qty of an Item";
     public static const REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:String = "PLAYER_VIEWED_ITEM";
     public static const REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN:String = "Player Viewed Item";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_ITEM";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN:String = "Player Never Viewed Item";
     public static const REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:String = "PLAYER_VIEWED_NODE";
-    public static const REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:String = "Player Viewed Plaque";
+    public static const REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:String = "Player Viewed Plaque/Script";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_NODE";
-    public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_HUMAN:String = "Player Never Viewed Plaque";
+    public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_HUMAN:String = "Player Never Viewed Plaque/Script";
     public static const REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE:String = "PLAYER_VIEWED_NPC";
     public static const REQUIREMENT_PLAYER_VIEWED_NPC_HUMAN:String = "Player Greeted By Character";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_NPC";
