@@ -313,7 +313,7 @@ public class AppUtils
             npc.npcId = data.npc_id;
             npc.name = data.name;
             npc.description = data.description;
-            npc.greeting = data.greeting;
+            npc.greeting = data.text;
             npc.mediaId = data.media_id;
 
             return npc;
