@@ -26,6 +26,7 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
 import mx.rpc.Responder;
+import mx.managers.PopUpManager;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
@@ -91,6 +92,10 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
         // This will close editor (as the item is the same that is currently being edited)
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
+		
+		trace("itemEditorMediaPickerUploader: handleCancelButton called...");
+		PopUpManager.removePopUp(this);		
+
     }
 
     private function handleFindFileButton(evt:MouseEvent):void

@@ -238,7 +238,7 @@ public class PlayerStateChangesEditorView extends Panel
         AppDynamicEventManager.getInstance().dispatchEvent(de);
 		
 		//Just do the close now
-		trace("closeRequirementsEditor called...");
+		trace("playerStateChanges: handleCloseButton called...");
 		PopUpManager.removePopUp(this);
 				
     }

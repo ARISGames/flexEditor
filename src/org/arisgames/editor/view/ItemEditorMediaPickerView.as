@@ -196,7 +196,7 @@ public class ItemEditorMediaPickerView extends Panel
 
     private function closeMediaUploader(evt:DynamicEvent):void
     {
-        trace("closeMediaUploader called...");
+        trace("ItemEditorMediaPicker: closeMediaUploader called...");
         PopUpManager.removePopUp(mediaUploader);
         mediaUploader = null;
     }
