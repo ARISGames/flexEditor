@@ -57,8 +57,6 @@ public class ItemEditorMediaPickerView extends Panel
         treeBrowser.addEventListener(TreeBrowserEvent.NODE_SELECTED, onNodeSelected);
         closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER, closeMediaUploader);
-
-        this.printXMLData();
         // Load Game's Media Into XML
         AppServices.getInstance().getMediaForGame(GameModel.getInstance().game.gameId, new Responder(handleLoadingOfMediaIntoXML, handleFault));
     }
@@ -114,49 +112,66 @@ public class ItemEditorMediaPickerView extends Panel
             trace("Bad loading of media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Loading Media");
+			return;
         }
-        else
+
+        //Init the XML Data
+
+		xmlData = new XML('<nodes label="' + AppConstants.MEDIATYPE + '"/>');
+		
+		if (this.isIconPicker) {
+			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');			
+		}
+		else {
+			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_IMAGE + '"/>');
+			xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_AUDIO + '"/>');
+			xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_VIDEO + '"/>');
+			xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+		}
+		this.printXMLData();
+		
+		var media:Array = obj.result.data as Array;
+        trace("Number of Media Objects returned from server = '" + media.length + "'");
+
+        for (var j:Number = 0; j < media.length; j++)
         {
-            var media:Array = obj.result.data as Array;
-            trace("Number of Media Objects returned from server = '" + media.length + "'");
+            var o:Object = media[j];
+            var m:Media = new Media();
 
-            for (var j:Number = 0; j < media.length; j++)
+            m.mediaId = o.media_id;
+            m.name = o.name;
+            m.type = o.type;
+            m.urlPath = o.url_path;
+            m.fileName = o.file_name;
+            m.isDefault = o.is_default; //for both default files and uploaded files
+
+            var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";
+
+            switch (m.type)
             {
-                var o:Object = media[j];
-                var m:Media = new Media();
-
-                m.mediaId = o.media_id;
-                m.name = o.name;
-                m.type = o.type;
-                m.urlPath = o.url_path;
-                m.fileName = o.file_name;
-                m.isDefault = o.is_default; //for both default files and uploaded files
-
-                var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";
-
-                switch (m.type)
-                {
-                    case AppConstants.MEDIATYPE_IMAGE:
-                        xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
-                        break;
-                    case AppConstants.MEDIATYPE_AUDIO:
-                        xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
-                        break;
-                    case AppConstants.MEDIATYPE_VIDEO:
-                        xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
-                        break;
-                    case AppConstants.MEDIATYPE_ICON:
-                        xmlData.node.(@label == AppConstants.MEDIATYPE_ICON).appendChild(node);
-                        break;
-                    default:
-                        trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
-                        break;
-                }
-
+                case AppConstants.MEDIATYPE_IMAGE:
+					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+                    break;
+                case AppConstants.MEDIATYPE_AUDIO:
+					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
+                    break;
+                case AppConstants.MEDIATYPE_VIDEO:
+					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
+                    break;
+                case AppConstants.MEDIATYPE_ICON:
+					if (this.isIconPicker) xmlData.appendChild(node);
+                    break;
+                default:
+                    trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
+                    break;
             }
-            trace("Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
-            this.printXMLData();
+
         }
+        trace("Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
+        this.printXMLData();
+   
         trace("Finished with handleLoadingOfMediaIntoXML().");
     }
 

@@ -20,9 +20,7 @@
     </mx:Form>
 
     <mx:Button id="saveButton" label="Save" visible="false" includeInLayout="false"/>
-
-    <mx:Button id="selectButton" label="Select"/>
-
     <mx:Button id="deleteButton" label="Delete" visible="false" includeInLayout="false"/>
+    <mx:Button id="selectButton" label="Select"/>
 
 </c:ItemEditorMediaPickerCustomEditorView>

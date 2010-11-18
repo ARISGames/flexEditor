@@ -10,24 +10,7 @@
                                   paddingRight="10"
                                   paddingBottom="10"
                                   >
-
-    <mx:XML id="xmlData">
-        <nodes label="{AppConstants.MEDIATYPE}">
-            <node label="{AppConstants.MEDIATYPE_IMAGE}">
-                <node label="{AppConstants.MEDIATYPE_UPLOADNEW}"/>
-            </node>
-            <node label="{AppConstants.MEDIATYPE_AUDIO}">
-                <node label="{AppConstants.MEDIATYPE_UPLOADNEW}"/>
-            </node>
-            <node label="{AppConstants.MEDIATYPE_VIDEO}">
-                <node label="{AppConstants.MEDIATYPE_UPLOADNEW}"/>
-            </node>
-            <node label="{AppConstants.MEDIATYPE_ICON}">
-                <node label="{AppConstants.MEDIATYPE_UPLOADNEW}"/>
-            </node>
-        </nodes>
-    </mx:XML>
-
+	
     <controls:TreeBrowser id="treeBrowser" width="380" height="263" dataProvider="{xmlData}" showDetails="true" horizontalScrollPolicy="auto" verticalScrollPolicy="off" showRoot="false"/>
 
     <mx:ControlBar id="folderControlBar">
