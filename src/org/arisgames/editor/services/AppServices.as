@@ -136,7 +136,7 @@ public class AppServices
         }
         else
         {
-            trace("This NPC has an Id (" + npc.npcId + "), so call update NPC.  BTW, the game number is = '" + gid + "'; name = '" + npc.name + "'");
+            trace("This NPC has an Id (" + npc.npcId + "), so call update NPC. gameid:" + gid + " name:" + npc.name + "greeting:" + npc.greeting);
             r = AppDAO.getInstance().getNPCServer().updateNpc(gid, npc.npcId, npc.name, npc.description, npc.greeting, npc.mediaId, npc.iconMediaId);
         }
         r.addResponder(resp);
