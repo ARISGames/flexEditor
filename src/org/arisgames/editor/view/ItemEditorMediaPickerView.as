@@ -301,6 +301,7 @@ public class ItemEditorMediaPickerView extends Panel
             if (event.item.@label == AppConstants.MEDIATYPE_UPLOADNEW)
             {
                 trace("It's an Upload Item");
+				selectButton.enabled = false;
                 var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
                 AppDynamicEventManager.getInstance().dispatchEvent(de);
                 this.displayMediaUploader();
@@ -311,6 +312,9 @@ public class ItemEditorMediaPickerView extends Panel
 				selectButton.enabled = true;
             }
         }
+		else {
+			selectButton.enabled = false;	
+		}
     }
 
 	
