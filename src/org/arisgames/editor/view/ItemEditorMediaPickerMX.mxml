@@ -16,8 +16,7 @@
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
         <mx:Button id="closeButton" label="Close"/>
+		<mx:Button id="selectButton" label="Select" enabled="false"/>
     </mx:ControlBar>
 
-    <mx:Script><![CDATA[
-        import org.arisgames.editor.util.AppConstants;          ]]></mx:Script>
 </v:ItemEditorMediaPickerView>

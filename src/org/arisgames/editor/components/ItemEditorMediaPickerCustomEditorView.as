@@ -35,7 +35,6 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
     [Bindable] public var mediaName:TextInput;
 
     [Bindable] public var saveButton:Button;
-    [Bindable] public var selectButton:Button;
     [Bindable] public var deleteButton:Button;
 
     /**
@@ -52,7 +51,6 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
         trace("In ItemEditorMediaPickerCustomEditorView's handleInit");
         avLinkButton.addEventListener(MouseEvent.CLICK, handleAVButtonClick);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButtonClick);
-        selectButton.addEventListener(MouseEvent.CLICK, handleSelectButtonClick);
         deleteButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
     }
 
@@ -140,104 +138,7 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
         AppServices.getInstance().renameMediaForGame(GameModel.getInstance().game.gameId, data.@mediaId, mediaName.text, new Responder(handleSaveMedia, handleFault));
     }
 
-    private function handleSelectButtonClick(evt:MouseEvent):void
-    {
-        trace("Select Button clicked...");
-        var iconMode:Boolean = (this.parent.parent as ItemEditorMediaPickerMX).isInIconPickerMode();
-        trace("Is In Icon Picker Mode (According to parent.parent): " + iconMode);
 
-        trace("data object = '" + data + "'");
-        var m:Media = new Media();
-        m.mediaId = data.@mediaId;
-        m.name = data.@name;
-        m.type = data.@type;
-        m.urlPath = data.@urlPath;
-        m.fileName = data.@fileName;
-        m.isDefault = data.@isDefault;
-
-        trace("processed data object: media id = '" + m.mediaId + "'; name = '" + m.name + "'; type = '" + m.type + "'; urlPath = '" + m.urlPath + "'; fileName = '" + m.fileName + "'; isDefault = '" + m.isDefault + "'");
-
-        if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
-        {
-            if (iconMode)
-            {
-                objectPaletteItem.character.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMedia = m;
-                trace("Just set Character with ID = '" + objectPaletteItem.character.npcId + "' Icon Media Id = '" + objectPaletteItem.character.iconMediaId + "'");
-            }
-            else
-            {
-                objectPaletteItem.character.mediaId = m.mediaId;
-                objectPaletteItem.mediaId = m.mediaId;
-                objectPaletteItem.media = m;
-                trace("Just set Character with ID = '" + objectPaletteItem.character.npcId + "' Media Id = '" + objectPaletteItem.character.mediaId + "'");
-            }
-            AppServices.getInstance().saveCharacter(GameModel.getInstance().game.gameId, objectPaletteItem.character, new Responder(handleSaveObjectFromSelectClick, handleFault));
-        }
-        else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
-        {
-            if (iconMode)
-            {
-                objectPaletteItem.item.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMedia = m;
-                trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Icon Media Id = '" + objectPaletteItem.item.iconMediaId + "'");
-            }
-            else
-            {
-                objectPaletteItem.item.mediaId = m.mediaId;
-                objectPaletteItem.mediaId = m.mediaId;
-                objectPaletteItem.media = m;
-                trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
-            }
-            AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObjectFromSelectClick, handleFault));
-        }
-        else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
-        {
-            if (iconMode)
-            {
-                objectPaletteItem.page.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMediaId = m.mediaId;
-                objectPaletteItem.iconMedia = m;
-                trace("Just set Page with ID = '" + objectPaletteItem.page.nodeId + "' Icon Media Id = '" + objectPaletteItem.page.iconMediaId + "'");
-            }
-            else
-            {
-                objectPaletteItem.page.mediaId = m.mediaId;
-                objectPaletteItem.mediaId = m.mediaId;
-                objectPaletteItem.media = m;
-                trace("Just set Page with ID = '" + objectPaletteItem.page.nodeId + "' Media Id = '" + objectPaletteItem.page.mediaId + "'");
-            }
-            AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObjectFromSelectClick, handleFault));
-        }
-
-        // Close Media Picker
-        var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER);
-        AppDynamicEventManager.getInstance().dispatchEvent(de);
-    }
-
-    private function handleSaveObjectFromSelectClick(obj:Object):void
-    {
-        trace("handleSaveObjectFromSelectClick() called...");
-        if (obj.result.returnCode != 0)
-        {
-            trace("Bad save of selected media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
-            var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Selecting Media");
-        }
-        else
-        {
-            trace("The Save From The Select Clicked worked fine, refresh the editor.  The updated IDs are: Object ID = '" + objectPaletteItem.id + "'; Icon Media ID = '" + objectPaletteItem.iconMediaId + "'; Media ID = '" + objectPaletteItem.mediaId + "'");
-            // Close and reopen item editor (only safe to do here because icon and media data has been saved in object)
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
-            AppDynamicEventManager.getInstance().dispatchEvent(de);
-
-            de = new DynamicEvent(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM);
-            de.objectPaletteItem = objectPaletteItem;
-            AppDynamicEventManager.getInstance().dispatchEvent(de);
-        }
-    }
 
     private function handleDeleteButtonClick(evt:MouseEvent):void
     {
