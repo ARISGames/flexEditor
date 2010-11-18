@@ -315,6 +315,7 @@ public class AppUtils
             npc.description = data.description;
             npc.greeting = data.text;
             npc.mediaId = data.media_id;
+			npc.iconMediaId = data.icon_media_id;
 
             return npc;
         }
@@ -336,6 +337,7 @@ public class AppUtils
 			node.title = data.title;
 			node.text = data.text;
 			node.mediaId = data.media_id;
+			node.iconMediaId = data.icon_media_id;
 			node.opt1Text = data.opt1_text;
 			node.opt1NodeId = data.opt1_node_id;
 			node.opt2Text = data.opt2_text;
