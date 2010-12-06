@@ -41,8 +41,8 @@ public class GameEditorObjectPaletteView extends VBox
     [Bindable] public var addObjectButton:Button;
     [Bindable] public var addFolderButton:Button;
 	[Bindable] public var editQuestsButton:Button;
-	[Bindable] public var editDialogButton:Button;
-	[Bindable] public var editGoogleMapButton:Button;
+	//[Bindable] public var editDialogButton:Button;
+	//[Bindable] public var editGoogleMapButton:Button;
     [Bindable] public var trashIcon:Image;
     [Bindable] public var glowImage:Glow;
 
@@ -70,8 +70,8 @@ public class GameEditorObjectPaletteView extends VBox
     {
         addObjectButton.addEventListener(MouseEvent.CLICK, addObjectButtonOnClick);
         addFolderButton.addEventListener(MouseEvent.CLICK, addFolderButtonOnClick);
-		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
-		editDialogButton.addEventListener(MouseEvent.CLICK, editDialogButtonOnClick);
+		//editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
+		//editDialogButton.addEventListener(MouseEvent.CLICK, editDialogButtonOnClick);
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
     }
