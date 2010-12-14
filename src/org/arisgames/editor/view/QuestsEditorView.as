@@ -65,9 +65,9 @@ public class QuestsEditorView extends Panel
         AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
     }
 
-	public function handleRequiementsForActiveButtonClick(evt:MouseEvent):void
+	public function handleRequirementsForActiveButtonClick(evt:MouseEvent):void
 	{
-		trace("QuestsEditorView: handleRequiementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		trace("QuestsEditorView: handleRequirementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
 		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);
 
 	}
@@ -179,7 +179,7 @@ public class QuestsEditorView extends Panel
                     trace("&&&&& Checking j = '" + j + "'; Quest Id = '" + q.questId + "'");
                     if (isNaN(q.questId))
                     {
-                        trace("Found previusly added / saved quest.  Add Id to it and exiting method.");
+                        trace("Found previusly added / saved quest.  Add ID to it and exiting method.");
                         q.questId = qid;
                         quests.refresh();
                         return;
