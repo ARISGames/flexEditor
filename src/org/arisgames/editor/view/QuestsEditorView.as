@@ -179,7 +179,7 @@ public class QuestsEditorView extends Panel
                     trace("&&&&& Checking j = '" + j + "'; Quest Id = '" + q.questId + "'");
                     if (isNaN(q.questId))
                     {
-                        trace("Found previusly added / saved quest.  Add ID to it and exiting method.");
+                        trace("Found previously added / saved quest.  Add ID to it and exiting method.");
                         q.questId = qid;
                         quests.refresh();
                         return;
