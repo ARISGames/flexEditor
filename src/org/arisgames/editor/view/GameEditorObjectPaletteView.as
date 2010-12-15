@@ -70,7 +70,7 @@ public class GameEditorObjectPaletteView extends VBox
     {
         addObjectButton.addEventListener(MouseEvent.CLICK, addObjectButtonOnClick);
         addFolderButton.addEventListener(MouseEvent.CLICK, addFolderButtonOnClick);
-		//editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
+		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
 		//editDialogButton.addEventListener(MouseEvent.CLICK, editDialogButtonOnClick);
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
