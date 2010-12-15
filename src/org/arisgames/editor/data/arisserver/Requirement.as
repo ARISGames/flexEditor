@@ -14,6 +14,7 @@ public class Requirement
 {
     public var requirementId:Number;
     public var requirement:String;
+	public var boolean:String;
     public var _requirementDetail1:String;
     public var requirementDetail1Human:String;
     public var requirementDetail2:String;
@@ -27,6 +28,7 @@ public class Requirement
     public function Requirement()
     {
         super();
+		boolean = AppConstants.REQUIREMENT_BOOLEAN_AND_DATABASE;
     }
 
     public function get requirementHuman():String

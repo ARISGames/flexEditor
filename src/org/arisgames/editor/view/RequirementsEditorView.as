@@ -350,6 +350,9 @@ public class RequirementsEditorView extends Panel
                 var r:Requirement = new Requirement();
                 r.requirementId = obj.result.data.list.getItemAt(j).requirement_id;
                 r.requirement = obj.result.data.list.getItemAt(j).requirement;
+				r.boolean = obj.result.data.list.getItemAt(j).boolean_operator;
+				trace ("loading requirement - boolean was:" + r.boolean);
+		
                 r.requirementDetail1 = obj.result.data.list.getItemAt(j).requirement_detail_1;
                 r.requirementDetail2 = obj.result.data.list.getItemAt(j).requirement_detail_2;
                 r.requirementDetail3 = obj.result.data.list.getItemAt(j).requirement_detail_3;

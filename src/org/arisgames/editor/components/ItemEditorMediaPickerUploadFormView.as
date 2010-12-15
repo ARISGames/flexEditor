@@ -361,6 +361,9 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
             // Setup GUI to non - upload mode
             this.changeViewModeToUploadView(false);
 
+			//TODO: Save the new uploaded file as the media
+			
+			
             var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
             AppDynamicEventManager.getInstance().dispatchEvent(de);
         }
