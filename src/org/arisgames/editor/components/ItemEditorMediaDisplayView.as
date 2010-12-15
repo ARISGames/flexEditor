@@ -80,8 +80,8 @@ public class ItemEditorMediaDisplayView extends HBox
         {
             iconImageCanvas.setVisible(false);
             iconImageCanvas.includeInLayout = false;
-            iconPreviewImage.setVisible(false);
-            iconPreviewImage.includeInLayout = false;
+            iconPreviewImage.setVisible(true);
+            iconPreviewImage.includeInLayout = true;
             iconAVLinkButton.setVisible(true);
             iconAVLinkButton.includeInLayout = true;
             iconNoMediaLabel.setVisible(false);
@@ -117,8 +117,8 @@ public class ItemEditorMediaDisplayView extends HBox
         }
         else
         {
-            iconImageCanvas.setVisible(false);
-            iconImageCanvas.includeInLayout = false;
+            iconImageCanvas.setVisible(true);
+            iconImageCanvas.includeInLayout = true;
             iconPreviewImage.setVisible(false);
             iconPreviewImage.includeInLayout = false;
             iconAVLinkButton.setVisible(false);
@@ -171,8 +171,8 @@ public class ItemEditorMediaDisplayView extends HBox
         }
         else
         {
-            mediaImageCanvas.setVisible(false);
-            mediaImageCanvas.includeInLayout = false;
+            mediaImageCanvas.setVisible(true);
+            mediaImageCanvas.includeInLayout = true;
             mediaPreviewImage.setVisible(false);
             mediaPreviewImage.includeInLayout = false;
             mediaAVLinkButton.setVisible(false);

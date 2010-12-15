@@ -303,24 +303,6 @@ public class ItemEditorCharacterView extends Panel
 		}
 	}
 	
-
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
         trace("setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorCharacterView");

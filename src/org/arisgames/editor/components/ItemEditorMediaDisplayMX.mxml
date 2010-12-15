@@ -19,7 +19,7 @@
 
         <mx:Button id="iconRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
 
-        <mx:Label id="iconNoMediaLabel" text="No Icon Selected" visible="false" includeInLayout="false"/>
+        <mx:Label id="iconNoMediaLabel" text="Choose Icon" visible="false" includeInLayout="false"/>
 
         <mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
     </mx:VBox>
@@ -33,7 +33,7 @@
 
         <mx:Button id="mediaRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
 
-        <mx:Label id="mediaNoMediaLabel" text="No Media Selected" visible="false" includeInLayout="false"/>
+        <mx:Label id="mediaNoMediaLabel" text="Choose Media" visible="false" includeInLayout="false"/>
 
         <mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
     </mx:VBox>
