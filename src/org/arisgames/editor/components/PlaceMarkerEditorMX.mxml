@@ -14,7 +14,7 @@
 			<mx:TextInput id="qrCode" width="175"/>
 		</mx:FormItem>
 		<mx:FormItem id="quantityFI" label="Quantity" required="true">
-				<mx:NumericStepper id="quantity" minimum="1" maximum="15" stepSize="1" width="65"/>
+				<mx:NumericStepper id="quantity" minimum="1" maximum="9999999999" stepSize="1" width="65"/>
 		</mx:FormItem>
         <mx:FormItem id="hiddenFI">
             <mx:CheckBox id="hidden" label="Hidden"/>
