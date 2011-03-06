@@ -23,15 +23,6 @@
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
 							   width = "225"/>
-			<mx:DataGridColumn headerText="Requirements for Active" editable="false" width = "175">
-				<mx:itemRenderer>
-					<mx:Component>
-						<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
-							<mx:Button width="95%" label="Configure" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
-						</mx:HBox>
-					</mx:Component>	
-				</mx:itemRenderer>
-			</mx:DataGridColumn>
 			<mx:DataGridColumn dataField="completeText" 
 							   headerText="Text when Complete" 
 							   editable="true" 
@@ -39,12 +30,13 @@
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
 							   width = "225"/>
-			<mx:DataGridColumn headerText="Requirements for Complete" editable="false" width = "175">
+			<mx:DataGridColumn headerText="Requirements" editable="false" width = "175">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
-						<mx:Button width="95%" label="Configure" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
-						</mx:HBox>
+						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+							<mx:Button width="95%" label="To Activate" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
+							<mx:Button width="95%" label="To Complete" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
+						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
