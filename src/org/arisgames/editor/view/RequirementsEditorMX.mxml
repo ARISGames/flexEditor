@@ -7,18 +7,17 @@
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
-                                  width="600"
+                                  width="700"
                                   title="Requirements Editor"
                                   creationPolicy="all"
                                   >
-
     <mx:DataGrid id="reqs" width="100%" rowCount="10" editable="true" dataProvider="{requirements}" draggableColumns="false">
         <mx:columns>
             <!--<mx:DataGridColumn dataField="requirementId" headerText="Req ID" editable="false" width="50"/>-->
-			<!--<mx:DataGridColumn dataField="boolean" width="50" headerText="And/Or" />-->
 			<mx:DataGridColumn dataField="requirementHuman" width="250" headerText="Requirement" itemEditor="org.arisgames.editor.components.RequirementsEditorRequirementComboBoxMX"/>
-            <mx:DataGridColumn dataField="requirementDetail1Human" headerText="Objects" itemRenderer="org.arisgames.editor.components.RequirementsEditorObjectRendererMX" itemEditor="org.arisgames.editor.components.RequirementsEditorObjectComboBoxMX"/>
-			<mx:DataGridColumn dataField="requirementDetail1.5" headerText="AND/OR" itemEditor="org.arisgames.editor.components.RequirementsEditorRequirementComboBoxMX"/>
+            <mx:DataGridColumn dataField="requirementDetail1Human" width="200" headerText="Objects" itemRenderer="org.arisgames.editor.components.RequirementsEditorObjectRendererMX" itemEditor="org.arisgames.editor.components.RequirementsEditorObjectComboBoxMX"/>
+			<mx:DataGridColumn dataField="boolean" headerText="AND/OR" editable="true" editorDataField="value"
+							   itemEditor="org.arisgames.editor.components.RequirementsEditorBooleanComboBoxMX"/>
 			<mx:DataGridColumn dataField="requirementDetail2" width="50" headerText="Qty"/>
 			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>
