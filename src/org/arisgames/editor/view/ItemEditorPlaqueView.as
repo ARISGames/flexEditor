@@ -162,7 +162,7 @@ public class ItemEditorPlaqueView extends Panel
 	private function openPlayerStateChangesEditor():void
 	{
 		var pscEditor:PlayerStateChangesEditorMX = new PlayerStateChangesEditorMX();
-		pscEditor.setEventTypeAndId(AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE, objectPaletteItem.id);
+		pscEditor.setEventTypeAndId(AppConstants.PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE, objectPaletteItem.objectId);
 
 		this.parent.addChild(pscEditor);
 		// Need to validate the display so that entire component is rendered
