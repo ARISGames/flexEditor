@@ -65,7 +65,7 @@ public class QuestsEditorView extends Panel
         AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
     }
 
-	public function handleRequirementsForActiveButtonClick(evt:MouseEvent):void
+	public function handleRequiementsForVisableButtonClick(evt:MouseEvent):void
 	{
 		trace("QuestsEditorView: handleRequirementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
 		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);

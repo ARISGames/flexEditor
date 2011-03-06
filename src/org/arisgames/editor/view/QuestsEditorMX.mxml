@@ -20,7 +20,7 @@
 			<mx:DataGridColumn headerText="Requirements for Active" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="Requirements" click="outerDocument.handleRequiementsForActiveButtonClick(event)"/>
+						<mx:Button label="Requirements" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
 					</mx:Component>	
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
