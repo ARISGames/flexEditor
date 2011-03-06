@@ -57,11 +57,10 @@ public class PlaceMarker extends Marker
                 var iwo:InfoWindowOptions = new InfoWindowOptions();
                 var pme:PlaceMarkerEditorMX = new PlaceMarkerEditorMX();
                 pme.placeMark = placemark;
-//                pme.addEventListener(AppConstants.DYNAMICEVENT_PLACEMARKREQUESTSDELETION, map.deletePlaceMarker);
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
                 iwo.height = 375;
-                iwo.width = 362;
+                iwo.width = 385;
 
                 openInfoWindow(iwo);
             }
