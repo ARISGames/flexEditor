@@ -51,22 +51,40 @@ public class CreateOrOpenGameSelectorView extends Panel
         super();
         usersGames = new ArrayCollection();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
+
     }
 
     private function onComplete(event:FlexEvent): void
     {
         createGameButton.addEventListener(MouseEvent.CLICK, onCreateButtonClick);
         loadGameButton.addEventListener(MouseEvent.CLICK, onLoadButtonClick);
-        AppServices.getInstance().loadGamesByUserId(SecurityModel.getInstance().getUserId(), new Responder(handleLoadUsersGames, handleFault));        
+        AppServices.getInstance().loadGamesByUserId(SecurityModel.getInstance().getUserId(), new Responder(handleLoadUsersGames, handleFault)); 
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED, handleCurrentStateChangedEvent);
+
     }
 
+	private function handleCurrentStateChangedEvent(obj:Object):void
+	{
+		trace("CreateOrOpenGameSelectorView: handleCurrentStateChangedEvent");
+
+		if (StateModel.getInstance().currentState == StateModel.VIEWCREATEOROPENGAMEWINDOW){
+			trace("CreateOrOpenGameSelectorView: handleCurrentStateChangedEvent: Refreshing");
+			nameOfGame.text = "";
+			gameDescription.text = "";
+			usersGames.removeAll();
+			AppServices.getInstance().loadGamesByUserId(SecurityModel.getInstance().getUserId(), new Responder(handleLoadUsersGames, handleFault)); 
+		}
+	}
+	
     private function handleLoadUsersGames(obj:Object):void
     {
-        trace("loading UsersGames...");
+		trace("handleLoadUsersGames");
+
+		usersGames.removeAll();
+		
         if (obj.result.data == null)
         {
             trace("obj.result.data is NULL");
-            usersGames.removeAll();
             return;
         }
 

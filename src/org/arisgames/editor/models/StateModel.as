@@ -4,6 +4,8 @@ package org.arisgames.editor.models
 import flash.events.EventDispatcher;
 import mx.events.DynamicEvent;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
+
 
 public class StateModel extends EventDispatcher
 {
@@ -50,12 +52,14 @@ public class StateModel extends EventDispatcher
 
     public function set currentState(value:String):void
     {
-        trace("current state to be updated from '" + _currentState + "' to new state ='" + value + "'");
+        trace("StateModel:currentState: Current state to be updated from '" + _currentState + "' to new state ='" + value + "'");
         _currentState = value;
-        if (value == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
+		var evt:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED);
+		AppDynamicEventManager.getInstance().dispatchEvent(evt);
+
+		if (value == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
         {
-            trace("current state was changed to view placemark editor, so firing an app dynamic event so that the editor will update itself");
-            var evt:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED);
+			trace("current state was changed to view placemark editor, so firing an app dynamic event so that the editor will update itself");
             dispatchEvent(evt);
         }
     }

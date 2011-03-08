@@ -16,6 +16,7 @@
     <mx:Panel id="objectPalette" title="Game Objects" layout="vertical" width="100%" height="100%" paddingTop="10"
               paddingRight="10" paddingBottom="10" paddingLeft="10" horizontalAlign="center">
         <mx:VBox id="topMenuBox" width="100%" horizontalAlign="left" paddingBottom="20" paddingLeft="0" paddingRight="0" paddingTop="0">
+			<mx:Button id="returnToGameListButton" label="Back to Game List" width="100%" height="33"/>
 			<mx:Button id="editGameButton" label="Game Settings" width="100%" height="33"/>
 			<mx:Button id="editQuestsButton" label="Quests" width="100%" height="33"/>
         </mx:VBox>

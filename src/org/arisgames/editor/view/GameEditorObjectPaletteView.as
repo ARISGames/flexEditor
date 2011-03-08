@@ -31,6 +31,7 @@ import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
+import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
@@ -43,6 +44,7 @@ public class GameEditorObjectPaletteView extends VBox
     [Bindable] public var addFolderButton:Button;
 	[Bindable] public var editQuestsButton:Button;
 	[Bindable] public var editGameButton:Button;
+	[Bindable] public var returnToGameListButton:Button;
 
 	//[Bindable] public var editDialogButton:Button;
 	//[Bindable] public var editGoogleMapButton:Button;
@@ -75,6 +77,7 @@ public class GameEditorObjectPaletteView extends VBox
         addFolderButton.addEventListener(MouseEvent.CLICK, addFolderButtonOnClick);
 		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
 		editGameButton.addEventListener(MouseEvent.CLICK, editGameButtonOnClick);
+		returnToGameListButton.addEventListener(MouseEvent.CLICK, returnToGameListButtonOnClick);
 
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
@@ -130,6 +133,13 @@ public class GameEditorObjectPaletteView extends VBox
 
         trace("handlePaletteObjectDataEditFinished finished.");
     }
+	
+	
+	private function returnToGameListButtonOnClick(evt:MouseEvent):void
+	{
+		StateModel.getInstance().currentState = StateModel.VIEWCREATEOROPENGAMEWINDOW;
+	}
+	
 	
 	private function editGameButtonOnClick(evt:MouseEvent):void
 	{

@@ -2,19 +2,20 @@ package org.arisgames.editor.services
 {
 
 import mx.rpc.IResponder;
-import org.arisgames.editor.models.SecurityModel;
+
 import org.arisgames.editor.dao.AppDAO;
-import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.data.Game;
+import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
-import org.arisgames.editor.data.arisserver.Conversation;
-import org.arisgames.editor.data.arisserver.Requirement;
-import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
+import org.arisgames.editor.data.arisserver.Quest;
+import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
+import org.arisgames.editor.models.SecurityModel;
+import org.arisgames.editor.util.AppConstants;
 
 public class AppServices
 {
@@ -91,6 +92,15 @@ public class AppServices
 																game.introNodeId, game.completeNodeId);
 		}
 		r.addResponder(resp);
+	}
+
+	public function deleteGame(game:Game, resp:IResponder):void
+	{
+		trace("Appservices: deleteGame: This game has an Id (" + game.gameId + ")");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().deleteGame(game.gameId);
+		r.addResponder(resp);
+
 	}
 
 

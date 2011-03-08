@@ -12,14 +12,15 @@ import mx.controls.Button;
 import mx.controls.CheckBox;
 import mx.controls.ComboBox;
 import mx.controls.DataGrid;
+import mx.controls.LinkButton;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
+import mx.events.CloseEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
-import mx.managers.PopUpManager;
-
 
 import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
@@ -46,6 +47,7 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var deletePlayerLocationsCb:mx.controls.CheckBox;
 	
 	[Bindable] public var saveAndCloseButton:Button;
+	[Bindable] public var deleteButton:LinkButton;
 	
 	public var game:Game;
 	[Bindable] public var nodes:ArrayCollection;
@@ -64,6 +66,8 @@ public class GameDetailsEditorView extends Panel{
     private function onComplete(event:FlexEvent): void
     {
 		saveAndCloseButton.addEventListener(MouseEvent.CLICK, handleSaveAndCloseButton);
+		deleteButton.addEventListener(MouseEvent.CLICK, deleteButtonOnClickHandler);
+		
 		
 		//Load up the data from the current Game
 		gameName.text = GameModel.getInstance().game.name;
@@ -118,6 +122,21 @@ public class GameDetailsEditorView extends Panel{
 			if (n.nodeId == nodeId) cbo.selectedItem = n;
 		}
 	}
+	
+
+	private function deleteButtonOnClickHandler(evt:Event):void {
+		Alert.show("Are you sure? This cannot be undone!", "Delete Game", Alert.YES|Alert.NO, this, alertClickHandler);
+	}
+	
+	private function alertClickHandler(evt:CloseEvent):void {
+		if (evt.detail == Alert.YES) {
+			GameModel.getInstance().game.deleteOnServer();
+			StateModel.getInstance().currentState = StateModel.VIEWCREATEOROPENGAMEWINDOW;
+			PopUpManager.removePopUp(this);
+		} else {
+			//Do nothing
+		}
+	}	
 
 	private function handleSaveAndCloseButton(evt:MouseEvent):void
 	{
@@ -131,7 +150,7 @@ public class GameDetailsEditorView extends Panel{
 		var selectedNode:Node = completeNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.completeNodeId = selectedNode.nodeId;
 		
-		GameModel.getInstance().game.save();
+		GameModel.getInstance().game.saveOnServer();
 		PopUpManager.removePopUp(this);
 	}
 	

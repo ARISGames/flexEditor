@@ -34,9 +34,18 @@ public class Game
         gameObjects = new ArrayCollection();
     }
 	
-	public function save():void
+	public function saveOnServer():void
 	{
 		AppServices.getInstance().saveGame(this, new Responder(handleSave, handleFault));
+	}
+	
+	public function deleteOnServer():void
+	{
+		AppServices.getInstance().deleteGame(this, new Responder(handleDelete, handleFault));
+	}
+	
+	private function handleDelete(obj:Object):void
+	{
 	}
 	
 	private function handleSave(obj:Object):void
@@ -63,7 +72,7 @@ public class Game
 	public function handleFault(obj:Object):void
 	{
 		trace("Game: handleFault");
-		Alert.show(obj.fault.faultString, "Error Saving Game");
+		Alert.show(obj.fault.faultString, "Error Saving Changes");
 	}	
 	
 }
