@@ -22,6 +22,7 @@ import mx.events.FlexEvent;
 import mx.events.ListEvent;
 import mx.events.MenuEvent;
 import mx.managers.DragManager;
+import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 import org.arisgames.editor.components.PaletteTree;
 import org.arisgames.editor.data.arisserver.Item;
@@ -41,6 +42,8 @@ public class GameEditorObjectPaletteView extends VBox
     [Bindable] public var addObjectButton:Button;
     [Bindable] public var addFolderButton:Button;
 	[Bindable] public var editQuestsButton:Button;
+	[Bindable] public var editGameButton:Button;
+
 	//[Bindable] public var editDialogButton:Button;
 	//[Bindable] public var editGoogleMapButton:Button;
     [Bindable] public var trashIcon:Image;
@@ -71,7 +74,8 @@ public class GameEditorObjectPaletteView extends VBox
         addObjectButton.addEventListener(MouseEvent.CLICK, addObjectButtonOnClick);
         addFolderButton.addEventListener(MouseEvent.CLICK, addFolderButtonOnClick);
 		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
-		//editDialogButton.addEventListener(MouseEvent.CLICK, editDialogButtonOnClick);
+		editGameButton.addEventListener(MouseEvent.CLICK, editGameButtonOnClick);
+
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
     }
@@ -126,6 +130,20 @@ public class GameEditorObjectPaletteView extends VBox
 
         trace("handlePaletteObjectDataEditFinished finished.");
     }
+	
+	private function editGameButtonOnClick(evt:MouseEvent):void
+	{
+		var gameEditor:GameDetailsEditorMX = new GameDetailsEditorMX();
+		
+		this.parent.addChild(gameEditor);
+		// Need to validate the display so that entire component is rendered
+		gameEditor.validateNow();
+		
+		PopUpManager.addPopUp(gameEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(gameEditor);
+		gameEditor.setVisible(true);
+		gameEditor.includeInLayout = true;
+	}
 
     private function addObjectButtonOnClick(evt:MouseEvent):void
     {

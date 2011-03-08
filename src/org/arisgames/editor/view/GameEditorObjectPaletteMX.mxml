@@ -15,9 +15,11 @@
 
     <mx:Panel id="objectPalette" title="Game Objects" layout="vertical" width="100%" height="100%" paddingTop="10"
               paddingRight="10" paddingBottom="10" paddingLeft="10" horizontalAlign="center">
-        <mx:HBox id="topMenuBox" width="100%" horizontalAlign="left" paddingBottom="20" paddingLeft="0" paddingRight="0" paddingTop="0">
+        <mx:VBox id="topMenuBox" width="100%" horizontalAlign="left" paddingBottom="20" paddingLeft="0" paddingRight="0" paddingTop="0">
+			<mx:Button id="editGameButton" label="Game Settings" width="100%" height="33"/>
 			<mx:Button id="editQuestsButton" label="Quests" width="100%" height="33"/>
-        </mx:HBox>
+        </mx:VBox>
+
         <c:PaletteTree id="paletteTree" width="100%" showRoot="false" height="95%" dataProvider="{treeModel}"
                  labelField="name" render="renderTree()" dragEnabled="true" dropEnabled="true" editable="false" doubleClickEnabled="true" iconField="iconPath"/>
         <mx:HBox id="bottomMenuBox" width="100%" horizontalAlign="left" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">

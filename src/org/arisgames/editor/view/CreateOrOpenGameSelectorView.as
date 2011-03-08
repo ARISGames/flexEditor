@@ -76,7 +76,14 @@ public class CreateOrOpenGameSelectorView extends Panel
             g.gameId = obj.result.data.list.getItemAt(j).game_id;
             g.name = obj.result.data.list.getItemAt(j).name;
             g.description = obj.result.data.list.getItemAt(j).description;
-            usersGames.addItem(g);
+			g.iconMediaId = obj.result.data.list.getItemAt(j).game_icon_media_id;
+			g.pcMediaId = obj.result.data.list.getItemAt(j).pc_media_id;
+			g.introNodeId = obj.result.data.list.getItemAt(j).on_launch_node_id;
+			g.completeNodeId = obj.result.data.list.getItemAt(j).game_complete_node_id;
+			g.allowsPlayerCreatedLocations = obj.result.data.list.getItemAt(j).allow_player_created_locations;
+			g.resetDeletesPlayerCreatedLocations = obj.result.data.list.getItemAt(j).delete_player_locations_on_reset;
+
+			usersGames.addItem(g);
         }
         trace("done loading UsersGames.");
     }
@@ -84,7 +91,10 @@ public class CreateOrOpenGameSelectorView extends Panel
     private function onCreateButtonClick(evt:MouseEvent):void
     {
         trace("create button clicked!");
-        AppServices.getInstance().createGame(SecurityModel.getInstance().getUserId(), nameOfGame.text, gameDescription.text, new Responder(handleCreateGame, handleFault));
+		var g:Game = new Game();
+		g.name = nameOfGame.text;
+		g.description = gameDescription.text;
+        AppServices.getInstance().saveGame(g, new Responder(handleCreateGame, handleFault));
     }
 
     private function onLoadButtonClick(evt:MouseEvent):void
@@ -94,9 +104,7 @@ public class CreateOrOpenGameSelectorView extends Panel
         trace("Selected game to load data for has Id = " + g.gameId);
 
         // Load the game into the app's models
-        GameModel.getInstance().game.gameId = g.gameId;
-        GameModel.getInstance().game.name = g.name;
-        GameModel.getInstance().game.description = g.description;
+        GameModel.getInstance().game = g;
         GameModel.getInstance().game.placeMarks.removeAll();
         GameModel.getInstance().game.gameObjects.removeAll();
 		GameModel.getInstance().loadLocations();

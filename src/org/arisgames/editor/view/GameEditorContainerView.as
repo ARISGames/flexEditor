@@ -5,12 +5,11 @@ import mx.effects.Move;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
-import org.arisgames.editor.util.AppUtils;
-
 
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.util.AppUtils;
 
 public class GameEditorContainerView extends Canvas
 {
@@ -45,6 +44,7 @@ public class GameEditorContainerView extends Canvas
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
 		
     }
+	
 
     private function handleItemEditEventRequest(event:DynamicEvent):void
     {
@@ -168,5 +168,8 @@ public class GameEditorContainerView extends Canvas
 			isQuestsMapVis = false;
 		}
 	}
+	
+
+	
 }
 }

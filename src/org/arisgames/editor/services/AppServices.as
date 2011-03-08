@@ -2,8 +2,10 @@ package org.arisgames.editor.services
 {
 
 import mx.rpc.IResponder;
+import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.dao.AppDAO;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -67,12 +69,30 @@ public class AppServices
         r.addResponder(resp);
     }
 
-    public function createGame(userId:Number, name:String, desc:String, resp:IResponder):void
-    {
-        var r:Object;
-        r = AppDAO.getInstance().getGameServer().createGame(userId, name, desc);
-        r.addResponder(resp);
-    }
+	public function saveGame(game:Game, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(game.gameId) || game.gameId == 0)
+		{
+			trace("Appservices: saveGame: This game doesn't have a gameId, so call create Game.");
+			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
+																game.name, game.description,
+																game.pcMediaId, game.iconMediaId, 
+																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
+																game.introNodeId, game.completeNodeId);
+		}
+		else
+		{
+			trace("Appservices: saveGame: This game has an Id (" + game.gameId + "), so call update Item.");
+			r = AppDAO.getInstance().getGameServer().updateGame(game.gameId,
+																game.name, game.description,
+																game.pcMediaId, game.iconMediaId, 
+																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
+																game.introNodeId, game.completeNodeId);
+		}
+		r.addResponder(resp);
+	}
+
 
     public function loadGamesByUserId(userId:Number, resp:IResponder):void
     {
