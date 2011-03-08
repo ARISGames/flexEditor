@@ -132,12 +132,12 @@ public class AppServices
         if (isNaN(npc.npcId) || npc.npcId == 0)
         {
             trace("This NPC doesn't have an Id, so call create NPC.");
-            r = AppDAO.getInstance().getNPCServer().createNpc(gid, npc.name, npc.description, npc.greeting, npc.mediaId, npc.iconMediaId);
+            r = AppDAO.getInstance().getNPCServer().createNpc(gid, npc.name, npc.description, npc.greeting, npc.closing, npc.mediaId, npc.iconMediaId);
         }
         else
         {
             trace("This NPC has an Id (" + npc.npcId + "), so call update NPC. gameid:" + gid + " name:" + npc.name + "greeting:" + npc.greeting);
-            r = AppDAO.getInstance().getNPCServer().updateNpc(gid, npc.npcId, npc.name, npc.description, npc.greeting, npc.mediaId, npc.iconMediaId);
+            r = AppDAO.getInstance().getNPCServer().updateNpc(gid, npc.npcId, npc.name, npc.description, npc.greeting, npc.closing, npc.mediaId, npc.iconMediaId);
         }
         r.addResponder(resp);
     }

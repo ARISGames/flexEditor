@@ -41,6 +41,8 @@ public class ItemEditorCharacterView extends Panel
     [Bindable] public var theName:TextInput;
     [Bindable] public var description:TextArea;
     [Bindable] public var greeting:TextArea;
+	[Bindable] public var closing:TextArea;
+
     [Bindable] public var cancelButton:Button;
     [Bindable] public var saveButton:Button;
     [Bindable] public var hbox:HBox;
@@ -317,6 +319,7 @@ public class ItemEditorCharacterView extends Panel
         theName.text = objectPaletteItem.character.name;
         description.text = objectPaletteItem.character.description;
         greeting.text = objectPaletteItem.character.greeting;
+		closing.text = objectPaletteItem.character.closing;
     }
 
     private function isFormValid():Boolean
@@ -348,6 +351,7 @@ public class ItemEditorCharacterView extends Panel
         objectPaletteItem.character.name = theName.text;
         objectPaletteItem.character.description = description.text;
         objectPaletteItem.character.greeting = greeting.text;
+		objectPaletteItem.character.closing = closing.text;
         AppServices.getInstance().saveCharacter(GameModel.getInstance().game.gameId, objectPaletteItem.character, new Responder(handleSaveCharacter, handleFault));
 
         // Save ObjectPaletteItem

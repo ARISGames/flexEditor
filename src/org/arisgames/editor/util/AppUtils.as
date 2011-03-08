@@ -314,6 +314,7 @@ public class AppUtils
             npc.name = data.name;
             npc.description = data.description;
             npc.greeting = data.text;
+			npc.closing = data.closing;
             npc.mediaId = data.media_id;
 			npc.iconMediaId = data.icon_media_id;
 
