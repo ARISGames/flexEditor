@@ -1,18 +1,22 @@
 package org.arisgames.editor.components
 {
 import flash.events.MouseEvent;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
 
 import mx.containers.FormItem;
 import mx.containers.Panel;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.CheckBox;
+import mx.controls.Image;
 import mx.controls.NumericStepper;
 import mx.controls.TextInput;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.models.GameModel;
@@ -30,6 +34,7 @@ public class PlaceMarkerEditorView extends Panel
     // Form Components
     [Bindable] public var locLabel:TextInput;
 	[Bindable] public var qrCode:TextInput;
+	[Bindable] public var qrImage:Image;
 	[Bindable] public var quantityFI:FormItem;
     [Bindable] public var quantity:NumericStepper;
     [Bindable] public var errorRange:NumericStepper;
@@ -58,6 +63,8 @@ public class PlaceMarkerEditorView extends Panel
 
         locLabel.text = placeMark.name;
 		qrCode.text = placeMark.qrCode;
+		qrImage.addEventListener(MouseEvent.CLICK, handleQRImageClick);
+
 		
 
 		errorRange.value = placeMark.errorRange;
@@ -89,6 +96,14 @@ public class PlaceMarkerEditorView extends Panel
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
     }
 
+	private function handleQRImageClick(event:Event):void
+	{
+		trace("PlaceMarkerEditorView:handleQRImageClick");
+		var url:String = "http://qrcode.kaywa.com/img.php?s=5&d=" + qrCode.text;
+		var urlRequest:URLRequest = new URLRequest(url);
+		navigateToURL(urlRequest, "_blank");
+	}
+	
     private function handleOpenRequirementsButtonClick(evt:MouseEvent):void
     {
         trace("Starting handle Open Requirements Button click.");
