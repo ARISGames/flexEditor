@@ -24,6 +24,13 @@ import mx.events.MenuEvent;
 import mx.managers.DragManager;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
+import mx.rpc.events.ResultEvent;
+import mx.collections.Sort;
+import mx.collections.SortField;
+import flash.utils.Dictionary;
+
+
+
 import org.arisgames.editor.components.PaletteTree;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
@@ -80,9 +87,274 @@ public class GameEditorObjectPaletteView extends VBox
 		returnToGameListButton.addEventListener(MouseEvent.CLICK, returnToGameListButtonOnClick);
 
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED, handleCurrentStateChangedEvent);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
+		
+		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
+
     }
 
+	private function handleCurrentStateChangedEvent(obj:Object):void
+	{
+		trace("GameEditorObjectPalletView: handleCurrentStateChangedEvent");
+		
+		if (StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITOR){
+			trace("GameEditorObjectPalletView: handleCurrentStateChangedEvent: Refreshing");
+			this.refreshData = true;
+			AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
+		}
+	}
+	
+	private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
+	{
+		trace("Starting handleLoadFoldersAndContentForObjectPalette()...");
+		var ops:ArrayCollection = new ArrayCollection();
+		ops.removeAll();
+		var op:ObjectPaletteItemBO;
+		
+		trace("Starting to load the folders.");
+		// Load Folders
+		for (var j:Number = 0; j < obj.result.data.folders.list.length; j++)
+		{
+			op = new ObjectPaletteItemBO(true);
+			op.id = obj.result.data.folders.list.getItemAt(j).folder_id;
+			op.name = obj.result.data.folders.list.getItemAt(j).name;
+			op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
+			op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
+			ops.addItem(op);
+		}
+		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
+		
+		// Sort By Previous Folder Id From 0 to N
+		var dataSortField:SortField = new SortField();
+		dataSortField.name = "previousFolderId";
+		dataSortField.numeric = true;
+		
+		var numericDataSort:Sort = new Sort();
+		numericDataSort.fields = [dataSortField];
+		
+		ops.sort = numericDataSort;
+		ops.refresh();
+		trace("Folders sorted by Previous Folder Id");
+		
+		var dict:Dictionary = new Dictionary();
+		
+		for (j = 0; j < ops.length; j++)
+		{
+			op = ops.getItemAt(j) as ObjectPaletteItemBO;
+			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'");
+			if (op.parentFolderId == 0)
+			{
+				// It's at the root level
+				dict[op.id] = op;
+			}
+			else
+			{
+				// It's a child of a previously added object
+				var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO;
+				o.children.addItem(op);
+			}
+		}
+		trace("Folders loaded into dictionary.");
+		
+		ops.removeAll();
+		// Load Content
+		for (j = 0; j < obj.result.data.contents.list.length; j++)
+		{
+			op = new ObjectPaletteItemBO(false);
+			op.id = obj.result.data.contents.list.getItemAt(j).object_content_id;
+			op.objectId = obj.result.data.contents.list.getItemAt(j).content_id;
+			op.objectType = obj.result.data.contents.list.getItemAt(j).content_type;
+			op.name = obj.result.data.contents.list.getItemAt(j).name;
+			op.iconMediaId = obj.result.data.contents.list.getItemAt(j).icon_media_id;
+			
+			// Load Icon Media Object (if exists)
+			var m:Media;
+			
+			if (obj.result.data.contents.list.getItemAt(j).icon_media != null)
+			{
+				m = new Media();
+				m.mediaId = obj.result.data.contents.list.getItemAt(j).icon_media.media_id;
+				m.name = obj.result.data.contents.list.getItemAt(j).icon_media.name;
+				m.type = obj.result.data.contents.list.getItemAt(j).icon_media.type;
+				m.urlPath = obj.result.data.contents.list.getItemAt(j).icon_media.url_path;
+				m.fileName = obj.result.data.contents.list.getItemAt(j).icon_media.file_name;
+				m.isDefault = obj.result.data.contents.list.getItemAt(j).icon_media.is_default;
+				
+				op.iconMedia = m;
+			}
+			
+			op.mediaId = obj.result.data.contents.list.getItemAt(j).media_id;
+			// Load Media Object (if exists)
+			if (obj.result.data.contents.list.getItemAt(j).media != null)
+			{
+				m = new Media();
+				m.mediaId = obj.result.data.contents.list.getItemAt(j).media.media_id;
+				m.name = obj.result.data.contents.list.getItemAt(j).media.name;
+				m.type = obj.result.data.contents.list.getItemAt(j).media.type;
+				m.urlPath = obj.result.data.contents.list.getItemAt(j).media.url_path;
+				m.fileName = obj.result.data.contents.list.getItemAt(j).media.file_name;
+				m.isDefault = obj.result.data.contents.list.getItemAt(j).media.is_default;
+				
+				op.media = m;
+			}
+			
+			op.parentContentFolderId = obj.result.data.contents.list.getItemAt(j).folder_id;
+			op.previousContentId = obj.result.data.contents.list.getItemAt(j).previous_id;
+			ops.addItem(op);
+		}
+		trace("Content loaded, now time to sort; size = '" + ops.length + "'");
+		
+		// Sort By Previous Content Id From 0 to N
+		var dsf:SortField = new SortField();
+		dsf.name = "previousContentId";
+		dsf.numeric = true;
+		var nds:Sort = new Sort();
+		nds.fields = [dsf];
+		ops.sort = nds;
+		ops.refresh();
+		trace("Objects are sorted by Previous Content Id");
+		
+		// Create ArrayCollection to be used to generate the tree
+		var fc:ArrayCollection = new ArrayCollection();
+		for (var key:Object in dict)
+		{
+			fc.addItem(dict[key]);    
+		}
+		// Resort to get in proper order, not order of keys.
+		fc.sort = numericDataSort;
+		fc.refresh();
+		
+		// Create A New (Pure) ArrayCollection To Hold the Final data
+		var rfc:ArrayCollection = new ArrayCollection();
+		rfc.addAll(fc);
+		
+		trace("Converted Folder Dictionary Into Final ArrayCollection used for Tree rendering");
+		
+		for (j = 0; j < ops.length; j++)
+		{
+			op = ops.getItemAt(j) as ObjectPaletteItemBO;
+			trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'");
+			
+			// if previous folder id == 0, then it's root else it goes on as a child of a folder
+			if (op.parentContentFolderId == 0)
+			{
+				rfc.addItem(op);
+			}
+			else
+			{
+				var par:ObjectPaletteItemBO = dict[op.parentContentFolderId] as ObjectPaletteItemBO;
+				par.children.addItem(op);
+			}
+		}
+		trace("Finished sorting and arranging content items... should be ready to display Tree now.");        
+		
+		GameModel.getInstance().game.gameObjects.removeAll();
+		GameModel.getInstance().game.gameObjects.addAll(rfc);
+		this.loadSpecificDataIntoGameObjects();
+		trace("Done attaching underlying data to game objects.  Should be ready for GUI now.");
+		
+		treeModel = GameModel.getInstance().game.gameObjects;
+		treeModel.refresh();
+	}
+	
+	/**
+	 * Function for loading Item, Character, and Plaque data into Game Objects after they've been sorted
+	 * and loaded into the Game Model.  Has to be done this way to do serial nature of Flex.
+	 *
+	 * SHOULD ONLY BE CALLED after handleLoadFoldersAndContentForObjectPalette
+	 */
+	private function loadSpecificDataIntoGameObjects():void
+	{
+		for (var j:int = 0; j < GameModel.getInstance().game.gameObjects.length; j++)
+		{
+			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
+			this.processLoadingSpecificData(obj);
+		}
+		
+	}
+	
+	private function processLoadingSpecificData(obj:ObjectPaletteItemBO):void
+	{
+		if (!obj.isFolder())
+		{
+			if (obj.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
+			{
+				//trace("Load underlying character data...");
+				AppServices.getInstance().getCharacterById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
+			else if (obj.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
+			{
+				//trace("Load underlying item data...");
+				AppServices.getInstance().getItemById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
+			else if (obj.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
+			{
+				//trace("Load underlying page data...");
+				AppServices.getInstance().getPageById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
+		}
+		else
+		{
+			trace("Check folder for children data to load.");
+			for (var lc:int = 0; lc < obj.children.length; lc++)
+			{
+				// Need recursive function here - no telling how deep the folder structure goes
+				var co:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
+				this.processLoadingSpecificData(co);
+			}
+		}
+	}
+	
+	private function handleLoadSpecificData(retObj:ResultEvent):void
+	{
+		var item:Item = null;
+		var npc:NPC = null;
+		var node:Node = null;
+		
+		var data:Object = retObj.result.data;
+		var objType:String = "";
+		
+		if (data.hasOwnProperty("item_id"))
+		{
+			trace("retObj has an item_id!  It's value = '" + data.item_id + "'.");
+			item = AppUtils.parseResultDataIntoItem(data);
+			
+			objType = AppConstants.CONTENTTYPE_ITEM_DATABASE;
+		}
+		else if (data.hasOwnProperty("npc_id"))
+		{
+			trace("retObj has an npc_id!  It's value = '" + data.npc_id + "'.");
+			npc = AppUtils.parseResultDataIntoNPC(data);
+			
+			objType = AppConstants.CONTENTTYPE_CHARACTER_DATABASE;
+		}
+		else if (data.hasOwnProperty("node_id"))
+		{
+			trace("retObj has an node_id!  It's value = '" + data.node_id + "'.");
+			node = AppUtils.parseResultDataIntoNode(data);
+			
+			objType = AppConstants.CONTENTTYPE_PAGE_DATABASE;
+		}
+		else
+		{
+			trace("retObj data type couldn't be found, returning.");
+			return;
+		}
+		
+		trace("Time to look for it's matching Game Object.  Number Of Objects To Look Through: " + GameModel.getInstance().game.gameObjects.length);
+		
+		// Find the Game Object to attach to
+		// Need to use recursion function to get into folders for objects attached there
+		for (var j:Number = 0; j < GameModel.getInstance().game.gameObjects.length; j++)
+		{
+			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
+			//trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
+			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node);
+		}
+	}
+
+	
     private function handlePaletteObjectDataEditFinished(evt:ListEvent):void
     {
         trace("handlePaletteObjectDataEditFinished called...");
@@ -298,7 +570,6 @@ public class GameEditorObjectPaletteView extends VBox
 
     public function renderTree():void
     {
-//        trace("renderTree() called...");
         if (refreshData)
         {
             trace("refreshData is true, so going to refresh the data on the tree.");
@@ -311,7 +582,6 @@ public class GameEditorObjectPaletteView extends VBox
             // of the Tree and redraw it if necessary.
             paletteTree.validateNow();
         }
-//        trace("renderTree() done.");
     }
 
     public function trashDragEnterHandler(evt:DragEvent):void
