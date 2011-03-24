@@ -5,8 +5,10 @@ import com.google.maps.LatLng;
 import com.google.maps.MapMouseEvent;
 import com.google.maps.overlays.Marker;
 import com.google.maps.overlays.MarkerOptions;
+
 import mx.controls.Alert;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.models.GameModel;
@@ -35,6 +37,7 @@ public class PlaceMarker extends Marker
         addEventListener(MapMouseEvent.CLICK, handleMouseClickedEvent);
         addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
     }
+	
 
     public function handleMouseClickedEvent(event:MapMouseEvent):void
     {
@@ -57,6 +60,7 @@ public class PlaceMarker extends Marker
                 var iwo:InfoWindowOptions = new InfoWindowOptions();
                 var pme:PlaceMarkerEditorMX = new PlaceMarkerEditorMX();
                 pme.placeMark = placemark;
+				pme.placeMarker = this;
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
                 iwo.height = 375;

@@ -1,5 +1,8 @@
 package org.arisgames.editor.components
 {
+import com.google.maps.overlays.Marker;
+import com.google.maps.overlays.MarkerOptions;
+
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
@@ -17,6 +20,7 @@ import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 
+import org.arisgames.editor.components.PlaceMarker;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.models.GameModel;
@@ -26,10 +30,12 @@ import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.view.RequirementsEditorMX;
 
+
 public class PlaceMarkerEditorView extends Panel
 {
     // GUI
     [Bindable] public var placeMark:PlaceMark;
+	[Bindable] public var placeMarker:PlaceMarker;
 
     // Form Components
     [Bindable] public var locLabel:TextInput;
@@ -146,7 +152,9 @@ public class PlaceMarkerEditorView extends Panel
     private function handleSaveDataButtonClick(evt:MouseEvent):void
     {
         trace("Starting handleSaveDataButtonClick()");
-        var loc:Location = new Location();
+        
+		// Create a Location Object to update the server
+		var loc:Location = new Location();
         loc.locationId = placeMark.id;
         loc.latitude = placeMark.latitude;
         loc.longitude = placeMark.longitude;
@@ -166,17 +174,8 @@ public class PlaceMarkerEditorView extends Panel
         loc.hidden = hidden.selected;
         loc.forceView = autoDisplay.selected;
 		loc.quickTravel = quickTravel.selected;
-
-        // Update Place Mark Data Model
-        placeMark.name = loc.name;
-		placeMark.qrCode = loc.qrCode;
-        placeMark.quantity = loc.quantity;
-        placeMark.hidden = loc.hidden;
-        placeMark.forcedView = loc.hidden;
-		placeMark.quickTravel = loc.quickTravel;
-        placeMark.errorRange = loc.error;
-
-        AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
+		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
+		
         trace("Finished handleSaveDataButtonClick()");
     }
 
@@ -207,7 +206,23 @@ public class PlaceMarkerEditorView extends Panel
         }
         else
         {
-            trace("Update Location (Placemark) was successfull");
+            trace("Update Location (Placemark) was successfull, continue updating the model and marker");
+
+			// Update Place Mark Data Model
+			placeMark.name = locLabel.text;
+			placeMark.qrCode = qrCode.text;
+			placeMark.quantity = quantity.value;
+			placeMark.hidden = hidden.selected;
+			placeMark.forcedView = autoDisplay.selected;
+			placeMark.quickTravel = quickTravel.selected;
+			placeMark.errorRange = errorRange.value;
+			
+			//Update the Google Marker
+			var options:MarkerOptions = placeMarker.getOptions();
+			options.tooltip = locLabel.text;
+			placeMarker.setOptions(options);
+			
+			
             Alert.show("This placemark was succesfully updated.", "Successfully Updated Placemark");
         }
     }

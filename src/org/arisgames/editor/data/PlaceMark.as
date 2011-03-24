@@ -1,5 +1,6 @@
 package org.arisgames.editor.data
 {
+import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.util.AppUtils;
 
 [Bindable]
@@ -10,7 +11,7 @@ public class PlaceMark
     public var longitude:Number;
     public var contentType:Number;
     public var contentId:Number;
-    public var name:String;
+	public var name:String;
     public var description:String;
     public var quantity:Number;
     public var errorRange:Number;
@@ -19,6 +20,7 @@ public class PlaceMark
 	public var quickTravel:Boolean = false;	
 	public var qrCode:String;
 
+	public var objectPalletItemBO:ObjectPaletteItemBO;
 
     /**
      * Constructor

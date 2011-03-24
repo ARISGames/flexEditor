@@ -13,7 +13,9 @@ import com.google.maps.geom.Attitude;
 import com.google.maps.overlays.MarkerOptions;
 import com.google.maps.services.ClientGeocoder;
 import com.google.maps.services.GeocodingEvent;
+
 import flash.geom.Point;
+
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.core.DragSource;
@@ -22,6 +24,9 @@ import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.managers.DragManager;
 import mx.rpc.Responder;
+import mx.controls.Image;
+
+
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
@@ -35,7 +40,6 @@ import org.arisgames.editor.util.AppUtils;
 public class NavigationMap extends Map3D
 {
     private var markers:ArrayCollection;
-    private var mo:MarkerOptions;
 
     public function NavigationMap()
     {
@@ -46,8 +50,6 @@ public class NavigationMap extends Map3D
         addEventListener(MapEvent.MAP_READY, onMapReady);
 //        addEventListener(MapMouseEvent.DOUBLE_CLICK, processMapDoubleClick);
         markers = new ArrayCollection();
-        mo = new MarkerOptions();
-        mo.draggable = true;
         trace("In NavigationMap constructor...");
     }
 
@@ -109,7 +111,10 @@ public class NavigationMap extends Map3D
     {
         trace("adding Place Marker with lat = " + pm.latitude + " lng = " + pm.longitude + "qrCode = " + pm.qrCode);
         var latLng:LatLng = new LatLng(pm.latitude, pm.longitude);
-        var marker:PlaceMarker = new PlaceMarker(latLng, mo, pm, this);
+		var options:MarkerOptions = new MarkerOptions();
+		options.tooltip = pm.name;
+		options.draggable = true;
+        var marker:PlaceMarker = new PlaceMarker(latLng, options, pm, this);
         addOverlay(marker);
         markers.addItem(marker);
     }
@@ -178,7 +183,10 @@ public class NavigationMap extends Map3D
     {
         trace("Begin processing addPlaceMarkAsDefinedAtLatLng with lat = '" + pm.latitude + "'; lon = '" + pm.longitude + "'");
         GameModel.getInstance().addPlaceMark(pm);
-        var marker:PlaceMarker = new PlaceMarker(new LatLng(pm.latitude, pm.longitude), mo, pm, this);
+		var options:MarkerOptions = new MarkerOptions();
+		options.draggable = true;
+		options.label = pm.name;
+        var marker:PlaceMarker = new PlaceMarker(new LatLng(pm.latitude, pm.longitude), options, pm, this);
         addOverlay(marker);
         markers.addItem(marker);
         trace("done processing setMarkerToLatLng");
@@ -277,6 +285,7 @@ public class NavigationMap extends Map3D
             trace("Point X: " + evt.localX + "; Point Y: " +  evt.localY + "; Translates to LatLng = '" + ll + "'");
 
             var pm:PlaceMark = new PlaceMark();
+			pm.objectPalletItemBO = obj;
             pm.contentId = obj.objectId;
             pm.latitude = ll.lat();
             pm.longitude = ll.lng();
