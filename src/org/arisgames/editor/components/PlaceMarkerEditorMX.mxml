@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <c:PlaceMarkerEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
                          xmlns:c="org.arisgames.editor.components.*"
-                        >
+>
 
+	<mx:VBox>
     <mx:Form id="pmForm">
+        <mx:FormHeading label="Modify a Location" id="title"/>
         <mx:FormItem id="labelFI" label="Label" required="true">
             <mx:TextInput id="locLabel" width="100%"/>
         </mx:FormItem>
@@ -34,16 +36,17 @@
 		<mx:FormItem>
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>
+		<mx:FormItem>
+			<mx:LinkButton label="Permanantly Delete This Location" id = "deletePlaceMarkDataButton" color="#D50000" textAlign="left" width="100%"/>
+		</mx:FormItem>
     </mx:Form>
+	
+	<mx:HBox horizontalAlign="right" width="92%">
+		<mx:Button id="savePlaceMarkDataButton" label="Close" textAlign="center"/>
+	</mx:HBox>
+	<mx:Spacer y="20"/>
+	</mx:VBox>
 
-    <mx:VBox height="10" width="100%"/>
-    <mx:HBox horizontalAlign="right" width="100%">
-        <mx:Button id="deletePlaceMarkDataButton" label="Delete"/>
-        <mx:Spacer width="20"/>
-        <mx:Button id="savePlaceMarkDataButton" label="Save"/>
-        <mx:Spacer width="20"/>
-    </mx:HBox>
-	<mx:VBox height="10" width="100%"/>
 
 
     <mx:StringValidator source="{locLabel}" property="text" minLength="4" maxLength="150" trigger="{savePlaceMarkDataButton}" triggerEvent="click"/>

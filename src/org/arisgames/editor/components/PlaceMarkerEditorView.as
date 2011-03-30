@@ -7,6 +7,7 @@ import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
 
+import mx.containers.Canvas;
 import mx.containers.FormItem;
 import mx.containers.Panel;
 import mx.controls.Alert;
@@ -28,10 +29,11 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.view.PlaceMarkerIcon;
 import org.arisgames.editor.view.RequirementsEditorMX;
 
 
-public class PlaceMarkerEditorView extends Panel
+public class PlaceMarkerEditorView extends Canvas
 {
     // GUI
     [Bindable] public var placeMark:PlaceMark;
@@ -65,7 +67,7 @@ public class PlaceMarkerEditorView extends Panel
 
     private function initComponents(evt:FlexEvent):void
     {
-        this.title = "PlaceMark Editor (" + placeMark.getContentTypeForPublicDisplayAsString() + ")";
+        //this.title = "PlaceMark Editor (" + placeMark.getContentTypeForPublicDisplayAsString() + ")";
 
         locLabel.text = placeMark.name;
 		qrCode.text = placeMark.qrCode;
@@ -176,6 +178,7 @@ public class PlaceMarkerEditorView extends Panel
 		loc.quickTravel = quickTravel.selected;
 		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
 		
+		placeMarker.closeInfoWindow();
         trace("Finished handleSaveDataButtonClick()");
     }
 
@@ -219,11 +222,11 @@ public class PlaceMarkerEditorView extends Panel
 			
 			//Update the Google Marker
 			var options:MarkerOptions = placeMarker.getOptions();
-			options.tooltip = locLabel.text;
+			options.icon = new PlaceMarkerIcon(placeMark.name);
 			placeMarker.setOptions(options);
 			
 			
-            Alert.show("This placemark was succesfully updated.", "Successfully Updated Placemark");
+            //Alert.show("This placemark was succesfully updated.", "Successfully Updated Placemark");
         }
     }
 

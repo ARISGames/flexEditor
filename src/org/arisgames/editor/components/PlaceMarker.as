@@ -5,6 +5,9 @@ import com.google.maps.LatLng;
 import com.google.maps.MapMouseEvent;
 import com.google.maps.overlays.Marker;
 import com.google.maps.overlays.MarkerOptions;
+import com.google.maps.styles.FillStyle;
+
+import flash.geom.Point;
 
 import mx.controls.Alert;
 import mx.rpc.Responder;
@@ -16,21 +19,29 @@ import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.view.PlaceMarkerIcon;
+
 
 public class PlaceMarker extends Marker
 {
     [Bindable] public var placemark:PlaceMark;
     [Bindable] public var map:NavigationMap;
 
+
     /**
      * Constructor
      * @param latLng
      * @param mo
      */
-    public function PlaceMarker(latLng:LatLng, mo:MarkerOptions, d:PlaceMark, theMap:NavigationMap)
+    public function PlaceMarker(latLng:LatLng, pm:PlaceMark, theMap:NavigationMap)
     {
-        super(latLng, mo);
-        this.placemark = d;
+		var options:MarkerOptions = new MarkerOptions();
+		options.draggable = true;
+		var icon:PlaceMarkerIcon = new PlaceMarkerIcon(pm.name);
+		options.icon = icon;
+		
+		super(latLng, options);
+        this.placemark = pm;
         this.placemark.latitude = latLng.lat();
         this.placemark.longitude = latLng.lng();
         this.map = theMap;
@@ -63,8 +74,13 @@ public class PlaceMarker extends Marker
 				pme.placeMarker = this;
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
-                iwo.height = 375;
-                iwo.width = 385;
+				iwo.width = 330;
+				iwo.height = 330;
+				iwo.pointOffset = new Point(0,0);
+				iwo.tailHeight = 15;
+				iwo.hasCloseButton = false;
+				
+				iwo.fillStyle = new FillStyle({color: 0xFFFFFF,alpha: 0.9});
 
                 openInfoWindow(iwo);
             }

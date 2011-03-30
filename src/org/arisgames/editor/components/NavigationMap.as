@@ -14,18 +14,20 @@ import com.google.maps.overlays.MarkerOptions;
 import com.google.maps.services.ClientGeocoder;
 import com.google.maps.services.GeocodingEvent;
 
+import flash.display.Sprite;
 import flash.geom.Point;
+import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
 
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
+import mx.controls.Image;
 import mx.core.DragSource;
 import mx.core.IUIComponent;
 import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.managers.DragManager;
 import mx.rpc.Responder;
-import mx.controls.Image;
-
 
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
@@ -88,7 +90,7 @@ public class NavigationMap extends Map3D
 
     private function handlePlaceMarkModelChanges(de:DynamicEvent):void
     {
-        trace("handlePlaceMarkModelChanges fired!");
+        trace("NavigationMap: handlePlaceMarkModelChanges");
         // Remove All Current Markers
         for (var j:Number = 0; j < markers.length; j++)
         {
@@ -111,10 +113,7 @@ public class NavigationMap extends Map3D
     {
         trace("adding Place Marker with lat = " + pm.latitude + " lng = " + pm.longitude + "qrCode = " + pm.qrCode);
         var latLng:LatLng = new LatLng(pm.latitude, pm.longitude);
-		var options:MarkerOptions = new MarkerOptions();
-		options.tooltip = pm.name;
-		options.draggable = true;
-        var marker:PlaceMarker = new PlaceMarker(latLng, options, pm, this);
+        var marker:PlaceMarker = new PlaceMarker(latLng, pm, this);
         addOverlay(marker);
         markers.addItem(marker);
     }
@@ -183,15 +182,31 @@ public class NavigationMap extends Map3D
     {
         trace("Begin processing addPlaceMarkAsDefinedAtLatLng with lat = '" + pm.latitude + "'; lon = '" + pm.longitude + "'");
         GameModel.getInstance().addPlaceMark(pm);
-		var options:MarkerOptions = new MarkerOptions();
-		options.draggable = true;
-		options.label = pm.name;
-        var marker:PlaceMarker = new PlaceMarker(new LatLng(pm.latitude, pm.longitude), options, pm, this);
+		
+		//Visually update the map
+        var marker:PlaceMarker = new PlaceMarker(new LatLng(pm.latitude, pm.longitude), pm, this);
         addOverlay(marker);
         markers.addItem(marker);
         trace("done processing setMarkerToLatLng");
     }
 
+	private function createTextField(label:String, width:Number, height:Number, x:Number=5, y:Number=5):TextField
+	{
+		var labelMc:TextField=new TextField();
+		labelMc.selectable=false;
+		labelMc.border=false;
+		labelMc.embedFonts=false;
+		labelMc.mouseEnabled=false;
+		labelMc.width=width;
+		labelMc.height=height;
+		labelMc.text=label;
+		labelMc.autoSize=TextFieldAutoSize.CENTER;
+		labelMc.x=x;
+		labelMc.y=y;
+		return labelMc;
+	}	
+	
+	
     public function doFlyTo(geoText:String):void
     {
         // Instantiate a Geocoder
