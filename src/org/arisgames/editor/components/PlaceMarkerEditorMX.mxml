@@ -1,16 +1,14 @@
 <?xml version="1.0" ?>
 <c:PlaceMarkerEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
-                         xmlns:c="org.arisgames.editor.components.*"
->
+                         xmlns:c="org.arisgames.editor.components.*">
 
-	<mx:VBox>
-    <mx:Form id="pmForm">
+    <mx:Form id="pmForm" width = "350" height = "380">
         <mx:FormHeading label="Modify a Location" id="title"/>
         <mx:FormItem id="labelFI" label="Label" required="true">
-            <mx:TextInput id="locLabel" width="100%"/>
+            <mx:TextInput id="locLabel" width="192"/>
         </mx:FormItem>
         <mx:FormItem id="errorRangeFI" label="Error Range (m)" required="true">
-            <mx:NumericStepper id="errorRange" minimum="0" maximum = "9999999999" stepSize="10" width="100%"/>
+            <mx:NumericStepper id="errorRange" minimum="0" maximum = "9999999999" stepSize="10" width="193"/>
         </mx:FormItem>
 		<mx:FormItem label="QR Code" required="true">
 			<mx:HBox>
@@ -18,11 +16,11 @@
 						  source="http://qrcode.kaywa.com/img.php?s=5&amp;d={qrCode.text}" 
 						  width="25" height="25"
 						  useHandCursor="true" buttonMode="true"/>
-				<mx:TextInput id="qrCode" width="83"/>
+				<mx:TextInput id="qrCode" width="160"/>
 			</mx:HBox>
 		</mx:FormItem>
 		<mx:FormItem id="quantityFI" label="Quantity (-1 for inf)" required="true">
-				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="100%"/>
+				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="193"/>
 		</mx:FormItem>
         <mx:FormItem id="hiddenFI">
             <mx:CheckBox id="hidden" label="Hidden"/>
@@ -37,17 +35,13 @@
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>
 		<mx:FormItem>
-			<mx:LinkButton label="Permanantly Delete This Location" id = "deletePlaceMarkDataButton" color="#D50000" textAlign="left" width="100%"/>
+			<mx:LinkButton label="Delete This Location" id = "deletePlaceMarkDataButton" color="#D50000" textAlign="left" width="100%" paddingLeft="0" paddingRight="0"/>
+		</mx:FormItem>
+		<mx:Spacer height="30"/>
+		<mx:FormItem>
+			<mx:Button id="savePlaceMarkDataButton" label="Save and Close" textAlign="center"/>
 		</mx:FormItem>
     </mx:Form>
-	
-	<mx:HBox horizontalAlign="right" width="92%">
-		<mx:Button id="savePlaceMarkDataButton" label="Close" textAlign="center"/>
-	</mx:HBox>
-	<mx:Spacer y="20"/>
-	</mx:VBox>
-
-
 
     <mx:StringValidator source="{locLabel}" property="text" minLength="4" maxLength="150" trigger="{savePlaceMarkDataButton}" triggerEvent="click"/>
 

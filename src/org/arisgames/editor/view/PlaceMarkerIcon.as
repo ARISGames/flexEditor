@@ -14,7 +14,7 @@ import flash.text.TextFormat;
 
 
 public class PlaceMarkerIcon extends Sprite {
-  	[Embed('play.png')] private var TestImg:Class;
+  	//[Embed('play.png')] private var TestImg:Class;
   	public static const boxHeight:uint = 20;
  	public static const pointWidth:uint = 10;
   	public static const pointHeight:uint = 15;
