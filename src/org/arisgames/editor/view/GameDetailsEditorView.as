@@ -2,6 +2,8 @@ package org.arisgames.editor.view
 {
 import flash.events.MouseEvent;
 import flash.utils.Dictionary;
+import flash.net.navigateToURL;
+import flash.net.URLRequest;
 
 import mx.collections.ArrayCollection;
 import mx.collections.Sort;
@@ -51,7 +53,6 @@ public class GameDetailsEditorView extends Panel{
 	
 	public var game:Game;
 	[Bindable] public var nodes:ArrayCollection;
-
 
     /**
      * Constructor
@@ -138,6 +139,31 @@ public class GameDetailsEditorView extends Panel{
 		}
 	}	
 
+	
+	protected function handlePcmMapButton(event:MouseEvent):void
+	{
+		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
+			"REST_CollectedItems.php?gameId=" + GameModel.getInstance().game.gameId + "&type=map";
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
+	
+	protected function handlePcmKMLButton(event:MouseEvent):void
+	{
+		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
+			"REST_CollectedItems.php?gameId=" + GameModel.getInstance().game.gameId + "&type=kml";
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
+	
+	
+	protected function handleGameLocsKMLButton(event:MouseEvent):void
+	{
+		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
+			"REST_Locations.php?gameId=" + GameModel.getInstance().game.gameId + "&type=kml";
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
+	
+	
+	
 	private function handleSaveAndCloseButton(evt:MouseEvent):void
 	{
 		trace("GameDetailsEditorView: handleSaveAndCloseButton");
