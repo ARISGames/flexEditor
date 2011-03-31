@@ -374,16 +374,7 @@ public class RequirementsEditorView extends Panel
     {
         trace("handleOpenRequirementEditMapDynamicEvent() called...");
         this.openRequirementsEditorMapView(reqs.selectedItem as Requirement);
-/*
-        if (evt.requirement != null)
-        {
-            this.openRequirementsEditorMapView(evt.requirement);
-        }
-        else
-        {
-            trace("No Requirement object was passed in with the DynamicEvent, so not going to open the Requirements Editor Map.");
-        }
-*/
+
     }
     
     private function openRequirementsEditorMapView(r:Requirement):void
@@ -403,13 +394,10 @@ public class RequirementsEditorView extends Panel
         }
         else
         {
-            //requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
+      
+			//requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
         }
 
-/*
-        mediaPicker.setObjectPaletteItem(objectPaletteItem);
-        mediaPicker.setIsIconPicker(isIconMode);
-*/
         this.parent.addChild(requirementsEditorMap);
         // Need to validate the display so that entire component is rendered
         requirementsEditorMap.validateNow();

@@ -74,8 +74,8 @@ public class PlaceMarker extends Marker
 				pme.placeMarker = this;
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
-				iwo.width = 350;
-				iwo.height = 380;
+				iwo.width = 360;
+				iwo.height = 360;
 				iwo.pointOffset = new Point(0,0);
 				iwo.tailHeight = 15;
 				iwo.hasCloseButton = false;

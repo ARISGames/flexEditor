@@ -31,9 +31,6 @@ public class RequirementsEditorMap extends Map3D
     {
         super();
         this.key = AppConstants.APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY;
-        mo = new MarkerOptions();
-        mo.draggable = true;
-        marker = new Marker(new LatLng(39.57182223734374, -95.9765625), mo);
         addEventListener(MapEvent.MAP_PREINITIALIZE, onMapPreinitialize);
         addEventListener(MapEvent.MAP_READY, onMapReady);
     }
@@ -49,26 +46,28 @@ public class RequirementsEditorMap extends Map3D
 
     private function onMapReady(event:MapEvent):void
     {
-        trace("onMapReady is being called.");
-        var latLng:LatLng = new LatLng(39.57182223734374, -95.9765625);
-        setCenter(latLng, 4, MapType.NORMAL_MAP_TYPE);
-
-        addControl(new NavigationControl());
-        addControl(new MapTypeControl());
-
-        // Disable double click zoom as map is using double click for marker placement
-//        this.setDoubleClickMode(MapAction.ACTION_NOTHING);
-        this.enableScrollWheelZoom();
-        this.enableContinuousZoom();
-
-        // Set Default Marker Location
+        trace("onMapReady is being called.");		
+		var latLng:LatLng = new LatLng(39.57182223734374, -95.9765625);
+		
+		setCenter(latLng, 4, MapType.NORMAL_MAP_TYPE);
+		
+		addControl(new NavigationControl());
+		addControl(new MapTypeControl());
+		
+		this.enableScrollWheelZoom();
+		this.enableContinuousZoom();
+		
+		
+		// Setup a Starting Marker	
+		mo = new MarkerOptions();
+		mo.draggable = true;
+		marker = new Marker(latLng, mo);
         marker.addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
         addOverlay(marker);
         if (marker != null)
         {
             trace("marker is not null in onMapReady, so can do fly.  marker's latlon = '" + marker.getLatLng() + "'");
-//            flyTo(marker.getLatLng(), 12, new Attitude(20, 30, 0), 3);
-            setCenter(marker.getLatLng(), 12, MapType.NORMAL_MAP_TYPE);
+            setCenter(marker.getLatLng(), 4 , MapType.NORMAL_MAP_TYPE);
         }
         mapReady = true;
     }
@@ -90,8 +89,7 @@ public class RequirementsEditorMap extends Map3D
         if (mapReady)
         {
             trace("marker is not null in setMarkerLocation, so can do fly.  marker's latlon = '" + marker.getLatLng() + "'");
-//            flyTo(marker.getLatLng(), 12, new Attitude(20, 30, 0), 3);
-            setCenter(marker.getLatLng(), 12, MapType.NORMAL_MAP_TYPE);
+            setCenter(marker.getLatLng(), this.getZoom(), MapType.NORMAL_MAP_TYPE);
         }
     }
 

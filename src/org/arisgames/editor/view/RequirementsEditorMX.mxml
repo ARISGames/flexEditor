@@ -34,7 +34,7 @@
     </mx:ControlBar>
 
     <mx:ControlBar width="100%" horizontalAlign="right">
-        <mx:Button id="closeButton" label="Close"/>
+        <mx:Button id="closeButton" label="Save and Close"/>
     </mx:ControlBar>
 
 </v:RequirementsEditorView>
