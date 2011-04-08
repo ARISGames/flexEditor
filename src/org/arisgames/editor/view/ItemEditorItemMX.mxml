@@ -34,7 +34,6 @@
 
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
-        <mx:Button id="cancelButton" label="Cancel"/>
         <mx:Button id="saveButton" label="Save And Close"/>
     </mx:ControlBar>
 

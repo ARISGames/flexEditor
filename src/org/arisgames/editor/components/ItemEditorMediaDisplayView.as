@@ -3,6 +3,7 @@ package org.arisgames.editor.components
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
+
 import mx.containers.Canvas;
 import mx.containers.HBox;
 import mx.controls.Alert;
@@ -14,6 +15,8 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
+
+import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -55,25 +58,25 @@ public class ItemEditorMediaDisplayView extends HBox
 
     private function handleInit(event:FlexEvent):void
     {
-        iconAVLinkButton.addEventListener(MouseEvent.CLICK, handleIconAVButtonClick);
+        trace("ItemEditorMediaDisplayView: handleInit");
+		iconAVLinkButton.addEventListener(MouseEvent.CLICK, handleIconAVButtonClick);
         mediaAVLinkButton.addEventListener(MouseEvent.CLICK, handleMediaAVButtonClick);
         iconRemoveButton.addEventListener(MouseEvent.CLICK, handleIconRemoveButtonClick);
         mediaRemoveButton.addEventListener(MouseEvent.CLICK, handleMediaRemoveButtonClick);
         iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleIconPickerButton);
         mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleMediaPickerButton);
-        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEMEDIAPICKER, closeMediaPicker);
     }
 
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
-        trace("setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorPlaqueView");
+        trace("ItemEditorMediaDisplayView: setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorPlaqueView");
         objectPaletteItem = opi;
         this.pushDataIntoGUI();
     }
 
     private function pushDataIntoGUI():void
     {
-        trace("ItemEditorMediaDisplayView's pushDataIntoGUI called with Icon Media Id = '" + objectPaletteItem.iconMediaId + "'; Media Id = '" + objectPaletteItem.mediaId + "'; Icon Media Object = '" + objectPaletteItem.iconMedia + "'; Media Object = '" + objectPaletteItem.media + "'");
+        trace("ItemEditorMediaDisplayView: pushDataIntoGUI called with Icon Media Id = '" + objectPaletteItem.iconMediaId + "'; Media Id = '" + objectPaletteItem.mediaId + "'; Icon Media Object = '" + objectPaletteItem.iconMedia + "'; Media Object = '" + objectPaletteItem.media + "'");
 
         // Load The Icon Media
         if (objectPaletteItem.iconMedia != null && (objectPaletteItem.iconMedia.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.iconMedia.type == AppConstants.MEDIATYPE_VIDEO))
@@ -113,7 +116,7 @@ public class ItemEditorMediaDisplayView extends HBox
 
             var iconurl:String = objectPaletteItem.iconMedia.urlPath + objectPaletteItem.iconMedia.fileName;
             iconPreviewImage.source = iconurl;
-            trace("Just set icon image url = '" + iconurl + "'");
+            trace("ItemEditorMediaDisplayView: Just set icon image url = '" + iconurl + "'");
         }
         else
         {
@@ -186,15 +189,13 @@ public class ItemEditorMediaDisplayView extends HBox
 
     private function handleIconPickerButton(evt:MouseEvent):void
     {
-        trace("handleIconPickerButton() called...");
-		// WB Need to call save for rest of Editor here..?
+        trace("ItemEditorMediaDisplayView: handleIconPickerButton() called...");
         this.openMediaPicker(true);
     }
 
     private function handleMediaPickerButton(evt:MouseEvent):void
     {
-        trace("handleMediaPickerButton() called...");
-		// WB Need to call save for rest of Editor here..?
+        trace("ItemEditorMediaDisplayView: handleMediaPickerButton() called...");
         this.openMediaPicker(false);
     }
 
@@ -203,23 +204,86 @@ public class ItemEditorMediaDisplayView extends HBox
         mediaPicker = new ItemEditorMediaPickerMX();
         mediaPicker.setObjectPaletteItem(objectPaletteItem);
         mediaPicker.setIsIconPicker(isIconMode);
-        this.parent.addChild(mediaPicker);
-        // Need to validate the display so that entire component is rendered
-        (this.parent as HBox).validateNow();
+		mediaPicker.delegate = this;
 
         PopUpManager.addPopUp(mediaPicker, AppUtils.getInstance().getMainView(), true);
         PopUpManager.centerPopUp(mediaPicker);
-        mediaPicker.setVisible(true);
-        mediaPicker.includeInLayout = true;
     }
-
-    private function closeMediaPicker(evt:DynamicEvent):void
-    {
-        trace("closeMediaPicker called...");
-        PopUpManager.removePopUp(mediaPicker);
-        mediaPicker = null;
-    }
-
+	
+	public function didSelectMediaItem(picker:ItemEditorMediaPickerMX, m:Media):void
+	{
+		trace("ItemEditorMediaDisplayView: didSelectMediaItem()");
+		
+		if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.character.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set Character with ID = '" + objectPaletteItem.character.npcId + "' Icon Media Id = '" + objectPaletteItem.character.iconMediaId + "'");
+			}
+			else
+			{
+				objectPaletteItem.character.mediaId = m.mediaId;
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Character with ID = '" + objectPaletteItem.character.npcId + "' Media Id = '" + objectPaletteItem.character.mediaId + "'");
+			}
+			//AppServices.getInstance().saveCharacter(GameModel.getInstance().game.gameId, objectPaletteItem.character, new Responder(handleSaveObject, handleFault));
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.item.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Icon Media Id = '" + objectPaletteItem.item.iconMediaId + "'");
+			}
+			else
+			{
+				objectPaletteItem.item.mediaId = m.mediaId;
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
+			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.page.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set Page with ID = '" + objectPaletteItem.page.nodeId + "' Icon Media Id = '" + objectPaletteItem.page.iconMediaId + "'");
+			}
+			else
+			{
+				objectPaletteItem.page.mediaId = m.mediaId;
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Page with ID = '" + objectPaletteItem.page.nodeId + "' Media Id = '" + objectPaletteItem.page.mediaId + "'");
+			}
+			//AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObject, handleFault));
+		}
+		
+		this.pushDataIntoGUI();
+		
+	}
+	
+	private function handleSaveObject(obj:Object):void
+	{
+		trace("ItemEditorMediaDisplayView: handleSaveObject()");
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad save of selected media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Selecting Media");
+		}
+	}
+	
     private function handleIconAVButtonClick(evt:MouseEvent):void
     {
         trace("IconAVButtonClick clicked!");

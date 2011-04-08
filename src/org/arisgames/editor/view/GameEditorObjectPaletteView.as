@@ -673,50 +673,50 @@ public class GameEditorObjectPaletteView extends VBox
 
     public function handleSaveItem(obj:Object):void
     {
-        trace("In handleSaveItem() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("GameEditorObjectPalletView: In handleSaveItem() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save item attempt... let's see what happened.");
+            trace("GameEditorObjectPalletView: Bad save item attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Saving Item");
         }
         else
         {
-            trace("Save item was successful.");
+            trace("GameEditorObjectPalletView: Save item was successful.");
         }
-        trace("Finished with handleSaveItem().");
+        trace("GameEditorObjectPalletView: Finished with handleSaveItem().");
     }
 
     public function handleSaveCharacter(obj:Object):void
     {
-        trace("In handleSaveCharacter() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("GameEditorObjectPalletView: handleSaveCharacter() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save character attempt... let's see what happened.");
+            trace("GameEditorObjectPalletView: Bad save character attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Saving Character");
         }
         else
         {
-            trace("Save character was successful.");
+            trace("GameEditorObjectPalletView: Save character was successful.");
         }
-        trace("Finished with handleSaveCharacter().");
+        trace("GameEditorObjectPalletView: Finished with handleSaveCharacter().");
     }
 
     public function handleSavePage(obj:Object):void
     {
-        trace("In handleSavePage() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("GameEditorObjectPalletView: In handleSavePage() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save page attempt... let's see what happened.");
+            trace("GameEditorObjectPalletView: Bad save page attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Saving Page");
+            Alert.show("GameEditorObjectPalletView: Error Was: " + msg, "Error While Saving Page");
         }
         else
         {
-            trace("Save page was successful.");
+            trace("GameEditorObjectPalletView: Save page was successful.");
         }
-        trace("Finished with handleSavePage().");
+        trace("GameEditorObjectPalletView: Finished with handleSavePage().");
     }
 
     public function handleCreateItem(obj:Object):void

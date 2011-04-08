@@ -12,6 +12,7 @@ import flash.net.FileReferenceList;
 import flash.net.URLRequest;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
+
 import mx.collections.ArrayCollection;
 import mx.containers.Form;
 import mx.containers.FormItem;
@@ -25,8 +26,9 @@ import mx.controls.TextInput;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
-import mx.rpc.Responder;
 import mx.managers.PopUpManager;
+import mx.rpc.Responder;
+
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
@@ -38,6 +40,8 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
                     [ {label:"False", data:0},
                       {label:"True", data:1} ]);
 
+	public var delegate:Object;
+	
     public var validVideoExtensions:Array;
     public var validAudioExtensions:Array;
     public var validImageAndIconExtensions:Array;

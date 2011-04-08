@@ -71,13 +71,12 @@ public class QuestsMapQuestEditorView extends Panel
 
     private function pushDataIntoGUI():void
     {
-        trace("pushDataIntoGUI called.");
 		// Set data in GUI to values from QuestBO
     }
 
     private function isFormValid():Boolean
     {
-        trace("isFormValid has been called...");        
+        trace("ItemEditorItemView: isFormValid has been called...");        
         return (Validator.validateAll([v1, v2, v3]).length == 0)
     }
 
@@ -91,11 +90,11 @@ public class QuestsMapQuestEditorView extends Panel
 
     private function handleSaveButton(evt:MouseEvent):void
     {
-        trace("Save button clicked...");
+        trace("ItemEditorItemView: Save button clicked...");
 
         if (!isFormValid())
         {
-            trace("Form is not valid, stop save processing.");
+            trace("ItemEditorItemView: Form is not valid, stop save processing.");
             return;
         }
         

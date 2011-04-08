@@ -55,7 +55,6 @@ public class ItemEditorCharacterView extends Panel
 	//Requirements
 	private var requirementsEditor:RequirementsEditorMX;
 
-	
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
     [Bindable] public var v3:Validator;
@@ -72,12 +71,8 @@ public class ItemEditorCharacterView extends Panel
     private function handleInit(event:FlexEvent):void
     {
         trace("in ItemEditorCharacterView's handleInit");
-        cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
+        //cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
-		
-		// WB Bugfix for MediaPickers losing saved information
-		mediaDisplay.iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
-		mediaDisplay.mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		
 		//Conversations
 		conversations = new ArrayCollection();
@@ -86,9 +81,6 @@ public class ItemEditorCharacterView extends Panel
 		addConversationButton.addEventListener(MouseEvent.CLICK, handleAddConversationButton);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM, handleRefreshConversationData);
-		
-		
-		
     }
 
 	public function handleConversationInventoryButton(evt:MouseEvent):void
@@ -175,10 +167,6 @@ public class ItemEditorCharacterView extends Panel
 		playerStateChangesEditor.includeInLayout = true;
 		
 	}
-	
-	
-	
-	
 	
 	private function closeRequirementsEditor(evt:DynamicEvent):void
 	{
@@ -331,19 +319,18 @@ public class ItemEditorCharacterView extends Panel
 
     private function handleCancelButton(evt:MouseEvent):void
     {
-        trace("Cancel button clicked...");
-        // This will close editor (as the item is the same that is currently being edited)
+        trace("ItemEditorCharacterView: Cancel button clicked...");
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
     }
 
     private function handleSaveButton(evt:MouseEvent):void
     {
-        trace("Save button clicked...");
+        trace("ItemEditorCharacterView: Save button clicked...");
 
         if (!isFormValid())
         {
-            trace("Form is not valid, stop save processing.");
+            trace("ItemEditorCharacterView: Form is not valid, stop save processing.");
             return;
         }
         
@@ -356,44 +343,46 @@ public class ItemEditorCharacterView extends Panel
 
         // Save ObjectPaletteItem
         objectPaletteItem.name = objectPaletteItem.character.name;
-        AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, objectPaletteItem, new Responder(handleSaveContent, handleFault))
+        AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, objectPaletteItem, new Responder(handleSaveContent, handleFault));
+		
+		// Close down the panel
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);
     }
 
     private function handleSaveCharacter(obj:Object):void
     {
-        trace("In handleSaveCharacter() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("ItemEditorCharacterView: In handleSaveCharacter() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save character attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("ItemEditorCharacterView: Bad save character attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Saving Character");
+            Alert.show("ItemEditorCharacterView: Error Was: " + msg, "Error While Saving Character");
         }
         else
         {
-            trace("Save character was successful, wait on saveContent now to close the editor and update the object palette.");
+            trace("ItemEditorCharacterView: Save character was successfull.");
         }
-        trace("Finished with handleSaveCharacter().");
+        trace("ItemEditorCharacterView: Finished with handleSaveCharacter().");
     }
 
     private function handleSaveContent(obj:Object):void
     {
-        trace("In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("ItemEditorCharacterView: In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save character content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("ItemEditorCharacterView: Bad save character content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Saving Character");
+            Alert.show("ItemEditorCharacterView: Error Was: " + msg, "Error While Saving Character");
         }
         else
         {
-            trace("Save character content was successful, now close the editor and update the object palette.");
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
-            AppDynamicEventManager.getInstance().dispatchEvent(de);
+            trace("ItemEditorCharacterView: Save character content was successful.");
 
             var uop:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
             AppDynamicEventManager.getInstance().dispatchEvent(uop);
         }
-        trace("Finished with handleSaveContent().");
+        trace("ItemEditorCharacterView: Finished with handleSaveContent().");
     }
 
     public function handleFault(obj:Object):void

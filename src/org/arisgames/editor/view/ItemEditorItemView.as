@@ -50,8 +50,8 @@ public class ItemEditorItemView extends Panel
 
     private function handleInit(event:FlexEvent):void
     {
-        trace("in ItemEditorFolderView's handleInit");
-        cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
+        trace("ItemEditorItemView: handleInit");
+        //cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		// WB Bugfix for MediaPickers losing saved information
 		mediaDisplay.iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
@@ -65,7 +65,7 @@ public class ItemEditorItemView extends Panel
 
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
-        trace("setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorItemView");
+        trace("ItemEditorItemView: Setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorItemView");
         objectPaletteItem = opi;
         mediaDisplay.setObjectPaletteItem(opi);
         this.pushDataIntoGUI();
@@ -73,7 +73,6 @@ public class ItemEditorItemView extends Panel
 
     private function pushDataIntoGUI():void
     {
-        trace("pushDataIntoGUI called.");
         theName.text = objectPaletteItem.item.name;
         description.text = objectPaletteItem.item.description;
         dropable.selected = objectPaletteItem.item.dropable;
@@ -83,26 +82,23 @@ public class ItemEditorItemView extends Panel
 
     private function isFormValid():Boolean
     {
-        trace("isFormValid has been called...");
-
         return (Validator.validateAll([v1, v2]).length == 0)
     }
 
     private function handleCancelButton(evt:MouseEvent):void
     {
-        trace("Cancel button clicked...");
-        // This will close editor (as the item is the same that is currently being edited)
+        trace("ItemEditorItemView: Cancel button clicked...");
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
     }
 
     private function handleSaveButton(evt:MouseEvent):void
     {
-        trace("Save button clicked...");
+        trace("ItemEditorItemView: Save button clicked...");
 
         if (!isFormValid())
         {
-            trace("Form is not valid, stop save processing.");
+            trace("ItemEditorItemView: Form is not valid, stop save processing.");
             return;
         }
 
@@ -117,43 +113,46 @@ public class ItemEditorItemView extends Panel
         // Save ObjectPaletteItem
         objectPaletteItem.name = objectPaletteItem.item.name;
         AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, objectPaletteItem, new Responder(handleSaveContent, handleFault))
-    }
+    
+		// Close down the panel
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);
+	
+	}
 
     private function handleSaveItem(obj:Object):void
     {
-        trace("In handleSaveItem() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("ItemEditorItemView: In handleSaveItem() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save item attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("ItemEditorItemView: Bad save item attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Saving Item");
         }
         else
         {
-            trace("Save item was successful, wait on saveContent now to close the editor and update the object palette.");
+            trace("ItemEditorItemView:  Save item was successful, wait on saveContent now to close the editor and update the object palette.");
         }
-        trace("Finished with handleSaveItem().");
+        trace("ItemEditorItemView: Finished with handleSaveItem().");
     }
 
     private function handleSaveContent(obj:Object):void
     {
-        trace("In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
+        trace("ItemEditorItemView: In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad save item content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("ItemEditorItemView: Bad save item content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Saving Item");
         }
         else
         {
-            trace("Save item content was successful, now close the editor and update the object palette.");
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
-            AppDynamicEventManager.getInstance().dispatchEvent(de);
+            trace("ItemEditorItemView: Save item content was successful, now update the object palette.");
 
             var uop:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
             AppDynamicEventManager.getInstance().dispatchEvent(uop);
         }
-        trace("Finished with handleSaveContent().");
+        trace("ItemEditorItemView: Finished with handleSaveContent().");
     }
 
     public function handleFault(obj:Object):void
