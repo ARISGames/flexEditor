@@ -7,7 +7,8 @@
                  paddingRight="10"
                  paddingBottom="10"
                  >
-
+	
+	
         <mx:Form id="loginForm" width="100%" height="100%" defaultButton="{loginButton}">
             <mx:FormItem label="Username" required="true">
                 <mx:TextInput id="username" width="200"/>
@@ -21,8 +22,22 @@
             <mx:FormItem id="email" label="Email:" required="true" visible="false" includeInLayout="false">
                 <mx:TextInput id="emailAddress" width="200"/>
             </mx:FormItem>
+			<!-- Instructions for setting up correct staging server on iOS -Phil -->
+			<mx:Script>
+				<![CDATA[
+					[Bindable]
+					public var instruct:String = "Note:\nTo be able to use the games created with this editor, \n"+
+						"you must first change the server settings on your iOS device \n"+
+						"(Settings->ARIS->ServerURL) to: \n";
+					[Bindable]
+					public var stagingURL:String = AppConstants.APPLICATION_ENVIRONMENT_STAGING_URL;
+				]]>
+			</mx:Script>
+			<mx:Text text="{instruct}" id="Instructions" fontWeight="bold"/>
+			<mx:Text text="{stagingURL}" id="StagingURL" fontWeight="bold"  color="#910000"/>	
+			<!-- End Instructions -->
         </mx:Form>
-
+	
         <mx:ControlBar id="loginControlBar">
             <mx:LinkButton  id="registerLink" label="Need To Register?"/>
             <mx:Spacer width="5" id="spacer1"/>
