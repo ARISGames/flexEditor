@@ -2,15 +2,16 @@ package org.arisgames.editor.util
 {
 public class AppConstants
 {
-	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = "http://www.arisgames.org/stagingserver1/services/aris/"; //staging
+	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = "http://davembp.local/server/services/aris/"; //staging
+	//public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = "http://www.arisgames.org/stagingserver1/services/aris/"; //staging
 	
-	//public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://davembp.local/server/services/aris/uploadhandler.php"; //davembp
+	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://davembp.local/server/services/aris/uploadhandler.php"; //davembp
 	//public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server/services/aris/uploadhandler.php";	//dev
-  	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://www.arisgames.org/stagingserver1/services/aris/uploadHandler.php"; //staging
+  	//public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://www.arisgames.org/stagingserver1/services/aris/uploadHandler.php"; //staging
 	
-	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
+	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //dev
-  	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //staging
+  	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //staging
 
     // Dynamic Events
     public static const APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED:String = "ApplicationDynamicEventCurrentStateChanged";

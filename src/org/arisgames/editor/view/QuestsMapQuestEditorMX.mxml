@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<v:ItemEditorCharacterView xmlns:mx="http://www.adobe.com/2006/mxml"
+<v:ObjectEditorCharacterView xmlns:mx="http://www.adobe.com/2006/mxml"
                                   xmlns:main="org.arisgames.editor.*"
                                   xmlns:v="org.arisgames.editor.view.*"
                                   xmlns:c="org.arisgames.editor.components.*"
@@ -37,4 +37,4 @@
     <mx:StringValidator id="v2" source="{activeDesc}" property="text" minLength="1" maxLength="255" required="false"/>
     <mx:StringValidator id="v3" source="{completedDesc}" property="text" minLength="1" maxLength="255" required="true"/>
 
-</v:ItemEditorCharacterView>
+</v:ObjectEditorCharacterView>

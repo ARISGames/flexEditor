@@ -33,6 +33,8 @@ import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.data.arisserver.Media;
+
 
 public class ItemEditorMediaPickerUploadFormView extends Panel
 {
@@ -91,15 +93,9 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
     }
 
     private function handleCancelButton(evt:MouseEvent):void
-    {
-        trace("Cancel button clicked...");
-        // This will close editor (as the item is the same that is currently being edited)
-        var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
-        AppDynamicEventManager.getInstance().dispatchEvent(de);
-		
+    {		
 		trace("itemEditorMediaPickerUploader: handleCancelButton called...");
 		PopUpManager.removePopUp(this);		
-
     }
 
     private function handleFindFileButton(evt:MouseEvent):void
@@ -185,7 +181,6 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
                 trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
                 fileName.text = fileChooser.fileList[k].name;
                 fileChosen = fileChooser.fileList[k];
-//                _arrUploadFiles.push({label:_refAddFiles.fileList[k].name, data:_refAddFiles.fileList[k]});
             }
         }
 
@@ -321,13 +316,6 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
         progressBar.setProgress(numPerc, 100);
         progressBar.label = numPerc + "% Uploaded";
         progressBar.validateNow();
-/*
-        if (numPerc > 90) {
-            _winProgress.btnCancel.enabled = false;
-        } else {
-            _winProgress.btnCancel.enabled = true;
-        }
-*/
     }
 
     // Called on upload complete
@@ -352,24 +340,31 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 
     private function handleUploadAndSaveFileSuccess(obj:Object):void
     {
-        trace("handleUploadAndSaveFileSuccess() called...");
+        trace("ItemEditorMediaPickerUploadFormView: handleUploadAndSaveFileSuccess()");
         if (obj.result.returnCode != 0)
         {
-            trace("Bad saving of uploaded media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+            trace("ItemEditorMediaPickerUploadFormView: Bad saving of uploaded media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Saving Uploaded Media");
         }
         else
         {
-            Alert.show("File has been uploaded.", "Upload Successful");
-            // Setup GUI to non - upload mode
-            this.changeViewModeToUploadView(false);
-
-			//TODO: Save the new uploaded file as the media
+			trace("ItemEditorMediaPickerUploadFormView: Upload was legit, call the delegate with the new media");			
 			
+			var m:Media = new Media();
 			
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEMEDIAUPLOADER);
-            AppDynamicEventManager.getInstance().dispatchEvent(de);
+			m.mediaId = obj.result.data.media_id;
+			m.name = obj.result.data.name;
+			m.type = obj.result.data.type;
+			m.urlPath = obj.result.data.url_path;
+			m.fileName = obj.result.data.file_name;
+			m.isDefault = obj.result.data.is_default;
+						
+			if (delegate.hasOwnProperty("didUploadMedia")){
+				delegate.didUploadMedia(this, m);
+			}	
+			
+			PopUpManager.removePopUp(this);
         }
     }
 

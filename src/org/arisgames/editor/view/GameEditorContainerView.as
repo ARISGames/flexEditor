@@ -13,7 +13,7 @@ import org.arisgames.editor.util.AppUtils;
 
 public class GameEditorContainerView extends Canvas
 {
-    [Bindable] public var gameEditorObjectEditor:GameEditorObjectEditorView;
+    [Bindable] public var gameEditorObjectEditor:ObjectEditorView;
 	//[Bindable] public var questsMap:QuestsMapView; 
 	[Bindable] public var questsEditor:QuestsEditorView;
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"

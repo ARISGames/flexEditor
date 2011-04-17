@@ -19,7 +19,6 @@ import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
-import org.arisgames.editor.view.ItemEditorMediaPickerMX;
 
 public class ItemEditorMediaPickerCustomEditorView extends VBox
 {

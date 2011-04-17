@@ -23,7 +23,6 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
-import org.arisgames.editor.view.ItemEditorMediaPickerMX;
 
 public class ItemEditorMediaDisplayView extends HBox
 {
