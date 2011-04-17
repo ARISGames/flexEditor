@@ -30,7 +30,7 @@
 						"To be able to use the games created with this editor,<br />"+
 						"you must first change the server settings on your iOS<br />"+
 						"device (Settings->ARIS->ServerURL) to: <br />"+
-						"<i><font color=\"#910000\">"+AppConstants.APPLICATION_ENVIRONMENT_STAGING_URL+"</font></i>";
+						"<i><font color=\"#910000\">"+AppConstants.APPLICATION_ENVIRONMENT_ROOT_URL+"</font></i>";
 				]]>
 			</mx:Script>
 			<mx:Text htmlText="{instruct}" id="Instructions" />	
