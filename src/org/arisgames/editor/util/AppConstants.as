@@ -2,8 +2,12 @@ package org.arisgames.editor.util
 {
 public class AppConstants
 {
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/"; //For other URL's to append to
+	public static const APPLICATION_ENVIRONMENT_STAGING_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"stagingserver1"; //server to be set on iOS device
+	
 	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = "http://davembp.local/server/services/aris/"; //staging
 	//public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = "http://www.arisgames.org/stagingserver1/services/aris/"; //staging
+	
 	
 	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://davembp.local/server/services/aris/uploadhandler.php"; //davembp
 	//public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server/services/aris/uploadhandler.php";	//dev
