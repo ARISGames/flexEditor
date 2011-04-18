@@ -145,25 +145,23 @@ public class ItemEditorMediaPickerView extends Panel
 		}
 		else {
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_IMAGE + '"/>');
-			xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_AUDIO + '"/>');
-			xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_VIDEO + '"/>');
-			xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
 		}
+		
 		this.printXMLData();
 		
 		var media:Array = obj.result.data as Array;
         trace("Number of Media Objects returned from server = '" + media.length + "'");
 
-		for (var k:Number = 0; k <= 1; k++)
+		//Puts media items in xml readable format
+		for (var k:Number = 0; k <= 1; k++) //Iterates over list twice; once for uploaded items, again for default
 		{
 			for (var j:Number = 0; j < media.length; j++)
 			{
 				var o:Object = media[j];
 
 				if((k==0 && !o.is_default) || (k==1 && o.is_default)){
-					trace(k);
 					var m:Media = new Media();
 					
 					m.mediaId = o.media_id;
@@ -195,6 +193,13 @@ public class ItemEditorMediaPickerView extends Panel
 					}
 				}
 			}
+			//Add "Upload new" in between uploaded and default pictures
+			if(k==0){
+				xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+				xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+				xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+			}
+			
 		}
         trace("ItemEditorMediaPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
         this.printXMLData();
