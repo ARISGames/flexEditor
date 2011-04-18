@@ -22,19 +22,7 @@
             <mx:FormItem id="email" label="Email:" required="true" visible="false" includeInLayout="false">
                 <mx:TextInput id="emailAddress" width="200"/>
             </mx:FormItem>
-			<!-- Instructions for setting up correct staging server on iOS -Phil -->
-			<mx:Script>
-				<![CDATA[
-					[Bindable]
-					public var instruct:String = "<b>Note:</b><br />"+
-						"To be able to use the games created with this editor,<br />"+
-						"you must first change the server settings on your iOS<br />"+
-						"device (Settings->ARIS->ServerURL) to: <br />"+
-						"<i><font color=\"#910000\">"+AppConstants.APPLICATION_ENVIRONMENT_ROOT_URL+"</font></i>";
-				]]>
-			</mx:Script>
-			<mx:Text htmlText="{instruct}" id="Instructions" />	
-			<!-- End Instructions -->
+			<mx:Text htmlText="{instructions}" id="Instructions" />	
         </mx:Form>
 	
         <mx:ControlBar id="loginControlBar">

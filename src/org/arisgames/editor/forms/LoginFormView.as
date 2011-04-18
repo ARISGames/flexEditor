@@ -32,6 +32,12 @@ public class LoginFormView extends Panel
     [Bindable] public var loginButton:Button;
 
     [Bindable] public var loginServer:RemoteObject;
+	
+	[Bindable] public var instructions:String = "<b>Note:</b><br />"+
+		"To be able to use the games created with this editor,<br />"+
+		"you must first change the server settings on your iOS<br />"+
+		"device (Settings->ARIS->ServerURL) to: <br />"+
+		"<i><font color=\"#910000\">"+AppConstants.APPLICATION_ENVIRONMENT_ROOT_URL+"</font></i>";
 
     public function LoginFormView()
     {
