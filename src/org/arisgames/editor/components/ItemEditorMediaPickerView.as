@@ -29,7 +29,7 @@ public class ItemEditorMediaPickerView extends Panel
 	public var delegate:Object;
     private var objectPaletteItem:ObjectPaletteItemBO;
     private var isIconPicker:Boolean = false;
-	private var uploadFormVisable = false;
+	private var uploadFormVisable:Boolean = false;
 
     // Media Data
     [Bindable] public var xmlData:XML;
@@ -156,41 +156,47 @@ public class ItemEditorMediaPickerView extends Panel
 		var media:Array = obj.result.data as Array;
         trace("Number of Media Objects returned from server = '" + media.length + "'");
 
-        for (var j:Number = 0; j < media.length; j++)
-        {
-            var o:Object = media[j];
-            var m:Media = new Media();
+		for (var k:Number = 0; k <= 1; k++)
+		{
+			for (var j:Number = 0; j < media.length; j++)
+			{
+				var o:Object = media[j];
 
-            m.mediaId = o.media_id;
-            m.name = o.name;
-            m.type = o.type;
-            m.urlPath = o.url_path;
-            m.fileName = o.file_name;
-            m.isDefault = o.is_default; //for both default files and uploaded files
-
-            var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";
-
-            switch (m.type)
-            {
-                case AppConstants.MEDIATYPE_IMAGE:
-					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
-                    break;
-                case AppConstants.MEDIATYPE_AUDIO:
-					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
-                    break;
-                case AppConstants.MEDIATYPE_VIDEO:
-					if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
-                    break;
-                case AppConstants.MEDIATYPE_ICON:
-					if (this.isIconPicker) xmlData.appendChild(node);
-                    break;
-                default:
-                    trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
-                    break;
-            }
-
-        }
-        trace("Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
+				if((k==0 && !o.is_default) || (k==1 && o.is_default)){
+					trace(k);
+					var m:Media = new Media();
+					
+					m.mediaId = o.media_id;
+					m.name = o.name;
+					m.type = o.type;
+					m.urlPath = o.url_path;
+					m.fileName = o.file_name;
+					m.isDefault = o.is_default; //for both default files and uploaded files
+					
+					var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";
+					
+					switch (m.type)
+					{
+						case AppConstants.MEDIATYPE_IMAGE:
+							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+							break;
+						case AppConstants.MEDIATYPE_AUDIO:
+							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
+							break;
+						case AppConstants.MEDIATYPE_VIDEO:
+							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
+							break;
+						case AppConstants.MEDIATYPE_ICON:
+							if (this.isIconPicker) xmlData.appendChild(node);
+							break;
+						default:
+							trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
+							break;
+					}
+				}
+			}
+		}
+        trace("ItemEditorMediaPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
         this.printXMLData();
    
         trace("Finished with handleLoadingOfMediaIntoXML().");
