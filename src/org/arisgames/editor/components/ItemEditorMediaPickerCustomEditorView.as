@@ -89,17 +89,23 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
             if (data.@type && data.@type.toString() == AppConstants.MEDIATYPE_AUDIO)
             {
                 avLinkButton.label = "Listen To Audio";
+				avLinkButton.visible = true;
+				avLinkButton.includeInLayout = true;
             }
-            else
+            else if(data.@type && data.@type.toString() == AppConstants.MEDIATYPE_VIDEO)
             {
                 avLinkButton.label = "View Video";
+				avLinkButton.visible = true;
+				avLinkButton.includeInLayout = true;
             }
-            avLinkButton.visible = true;
-            avLinkButton.includeInLayout = true;
+			else{
+				//Do nothing
+				trace("Separator Selected, do nothing");
+			}
+            
         }
 
         mediaName.text = data.@label;
-
         if (data.@isDefault && data.@isDefault == false)
         {
             trace("Data is not default so show Save & Delete Button.");
@@ -110,6 +116,7 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
             deleteButton.includeInLayout = true;
         }
 		else if(data.@isDefault){
+			trace("Data is default, so disable Save & Delete Button.");
 			mediaName.editable = mediaName.editable = true;
 			saveButton.visible = false;
 			saveButton.includeInLayout = false;

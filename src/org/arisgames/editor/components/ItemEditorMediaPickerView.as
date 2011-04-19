@@ -33,6 +33,8 @@ public class ItemEditorMediaPickerView extends Panel
 
     // Media Data
     [Bindable] public var xmlData:XML;
+	// Media Data Options
+	[Bindable] public var showDetails:Boolean;
 
     // GUI
     [Bindable] public var treeBrowser:TreeBrowser;
@@ -137,7 +139,7 @@ public class ItemEditorMediaPickerView extends Panel
         }
 
         //Init the XML Data
-
+		showDetails = false; 
 		xmlData = new XML('<nodes label="' + AppConstants.MEDIATYPE + '"/>');
 		
 		if (this.isIconPicker) {
@@ -254,9 +256,11 @@ public class ItemEditorMediaPickerView extends Panel
 				//Do Nothing
 				trace("Separator Selected");
 				selectButton.enabled = false;
+				showDetails = false;
 			}
             else
             {
+				showDetails = true;
                 trace("ItemEditorMediaPickerView: onNodeSelected is a media item");
 				selectButton.enabled = true;
             }
