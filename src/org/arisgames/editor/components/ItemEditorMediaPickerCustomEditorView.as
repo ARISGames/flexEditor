@@ -109,6 +109,13 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
             deleteButton.visible = true;
             deleteButton.includeInLayout = true;
         }
+		else if(data.@isDefault){
+			mediaName.editable = mediaName.editable = true;
+			saveButton.visible = false;
+			saveButton.includeInLayout = false;
+			deleteButton.visible = false;
+			deleteButton.includeInLayout = false;
+		}
     }
 
     override protected function commitProperties():void

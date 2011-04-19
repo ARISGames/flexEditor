@@ -155,6 +155,9 @@ public class ItemEditorMediaPickerView extends Panel
         trace("Number of Media Objects returned from server = '" + media.length + "'");
 
 		//Puts media items in xml readable format
+		var numImageDefaults:Number = 0;
+		var numAudioDefaults:Number = 0;
+		var numVideoDefaults:Number = 0;
 		for (var k:Number = 0; k <= 1; k++) //Iterates over list twice; once for uploaded items, again for default
 		{
 			for (var j:Number = 0; j < media.length; j++)
@@ -176,16 +179,33 @@ public class ItemEditorMediaPickerView extends Panel
 					switch (m.type)
 					{
 						case AppConstants.MEDIATYPE_IMAGE:
-							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+							if (!this.isIconPicker) {
+								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+								if(k > numImageDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '"/>');
+								xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+								numImageDefaults+=k;
+							}
 							break;
 						case AppConstants.MEDIATYPE_AUDIO:
-							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
+							if (!this.isIconPicker) {
+								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+								if(k > numAudioDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '"/>');
+								xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
+								numAudioDefaults+=k;
+							}
 							break;
 						case AppConstants.MEDIATYPE_VIDEO:
-							if (!this.isIconPicker) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
+							if (!this.isIconPicker) {
+								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+								if(k > numVideoDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '"/>');
+								xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
+								numVideoDefaults+=k;
+							}
 							break;
 						case AppConstants.MEDIATYPE_ICON:
-							if (this.isIconPicker) xmlData.appendChild(node);
+							if (this.isIconPicker) {
+								xmlData.appendChild(node);
+							}
 							break;
 						default:
 							trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
@@ -193,8 +213,9 @@ public class ItemEditorMediaPickerView extends Panel
 					}
 				}
 			}
+
 			//Add "Upload new" in between uploaded and default pictures
-			if(k==0){
+			if(k==0 && !this.isIconPicker){
 				xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
 				xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
 				xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
@@ -229,6 +250,11 @@ public class ItemEditorMediaPickerView extends Panel
 				else trace("ItemEditorMediaPickerView: ignored second TreeBrowserEvent == MEDIATYPE_UPLOADNEW");
 
             }
+			else if(event.item.@label == AppConstants.MEDIATYPE_SEPARATOR){
+				//Do Nothing
+				trace("Separator Selected");
+				selectButton.enabled = false;
+			}
             else
             {
                 trace("ItemEditorMediaPickerView: onNodeSelected is a media item");
