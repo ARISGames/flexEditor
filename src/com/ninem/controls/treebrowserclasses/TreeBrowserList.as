@@ -144,7 +144,9 @@ package com.ninem.controls.treebrowserclasses
 	                }
 	            }
 	        }
-	
+			
+			icon = null;
+			/*
 	        //set default leaf icon if nothing else was found
 	        if (icon == null){
 	            icon = getStyle("defaultLeafIcon");
@@ -167,7 +169,8 @@ package com.ninem.controls.treebrowserclasses
 	        {
 	            return Class(icon);
 	        }
-	
+			*/
+			return Class(icon);
 		}
 		
 	}
