@@ -38,6 +38,7 @@ import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 
+
 // Handles most of the interfacing with the Google Map APIs
 public class NavigationMap extends Map3D
 {
@@ -46,6 +47,7 @@ public class NavigationMap extends Map3D
     public function NavigationMap()
     {
         super();
+
         this.key = AppConstants.APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY;
 		this.sensor = "false";
         addEventListener(MapEvent.MAP_PREINITIALIZE, onMapPreinitialize);
@@ -264,12 +266,13 @@ public class NavigationMap extends Map3D
 
         var obj:ObjectPaletteItemBO = itemsArray[0] as ObjectPaletteItemBO;
         trace("Got data object");
-
+		
         if (!obj.isFolder())
         {
             trace("Data Object is not a Folder so allow the drop.");
             var dropTarget:IUIComponent = evt.currentTarget as IUIComponent;
             DragManager.acceptDragDrop(dropTarget);
+			trace("DropManager ACCEPTED DROP (in NavMap)");
         }
         else
         {
@@ -277,7 +280,7 @@ public class NavigationMap extends Map3D
         }
         trace("paletteObjectDragEnterHandler finished.");
     }
-
+	
     public function paletteObjectDragExitHandler(evt:DragEvent):void
     {
         trace("paletteObjectDragExitHandler() called!");
@@ -285,7 +288,7 @@ public class NavigationMap extends Map3D
 
     public function paletteObjectDropHandler(evt:DragEvent):void
     {
-        trace("paletteObjectDragDropHandler called!  New data tree looks like...");
+        trace("paletteObjectDropHandler called!  New data tree looks like...");
 
         var ds:DragSource = evt.dragSource;
 

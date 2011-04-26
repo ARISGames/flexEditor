@@ -43,7 +43,7 @@ public class ItemEditorMediaDisplayView extends HBox
     [Bindable] public var mediaRemoveButton:Button;
     [Bindable] public var mediaNoMediaLabel:Label;
     [Bindable] public var mediaPopupMediaPickerButton:Button;
-
+	
     private var mediaPicker:ItemEditorMediaPickerMX;
 
     /**

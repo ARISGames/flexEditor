@@ -64,8 +64,12 @@ public class AppConstants
     public static const MEDIATYPE_AUDIO:String = "Audio";
     public static const MEDIATYPE_VIDEO:String = "Video";
     public static const MEDIATYPE_ICON:String = "Icon";
-	public static const MEDIATYPE_SEPARATOR:String = "----------";
-    public static const MEDIATYPE_UPLOADNEW:String = "Upload New";
+	public static const MEDIATYPE_SEPARATOR:String = " ";
+    public static const MEDIATYPE_UPLOADNEW:String = "  ";
+	
+	// Media-tree-icon Types
+	public static const MEDIATREEICON_SEPARATOR:String = "separatorIcon";
+	public static const MEDIATREEICON_UPLOAD:String = "uploadIcon";
 
 	//Player State Changes
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";

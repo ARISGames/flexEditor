@@ -9,6 +9,7 @@ import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -52,9 +53,9 @@ public class PaletteTree extends Tree
      */
     protected override function dragCompleteHandler(event:DragEvent):void
     {
-        trace("In overriden dragCompleteHandler!");
+        trace("In overridden dragCompleteHandler!");
         // No ObjectPaletteItemBO appears in DragSource
-        trace("Done in overriden dragCompleteHandler!");
+        trace("Done in overridden dragCompleteHandler!");
     }
 
     protected override function dragDropHandler(event:DragEvent):void

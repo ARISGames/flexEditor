@@ -29,6 +29,8 @@ package com.ninem.controls.treebrowserclasses
 	import mx.styles.StyleManager;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.controls.listClasses.IListItemRenderer;
+	
+	import org.arisgames.editor.util.AppConstants;
 
 	/**
 	 * TreeBrowserList is a subclass of the standard List component that sets
@@ -123,8 +125,16 @@ package com.ninem.controls.treebrowserclasses
 	            {
 	                try
 	                {
+
+						if(item.@icon == AppConstants.MEDIATREEICON_SEPARATOR)
+							icon = AppConstants.MEDIATREEICON_SEPARATOR;
+						else if(item.@icon == AppConstants.MEDIATREEICON_UPLOAD)
+							icon = AppConstants.MEDIATREEICON_UPLOAD;
 	                    if (item[iconField].length() != 0)
+						{
 	                       icon = String(item[iconField]);
+						}
+						
 	                }
 	                catch(e:Error)
 	                {
@@ -145,12 +155,13 @@ package com.ninem.controls.treebrowserclasses
 	            }
 	        }
 			
-			icon = null;
-			/*
+			//icon = null;
+			
 	        //set default leaf icon if nothing else was found
 	        if (icon == null){
-	            icon = getStyle("defaultLeafIcon");
-				if(!icon) icon = treeCss.getStyle("defaultLeafIcon");
+				//Uncomment below to bring back default leaf icons
+	            //icon = getStyle("defaultLeafIcon");
+				//if(!icon) icon = treeCss.getStyle("defaultLeafIcon");
 	        }
 	        //convert to the correct type and class
 	        if (icon is Class)
@@ -169,7 +180,7 @@ package com.ninem.controls.treebrowserclasses
 	        {
 	            return Class(icon);
 	        }
-			*/
+			
 			return Class(icon);
 		}
 		
