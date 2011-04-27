@@ -11,7 +11,7 @@
                                   paddingBottom="10"
                                   >
 	
-    <controls:TreeBrowser id="treeBrowser" width="380" height="263" dataProvider="{xmlData}" showDetails="{selectButton.enabled}" horizontalScrollPolicy="auto" verticalScrollPolicy="off" showRoot="false"/>
+    <controls:TreeBrowser id="treeBrowser" width="400" height="263" dataProvider="{xmlData}" showDetails="{selectButton.enabled}" horizontalScrollPolicy="auto" verticalScrollPolicy="off" showRoot="false"/>
 
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
