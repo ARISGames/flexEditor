@@ -10,7 +10,7 @@
                                   width="1000"
                                   title="Quests Editor"
                                   creationPolicy="all"
-                                   height="600">
+                                   height="500">
 
     <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false" variableRowHeight="true" height="100%">
         <mx:columns>
