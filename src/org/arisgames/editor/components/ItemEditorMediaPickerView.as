@@ -230,7 +230,7 @@ public class ItemEditorMediaPickerView extends Panel
 				xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
 			}
 			else if(k == 0){
-				xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '"/>');
+				xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
 			}
 		}
         trace("ItemEditorMediaPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
