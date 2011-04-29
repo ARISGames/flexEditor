@@ -29,6 +29,7 @@ public class ItemEditorMediaPickerView extends Panel
 	public var delegate:Object;
     private var objectPaletteItem:ObjectPaletteItemBO;
     private var isIconPicker:Boolean = false;
+	private var isNPC:Boolean = false;
 	private var uploadFormVisable:Boolean = false;
 
     // Media Data
@@ -41,12 +42,12 @@ public class ItemEditorMediaPickerView extends Panel
 	
 	// Tree Icons
 	[Bindable]
-	[Embed(source="separator.png")]
+	[Embed(source="assets/img/separator.png")]
 	public var separatorIcon:Class; //If these names are changed, make sure it is also changed in AppConstants (MEDIATREEICON_*)
 	
 	[Bindable]
-	[Embed(source="upload.png")]
-	public var uploadIcon:Class;
+	[Embed(source="assets/img/upload.png")]
+	public var uploadIcon:Class; //If these names are changed, make sure it is also changed in AppConstants (MEDIATREEICON_*)
 
 	private var mediaUploader:ItemEditorMediaPickerUploadFormMX;
 
@@ -136,6 +137,11 @@ public class ItemEditorMediaPickerView extends Panel
 	
     private function handleLoadingOfMediaIntoXML(obj:Object):void
     {
+		if(this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE){
+			this.isNPC = true;
+			trace("This is an NPC, so disallow Audio/Visual media");
+		}
+		
         trace("In handleLoadingOfMediaIntoXML() Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
@@ -144,11 +150,11 @@ public class ItemEditorMediaPickerView extends Panel
             Alert.show("Error Was: " + msg, "Error While Loading Media");
 			return;
         }
-
+		
         //Init the XML Data
 		xmlData = new XML('<nodes label="' + AppConstants.MEDIATYPE + '"/>');
 		
-		if (!this.isIconPicker) {
+		if (!this.isIconPicker && !this.isNPC) {
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_IMAGE + '"/>');
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_AUDIO + '"/>');
 			xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_VIDEO + '"/>');
@@ -185,15 +191,22 @@ public class ItemEditorMediaPickerView extends Panel
 					switch (m.type)
 					{
 						case AppConstants.MEDIATYPE_IMAGE:
-							if (!this.isIconPicker) {
-								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
-								if(k > numImageDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
-								xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
-								numImageDefaults+=k;
+							if(!this.isNPC){
+								if (!this.isIconPicker) {
+									//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+									if(k > numImageDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+									xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+									numImageDefaults+=k;
+								}
+							}
+							else{
+								if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+								xmlData.appendChild(node);
+								numIconDefaults+=k;
 							}
 							break;
 						case AppConstants.MEDIATYPE_AUDIO:
-							if (!this.isIconPicker) {
+							if (!this.isIconPicker && !this.isNPC) {
 								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
 								if(k > numAudioDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
 								xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
@@ -201,7 +214,7 @@ public class ItemEditorMediaPickerView extends Panel
 							}
 							break;
 						case AppConstants.MEDIATYPE_VIDEO:
-							if (!this.isIconPicker) {
+							if (!this.isIconPicker && !this.isNPC) {
 								//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
 								if(k > numVideoDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
 								xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
@@ -224,7 +237,7 @@ public class ItemEditorMediaPickerView extends Panel
 			}
 
 			//Add "Upload new" in between uploaded and default pictures
-			if(k==0 && !this.isIconPicker){
+			if(k==0 && (!this.isIconPicker && !this.isNPC)){
 				xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
 				xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
 				xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');

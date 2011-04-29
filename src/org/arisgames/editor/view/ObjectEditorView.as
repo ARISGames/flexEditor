@@ -209,7 +209,7 @@ public class ObjectEditorView extends Canvas
         }
         else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
         {
-            trace("It's an Character, so display the Character Editor.")
+            trace("It's a Character, so display the Character Editor.")
             characterEditor.setObjectPaletteItem(objectPaletteItem);
             characterEditor.setVisible(true);
             characterEditor.includeInLayout = true;
