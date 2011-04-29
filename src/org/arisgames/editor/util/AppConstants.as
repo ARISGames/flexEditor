@@ -58,8 +58,8 @@ public class AppConstants
     public static const RADIO_FORGOTPASSWORD:String = "Forgot Password";
     public static const RADIO_FORGOTUSERNAME:String = "Forgot Username";
 
-	// Max allowed upload size for media
-	public static const MAX_UPLOAD_SIZE:Number = 200 * 1024 //In bytes- 1024b=1Kb
+	// Max allowed upload size for media.........MB....KB....Bytes
+	public static const MAX_UPLOAD_SIZE:Number = 10 * 1024 * 1024 //In bytes
 	
     // Media Types
     public static const MEDIATYPE:String = "Media Types";
