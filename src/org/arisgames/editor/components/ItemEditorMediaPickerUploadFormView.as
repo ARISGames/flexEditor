@@ -176,23 +176,34 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
     // Called when a file is selected
     private function onSelectFile(event:Event):void
     {
+		var fileOK:Boolean = false;
         if (fileChooser.fileList.length >= 1)
         {
             for (var k:Number = 0; k < fileChooser.fileList.length; k++)
             {
                 trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
-                fileName.text = fileChooser.fileList[k].name;
-                fileChosen = fileChooser.fileList[k];
+				fileChosen = fileChooser.fileList[k];
+				if(fileChosen.size <= AppConstants.MAX_UPLOAD_SIZE){
+					fileName.text = fileChosen.name;
+					fileOK = true;
+				}
+				else {
+					Alert.show("Sorry!\n"+fileChosen.name+" is too large...\n\n"+
+						fileChosen.name+": "+Math.round((fileChosen.size)/1024)+" Kb\n"+
+						"Max Filesize: "+Math.round((AppConstants.MAX_UPLOAD_SIZE)/1024)+" Kb");
+				}
             }
         }
 
+		if(fileOK){
         //this.displayIsIconFormQuestionIfConditionsAreMet();
-        clearFileButton.setVisible(true);
-        clearFileButton.includeInLayout = true;
-        formSpacer.setVisible(true);
-        formSpacer.includeInLayout = true;
-        uploadButton.enabled = true;
-        this.validateNow();
+        	clearFileButton.setVisible(true);
+        	clearFileButton.includeInLayout = true;
+        	formSpacer.setVisible(true);
+        	formSpacer.includeInLayout = true;
+        	uploadButton.enabled = true;
+        	this.validateNow();
+		}
     }
 
     private function displayIsIconFormQuestionIfConditionsAreMet():void
