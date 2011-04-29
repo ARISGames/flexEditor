@@ -200,9 +200,11 @@ public class ItemEditorMediaPickerView extends Panel
 								}
 							}
 							else{
-								if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
-								xmlData.appendChild(node);
-								numIconDefaults+=k;
+								if (!this.isIconPicker) {
+									if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+									xmlData.appendChild(node);
+									numIconDefaults+=k;
+								}
 							}
 							break;
 						case AppConstants.MEDIATYPE_AUDIO:
@@ -296,6 +298,7 @@ public class ItemEditorMediaPickerView extends Panel
     {
         trace("itemEditorMediaPickerPickerView: displayMediaUploader");
         mediaUploader = new ItemEditorMediaPickerUploadFormMX();
+		mediaUploader.isIconPicker = this.isIconPicker;
 		mediaUploader.delegate = this;
         PopUpManager.addPopUp(mediaUploader, AppUtils.getInstance().getMainView(), true);
 		PopUpManager.centerPopUp(mediaUploader);

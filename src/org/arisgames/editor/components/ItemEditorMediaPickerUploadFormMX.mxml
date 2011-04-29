@@ -15,9 +15,9 @@
         <mx:FormItem label="Name" required="true">
             <mx:TextInput id="mediaName" width="200"/>
         </mx:FormItem>
-        <mx:FormItem label="Is Icon?" id="isIconFormItem" visible="false" includeInLayout="false">
+        <!-- <mx:FormItem label="Is Icon?" id="isIconFormItem" visible="false" includeInLayout="false">
             <mx:ComboBox id="isIcon" dataProvider="{isIconTypes}" visible="false" includeInLayout="false"/>
-        </mx:FormItem>
+        </mx:FormItem> -->
         <mx:FormItem label="File To Upload" required="true" direction="horizontal">
             <mx:TextInput id="fileName" editable="false" width="200"/>
             <mx:Button id="findFileButton" label="Find File To Upload"/>

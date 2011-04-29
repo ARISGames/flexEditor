@@ -29,11 +29,11 @@ import mx.events.ListEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 
+import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
-import org.arisgames.editor.data.arisserver.Media;
 
 
 public class ItemEditorMediaPickerUploadFormView extends Panel
@@ -47,6 +47,8 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
     public var validVideoExtensions:Array;
     public var validAudioExtensions:Array;
     public var validImageAndIconExtensions:Array;
+	
+	public var isIconPicker:Boolean;
 
     // GUI
     [Bindable] public var uploadForm:Form;
@@ -83,7 +85,7 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
         clearFileButton.addEventListener(MouseEvent.CLICK, handleClearFileButton);
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         uploadButton.addEventListener(MouseEvent.CLICK, handleUploadButton);
-        isIcon.addEventListener(ListEvent.CHANGE, isIconChanged);
+        //isIcon.addEventListener(ListEvent.CHANGE, isIconChanged);
     }
 
     private function isIconChanged(evt:ListEvent):void
@@ -167,7 +169,7 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
         formSpacer.setVisible(true);
         formSpacer.includeInLayout = false;
         uploadButton.enabled = false;
-        this.displayIsIconFormQuestionIfConditionsAreMet();
+        //this.displayIsIconFormQuestionIfConditionsAreMet();
         this.validateNow();
     }
 
@@ -184,7 +186,7 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
             }
         }
 
-        this.displayIsIconFormQuestionIfConditionsAreMet();
+        //this.displayIsIconFormQuestionIfConditionsAreMet();
         clearFileButton.setVisible(true);
         clearFileButton.includeInLayout = true;
         formSpacer.setVisible(true);
@@ -299,12 +301,14 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 
         // Save Media Object In Data Base
         var i:Number = 0;
+		/*
         if (isIconFormItem.visible)
         {
             i = isIcon.selectedItem.data as Number;
             trace("IsIconFormItem is visible, so getting form data value for isIcon.  It equals = '" + i + "'");
         }
-
+		*/
+		if(this.isIconPicker) i = 1;
         AppServices.getInstance().createMediaForGame(GameModel.getInstance().game.gameId, mediaName.text, response.toString(), i, new Responder(handleUploadAndSaveFileSuccess, handleFault));
     }
 
