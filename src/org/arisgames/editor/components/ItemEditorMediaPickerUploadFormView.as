@@ -188,9 +188,9 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 					fileOK = true;
 				}
 				else {
-					Alert.show("Sorry!\n"+fileChosen.name+" is too large...\n\n"+
+					Alert.show("Sorry! The file you chose is too large...\n\n"+
 						fileChosen.name+": "+Math.round(((fileChosen.size)/1024)/1024)+" MB\n"+
-						"Max Filesize: "+Math.round(((AppConstants.MAX_UPLOAD_SIZE)/1024)/1024)+" MB");
+						"Max Filesize: "+Math.round(((AppConstants.MAX_UPLOAD_SIZE)/1024)/1024)+" MB", "File Size Too Large");
 				}
             }
         }
