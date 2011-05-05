@@ -106,10 +106,11 @@ public class CreateOrOpenGameSelectorView extends Panel
 
     private function onCreateButtonClick(evt:MouseEvent):void
     {
-        trace("create button clicked!");
+		trace("create button clicked!");
 		var g:Game = new Game();
 		g.name = nameOfGame.text;
 		g.description = gameDescription.text;
+
         AppServices.getInstance().saveGame(g, new Responder(handleCreateGame, handleFault));
     }
 
@@ -147,7 +148,14 @@ public class CreateOrOpenGameSelectorView extends Panel
             GameModel.getInstance().game.name = nameOfGame.text;
             GameModel.getInstance().game.description = gameDescription.text;
             Alert.show("Your game was succesfully created.  Please use the editor to start building it.", "Successfully Created Game");
-            StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+            
+			//Clear everything from previous loads of other games
+			GameModel.getInstance().game.placeMarks.removeAll();
+			GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().loadLocations();
+
+			
+			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
         }
     }
 

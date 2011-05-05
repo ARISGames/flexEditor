@@ -172,7 +172,7 @@ public class ItemEditorMediaPickerView extends Panel
 		var numIconDefaults:Number = 0;
 		for (var k:Number = 0; k <= 1; k++) //Iterates over list twice; once for uploaded items, again for default
 		{
-			//Add "Upload new" in between uploaded and default pictures
+			//Add "Upload new" at top
 			if(k==0 && (!this.isIconPicker && !this.isNPC)){
 				xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
 				xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');

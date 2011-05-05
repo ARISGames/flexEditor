@@ -79,7 +79,6 @@ public class GameModel
 		var tmpPlacemarks:ArrayCollection;
 		tmpPlacemarks = new ArrayCollection();
 
-		
 		for (var j:Number = 0; j < obj.result.data.list.length; j++)
 		{
 			var pm:PlaceMark = new PlaceMark();
@@ -97,6 +96,7 @@ public class GameModel
 			pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
 			tmpPlacemarks.addItem(pm);
 		}
+
 		GameModel.getInstance().game.placeMarks.removeAll();
 		GameModel.getInstance().game.placeMarks.addAll(tmpPlacemarks);
 		trace("Done loading and casting the locations.  Size = " + tmpPlacemarks.length);
