@@ -392,12 +392,92 @@ public class RequirementsEditorView extends Panel
         requirementsEditorMap.requirement = r;
         if (r.requirementDetail1 != null && r.requirementDetail2 != null)
         {
-            requirementsEditorMap.setPlacemarkLocation(parseFloat(r.requirementDetail1), parseFloat(r.requirementDetail2));
-        }
+            requirementsEditorMap.setPlacemarkLocation(parseFloat(r.requirementDetail1), parseFloat(r.requirementDetail2), 0);
+		}
         else
         {
-      
-			//requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
+			var pm:PlaceMark = GameModel.getInstance().game.placeMarks.getItemAt(0) as PlaceMark;
+			
+			//Set zoom to inital placemark
+			//requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude, 0);
+			
+			//Set zoom to map
+			//Sets first datapoint as furthest point in all directions as a base to set boundaries of zoom			
+			var furthestNorth:Number = pm.latitude;
+			var furthestSouth:Number = pm.latitude;
+			var furthestWest:Number = pm.longitude;
+			var furthestEast:Number = pm.longitude;
+			var avLat:Number = pm.latitude;
+			var avLong:Number = pm.longitude;
+			
+			//Go through all datapoints, finding average lat and long, and furthest distance between points
+			for (var j:Number = 1; j < GameModel.getInstance().game.placeMarks.length; j++)
+			{
+				pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
+				
+				if(pm.latitude > furthestNorth)
+					furthestNorth = pm.latitude;
+				if(pm.latitude < furthestSouth)
+					furthestSouth = pm.latitude;
+				if(pm.longitude > furthestEast)
+					furthestEast = pm.longitude;
+				if(pm.longitude < furthestWest)
+					furthestWest = pm.longitude;
+				avLat+=pm.latitude;
+				avLong+=pm.longitude;
+			}
+			avLat/=j;
+			avLong/=j;
+			
+			var distance:Number = Math.abs(furthestNorth - furthestSouth);
+			distance = Math.max(distance, Math.abs(furthestEast - furthestWest));
+			var zoom:Number = 15;
+			
+			if(distance > 100){
+				zoom = 2;
+			}
+			else if(distance > 50){
+				zoom = 3;
+			}
+			else if(distance > 25){
+				zoom = 4;
+			}
+			else if(distance > 10){
+				zoom = 5;
+			}
+			else if(distance > 5){
+				zoom = 6;
+			}
+			else if(distance > 2){
+				zoom = 7;
+			}
+			else if(distance > 1){
+				zoom = 8;
+			}
+			else if(distance > .5){
+				zoom = 9;
+			}
+			else if(distance > .25){
+				zoom = 10;
+			}
+			else if(distance > .125){
+				zoom = 11;
+			}
+			else if(distance > .075){
+				zoom = 12;
+			}
+			else if(distance > .0375){
+				zoom = 13;
+			}
+			else if(distance > .018525){
+				zoom = 14;
+			}
+			trace("zoom="+zoom+"!");
+			
+			requirementsEditorMap.setPlacemarkLocation(avLat, avLong, zoom);
+
+			
+
         }
 
 		if(!edMapOpened){

@@ -1,7 +1,9 @@
 package org.arisgames.editor.components
 {
 import com.google.maps.LatLng;
+
 import flash.events.MouseEvent;
+
 import mx.containers.Panel;
 import mx.controls.Alert;
 import mx.controls.Button;
@@ -9,6 +11,7 @@ import mx.controls.NumericStepper;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -41,19 +44,19 @@ public class RequirementsEditorMapView extends Panel
         if (!isNaN(latitude) && !isNaN(longitude))
         {
             trace("latitude and longitude exist in onComplete, so will update the placemark location from here");
-            reMap.setMarkerLatLon(new LatLng(latitude, longitude));
+            reMap.setMarkerLatLon(new LatLng(latitude, longitude), 0);
         }
         reMap.requirement = requirement;
     }
 
-    public function setPlacemarkLocation(lat:Number, lon:Number):void
+    public function setPlacemarkLocation(lat:Number, lon:Number, zoom:Number):void
     {
         this.latitude = lat;
         this.longitude = lon;
         if (reMap != null)
         {
             trace("reMap isn't null, so can update the marker location here.");
-            reMap.setMarkerLatLon(new LatLng(latitude, longitude));
+            reMap.setMarkerLatLon(new LatLng(latitude, longitude), zoom);
         }
     }
 

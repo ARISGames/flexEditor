@@ -455,6 +455,13 @@ public class NavigationMap extends Map3D
 		}
 	}
 	
+	//Centers and Zooms map to a specific placemark
+	public function centerMapOnPlaceMark(pm:PlaceMark):void{
+		trace("NavigationMap: centerMapOnPlaceMark");
+		var latLng:LatLng = new LatLng(pm.latitude, pm.longitude);
+		setCenter(latLng, 15, MapType.NORMAL_MAP_TYPE);	
+	}
+	
     public function handleFault(obj:Object):void
     {
         trace("Fault called...");
