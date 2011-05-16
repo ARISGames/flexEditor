@@ -63,7 +63,8 @@ public class NavigationMap extends Map3D
         var myMapOptions:MapOptions = new MapOptions;
         myMapOptions.zoom = 12;
         myMapOptions.viewMode = View.VIEWMODE_ORTHOGONAL;
-//        myMapOptions.attitude = new Attitude(20, 30, 0);
+		//"Attitude" is the equivalent of "camera angle" Attitude(pitch, yaw, roll)
+		//myMapOptions.attitude = new Attitude(20, 30, 0);
         this.setInitOptions(myMapOptions);
     }
 
@@ -72,8 +73,14 @@ public class NavigationMap extends Map3D
         trace("onMapReady is being called.");
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_PLACEMARKREQUESTSDELETION, deletePlaceMarker)
 
+		var latLng:LatLng = new LatLng(0, 0);
+		setCenter(latLng, 2, MapType.NORMAL_MAP_TYPE);			
+			
+		//De-comment to zoom to USA
+		/*
         var latLng:LatLng = new LatLng(39.57182223734374, -95.9765625);
         setCenter(latLng, 4, MapType.NORMAL_MAP_TYPE);
+		*/
 
         addControl(new NavigationControl());
         addControl(new MapTypeControl());
@@ -109,6 +116,9 @@ public class NavigationMap extends Map3D
             addPlaceMarker(pm);
         }
         trace("Done with handlePlaceMarkModelChanges");
+		
+		trace("centering map on data...");
+		centerMapOnData();
     }
 
     private function addPlaceMarker(pm:PlaceMark):void
@@ -211,6 +221,7 @@ public class NavigationMap extends Map3D
 	
     public function doFlyTo(geoText:String):void
     {
+		trace("NavigationMap.as: \"doFlyTo("+geoText+")\" was called");
         // Instantiate a Geocoder
         var geocoder:ClientGeocoder = new ClientGeocoder();
 
@@ -358,6 +369,92 @@ public class NavigationMap extends Map3D
         }
     }
 
+	//Centers and Zooms map to approximate playing area based on given markers
+	public function centerMapOnData():void{
+		trace("NavigationMap: centerMapOnData");
+		
+		//If no data, do nothing
+		if(GameModel.getInstance().game.placeMarks.length > 0){
+			//Sets first datapoint as furthest point in all directions as a base to set boundaries of zoom
+			var pm:PlaceMark = GameModel.getInstance().game.placeMarks.getItemAt(0) as PlaceMark;
+
+			var furthestNorth:Number = pm.latitude;
+			var furthestSouth:Number = pm.latitude;
+			var furthestWest:Number = pm.longitude;
+			var furthestEast:Number = pm.longitude;
+			var avLat:Number = pm.latitude;
+			var avLong:Number = pm.longitude;
+			
+			//Go through all datapoints, finding average lat and long, and furthest distance between points
+			for (var j:Number = 1; j < GameModel.getInstance().game.placeMarks.length; j++)
+			{
+				pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
+				
+				if(pm.latitude > furthestNorth)
+					furthestNorth = pm.latitude;
+				if(pm.latitude < furthestSouth)
+					furthestSouth = pm.latitude;
+				if(pm.longitude > furthestEast)
+					furthestEast = pm.longitude;
+				if(pm.longitude < furthestWest)
+					furthestWest = pm.longitude;
+				avLat+=pm.latitude;
+				avLong+=pm.longitude;
+			}
+			avLat/=j;
+			avLong/=j;
+			
+			var distance:Number = Math.abs(furthestNorth - furthestSouth);
+			distance = Math.max(distance, Math.abs(furthestEast - furthestWest));
+			var zoom:Number = 15;
+			
+			if(distance > 100){
+				zoom = 2;
+			}
+			else if(distance > 50){
+				zoom = 3;
+			}
+			else if(distance > 25){
+				zoom = 4;
+			}
+			else if(distance > 10){
+				zoom = 5;
+			}
+			else if(distance > 5){
+				zoom = 6;
+			}
+			else if(distance > 2){
+				zoom = 7;
+			}
+			else if(distance > 1){
+				zoom = 8;
+			}
+			else if(distance > .5){
+				zoom = 9;
+			}
+			else if(distance > .25){
+				zoom = 10;
+			}
+			else if(distance > .125){
+				zoom = 11;
+			}
+			else if(distance > .075){
+				zoom = 12;
+			}
+			else if(distance > .0375){
+				zoom = 13;
+			}
+			else if(distance > .018525){
+				zoom = 14;
+			}
+			trace("zoom="+zoom+"!");
+
+			
+			var latLng:LatLng = new LatLng(avLat, avLong);
+			setCenter(latLng, zoom, MapType.NORMAL_MAP_TYPE);	
+		}
+	}
+	
     public function handleFault(obj:Object):void
     {
         trace("Fault called...");
