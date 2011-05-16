@@ -54,8 +54,10 @@ public class CreateOrOpenGameSelectorView extends Panel
 
     private function onComplete(event:FlexEvent): void
     {
+		doubleClickEnabled = true;
         createGameButton.addEventListener(MouseEvent.CLICK, onCreateButtonClick);
         loadGameButton.addEventListener(MouseEvent.CLICK, onLoadButtonClick);
+		gamesDataGrid.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClick);
         AppServices.getInstance().loadGamesByUserId(SecurityModel.getInstance().getUserId(), new Responder(handleLoadUsersGames, handleFault)); 
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED, handleCurrentStateChangedEvent);
 
@@ -113,23 +115,42 @@ public class CreateOrOpenGameSelectorView extends Panel
 
         AppServices.getInstance().saveGame(g, new Responder(handleCreateGame, handleFault));
     }
-
+	
     private function onLoadButtonClick(evt:MouseEvent):void
     {
-        trace("load button clicked!");
-        var g:Game = gamesDataGrid.selectedItem as Game;
-        trace("Selected game to load data for has Id = " + g.gameId);
-
-        // Load the game into the app's models
-        GameModel.getInstance().game = g;
-        GameModel.getInstance().game.placeMarks.removeAll();
-        GameModel.getInstance().game.gameObjects.removeAll();
-		GameModel.getInstance().loadLocations();
-
-        StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+		trace("load button clicked!");
+		//make sure something is happening
+		if(gamesDataGrid.selectedItem != null){
+	        var g:Game = gamesDataGrid.selectedItem as Game;
+	        trace("Selected game to load data for has Id = " + g.gameId);
+	
+	        // Load the game into the app's models
+	        GameModel.getInstance().game = g;
+	        GameModel.getInstance().game.placeMarks.removeAll();
+	        GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().loadLocations();
+	
+	        StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+		}
     }
 
- 
+	private function onDoubleClick(evt:MouseEvent):void
+	{
+		trace("Double Click");
+		//make sure something is happening
+		if(gamesDataGrid.selectedItem != null){
+			var g:Game = gamesDataGrid.selectedItem as Game;
+			trace("Selected game to load data for has Id = " + g.gameId);
+			
+			// Load the game into the app's models
+			GameModel.getInstance().game = g;
+			GameModel.getInstance().game.placeMarks.removeAll();
+			GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().loadLocations();
+			
+			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+		}
+	}
 
  
     public function handleCreateGame(obj:Object):void

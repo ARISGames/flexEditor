@@ -22,6 +22,7 @@
         <mx:Label text="Location Search:"/>
         <mx:TextInput id="mapSearchText" width="200" />
         <mx:Button id="mapGoButton" label="Go"/>
+		<mx:Button id="centerMapButton" label="Center Map"/>
     </mx:ApplicationControlBar>
 
 </v:GameEditorMapView>

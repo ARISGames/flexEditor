@@ -118,7 +118,7 @@ public class NavigationMap extends Map3D
         trace("Done with handlePlaceMarkModelChanges");
 		
 		trace("centering map on data...");
-		centerMapOnData();
+		centerMapOnData(false);
     }
 
     private function addPlaceMarker(pm:PlaceMark):void
@@ -370,7 +370,7 @@ public class NavigationMap extends Map3D
     }
 
 	//Centers and Zooms map to approximate playing area based on given markers
-	public function centerMapOnData():void{
+	public function centerMapOnData(fly:Boolean):void{
 		trace("NavigationMap: centerMapOnData");
 		
 		//If no data, do nothing
@@ -451,7 +451,10 @@ public class NavigationMap extends Map3D
 
 			
 			var latLng:LatLng = new LatLng(avLat, avLong);
-			setCenter(latLng, zoom, MapType.NORMAL_MAP_TYPE);	
+			if(fly)
+				flyTo(latLng, zoom, new Attitude(0,0,0),2); 
+			else
+				setCenter(latLng, zoom, MapType.NORMAL_MAP_TYPE);	
 		}
 	}
 	

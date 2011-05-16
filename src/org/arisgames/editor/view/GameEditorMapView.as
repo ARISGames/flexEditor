@@ -22,6 +22,7 @@ public class GameEditorMapView extends VBox
     [Bindable] public var mapControlBar:ApplicationControlBar;
     [Bindable] public var mapSearchText:TextInput;
     [Bindable] public var mapGoButton:Button;
+	[Bindable] public var centerMapButton:Button;
 
     /**
      * Constructor
@@ -35,6 +36,8 @@ public class GameEditorMapView extends VBox
     private function onComplete(event:FlexEvent): void
     {
         mapGoButton.addEventListener(MouseEvent.CLICK, onMapGoButtonClick);
+		centerMapButton.addEventListener(MouseEvent.CLICK, onCenterMapButtonClick);
+
         addEventListener(AppConstants.DYNAMICEVENT_GEOSEARCH, handleGeoSearchEvent);
     }
 
@@ -55,6 +58,12 @@ public class GameEditorMapView extends VBox
         }
     }
 
+	private function onCenterMapButtonClick(evt:MouseEvent):void
+	{
+		theMap.centerMapOnData(true);
+	}
+
+	
     public function handleGeoSearchEvent(evt:DynamicEvent):void
     {
         trace("GameEditorView is going to try a doFlyTo()");
