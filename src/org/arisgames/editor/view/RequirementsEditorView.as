@@ -29,6 +29,7 @@ public class RequirementsEditorView extends Panel
     // Associated Data
     private var requirementObjectId:Number; //The object id to impose requirements
 	private var requirementObjectType:String; //One of the REQUIREMENTTYPES defined in constants
+	private var edMapOpened:Boolean; 
 
     // Data For GUI
     [Bindable] public var requirements:ArrayCollection;
@@ -47,6 +48,7 @@ public class RequirementsEditorView extends Panel
     public function RequirementsEditorView()
     {
         super();
+		edMapOpened = false;
         requirements = new ArrayCollection();
         reqTypes = new ArrayCollection();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit);
@@ -398,7 +400,11 @@ public class RequirementsEditorView extends Panel
 			//requirementsEditorMap.setPlacemarkLocation(pm.latitude, pm.longitude);
         }
 
-        this.parent.addChild(requirementsEditorMap);
+		if(!edMapOpened){
+        	this.parent.addChild(requirementsEditorMap);
+			edMapOpened = true;
+		}
+		
         // Need to validate the display so that entire component is rendered
         requirementsEditorMap.validateNow();
 
