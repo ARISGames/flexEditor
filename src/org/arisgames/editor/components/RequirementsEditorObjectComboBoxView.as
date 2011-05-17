@@ -9,6 +9,7 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -90,7 +91,7 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 
     public function loadPossibleObjectsBasedOnRequirement(req:String):void
     {
-        trace("loadPossibleObjectsBasedOnRquirement() called with req = '" + req + "'");
+        trace("loadPossibleObjectsBasedOnRequirement() called with req = '" + req + "'");
 
         if (req == null)
         {
@@ -117,6 +118,11 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("going to load npc - 4");
             AppServices.getInstance().getCharactersByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNPCs, handleFault));
         }
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST)
+		{
+			trace("going to load quests - 5 (?)");
+			AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
+		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
@@ -127,6 +133,33 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
         }
     }
 
+	private function handleLoadQuests(obj:Object):void
+	{
+		trace("DO I GET HERE? PROB NOT... RIGHT?");
+		trace("handling load quests...");
+		possibleObjects.removeAll();
+		if(obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible quests attempt... let's see what happened. Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible Items");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].title;
+				to.data = obj.result.data[j].node_id;
+				possibleObjects.addItem(to);
+			}
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
+		}
+		
+	}
+	
     private function handleLoadItems(obj:Object):void
     {
         trace("handling load items...");

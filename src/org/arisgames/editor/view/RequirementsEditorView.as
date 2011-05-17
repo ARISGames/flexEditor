@@ -221,8 +221,7 @@ public class RequirementsEditorView extends Panel
         else if (DataGrid(evt.target).itemEditorInstance is RequirementsEditorObjectComboBoxMX)
         {
             trace("RequirementEditorView: It's an Object ComboBox, so process accordingly.");
-			
-			if (!RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.hasOwnProperty("data")) {
+			if (RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem == null || !RequirementsEditorObjectComboBoxMX(DataGrid(evt.target).itemEditorInstance).cbo.selectedItem.hasOwnProperty("data")) {
 				trace("RequirementEditorView: It's null. Return");
 				return;
 			}

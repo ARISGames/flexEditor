@@ -400,6 +400,7 @@ public class AppServices
 		l = AppDAO.getInstance().getQuestsServer().getQuests(gid);
 		l.addResponder(resp);
 	}
+		
 	public function deleteQuest(gid:Number, quest:Quest, resp:IResponder):void
 	{
 		trace("AppServices: deleteQuest() called with Game Id = '" + gid + "' and Quest Id = '" + quest.questId + "'");
