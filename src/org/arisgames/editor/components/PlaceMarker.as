@@ -10,6 +10,7 @@ import com.google.maps.styles.FillStyle;
 import flash.geom.Point;
 
 import mx.controls.Alert;
+import mx.events.FlexMouseEvent;
 import mx.rpc.Responder;
 
 import org.arisgames.editor.data.PlaceMark;
@@ -26,7 +27,9 @@ public class PlaceMarker extends Marker
 {
     [Bindable] public var placemark:PlaceMark;
     [Bindable] public var map:NavigationMap;
-
+	public var loc:Location;
+	public var pme:PlaceMarkerEditorMX;
+	public var iwo:InfoWindowOptions
 
     /**
      * Constructor
@@ -41,6 +44,7 @@ public class PlaceMarker extends Marker
 		options.icon = icon;
 		
 		super(latLng, options);
+		pm.placeMarker = this;
         this.placemark = pm;
         this.placemark.latitude = latLng.lat();
         this.placemark.longitude = latLng.lng();
@@ -68,15 +72,15 @@ public class PlaceMarker extends Marker
             else
             {
                 trace("marker data is NOT null: " + placemark);
-                var iwo:InfoWindowOptions = new InfoWindowOptions();
-                var pme:PlaceMarkerEditorMX = new PlaceMarkerEditorMX();
+                iwo = new InfoWindowOptions();
+                pme = new PlaceMarkerEditorMX();
                 pme.placeMark = placemark;
 				pme.placeMarker = this;
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
 				iwo.width = 360;
 				iwo.height = 360;
-				iwo.pointOffset = new Point(0,0);
+				iwo.pointOffset = new Point(0,-30);//Sets window slightly above point clicked
 				iwo.tailHeight = 15;
 				iwo.hasCloseButton = false;
 				
@@ -88,6 +92,14 @@ public class PlaceMarker extends Marker
             StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITORPLACEMARKEDITOR;
         }
     }
+	
+	public function closePME():void
+	{
+		trace("PlaceMarker: closing place marker editor");
+		if(pme != null){
+			pme.closeWithoutSaving();
+		}
+	}
 
     public function handleDragEndEvent(event:MapMouseEvent):void
     {
@@ -97,7 +109,7 @@ public class PlaceMarker extends Marker
         trace("Updated Latitude: " + placemark.latitude + "; Updated Longitude: " + placemark.longitude);
 
         // Save Data To Database
-        var loc:Location = new Location();
+        loc = new Location();
         loc.locationId = placemark.id;
         loc.latitude = placemark.latitude;
         loc.longitude = placemark.longitude;

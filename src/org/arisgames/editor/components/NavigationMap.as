@@ -42,7 +42,7 @@ import org.arisgames.editor.util.AppUtils;
 // Handles most of the interfacing with the Google Map APIs
 public class NavigationMap extends Map3D
 {
-    private var markers:ArrayCollection;
+    public var markers:ArrayCollection;
 
     public function NavigationMap()
     {

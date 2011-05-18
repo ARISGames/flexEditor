@@ -2,6 +2,7 @@ package org.arisgames.editor.components
 {
 
 import flash.events.MouseEvent;
+
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.controls.Tree;
@@ -10,12 +11,14 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 
+import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+
 
 public class PaletteTree extends Tree
 {
@@ -38,11 +41,43 @@ public class PaletteTree extends Tree
     private function listenForMouseDoubleClicks(evt:MouseEvent):void
     {
         var obj:ObjectPaletteItemBO = this.selectedItem as ObjectPaletteItemBO;
+		if(obj == null){
+			trace("double click detected- not on item. returning");
+			return;
+		}
         trace("Just got a double click for '" + evt.currentTarget + "'; Selected Item = '" + this.selectedItem + "'; Selected Data = '" + this.selectedData + "'; Object Name = '" + obj.name + "'");
 
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM);
         de.objectPaletteItem = this.selectedItem;
         AppDynamicEventManager.getInstance().dispatchEvent(de);
+		
+		//Remove PlaceMarkEditors... 
+		/*
+		trace("Removing any open placemarker editor windows");
+		var pm:PlaceMarker;
+		trace(AppUtils.getInstance().getMainView().gameEditor);
+		trace(AppUtils.getInstance().getMainView().gameEditor.theMap);
+		trace(AppUtils.getInstance().getMainView().gameEditor.theMap.markers);
+		trace("banana");
+		var x:ArrayCollection = AppUtils.getInstance().getMainView().gameEditor.theMap.markers;
+		for(var j:Number = 0; j < AppUtils.getInstance().getMainView().gameEditor.theMap.markers.length; j++){
+			pm = AppUtils.getInstance().getMainView().gameEditor.theMap.markers.getItemAt(j) as PlaceMarker;
+			pm.closeInfoWindow();
+		}
+		*/
+		
+		if(GameModel.getInstance().game.placeMarks.length > 0){
+			//Sets first datapoint as furthest point in all directions as a base to set boundaries of zoom
+			var pm:PlaceMark;
+			//Go through all datapoints, finding average lat and long, and furthest distance between points
+			for (var j:Number = 0; j < GameModel.getInstance().game.placeMarks.length; j++)
+			{
+				pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
+				pm.placeMarker.closePME();
+			}
+		}
+		
+
     }
 
     /**

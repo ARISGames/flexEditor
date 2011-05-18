@@ -3,6 +3,8 @@ package org.arisgames.editor.components
 import com.google.maps.overlays.Marker;
 import com.google.maps.overlays.MarkerOptions;
 
+import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
@@ -18,6 +20,8 @@ import mx.controls.NumericStepper;
 import mx.controls.TextInput;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+import mx.events.FlexMouseEvent;
+import mx.events.StateChangeEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 
@@ -101,8 +105,8 @@ public class PlaceMarkerEditorView extends Canvas
         deletePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
         savePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleSaveDataButtonClick);
         openRequirementsEditorButton.addEventListener(MouseEvent.CLICK, handleOpenRequirementsButtonClick);
-        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
-    }
+        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);	
+	}
 
 	private function handleQRImageClick(event:Event):void
 	{
@@ -177,10 +181,16 @@ public class PlaceMarkerEditorView extends Canvas
         loc.forceView = autoDisplay.selected;
 		loc.quickTravel = quickTravel.selected;
 		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
-		
+
 		placeMarker.closeInfoWindow();
         trace("Finished handleSaveDataButtonClick()");
     }
+	
+	public function closeWithoutSaving():void
+	{
+		trace("PlaceMarkerEditorView: Close Without Saving");
+		placeMarker.closeInfoWindow();
+	}
 
     public function handleCreateLocation(obj:Object):void
     {

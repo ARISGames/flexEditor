@@ -2,16 +2,20 @@ package org.arisgames.editor.forms
 {
 
 import flash.events.MouseEvent;
+import flash.net.SharedObject;
+
 import mx.containers.Form;
 import mx.containers.FormItem;
 import mx.containers.Panel;
 import mx.controls.Alert;
 import mx.controls.Button;
+import mx.controls.CheckBox;
 import mx.controls.LinkButton;
 import mx.controls.TextInput;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.remoting.mxml.RemoteObject;
+
 import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
@@ -24,6 +28,7 @@ public class LoginFormView extends Panel
     [Bindable] public var loginForm:Form;
     [Bindable] public var username:TextInput;
     [Bindable] public var password:TextInput;
+	[Bindable] public var rememberMe:CheckBox;
     [Bindable] public var confirmPassword:TextInput;
     [Bindable] public var emailAddress:TextInput;
 
@@ -32,6 +37,7 @@ public class LoginFormView extends Panel
     [Bindable] public var loginButton:Button;
 
     [Bindable] public var loginServer:RemoteObject;
+	public var clientData:SharedObject;
 	
 	[Bindable] public var instructions:String = "<b>Note:</b><br />"+
 		"To be able to use the games created with this editor,<br />"+
@@ -47,10 +53,23 @@ public class LoginFormView extends Panel
 
     private function onComplete(event:FlexEvent): void
     {
+		rememberMe.selected = false;
         registerLink.addEventListener(MouseEvent.CLICK, onRegisterButtonClick);
         forgotAccountInformationLink.addEventListener(MouseEvent.CLICK, onForgotButtonClick)
         loginButton.addEventListener(MouseEvent.CLICK, onLoginButtonClick);
+		loadLocalData();
     }
+	
+	private function loadLocalData():void{
+		clientData = SharedObject.getLocal("ArisUser");
+		if(clientData.data.username != undefined){
+			if(clientData.data.username != ""){
+				username.text = clientData.data.username;
+				password.text = clientData.data.password;
+				rememberMe.selected = true;
+			}	
+		}
+	}
 
     private function onRegisterButtonClick(click:MouseEvent):void
     {
@@ -79,6 +98,7 @@ public class LoginFormView extends Panel
     private function onLoginButtonClick(click:MouseEvent):void
     {
         trace("Login Button clicked...");
+		trace("remember login?: "+rememberMe.selected);
         if (loginButton.label == AppConstants.BUTTON_LOGIN)
         {
             trace("It's in login mode, so try to login");
@@ -107,6 +127,17 @@ public class LoginFormView extends Panel
         }
         else
         {
+			if(rememberMe.selected){
+				trace("remembering login...");
+				clientData.data.username = username.text;
+				clientData.data.password = password.text;
+			}
+			else{
+				trace("forgetting login...");
+				clientData.data.username = "";
+				clientData.data.password = "";
+			}
+			clientData.flush();
             trace("Login was successfull");
             SecurityModel.getInstance().login(obj.result.data);
 //            Alert.show("Welcome to the ARIS Game Editor!", "Successfully Logged In");

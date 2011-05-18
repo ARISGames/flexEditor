@@ -135,7 +135,14 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 
 	private function handleLoadQuests(obj:Object):void
 	{
-		trace("DO I GET HERE? PROB NOT... RIGHT?");
+		trace("=========================================")
+		trace();
+		trace();
+		trace(obj)
+		trace();
+		trace();
+		trace("=========================================")
+
 		trace("handling load quests...");
 		possibleObjects.removeAll();
 		if(obj.result.returnCode != 0)
