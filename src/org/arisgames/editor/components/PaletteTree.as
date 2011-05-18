@@ -51,25 +51,10 @@ public class PaletteTree extends Tree
         de.objectPaletteItem = this.selectedItem;
         AppDynamicEventManager.getInstance().dispatchEvent(de);
 		
-		//Remove PlaceMarkEditors... 
-		/*
-		trace("Removing any open placemarker editor windows");
-		var pm:PlaceMarker;
-		trace(AppUtils.getInstance().getMainView().gameEditor);
-		trace(AppUtils.getInstance().getMainView().gameEditor.theMap);
-		trace(AppUtils.getInstance().getMainView().gameEditor.theMap.markers);
-		trace("banana");
-		var x:ArrayCollection = AppUtils.getInstance().getMainView().gameEditor.theMap.markers;
-		for(var j:Number = 0; j < AppUtils.getInstance().getMainView().gameEditor.theMap.markers.length; j++){
-			pm = AppUtils.getInstance().getMainView().gameEditor.theMap.markers.getItemAt(j) as PlaceMarker;
-			pm.closeInfoWindow();
-		}
-		*/
-		
+		//Remove PlaceMarkEditors... 		
 		if(GameModel.getInstance().game.placeMarks.length > 0){
-			//Sets first datapoint as furthest point in all directions as a base to set boundaries of zoom
 			var pm:PlaceMark;
-			//Go through all datapoints, finding average lat and long, and furthest distance between points
+			//Go through all datapoints, closing editors if they are open (if not, closePME() does nothing)
 			for (var j:Number = 0; j < GameModel.getInstance().game.placeMarks.length; j++)
 			{
 				pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
