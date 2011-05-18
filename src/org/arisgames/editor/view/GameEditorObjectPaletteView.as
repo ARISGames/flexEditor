@@ -1010,6 +1010,10 @@ public class GameEditorObjectPaletteView extends VBox
     public function handleDeleteContent(obj:Object):void
     {
         trace("GameEditorObjectPalletView: handleDeleteContent() Result called with obj = " + obj + "; Result = " + obj.result);
+		
+		//close open placemark editors...
+		GameModel.getInstance().removeOpenPlaceMarkEditors();		
+		
         if (obj.result.returnCode != 0)
         {
             trace("GameEditorObjectPalletView: Bad delete content attempt... let's see what happened.");
@@ -1023,6 +1027,7 @@ public class GameEditorObjectPaletteView extends VBox
 			GameModel.getInstance().loadLocations();
 
         }
+		
         trace("Finished with handleDeleteContent().");
     }
 

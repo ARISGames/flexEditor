@@ -51,18 +51,8 @@ public class PaletteTree extends Tree
         de.objectPaletteItem = this.selectedItem;
         AppDynamicEventManager.getInstance().dispatchEvent(de);
 		
-		//Remove PlaceMarkEditors... 		
-		if(GameModel.getInstance().game.placeMarks.length > 0){
-			var pm:PlaceMark;
-			//Go through all datapoints, closing editors if they are open (if not, closePME() does nothing)
-			for (var j:Number = 0; j < GameModel.getInstance().game.placeMarks.length; j++)
-			{
-				pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
-				pm.placeMarker.closePME();
-			}
-		}
-		
-
+		//Remove placemark editors...
+		GameModel.getInstance().removeOpenPlaceMarkEditors();		
     }
 
     /**
