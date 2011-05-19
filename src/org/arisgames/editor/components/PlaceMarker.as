@@ -74,6 +74,7 @@ public class PlaceMarker extends Marker
     public function handleMouseClickedEvent(event:MapMouseEvent):void
     {
         trace("Marker clicked...");
+		icon.select();
         if (StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
         {
             trace("StateModel equals PlaceMarkEditor so setting back to ViewGameEditor.");

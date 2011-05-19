@@ -120,6 +120,14 @@ public class PlaceMarkerIcon extends Sprite {
 	  labelMc.textColor = 0xFFFFFF;
   }
   
+  public function select():void {
+	  trace("I'm selected");
+	  ct.color = 0x0000FF;
+	  container.transform.colorTransform = ct;
+	  container.alpha = 1;
+	  labelMc.textColor = 0xFFFFFF;
+  }
+  
 }
 
 }
