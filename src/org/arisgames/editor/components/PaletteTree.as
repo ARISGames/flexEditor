@@ -35,9 +35,24 @@ public class PaletteTree extends Tree
 
     private function onComplete(event:FlexEvent): void
     {
+		this.addEventListener(MouseEvent.CLICK, listenForMouseSingleClicks)
         this.addEventListener(MouseEvent.DOUBLE_CLICK, listenForMouseDoubleClicks)
     }
 
+	private function listenForMouseSingleClicks(evt:MouseEvent):void
+	{
+		var obj:ObjectPaletteItemBO = this.selectedItem as ObjectPaletteItemBO;
+		if(obj == null){
+			trace("click detected- not on item. returning");
+			return;
+		}
+		trace("Just got a single click for '" + evt.currentTarget + "'; Selected Item = '" + this.selectedItem + "'; Selected Data = '" + this.selectedData + "'; Object Name = '" + obj.name + "'");
+		
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM);
+		de.objectPaletteItem = this.selectedItem;
+		AppDynamicEventManager.getInstance().dispatchEvent(de);		
+	}
+	
     private function listenForMouseDoubleClicks(evt:MouseEvent):void
     {
         var obj:ObjectPaletteItemBO = this.selectedItem as ObjectPaletteItemBO;

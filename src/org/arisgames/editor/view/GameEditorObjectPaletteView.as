@@ -7,7 +7,11 @@ package org.arisgames.editor.view
 
 import flash.events.MouseEvent;
 import flash.geom.Point;
+import flash.utils.Dictionary;
+
 import mx.collections.ArrayCollection;
+import mx.collections.Sort;
+import mx.collections.SortField;
 import mx.containers.Panel;
 import mx.containers.VBox;
 import mx.controls.Alert;
@@ -25,11 +29,6 @@ import mx.managers.DragManager;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
-import mx.collections.Sort;
-import mx.collections.SortField;
-import flash.utils.Dictionary;
-
-
 
 import org.arisgames.editor.components.PaletteTree;
 import org.arisgames.editor.data.arisserver.Item;
@@ -126,15 +125,34 @@ public class GameEditorObjectPaletteView extends VBox
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
 		// Sort By Previous Folder Id From 0 to N
+		var opsTemp:ArrayCollection = ops;
+		ops = new ArrayCollection();
+		
+		//Iterates #folders times (the max depth can only be the max num folders)
+		for(var l:Number = 0; l < 20; l++){
+			//Iterates each folder searching for ones at depth l
+			for(var n:Number = 0; n < opsTemp.length; n++){
+				if(opsTemp.getItemAt(n).parentFolderId == l){
+					ops.addItem(opsTemp.getItemAt(n));
+				}
+			}
+		}
+		
+		
+		//This doesn't work correctly, and Phil doesn't understand
+		//this, so he's going to do it the old fashioned way ^^
 		var dataSortField:SortField = new SortField();
 		dataSortField.name = "previousFolderId";
 		dataSortField.numeric = true;
 		
 		var numericDataSort:Sort = new Sort();
 		numericDataSort.fields = [dataSortField];
-		
+		/*
 		ops.sort = numericDataSort;
 		ops.refresh();
+		//*/
+
+		
 		trace("Folders sorted by Previous Folder Id");
 		
 		var dict:Dictionary = new Dictionary();
@@ -142,7 +160,8 @@ public class GameEditorObjectPaletteView extends VBox
 		for (j = 0; j < ops.length; j++)
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
-			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'");
+			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
+
 			if (op.parentFolderId == 0)
 			{
 				// It's at the root level
@@ -151,11 +170,28 @@ public class GameEditorObjectPaletteView extends VBox
 			else
 			{
 				// It's a child of a previously added object
-				var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO;
-				o.children.addItem(op);
+				var o:ObjectPaletteItemBO = dict[op.previousFolderId] as ObjectPaletteItemBO;
+				if(o == null){
+					//if this is reached, the folder has a "previous folder Id" of a folder that does not exist
+					op.parentFolderId = 0;
+					dict[op.id] = op;
+				}
+				else{
+					o.children.addItem(op);
+				}
+
 			}
 		}
 		trace("Folders loaded into dictionary.");
+		trace("Loaded Folder heirarchy: (Only shows root+1 depth)");
+		var continues:Boolean = true;
+		var i:Number = 0;
+		for (var key:Object in dict){
+			trace(dict[key].name);
+			for(var k:Number = 0; k < dict[key].children.length; k++){
+				trace("    "+dict[i].children.getItemAt(k).name);
+			}
+		}
 		
 		ops.removeAll();
 		// Load Content
@@ -234,7 +270,7 @@ public class GameEditorObjectPaletteView extends VBox
 		for (j = 0; j < ops.length; j++)
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
-			trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'");
+			trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
 			
 			// if previous folder id == 0, then it's root else it goes on as a child of a folder
 			if (op.parentContentFolderId == 0)

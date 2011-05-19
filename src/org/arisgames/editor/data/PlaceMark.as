@@ -46,6 +46,7 @@ public class PlaceMark
 
     public function getContentTypeForPublicDisplayAsString():String
     {
+		//Pretty sure this function NEVER gets called...
         return AppUtils.getContentTypeForAppViewAsString(contentType);
     }
 

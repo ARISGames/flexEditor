@@ -49,7 +49,6 @@ public class CreateOrOpenGameSelectorView extends Panel
         super();
         usersGames = new ArrayCollection();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
-
     }
 
     private function onComplete(event:FlexEvent): void
@@ -60,7 +59,6 @@ public class CreateOrOpenGameSelectorView extends Panel
 		gamesDataGrid.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClick);
         AppServices.getInstance().loadGamesByUserId(SecurityModel.getInstance().getUserId(), new Responder(handleLoadUsersGames, handleFault)); 
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED, handleCurrentStateChangedEvent);
-
     }
 
 	private function handleCurrentStateChangedEvent(obj:Object):void

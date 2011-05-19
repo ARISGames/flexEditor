@@ -10,6 +10,7 @@ import com.google.maps.styles.FillStyle;
 import flash.geom.Point;
 
 import mx.controls.Alert;
+import mx.events.DynamicEvent;
 import mx.events.FlexMouseEvent;
 import mx.rpc.Responder;
 
@@ -19,8 +20,10 @@ import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.view.PlaceMarkerIcon;
+
 
 
 public class PlaceMarker extends Marker
@@ -30,6 +33,8 @@ public class PlaceMarker extends Marker
 	public var loc:Location;
 	public var pme:PlaceMarkerEditorMX;
 	public var iwo:InfoWindowOptions
+	public var icon:PlaceMarkerIcon;
+	public var instanceOfObjectId:Number;
 
     /**
      * Constructor
@@ -40,7 +45,7 @@ public class PlaceMarker extends Marker
     {
 		var options:MarkerOptions = new MarkerOptions();
 		options.draggable = true;
-		var icon:PlaceMarkerIcon = new PlaceMarkerIcon(pm.name);
+		icon = new PlaceMarkerIcon(pm.name);
 		options.icon = icon;
 		
 		super(latLng, options);
@@ -51,8 +56,20 @@ public class PlaceMarker extends Marker
         this.map = theMap;
         addEventListener(MapMouseEvent.CLICK, handleMouseClickedEvent);
         addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM, highlightMe);
     }
 	
+	public function highlightMe(evt:DynamicEvent):void {
+		trace("Un/Highlighting Stuff");
+		trace("I am placemark: " +placemark.id + " of type: " + placemark.contentType + " of contentId: " + placemark.contentId + " and my name is: '" + placemark.name + "'");
+		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId);
+		if(evt.objectPaletteItem.objectId == placemark.contentId){
+			icon.highlight();
+		}
+		else{
+			icon.unHighlight();
+		}
+	}
 
     public function handleMouseClickedEvent(event:MapMouseEvent):void
     {

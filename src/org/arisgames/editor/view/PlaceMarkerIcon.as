@@ -7,6 +7,7 @@ package org.arisgames.editor.view {
 
 import flash.display.Shape;
 import flash.display.Sprite;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
@@ -22,13 +23,16 @@ public class PlaceMarkerIcon extends Sprite {
 	public static const textMargin:uint = 5;
 	
 	public var labelMc:TextField;
+	private var container:Shape;
+	private var format:TextFormat;
+	private var ct:ColorTransform;
   
   public function PlaceMarkerIcon(label:String) {
 	  super();
 	  
 	  //Label
 	  labelMc = new TextField();
-	  var format:TextFormat = new TextFormat();
+	  format = new TextFormat();
 	  format.color = 0xFFFFFF;
 	  format.size = 12;
 	  format.font = "Arial";
@@ -44,7 +48,8 @@ public class PlaceMarkerIcon extends Sprite {
 	  var boxWidth:uint = labelMc.width;
 
 	  //Container Shape
-	var container:Shape = new Shape();
+	container = new Shape();
+	ct = new ColorTransform();
 	container.graphics.beginFill(0x000000, 0.5);
 	container.graphics.lineStyle(1, 0x000000, .75);
 	container.graphics.moveTo(0, 0);
@@ -88,6 +93,7 @@ public class PlaceMarkerIcon extends Sprite {
 	
 	container.graphics.endFill();
 	this.addChild(container);  
+	unHighlight(); //For consistency...
 	  
 	//Image
 	//addChild(new TestImg());
@@ -96,6 +102,22 @@ public class PlaceMarkerIcon extends Sprite {
     labelMc.y = topLeftY + 2;
     addChild(labelMc);
     cacheAsBitmap = true;
+  }
+  
+  public function highlight():void {
+	  trace("Highlighting...");
+	  ct.color = 0xFFFF55;
+	  container.transform.colorTransform = ct;
+	  container.alpha = 10;
+	  labelMc.textColor = 0x000000;
+  }
+  
+  public function unHighlight():void {
+	  trace("Unhighlighting...");
+	  ct.color = 0x000000;
+	  container.transform.colorTransform = ct;
+	  container.alpha = 1;
+	  labelMc.textColor = 0xFFFFFF;
   }
   
 }
