@@ -225,7 +225,7 @@ public class RequirementsEditorView extends Panel
 				trace("RequirementEditorView: It's null. Return");
 				return;
 			}
-		
+			
             evt.preventDefault();
 
             // Get new requirement from editor for renderer to display

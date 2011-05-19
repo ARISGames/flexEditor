@@ -78,6 +78,19 @@ public class GameModel
 		}
 	}
 	
+	public function deselectPlaceMarks():void 
+	{
+		if(game.placeMarks.length > 0){
+			var pm:PlaceMark;
+			//Go through all datapoints, closing editors if they are open (if not, closePME() does nothing)
+			for (var j:Number = 0; j < game.placeMarks.length; j++)
+			{
+				pm = game.placeMarks.getItemAt(j) as PlaceMark;
+				pm.placeMarker.icon.deSelect();
+			}
+		}
+	}
+	
 	
 	public function loadLocations():void
 	{

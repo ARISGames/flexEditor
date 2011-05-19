@@ -401,6 +401,15 @@ public class AppServices
 		l.addResponder(resp);
 	}
 		
+	public function getQuestById(gid:Number, id:Number, resp:IResponder):void
+	{
+		trace("AppServices: getQuest called with id=" + id);
+		var l:Object;
+		//trace("getPageById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getQuestsServer().getQuest(gid, id);
+		l.addResponder(resp);
+	}
+	
 	public function deleteQuest(gid:Number, quest:Quest, resp:IResponder):void
 	{
 		trace("AppServices: deleteQuest() called with Game Id = '" + gid + "' and Quest Id = '" + quest.questId + "'");
@@ -408,6 +417,7 @@ public class AppServices
 		l = AppDAO.getInstance().getQuestsServer().deleteQuest(gid, quest.questId);
 		l.addResponder(resp);
 	}
+	
 	public function saveQuest(gid:Number, quest:Quest, resp:IResponder):void
 	{
 		var l:Object;

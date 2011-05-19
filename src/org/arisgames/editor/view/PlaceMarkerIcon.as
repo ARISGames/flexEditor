@@ -26,6 +26,7 @@ public class PlaceMarkerIcon extends Sprite {
 	private var container:Shape;
 	private var format:TextFormat;
 	private var ct:ColorTransform;
+	public var isHighlighted:Boolean;
   
   public function PlaceMarkerIcon(label:String) {
 	  super();
@@ -106,6 +107,7 @@ public class PlaceMarkerIcon extends Sprite {
   
   public function highlight():void {
 	  trace("Highlighting...");
+	  isHighlighted = true;
 	  ct.color = 0xFFFF55;
 	  container.transform.colorTransform = ct;
 	  container.alpha = 10;
@@ -114,6 +116,7 @@ public class PlaceMarkerIcon extends Sprite {
   
   public function unHighlight():void {
 	  trace("Unhighlighting...");
+	  isHighlighted = false;
 	  ct.color = 0x000000;
 	  container.transform.colorTransform = ct;
 	  container.alpha = 1;
@@ -126,6 +129,16 @@ public class PlaceMarkerIcon extends Sprite {
 	  container.transform.colorTransform = ct;
 	  container.alpha = 1;
 	  labelMc.textColor = 0xFFFFFF;
+  }
+  
+  public function deSelect():void {
+	  trace("I'm not selected");
+	  if(isHighlighted){
+		  highlight();
+	  }
+	  else{
+		  unHighlight();
+	  }
   }
   
 }

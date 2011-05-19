@@ -110,7 +110,7 @@ public class AppConstants
     public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM";
     public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:String = "Player Has Uploaded Media Item";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
-	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST:String = "Player Has Completed Quest";
+	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Player Has Completed Quest";
 	
 	public static const REQUIREMENT_BOOLEAN_AND_DATABASE:String = "AND";
 	public static const REQUIREMENT_BOOLEAN_AND_HUMAN:String = "All";

@@ -118,9 +118,9 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("going to load npc - 4");
             AppServices.getInstance().getCharactersByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNPCs, handleFault));
         }
-		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
 		{
-			trace("going to load quests - 5 (?)");
+			trace("going to load quests - 5");
 			AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
 		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
@@ -135,13 +135,6 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 
 	private function handleLoadQuests(obj:Object):void
 	{
-		trace("=========================================")
-		trace();
-		trace();
-		trace(obj)
-		trace();
-		trace();
-		trace("=========================================")
 
 		trace("handling load quests...");
 		possibleObjects.removeAll();
@@ -156,13 +149,14 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			for (var j:Number = 0; j < obj.result.data.length; j++)
 			{
 				var to:Object = new Object();
-				to.label = obj.result.data[j].title;
-				to.data = obj.result.data[j].node_id;
+				to.label = obj.result.data[j].name;
+				to.data = obj.result.data[j].quest_id;
 				possibleObjects.addItem(to);
 			}
+
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
-			trace("Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
+			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
 		}
 		
 	}

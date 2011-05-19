@@ -51,6 +51,9 @@ public class PaletteTree extends Tree
 		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM);
 		de.objectPaletteItem = this.selectedItem;
 		AppDynamicEventManager.getInstance().dispatchEvent(de);		
+		
+		//Remove placemark editors...
+		GameModel.getInstance().removeOpenPlaceMarkEditors();	
 	}
 	
     private function listenForMouseDoubleClicks(evt:MouseEvent):void

@@ -62,8 +62,17 @@ public class PlaceMarker extends Marker
 	public function highlightMe(evt:DynamicEvent):void {
 		trace("Un/Highlighting Stuff");
 		trace("I am placemark: " +placemark.id + " of type: " + placemark.contentType + " of contentId: " + placemark.contentId + " and my name is: '" + placemark.name + "'");
-		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId);
-		if(evt.objectPaletteItem.objectId == placemark.contentId){
+		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId + " of type: " + evt.objectPaletteItem.objectType);
+		var sameType:Boolean = false;
+		
+		//ISSUE WITH NAMING CONSISTENCY \/ \/ \/
+		//trace(evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_CHARACTER + " & " + placemark.contentType + " = 1?; " + evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_ITEM + " & " + placemark.contentType + " = 2?; " + evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_PAGE + " & " + placemark.contentType + " = 0?; ");
+		//if((evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE && placemark.contentType == 0))
+		
+		//Below "if" logic SHOULD be replaced by commented out logic above/ Naming inconsistencies prevent this. :(
+		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0))
+			sameType = true;
+		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
 			icon.highlight();
 		}
 		else{
@@ -74,7 +83,6 @@ public class PlaceMarker extends Marker
     public function handleMouseClickedEvent(event:MapMouseEvent):void
     {
         trace("Marker clicked...");
-		icon.select();
         if (StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
         {
             trace("StateModel equals PlaceMarkEditor so setting back to ViewGameEditor.");
@@ -105,6 +113,8 @@ public class PlaceMarker extends Marker
 				iwo.fillStyle = new FillStyle({color: 0xFFFFFF,alpha: 0.9});
 
                 openInfoWindow(iwo);
+				GameModel.getInstance().deselectPlaceMarks();
+				icon.select();
             }
             GameModel.getInstance().currentPlaceMark = placemark;
             StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITORPLACEMARKEDITOR;

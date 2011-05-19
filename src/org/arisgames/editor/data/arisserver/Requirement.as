@@ -91,6 +91,11 @@ public class Requirement
             trace("going to load a npc for npc id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getCharacterById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
+		{
+			trace("going to load a quest for quest id = '" + new Number(requirementDetail1) + "'");
+			AppServices.getInstance().getQuestById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
+		}
         else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
@@ -135,6 +140,11 @@ public class Requirement
                 trace("going to load np name - 4");
                 name = obj.result.data.name;
             }
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
+			{
+				trace("going to load quest name - 5");
+				name = obj.result.data.name;
+			}
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
             {
                 trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");

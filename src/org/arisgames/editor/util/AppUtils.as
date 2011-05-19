@@ -461,7 +461,10 @@ public class AppUtils
                 return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE;
             default:
+				trace("SHOULD NOT GET HERE");
                 return str;
         }
     }
@@ -488,7 +491,10 @@ public class AppUtils
                 return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN;
             default:
+				trace("SHOULD NOT GET HERE");
                 return str;
         }
     }

@@ -402,11 +402,18 @@ public class NavigationMap extends Map3D
 					furthestEast = pm.longitude;
 				if(pm.longitude < furthestWest)
 					furthestWest = pm.longitude;
-				avLat+=pm.latitude;
-				avLong+=pm.longitude;
+				
+				//Uncomment below if you want average of ALL points
+				//avLat+=pm.latitude;
+				//avLong+=pm.longitude;
 			}
-			avLat/=j;
-			avLong/=j;
+			//Comment out below two lines if you want average of ALL points
+			avLat=furthestNorth+furthestSouth;
+			avLong=furthestEast+furthestWest;
+			
+			//change 2 to j if you want average of ALL points
+			avLat/=2;
+			avLong/=2;
 			
 			var distance:Number = Math.abs(furthestNorth - furthestSouth);
 			distance = Math.max(distance, Math.abs(furthestEast - furthestWest));
