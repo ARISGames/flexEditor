@@ -232,7 +232,10 @@ public class PlaceMarkerEditorView extends Canvas
 			
 			//Update the Google Marker
 			var options:MarkerOptions = placeMarker.getOptions();
-			options.icon = new PlaceMarkerIcon(placeMark.name);
+			
+			var temp:PlaceMarkerIcon= new PlaceMarkerIcon(placeMark.name);
+			temp.isHighlighted = placeMark.placeMarker.icon.isHighlighted;
+			options.icon  = temp;
 			placeMarker.setOptions(options);
 			placeMarker.icon = options.icon as PlaceMarkerIcon;
 			placeMarker.icon.select();
