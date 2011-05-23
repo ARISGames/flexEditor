@@ -106,7 +106,7 @@ public class GameEditorObjectPaletteView extends VBox
 	
 	private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
 	{
-		trace("Starting handleLoadFoldersAndContentForObjectPalette()...");
+		trace("GameEditorObjectPaletteView: Starting handleLoadFoldersAndContentForObjectPalette()...");
 		var ops:ArrayCollection = new ArrayCollection();
 		ops.removeAll();
 		var op:ObjectPaletteItemBO;
@@ -120,13 +120,17 @@ public class GameEditorObjectPaletteView extends VBox
 			op.name = obj.result.data.folders.list.getItemAt(j).name;
 			op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
 			op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
+			op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
+			trace("Folder Loaded: Id-"+op.id+" Name-"+op.name+" parentFolderId-"+op.previousFolderId+" previousFolderId-"+op.previousFolderId+" isOpen-"+op.isOpen);
 			ops.addItem(op);
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
+		/*
 		// Sort By Previous Folder Id From 0 to N
 		var opsTemp:ArrayCollection = ops;
 		ops = new ArrayCollection();
+		
 		
 		//Iterates #folders times (the max depth can only be the max num folders)
 		for(var l:Number = 0; l < 20; l++){
@@ -137,7 +141,7 @@ public class GameEditorObjectPaletteView extends VBox
 				}
 			}
 		}
-		
+		*/
 		
 		//This doesn't work correctly, and Phil doesn't understand
 		//this, so he's going to do it the old fashioned way ^^
@@ -147,7 +151,7 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		var numericDataSort:Sort = new Sort();
 		numericDataSort.fields = [dataSortField];
-		/*
+		//*
 		ops.sort = numericDataSort;
 		ops.refresh();
 		//*/
@@ -161,7 +165,8 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
-
+			trace("THESE ARE THE FOLDER'S CHILDREN :" + op.children + " ? ");
+			if(op.children == null) trace("NULL?!?!?!");
 			if (op.parentFolderId == 0)
 			{
 				// It's at the root level
@@ -292,6 +297,7 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		treeModel = GameModel.getInstance().game.gameObjects;
 		treeModel.refresh();
+		paletteTree.openFolders();
 	}
 	
 	/**
@@ -487,6 +493,8 @@ public class GameEditorObjectPaletteView extends VBox
         var o:ObjectPaletteItemBO = new ObjectPaletteItemBO(true);
         o.id = 0;
         o.name = "New Folder " + new Date();
+		paletteTree.expandItem(o, true, false, false, null);
+		o.isOpen = true;
         this.addObjectPaletteItem(o);
     }
 	
@@ -594,6 +602,7 @@ public class GameEditorObjectPaletteView extends VBox
         open = paletteTree.openItems;
         refreshData = true;
         trace("End of addObjectPaletteItem()");
+
     }
 
     private function handleRedrawTreeEvent(evt:DynamicEvent):void
@@ -601,6 +610,7 @@ public class GameEditorObjectPaletteView extends VBox
         trace("In handleRefreshTreeEvent...");
         refreshData = true;
         this.renderTree();
+		paletteTree.openFolders();
         trace("Done in handleRefreshTreeEvent.");
     }
 
@@ -1090,6 +1100,7 @@ public class GameEditorObjectPaletteView extends VBox
                 AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, obj, new Responder(handleSortAndSaveCallback, handleFault));
             }
         }
+		paletteTree.openFolders();
         trace("Finished with sortAndSavePaletteObjects().");
     }
 

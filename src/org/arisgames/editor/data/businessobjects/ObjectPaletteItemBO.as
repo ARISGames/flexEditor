@@ -1,6 +1,7 @@
 package org.arisgames.editor.data.businessobjects
 {
 import mx.collections.ArrayCollection;
+
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -18,7 +19,7 @@ public class ObjectPaletteItemBO
     public var mediaId:Number;
     public var iconMedia:Media;
     public var media:Media;
-    
+	
     // Relationship Display Information
     public var children:ArrayCollection;
 
@@ -29,6 +30,7 @@ public class ObjectPaletteItemBO
     // Folder
     public var parentFolderId:Number = 0;
     public var previousFolderId:Number = 0;
+	public var isOpen:Boolean = false;
 
     // Specific Data
     public var character:NPC;

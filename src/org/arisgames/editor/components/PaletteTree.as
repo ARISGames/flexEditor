@@ -1,6 +1,7 @@
 package org.arisgames.editor.components
 {
 
+import flash.events.Event;
 import flash.events.MouseEvent;
 
 import mx.collections.ArrayCollection;
@@ -9,7 +10,9 @@ import mx.controls.Tree;
 import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+import mx.events.TreeEvent;
 import mx.rpc.Responder;
+import mx.utils.ObjectUtil;
 
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
@@ -35,9 +38,47 @@ public class PaletteTree extends Tree
 
     private function onComplete(event:FlexEvent): void
     {
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR, handleCloseBOEditor);
 		this.addEventListener(MouseEvent.CLICK, listenForMouseSingleClicks)
         this.addEventListener(MouseEvent.DOUBLE_CLICK, listenForMouseDoubleClicks)
+		this.addEventListener(TreeEvent.ITEM_OPEN, saveFolderOpen)
+		this.addEventListener(TreeEvent.ITEM_CLOSE, saveFolderClose)
     }
+	
+	private function saveFolderOpen(event:TreeEvent):void {
+		trace("Folder Opening...");
+		var thisFolder:ObjectPaletteItemBO = event.item as ObjectPaletteItemBO;
+		thisFolder.isOpen = true;
+		AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, thisFolder, new Responder(handleSavePaletteObject, handleFault));
+	}
+	
+	private function saveFolderClose(event:TreeEvent):void {
+		trace("Folder Closing...");
+		var thisFolder:ObjectPaletteItemBO = event.item as ObjectPaletteItemBO;
+		thisFolder.isOpen = false;
+		AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, thisFolder, new Responder(handleSavePaletteObject, handleFault));
+	}
+	
+	private function handleCloseBOEditor(evt:Event):void {
+		trace("Closing editor...");
+		openFolders();
+	}
+	
+	public function openFolders():void {
+		trace("PaleteTree: Opening Folders... (openFolders())");
+		var go:ArrayCollection = AppUtils.repairPaletteObjectAssociations();
+		for (var lc:Number = 0; lc < go.length; lc++)
+		{
+			var obj:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
+			if (obj.isFolder())
+			{
+				if(obj.isOpen){
+					trace("This folder is open: "+ obj.name);
+					expandItem(obj, true, false, false, null);
+				}
+			}
+		}
+	}
 
 	private function listenForMouseSingleClicks(evt:MouseEvent):void
 	{
@@ -86,6 +127,7 @@ public class PaletteTree extends Tree
         trace("Done in overridden dragCompleteHandler!");
     }
 
+	
     protected override function dragDropHandler(event:DragEvent):void
     {
         super.dragDropHandler(event);
@@ -107,6 +149,8 @@ public class PaletteTree extends Tree
                 AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, obj, new Responder(handleSavePaletteObject, handleFault));
             }
         }
+		
+		
 
 
 /*
@@ -243,6 +287,7 @@ public class PaletteTree extends Tree
 
 
 //        this.printTreeModel();
+		trace("Drop index: " + super.calculateDropIndex(event));
         trace("Done with dragDropHandler()!");
     }
 
@@ -264,8 +309,7 @@ public class PaletteTree extends Tree
 
     private function handleSavePaletteObject(obj:Object):void
     {
-        trace("handleSavePaletteObject() called...");
-
+        trace("handleSavePaletteObject() called...");		
         trace("Finished with handleSavePaletteObject.");
     }
 

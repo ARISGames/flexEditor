@@ -104,11 +104,18 @@ public class PlaceMarkerIcon extends Sprite {
     addChild(labelMc);
     cacheAsBitmap = true;
   }
-  
+  //0x6D838E = bg blue
+  //0xFFE96E = folder yellow
+  //0xFFFF55 = bright yellow
+  //0xF2EFE9 = google maps bg gray
+  //0x99B3CC = google maps ocean blue
+  //0xB5D29C = google maps grass green
+  //0x000000 = black
+  //0xFFFFFF = white
   public function highlight():void {
 	  trace("Highlighting...");
 	  isHighlighted = true;
-	  ct.color = 0xFFFF55;
+	  ct.color = 0xFFE96E;
 	  container.transform.colorTransform = ct;
 	  container.alpha = 10;
 	  labelMc.textColor = 0x000000;
@@ -125,9 +132,9 @@ public class PlaceMarkerIcon extends Sprite {
   
   public function select():void {
 	  trace("I'm selected");
-	  ct.color = 0x0000FF;
+	  ct.color = 0x6D838E;
 	  container.transform.colorTransform = ct;
-	  container.alpha = 1;
+	  container.alpha = 10;
 	  labelMc.textColor = 0xFFFFFF;
   }
   

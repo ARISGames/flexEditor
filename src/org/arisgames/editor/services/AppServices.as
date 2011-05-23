@@ -215,8 +215,8 @@ public class AppServices
     public function saveFolder(gid:Number, opi:ObjectPaletteItemBO, resp:IResponder):void
     {
         var l:Object;
-        trace("SaveFolder: Game Id = " + gid + "; Folder Id = " + opi.id + "; Name = " + opi.name + "; Parent Id = " + opi.parentFolderId + "; Previous Folder Id = " + opi.previousFolderId);
-        l = AppDAO.getInstance().getContentServer().saveFolder(gid, opi.id, opi.name, opi.parentFolderId, opi.previousFolderId);
+        trace("SaveFolder: Game Id = " + gid + "; Folder Id = " + opi.id + "; Name = " + opi.name + "; Parent Id = " + opi.parentFolderId + "; Previous Folder Id = " + opi.previousFolderId + "; Is it open? = " + opi.isOpen);
+        l = AppDAO.getInstance().getContentServer().saveFolder(gid, opi.id, opi.name, opi.parentFolderId, opi.previousFolderId, opi.isOpen);
         l.addResponder(resp);
     }
 

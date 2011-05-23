@@ -22,8 +22,9 @@
         <mx:Label text="Location Search:"/>
         <mx:TextInput id="mapSearchText" width="200" />
         <mx:Button id="mapGoButton" label="Go"/>
-		<mx:Box id="space" width='100%'/>
+		<mx:Box id="emptySpace" width='100%'/>
 		<mx:Button id="centerMapButton" label="Center Map"/>
+		<mx:Button id="refreshButton" icon="@Embed(source='assets/img/Refresh-icon.png')"/>
     </mx:ApplicationControlBar>
 
 </v:GameEditorMapView>

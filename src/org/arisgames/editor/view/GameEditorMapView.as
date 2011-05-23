@@ -10,8 +10,11 @@ import mx.controls.Button;
 import mx.controls.TextInput;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
+
 import org.arisgames.editor.components.NavigationMap;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
+
 
 // WB: Handles GeoSearch Events for The Map, passes them along to NavigationMap for FlyTo. 
 public class GameEditorMapView extends VBox
@@ -23,6 +26,7 @@ public class GameEditorMapView extends VBox
     [Bindable] public var mapSearchText:TextInput;
     [Bindable] public var mapGoButton:Button;
 	[Bindable] public var centerMapButton:Button;
+	[Bindable] public var refreshButton:Button;
 
     /**
      * Constructor
@@ -37,6 +41,7 @@ public class GameEditorMapView extends VBox
     {
         mapGoButton.addEventListener(MouseEvent.CLICK, onMapGoButtonClick);
 		centerMapButton.addEventListener(MouseEvent.CLICK, onCenterMapButtonClick);
+		refreshButton.addEventListener(MouseEvent.CLICK, onRefreshButtonClick);
 
         addEventListener(AppConstants.DYNAMICEVENT_GEOSEARCH, handleGeoSearchEvent);
     }
@@ -60,7 +65,18 @@ public class GameEditorMapView extends VBox
 
 	private function onCenterMapButtonClick(evt:MouseEvent):void
 	{
+		trace("GameEditorMapView: Center Map Button Clicked!");
 		theMap.centerMapOnData(true);
+	}
+	
+	private function onRefreshButtonClick(evt:MouseEvent):void
+	{
+		trace("GameEditorMapView: Refresh Button Clicked!");
+		
+		theMap.centerMapOnData(false);
+		var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);
+		trace("Redraw Object Palette Event dispatched...");
 	}
 
 	

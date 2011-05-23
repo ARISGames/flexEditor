@@ -186,6 +186,7 @@ public class AppUtils
 
     public static function repairPaletteObjectAssociations():ArrayCollection
     {
+
         var go:ArrayCollection = AppUtils.flattenGameObjectIntoArrayCollection(null);
 
         for (var lc:Number = go.length - 1; lc >= 0; lc--)
@@ -209,8 +210,8 @@ public class AppUtils
                 o.previousContentId = lc;
             }
         }
-
-        return go;
+		
+		return go;
     }
 
     public static function printPaletteObjectDataModel():void

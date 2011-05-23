@@ -16,15 +16,15 @@
             <mx:FormItem label="Password" required="true">
                 <mx:TextInput id="password" width="200" displayAsPassword="true"/>
             </mx:FormItem>
-			<mx:FormItem label=" " required="false">
-				<mx:CheckBox id="rememberMe" width="100%" label="Remember Me" selected="false"/>
-			</mx:FormItem>
             <mx:FormItem id="confirm" label="Confirm:" required="true" visible="false" includeInLayout="false">
                 <mx:TextInput id="confirmPassword" width="200" displayAsPassword="true"/>
             </mx:FormItem>
             <mx:FormItem id="email" label="Email:" required="true" visible="false" includeInLayout="false">
                 <mx:TextInput id="emailAddress" width="200"/>
             </mx:FormItem>
+			<mx:FormItem label=" " required="false">
+				<mx:CheckBox id="rememberMe" width="100%" label="Remember Me" selected="false" visible="true"/>
+			</mx:FormItem>
 			<mx:Text htmlText="{instructions}" id="Instructions" />	
         </mx:Form>
 	
