@@ -104,6 +104,7 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 	}
 	
+	
 	private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
 	{
 		trace("GameEditorObjectPaletteView: Starting handleLoadFoldersAndContentForObjectPalette()...");
@@ -120,44 +121,27 @@ public class GameEditorObjectPaletteView extends VBox
 			op.name = obj.result.data.folders.list.getItemAt(j).name;
 			op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
 			op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
+			op.previousContentId = obj.result.data.folders.list.getItemAt(j).previous_id;
 			op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
 			trace("Folder Loaded: Id-"+op.id+" Name-"+op.name+" parentFolderId-"+op.previousFolderId+" previousFolderId-"+op.previousFolderId+" isOpen-"+op.isOpen);
 			ops.addItem(op);
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
-		/*
-		// Sort By Previous Folder Id From 0 to N
-		var opsTemp:ArrayCollection = ops;
-		ops = new ArrayCollection();
 		
-		
-		//Iterates #folders times (the max depth can only be the max num folders)
-		for(var l:Number = 0; l < 20; l++){
-			//Iterates each folder searching for ones at depth l
-			for(var n:Number = 0; n < opsTemp.length; n++){
-				if(opsTemp.getItemAt(n).parentFolderId == l){
-					ops.addItem(opsTemp.getItemAt(n));
-				}
-			}
-		}
-		*/
-		
-		//This doesn't work correctly, and Phil doesn't understand
-		//this, so he's going to do it the old fashioned way ^^
 		var dataSortField:SortField = new SortField();
-		dataSortField.name = "previousFolderId";
+		dataSortField.name = "parentFolderId"; //"previousFolderId";
 		dataSortField.numeric = true;
 		
 		var numericDataSort:Sort = new Sort();
 		numericDataSort.fields = [dataSortField];
-		//*
+		
 		ops.sort = numericDataSort;
 		ops.refresh();
-		//*/
+	
 
 		
-		trace("Folders sorted by Previous Folder Id");
+		trace("Folders sorted by Parent Folder Id"); //Previous Folder Id");
 		
 		var dict:Dictionary = new Dictionary();
 		
@@ -165,8 +149,6 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
-			trace("THESE ARE THE FOLDER'S CHILDREN :" + op.children + " ? ");
-			if(op.children == null) trace("NULL?!?!?!");
 			if (op.parentFolderId == 0)
 			{
 				// It's at the root level
@@ -175,28 +157,20 @@ public class GameEditorObjectPaletteView extends VBox
 			else
 			{
 				// It's a child of a previously added object
-				var o:ObjectPaletteItemBO = dict[op.previousFolderId] as ObjectPaletteItemBO;
+				var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO; //dict[op.previousFolderId] as ObjectPaletteItemBO;
 				if(o == null){
-					//if this is reached, the folder has a "previous folder Id" of a folder that does not exist
+					//if this is reached, the folder has a "parent folder Id" of a folder that does not exist //"previous folder Id" of a folder that does not exist
 					op.parentFolderId = 0;
 					dict[op.id] = op;
 				}
 				else{
+					//dict[op.id] = op; <- TOTES works if you uncomment this line, but duplicates items... :P
 					o.children.addItem(op);
 				}
 
 			}
 		}
 		trace("Folders loaded into dictionary.");
-		trace("Loaded Folder heirarchy: (Only shows root+1 depth)");
-		var continues:Boolean = true;
-		var i:Number = 0;
-		for (var key:Object in dict){
-			trace(dict[key].name);
-			for(var k:Number = 0; k < dict[key].children.length; k++){
-				trace("    "+dict[i].children.getItemAt(k).name);
-			}
-		}
 		
 		ops.removeAll();
 		// Load Content
@@ -263,6 +237,8 @@ public class GameEditorObjectPaletteView extends VBox
 			fc.addItem(dict[key]);    
 		}
 		// Resort to get in proper order, not order of keys.
+		
+		dataSortField.name = "previousFolderId"; //
 		fc.sort = numericDataSort;
 		fc.refresh();
 		
@@ -277,7 +253,7 @@ public class GameEditorObjectPaletteView extends VBox
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
 			
-			// if previous folder id == 0, then it's root else it goes on as a child of a folder
+			// if parent content folder id == 0, then it's root else it goes on as a child of a folder
 			if (op.parentContentFolderId == 0)
 			{
 				rfc.addItem(op);
@@ -285,7 +261,51 @@ public class GameEditorObjectPaletteView extends VBox
 			else
 			{
 				var par:ObjectPaletteItemBO = dict[op.parentContentFolderId] as ObjectPaletteItemBO;
-				par.children.addItem(op);
+				if(par != null){
+					par.children.addItem(op);
+				}	
+				else 
+				{
+					//Phil's Terrible-Coding-Practice-But-I-Gotta-Work-With-What-I-Got Code: LET'S DO THIS
+					for(var Key:Object in dict)
+					{ //For All things at root...
+						par = dict[Key] as ObjectPaletteItemBO;
+						if(par.isFolder())
+						{ // If it's a folder...
+							for(var q:Number = 0; q < par.children.length; q++)
+							{ //We don't need to check its ID, because if it was the correct Id at root it wouldn't have gotten this far in the first place, so check all of its subitems
+								if(par.children.getItemAt(q).isFolder()) 
+								{// For all the subitems that are folders
+									var parTwo:ObjectPaletteItemBO = par.children.getItemAt(q) as ObjectPaletteItemBO;	
+									if(parTwo.id == op.parentContentFolderId) 
+									{// check the id to see if its the parent
+										parTwo.children.addItem(op);
+										break;
+									}
+									else
+									{ // Not the parent, so check THIS things kids...	
+										for(var l:Number = 0; l < parTwo.children.length; l++)
+										{//For all of parTwo's kids...
+											if(parTwo.children.getItemAt(l).isFolder())
+											{//If its a folder...
+												var parThree:ObjectPaletteItemBO = parTwo.children.getItemAt(l) as ObjectPaletteItemBO;
+												if(parThree.id == op.parentContentFolderId)
+												{//If THIS IS THE ONE
+													parThree.children.addItem(op);
+													break;
+												}
+												else{
+													//GIVE UP. THIS IS RIDICULOUS. THIS NEEDS TO BE IMPLEMENTED RECURSIVELY
+													trace("Couldn't find parent... this is ridiculous");
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		trace("Finished sorting and arranging content items... should be ready to display Tree now.");        
@@ -492,7 +512,7 @@ public class GameEditorObjectPaletteView extends VBox
         trace("addFolderButtonOnClick() started...");
         var o:ObjectPaletteItemBO = new ObjectPaletteItemBO(true);
         o.id = 0;
-        o.name = "New Folder " + new Date();
+        o.name = "New Folder";// + new Date();
 		paletteTree.expandItem(o, true, false, false, null);
 		o.isOpen = true;
         this.addObjectPaletteItem(o);
@@ -641,7 +661,7 @@ public class GameEditorObjectPaletteView extends VBox
         trace("itemsArray created with size = '" + itemsArray.length + "'");
 
         var it:ObjectPaletteItemBO = itemsArray[0];
-        trace("Object: Id = '" + it.id +"'; is Folder? = '" + it.isFolder() + "'; Name = '" + it.name + "'");
+        trace("Object: Id = '" + it.id +"'; is Folder? = '" + it.isFolder() + "'; Name = '" + it.name + "'; has parent Folder? = '" + it.parentContentFolderId + "'");
 
         // If folder check all items in data model to see if any point to it before allowing deletion.
         var okDrop:Boolean = true;
@@ -654,6 +674,14 @@ public class GameEditorObjectPaletteView extends VBox
                 okDrop = false;
             }
         }
+		else
+		{
+			if(it.parentContentFolderId != 0)
+			{
+				trace("This object is in a folder, so don't allow it to be deleted.");
+				okDrop = false;
+			}
+		}
 
         if (okDrop)
         {
@@ -666,8 +694,11 @@ public class GameEditorObjectPaletteView extends VBox
         }
         else
         {
-            Alert.show("This folder has items in it and can't be deleted until they are first removed.  Please do so and then try deleting the folder again.", "Can't Delete Folder Yet");
-        }
+			if(it.isFolder())
+            	Alert.show("This folder has items in it and can't be deleted until they are first removed.  Please do so and then try deleting the folder again.", "Can't Delete Folder Yet");
+			else
+				Alert.show("This item is in a folder, and cannot be deleted until it is first removed. Please do so and then try deleting it again.", "Can't Delete Nested Object");
+		}
     }
 
     public function trashDragExitHandler(evt:DragEvent):void
@@ -712,6 +743,7 @@ public class GameEditorObjectPaletteView extends VBox
         treeModel.removeItemAt(index);
         refreshData = true;
         this.renderTree();
+		paletteTree.openFolders();
 
         // Stop Effect And Reset Trash Bin To Original State
         glowImage.end();

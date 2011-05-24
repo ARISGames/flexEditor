@@ -21,8 +21,9 @@ public class ObjectPaletteItemBO
     public var media:Media;
 	
     // Relationship Display Information
-    public var children:ArrayCollection;
-
+    //public var children:ObjectPaletteItemChildrenArray;
+	public var children:ArrayCollection;
+	
     // Content
     public var parentContentFolderId:Number = 0;
     public var previousContentId:Number = 0;
@@ -46,6 +47,7 @@ public class ObjectPaletteItemBO
         super();
         if (isFolder)
         {
+			//children = new ObjectPaletteItemChildrenArray(this);
             children = new ArrayCollection();
         }
     }

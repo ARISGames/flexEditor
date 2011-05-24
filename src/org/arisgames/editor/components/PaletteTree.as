@@ -142,6 +142,15 @@ public class PaletteTree extends Tree
             var obj:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
             if (obj.isFolder())
             {
+				//*
+				//PHILDOUGHERTY
+				var pObj:ObjectPaletteItemBO = getParentItem(obj) as ObjectPaletteItemBO;
+				if(pObj != null){
+					trace("PARENT");
+					obj.parentFolderId = pObj.id;
+				}
+				//PHILDOUGHERTY
+				//*/
                 AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, obj, new Responder(handleSavePaletteObject, handleFault));
             }
             else

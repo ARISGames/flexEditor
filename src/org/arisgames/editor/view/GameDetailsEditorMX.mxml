@@ -1,18 +1,47 @@
 <?xml version="1.0" ?>
 <v:GameDetailsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
                                 xmlns:v="org.arisgames.editor.view.*"
+								xmlns:c="org.arisgames.editor.components.*"
                                 title="Game Settings" xmlns:components="org.arisgames.editor.components.*"
-								>
-	<mx:Spacer/>
-
-	
-	<mx:TabNavigator height = "320" width="512">
+								horizontalAlign="center"
+								verticalAlign="middle"
+								horizontalScrollPolicy="off"
+								verticalScrollPolicy="off"
+								>	
+	<mx:TabNavigator height="400" width="550"><!-- Old Dimensions: height ="320" width="512"> -->
 		<mx:Canvas label="General Settings">
 			<mx:Form>
-				<mx:FormItem label="Label">
-				</mx:FormItem>
 				<mx:FormItem label="Name">
 					<mx:TextInput id="gameName" width = "250"/>
+				</mx:FormItem>
+				<mx:FormItem>
+					
+					<mx:VBox id="iconBox" horizontalAlign="center" verticalAlign="bottom">
+						<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
+							<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+						</mx:Canvas>
+						
+						<mx:LinkButton id="iconAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+						
+						<mx:Button id="iconRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+						
+						<mx:Label id="iconNoMediaLabel" text="Choose Icon" visible="false" includeInLayout="false"/>
+						
+						<mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
+					</mx:VBox>
+					<mx:VBox id="mediaBox" horizontalAlign="center" verticalAlign="bottom">
+						<mx:Canvas id="mediaImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
+							<mx:Image id="mediaPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+						</mx:Canvas>
+						
+						<mx:LinkButton id="mediaAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+						
+						<mx:Button id="mediaRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+						
+						<mx:Label id="mediaNoMediaLabel" text="Choose Splash Screen" visible="false" includeInLayout="false"/>
+						
+						<mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
+					</mx:VBox>
 				</mx:FormItem>
 				<mx:FormItem label="Description">
 					<mx:TextArea id="description" width = "250"/>
@@ -25,17 +54,26 @@
 					<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 					</mx:ComboBox>
 				</mx:FormItem>
+				<!-- Check Boxes -->
 				<mx:FormItem label="Allow Players to create locations">
 					<mx:CheckBox id="allowPlayerLocationsCb"/>
 				</mx:FormItem>
 				<mx:FormItem label="Player reset deletes player locations">
 					<mx:CheckBox id="deletePlayerLocationsCb"/>
 				</mx:FormItem>
-				<mx:Spacer height = "20"/>
+				<mx:FormItem label="Game requires play in specific locations">
+					<mx:CheckBox id="gameIsLocational"/>
+				</mx:FormItem>
+				<mx:FormItem label="Game ready to be published/ rated">
+					<mx:CheckBox id="gameIsFinished"/>
+				</mx:FormItem>
 				<mx:FormItem>
 					<mx:LinkButton label="Permanantly Delete This Game" id = "deleteButton" color="#D50000" textAlign="left" width="100%"/>		
 				</mx:FormItem>
 			</mx:Form>
+		</mx:Canvas>
+		<mx:Canvas label="Add User as Editor">
+			<mx:Button label="Pick a Name" id="editorPermissionButton"/>
 		</mx:Canvas>
 		<mx:Canvas label="Game Links">
 			<mx:Button x="112" y="89" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>

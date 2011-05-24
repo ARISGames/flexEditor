@@ -2,14 +2,15 @@ package org.arisgames.editor.util
 {
 import mx.collections.ArrayCollection;
 import mx.utils.ArrayUtil;
+
 import org.arisgames.editor.MainView;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
-import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
+import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -186,33 +187,40 @@ public class AppUtils
 
     public static function repairPaletteObjectAssociations():ArrayCollection
     {
-
+		trace("AppUtils:Repairing side Palette: ");
         var go:ArrayCollection = AppUtils.flattenGameObjectIntoArrayCollection(null);
-
         for (var lc:Number = go.length - 1; lc >= 0; lc--)
         {
             var o:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
-            if (o.isFolder())
-            {
-                // Take care of the children
-                for (var klc:Number = o.children.length - 1; klc >= 0; klc--)
-                {
-                    var k:ObjectPaletteItemBO = o.children.getItemAt(klc) as ObjectPaletteItemBO;
-                    k.parentContentFolderId = o.id;
-                    k.previousContentId = klc;
-                }
-
-                o.previousFolderId = lc;
-            }
-            else
-            {
-                o.parentContentFolderId = 0;
-                o.previousContentId = lc;
-            }
+			repairPalleteObjectAssociation(o, lc, 0);     
         }
 		
 		return go;
     }
+	
+	private static function repairPalleteObjectAssociation(o:ObjectPaletteItemBO, lc:Number, pId:Number):void {
+		if (o.isFolder())
+		{
+			o.parentFolderId = pId;
+			o.parentContentFolderId = pId;
+			o.previousFolderId = lc;
+			o.previousContentId = lc;
+			trace("Repairing folder-" + o.name +" ID-" + o.id + " PID-" + o.parentFolderId + " prevID-" + o.previousFolderId);
+			// Take care of the children
+			for (var klc:Number = o.children.length - 1; klc >= 0; klc--)
+			{
+				var k:ObjectPaletteItemBO = o.children.getItemAt(klc) as ObjectPaletteItemBO;
+				repairPalleteObjectAssociation(k, klc, o.id);
+			}
+		}
+		else
+		{
+			o.parentContentFolderId = pId;
+			o.previousContentId = lc;
+			trace("Repairing object-" + o.name +" ID-" + o.id + " PID-" + o.parentContentFolderId + " prevID-" + o.previousContentId);
+
+		}
+	}
 
     public static function printPaletteObjectDataModel():void
     {

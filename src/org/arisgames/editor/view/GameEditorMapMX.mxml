@@ -24,7 +24,7 @@
         <mx:Button id="mapGoButton" label="Go"/>
 		<mx:Box id="emptySpace" width='100%'/>
 		<mx:Button id="centerMapButton" label="Center Map"/>
-		<mx:Button id="refreshButton" icon="@Embed(source='assets/img/Refresh-icon.png')"/>
+		<mx:Button id="refreshButton" icon="@Embed(source='assets/img/refresh-icon-dark.png')"/>
     </mx:ApplicationControlBar>
 
 </v:GameEditorMapView>
