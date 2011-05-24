@@ -672,7 +672,15 @@ public class GameEditorObjectPaletteView extends VBox
             {
                 trace("This folder has children, so can't allow it to be deleted.");
                 okDrop = false;
+				Alert.show("This folder has items in it and can't be deleted until they are first removed.  Please do so and then try deleting the folder again.", "Can't Delete Folder Yet");
+
             }
+			else if (it.parentFolderId != 0){
+				trace("This folder is a child, so can't allow it to be deleted.");
+				okDrop = false;
+				Alert.show("This folder is in a folder, and cannot be deleted until it is first removed. Please do so and then try deleting it again.", "Can't Delete Nested Object");
+
+			}
         }
 		else
 		{
@@ -694,9 +702,7 @@ public class GameEditorObjectPaletteView extends VBox
         }
         else
         {
-			if(it.isFolder())
-            	Alert.show("This folder has items in it and can't be deleted until they are first removed.  Please do so and then try deleting the folder again.", "Can't Delete Folder Yet");
-			else
+			if(!it.isFolder())
 				Alert.show("This item is in a folder, and cannot be deleted until it is first removed. Please do so and then try deleting it again.", "Can't Delete Nested Object");
 		}
     }

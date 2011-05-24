@@ -8,40 +8,42 @@
 								horizontalScrollPolicy="off"
 								verticalScrollPolicy="off"
 								>	
-	<mx:TabNavigator height="400" width="550"><!-- Old Dimensions: height ="320" width="512"> -->
+	<mx:TabNavigator height="400" width="510"><!-- Old Dimensions: height ="320" width="512"> -->
 		<mx:Canvas label="General Settings">
 			<mx:Form>
 				<mx:FormItem label="Name">
 					<mx:TextInput id="gameName" width = "250"/>
 				</mx:FormItem>
 				<mx:FormItem>
-					
-					<mx:VBox id="iconBox" horizontalAlign="center" verticalAlign="bottom">
-						<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
-							<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
-						</mx:Canvas>
-						
-						<mx:LinkButton id="iconAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
-						
-						<mx:Button id="iconRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
-						
-						<mx:Label id="iconNoMediaLabel" text="Choose Icon" visible="false" includeInLayout="false"/>
-						
-						<mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
-					</mx:VBox>
-					<mx:VBox id="mediaBox" horizontalAlign="center" verticalAlign="bottom">
-						<mx:Canvas id="mediaImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
-							<mx:Image id="mediaPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
-						</mx:Canvas>
-						
-						<mx:LinkButton id="mediaAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
-						
-						<mx:Button id="mediaRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
-						
-						<mx:Label id="mediaNoMediaLabel" text="Choose Splash Screen" visible="false" includeInLayout="false"/>
-						
-						<mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
-					</mx:VBox>
+					<!-- Media -->
+					<mx:Tile direction="horizontal">
+						<mx:VBox id="iconBox" horizontalAlign="center" verticalAlign="bottom">
+							<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
+								<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+							</mx:Canvas>
+							
+							<mx:LinkButton id="iconAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+							
+							<mx:Button id="iconRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+							
+							<mx:Label id="iconNoMediaLabel" text="Choose Icon" visible="false" includeInLayout="false"/>
+							
+							<mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
+						</mx:VBox>
+						<mx:VBox id="mediaBox" horizontalAlign="center" verticalAlign="bottom">
+							<mx:Canvas id="mediaImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
+								<mx:Image id="mediaPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+							</mx:Canvas>
+							
+							<mx:LinkButton id="mediaAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+							
+							<mx:Button id="mediaRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+							
+							<mx:Label id="mediaNoMediaLabel" text="Choose Splash Screen" visible="false" includeInLayout="false"/>
+							
+							<mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
+						</mx:VBox>
+					</mx:Tile>
 				</mx:FormItem>
 				<mx:FormItem label="Description">
 					<mx:TextArea id="description" width = "250"/>
@@ -55,18 +57,25 @@
 					</mx:ComboBox>
 				</mx:FormItem>
 				<!-- Check Boxes -->
-				<mx:FormItem label="Allow Players to create locations">
-					<mx:CheckBox id="allowPlayerLocationsCb"/>
-				</mx:FormItem>
-				<mx:FormItem label="Player reset deletes player locations">
-					<mx:CheckBox id="deletePlayerLocationsCb"/>
-				</mx:FormItem>
-				<mx:FormItem label="Game requires play in specific locations">
-					<mx:CheckBox id="gameIsLocational"/>
-				</mx:FormItem>
-				<mx:FormItem label="Game ready to be published/ rated">
-					<mx:CheckBox id="gameIsFinished"/>
-				</mx:FormItem>
+				<mx:Tile direction="horizontal">
+					<mx:Tile direction="vertical" horizontalAlign="right">
+						<mx:FormItem label="Allow Players to create locations">
+							<mx:CheckBox id="allowPlayerLocationsCb"/>
+						</mx:FormItem>
+						<mx:FormItem label="Player reset deletes player locations">
+							<mx:CheckBox id="deletePlayerLocationsCb"/>
+						</mx:FormItem>
+					</mx:Tile>
+					<mx:Tile direction="vertical" horizontalAlign="right">
+						<mx:FormItem label="Game requires play in specific locations">
+							<mx:CheckBox id="gameIsLocational"/>
+						</mx:FormItem>
+						<mx:FormItem label="Game ready to be published/ rated">
+							<mx:CheckBox id="gameIsFinished"/>
+						</mx:FormItem>						
+					</mx:Tile>
+				</mx:Tile>
+				<mx:Spacer height="10" />
 				<mx:FormItem>
 					<mx:LinkButton label="Permanantly Delete This Game" id = "deleteButton" color="#D50000" textAlign="left" width="100%"/>		
 				</mx:FormItem>
