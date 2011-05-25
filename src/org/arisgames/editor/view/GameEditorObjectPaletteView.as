@@ -120,6 +120,7 @@ public class GameEditorObjectPaletteView extends VBox
 			op.id = obj.result.data.folders.list.getItemAt(j).folder_id;
 			op.name = obj.result.data.folders.list.getItemAt(j).name;
 			op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
+			op.parentContentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
 			op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
 			op.previousContentId = obj.result.data.folders.list.getItemAt(j).previous_id;
 			op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
@@ -128,9 +129,9 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
-		
+		var q:ArrayCollection = ops;
 		var dataSortField:SortField = new SortField();
-		dataSortField.name = "parentFolderId"; //"previousFolderId";
+		dataSortField.name = "previousFolderId"; //"previousFolderId";
 		dataSortField.numeric = true;
 		
 		var numericDataSort:Sort = new Sort();
@@ -138,13 +139,14 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		ops.sort = numericDataSort;
 		ops.refresh();
-	
+		q = ops;
 
 		
-		trace("Folders sorted by Parent Folder Id"); //Previous Folder Id");
+		trace("Folders sorted by Previous Folder Id"); //Previous Folder Id");
 		
 		var dict:Dictionary = new Dictionary();
-		
+		var par:ObjectPaletteItemBO;
+		var Key:Object
 		for (j = 0; j < ops.length; j++)
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
@@ -158,18 +160,23 @@ public class GameEditorObjectPaletteView extends VBox
 			{
 				// It's a child of a previously added object
 				var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO; //dict[op.previousFolderId] as ObjectPaletteItemBO;
-				if(o == null){
-					//if this is reached, the folder has a "parent folder Id" of a folder that does not exist //"previous folder Id" of a folder that does not exist
-					op.parentFolderId = 0;
-					dict[op.id] = op;
+				if(o != null){
+					o.children.addItem(op);					
 				}
 				else{
-					//dict[op.id] = op; <- TOTES works if you uncomment this line, but duplicates items... :P
-					o.children.addItem(op);
+					trace("GameEditorObjectPaletteView: Starting recursive check for parent folder of FOLDER...");
+					for(Key in dict)
+					{ //For All things at root...
+						par = dict[Key] as ObjectPaletteItemBO;
+						if(par.isFolder()){
+							recursiveFindParentOfFolder(par, op);
+						}
+					}
 				}
-
+				trace("Internal Folder- " + op.name + " Parent ID " + op.parentFolderId);
 			}
 		}
+		q = ops;
 		trace("Folders loaded into dictionary.");
 		
 		ops.removeAll();
@@ -260,49 +267,18 @@ public class GameEditorObjectPaletteView extends VBox
 			}
 			else
 			{
-				var par:ObjectPaletteItemBO = dict[op.parentContentFolderId] as ObjectPaletteItemBO;
+				par = dict[op.parentContentFolderId] as ObjectPaletteItemBO;
 				if(par != null){
 					par.children.addItem(op);
 				}	
 				else 
 				{
-					//Phil's Terrible-Coding-Practice-But-I-Gotta-Work-With-What-I-Got Code: LET'S DO THIS
-					for(var Key:Object in dict)
+					trace("GameEditorObjectPaletteView: Starting recursive check for parent folder...");
+					for(Key in dict)
 					{ //For All things at root...
 						par = dict[Key] as ObjectPaletteItemBO;
-						if(par.isFolder())
-						{ // If it's a folder...
-							for(var q:Number = 0; q < par.children.length; q++)
-							{ //We don't need to check its ID, because if it was the correct Id at root it wouldn't have gotten this far in the first place, so check all of its subitems
-								if(par.children.getItemAt(q).isFolder()) 
-								{// For all the subitems that are folders
-									var parTwo:ObjectPaletteItemBO = par.children.getItemAt(q) as ObjectPaletteItemBO;	
-									if(parTwo.id == op.parentContentFolderId) 
-									{// check the id to see if its the parent
-										parTwo.children.addItem(op);
-										break;
-									}
-									else
-									{ // Not the parent, so check THIS things kids...	
-										for(var l:Number = 0; l < parTwo.children.length; l++)
-										{//For all of parTwo's kids...
-											if(parTwo.children.getItemAt(l).isFolder())
-											{//If its a folder...
-												var parThree:ObjectPaletteItemBO = parTwo.children.getItemAt(l) as ObjectPaletteItemBO;
-												if(parThree.id == op.parentContentFolderId)
-												{//If THIS IS THE ONE
-													parThree.children.addItem(op);
-													break;
-												}
-												else{
-													//GIVE UP. THIS IS RIDICULOUS. THIS NEEDS TO BE IMPLEMENTED RECURSIVELY
-													trace("Couldn't find parent... this is ridiculous");
-												}
-											}
-										}
-									}
-								}
-							}
+						if(par.isFolder()){
+							recursiveFindParentOfFolder(par, op);
 						}
 					}
 				}
@@ -318,6 +294,26 @@ public class GameEditorObjectPaletteView extends VBox
 		treeModel = GameModel.getInstance().game.gameObjects;
 		treeModel.refresh();
 		paletteTree.openFolders();
+	}
+	
+	//A folder is passed in to this function (parent) along with an ObjectPaletteItemBO (which can be either another
+	//folder, OR a normal Item... IE NPC, plaque, item) those ParentID is not a value at root (orphan). This function
+	//recursively searches all of the folders children for folders with the correct parent ID, and searches all of those
+	//folders children.
+	private function recursiveFindParentOfFolder(parent:ObjectPaletteItemBO, orphan:ObjectPaletteItemBO):void{
+		if(parent.id == orphan.parentContentFolderId || parent.id == orphan.parentFolderId){
+			orphan.parentFolderId = parent.id;
+			orphan.parentContentFolderId = parent.id;
+			parent.children.addItem(orphan);
+		}
+		else{
+			for(var i:Number = 0; i < parent.children.length; i++){
+				var uncle:ObjectPaletteItemBO = parent.children.getItemAt(i) as ObjectPaletteItemBO;
+				if(uncle.isFolder()){
+					recursiveFindParentOfFolder(uncle, orphan);
+				}
+			}
+		}
 	}
 	
 	/**

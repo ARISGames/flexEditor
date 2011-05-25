@@ -192,6 +192,8 @@ public class AppUtils
         for (var lc:Number = go.length - 1; lc >= 0; lc--)
         {
             var o:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
+			o.previousContentId = -1;
+			o.previousFolderId = -1;
 			repairPalleteObjectAssociation(o, lc, 0);     
         }
 		
@@ -203,14 +205,16 @@ public class AppUtils
 		{
 			o.parentFolderId = pId;
 			o.parentContentFolderId = pId;
-			o.previousFolderId = lc;
-			o.previousContentId = lc;
+			if(o.previousContentId == -1 || o.previousFolderId == -1){
+				o.previousFolderId = lc;
+				o.previousContentId = lc;
+			}
 			trace("Repairing folder-" + o.name +" ID-" + o.id + " PID-" + o.parentFolderId + " prevID-" + o.previousFolderId);
 			// Take care of the children
 			for (var klc:Number = o.children.length - 1; klc >= 0; klc--)
 			{
 				var k:ObjectPaletteItemBO = o.children.getItemAt(klc) as ObjectPaletteItemBO;
-				repairPalleteObjectAssociation(k, klc, o.id);
+				repairPalleteObjectAssociation(k, lc, o.id);
 			}
 		}
 		else
@@ -218,7 +222,6 @@ public class AppUtils
 			o.parentContentFolderId = pId;
 			o.previousContentId = lc;
 			trace("Repairing object-" + o.name +" ID-" + o.id + " PID-" + o.parentContentFolderId + " prevID-" + o.previousContentId);
-
 		}
 	}
 

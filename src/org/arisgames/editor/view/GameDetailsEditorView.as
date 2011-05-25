@@ -47,6 +47,8 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var completeNodeCbo:mx.controls.ComboBox;
 	[Bindable] public var allowPlayerLocationsCb:mx.controls.CheckBox;
 	[Bindable] public var deletePlayerLocationsCb:mx.controls.CheckBox;
+	[Bindable] public var gameIsLocationalCb:mx.controls.CheckBox;
+	[Bindable] public var gameReadyForPublicCb:mx.controls.CheckBox;
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;

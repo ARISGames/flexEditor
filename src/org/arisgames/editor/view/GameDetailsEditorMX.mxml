@@ -41,7 +41,7 @@
 							
 							<mx:Label id="mediaNoMediaLabel" text="Choose Splash Screen" visible="false" includeInLayout="false"/>
 							
-							<mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
+							<mx:Button id="mediaPopupMediaPickerButton" label="Splash Screen Picker"/>
 						</mx:VBox>
 					</mx:Tile>
 				</mx:FormItem>
@@ -68,10 +68,10 @@
 					</mx:Tile>
 					<mx:Tile direction="vertical" horizontalAlign="right">
 						<mx:FormItem label="Game requires play in specific locations">
-							<mx:CheckBox id="gameIsLocational"/>
+							<mx:CheckBox id="gameIsLocationalCb"/>
 						</mx:FormItem>
 						<mx:FormItem label="Game ready to be published/ rated">
-							<mx:CheckBox id="gameIsFinished"/>
+							<mx:CheckBox id="gameReadyForPublicCb"/>
 						</mx:FormItem>						
 					</mx:Tile>
 				</mx:Tile>
