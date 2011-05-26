@@ -81,8 +81,24 @@
 				</mx:FormItem>
 			</mx:Form>
 		</mx:Canvas>
-		<mx:Canvas label="Add User as Editor">
-			<mx:Button label="Pick a Name" id="editorPermissionButton"/>
+		<mx:Canvas label="Add/Remove Editor">
+			<mx:Form>
+				<mx:Label text="Add User As Editor Of This Game"/>
+				<mx:FormItem label="User's Email">
+					<mx:TextInput id="addEditorEmail" width = "250"/>
+				</mx:FormItem>
+				<mx:FormItem>
+					<mx:Button id="addEditor" label="Add Editor" click="handleAddEditor(event)"/>
+				</mx:FormItem>
+				<mx:Spacer height="20"/>
+				<mx:Label text="Remove Editor Of This Game"/>
+				<mx:FormItem label="Current Editors">
+					<mx:TextInput id="removeEditorEmail" width = "250"/>
+				</mx:FormItem>
+				<mx:FormItem>
+					<mx:Button id="removeEditor" label="Remove Editor" click="handleRemoveEditor(event)"/>
+				</mx:FormItem>
+			</mx:Form>
 		</mx:Canvas>
 		<mx:Canvas label="Game Links">
 			<mx:Button x="112" y="89" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>

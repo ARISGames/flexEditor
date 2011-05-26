@@ -1,5 +1,6 @@
 package org.arisgames.editor.view
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
@@ -72,6 +73,12 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var mediaPopupMediaPickerButton:Button;
 	
 	private var mediaPicker:GameEditorMediaPickerMX;
+	
+	[Bindable] public var addEditor:Button;
+	[Bindable] public var removeEditor:Button;
+	[Bindable] public var addEditorEmail:TextInput;
+	[Bindable] public var removeEditorEmail:TextInput;
+
 
 	//
 		
@@ -469,6 +476,77 @@ public class GameDetailsEditorView extends Panel{
 			var msg:String = obj.result.returnCodeDescription;
 			Alert.show("Error Was: " + msg, "Error While Selecting Media for Game");
 		}
+	}
+	
+	
+	public function handleAddEditor(evt:Event):void {
+		if(addEditorEmail.text != ""){
+			findUserIdFromEmail(addEditorEmail.text, true);
+		}
+	}
+	
+	public function handleRemoveEditor(evt:Event):void {
+		if(removeEditorEmail.text != ""){
+			findUserIdFromEmail(addEditorEmail.text, false);
+		}
+	}
+	
+	private function handleAddedEditor(obj:Object):void{
+		if(obj.result.returnCode != 0)
+			Alert.show("User was not successfully added. Something went wrong.", "Error Adding Editor");
+		else
+			Alert.show("User was successfully added as an editor.", "Success!");
+	}
+	private function handleRemovedEditor(obj:Object):void{
+		if(obj.result.returnCode != 0)
+			Alert.show("User was not successfully removed. Something went wrong.", "Error Removing Editor");
+		else
+			Alert.show("User was successfully removed as an editor.", "Success!");
+	}
+	private function findUserIdFromEmail(email:String, add:Boolean):void{
+		if(add){
+			AppServices.getInstance().getEditors(new Responder(handleFindIdToAdd, handleFault));
+		}
+		else{
+			AppServices.getInstance().getEditors(new Responder(handleFindIdToRemove, handleFault));
+		}
+	}
+	private function handleFindIdToAdd(obj:Object):void
+	{
+		var editorId:Number = 0;
+		var found:Boolean = false;
+		
+		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
+			if(obj.result.data[x].email == addEditorEmail.text){
+				found = true;
+				editorId = obj.result.data[x].editor_id;
+			}
+		}
+		
+		if(found){
+			trace("Found ID for " + addEditorEmail.text + "; Id=" + editorId);
+			AppServices.getInstance().addEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleAddedEditor, handleFault));
+		}
+		else
+			Alert.show("User was not found in database", "404");
+	}
+	private function handleFindIdToRemove(obj:Object):void
+	{
+		var editorId:Number = 0;
+		var found:Boolean = false;
+
+		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
+			if(obj.result.data[x].email == addEditorEmail.text){
+				found = true;
+				editorId = obj.result.data[x].editor_id;
+			}
+		}
+		if(found){
+			trace("Found ID for " + removeEditorEmail.text + "; Id=" + editorId);
+			AppServices.getInstance().removeEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleRemovedEditor, handleFault));
+		}
+		else
+			Alert.show("User was not found in database", "404");
 	}
 	
     public function handleFault(obj:Object):void

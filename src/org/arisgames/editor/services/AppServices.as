@@ -501,6 +501,29 @@ public class AppServices
 		l.addResponder(resp);
 	}
 	
+	public function addEditor(gid:Number, editorId:Number, resp:IResponder):void
+	{
+		trace("addEditor called for game Id=" + gid + " with editorId '" + editorId + "'");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().addEditorToGame(editorId ,gid);
+		r.addResponder(resp);
+	}
+	
+	public function removeEditor(gid:Number, editorId:Number, resp:IResponder):void
+	{
+		trace("removeEditor called for game Id=" + gid + " with editorId '" + editorId + "'");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().removeEditorFromGame(editorId ,gid);
+		r.addResponder(resp);
+	}
+	
+	public function getEditors(resp:IResponder):void
+	{
+		trace("Retreiving all Editors");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().getEditors();
+		r.addResponder(resp);
+	}
 	
 }
 }
