@@ -129,7 +129,6 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
-		var q:ArrayCollection = ops;
 		var dataSortField:SortField = new SortField();
 		dataSortField.name = "previousFolderId"; //"previousFolderId";
 		dataSortField.numeric = true;
@@ -139,8 +138,6 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		ops.sort = numericDataSort;
 		ops.refresh();
-		q = ops;
-
 		
 		trace("Folders sorted by Previous Folder Id"); //Previous Folder Id");
 		
@@ -176,7 +173,6 @@ public class GameEditorObjectPaletteView extends VBox
 				trace("Internal Folder- " + op.name + " Parent ID " + op.parentFolderId);
 			}
 		}
-		q = ops;
 		trace("Folders loaded into dictionary.");
 		
 		ops.removeAll();

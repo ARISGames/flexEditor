@@ -5,10 +5,10 @@ import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.rpc.Responder;
 
-
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.data.arisserver.Media;
 
 
 
@@ -22,10 +22,19 @@ public class Game
     public var gameObjects:ArrayCollection;
 	public var allowsPlayerCreatedLocations:Boolean;
 	public var resetDeletesPlayerCreatedLocations:Boolean;
+	public var isLocational:Boolean;
+	public var readyForPublic:Boolean;
 	public var iconMediaId:int;
 	public var pcMediaId:int;
 	public var introNodeId:int;
 	public var completeNodeId:int;
+	
+	//Variables for GameDetailsEditor media uploads
+	public var mediaId:Number;
+	public var media:Media;
+	public var iconMedia:Media;
+
+
 	
     public function Game()
     {

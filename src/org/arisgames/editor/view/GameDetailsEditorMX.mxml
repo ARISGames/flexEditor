@@ -8,7 +8,7 @@
 								horizontalScrollPolicy="off"
 								verticalScrollPolicy="off"
 								>	
-	<mx:TabNavigator height="400" width="510"><!-- Old Dimensions: height ="320" width="512"> -->
+	<mx:TabNavigator height="430" width="520"><!-- Old Dimensions: height ="320" width="512"> -->
 		<mx:Canvas label="General Settings">
 			<mx:Form>
 				<mx:FormItem label="Name">
@@ -16,7 +16,7 @@
 				</mx:FormItem>
 				<mx:FormItem>
 					<!-- Media -->
-					<mx:Tile direction="horizontal">
+					<mx:Tile direction="horizontal" horizontalAlign="left">
 						<mx:VBox id="iconBox" horizontalAlign="center" verticalAlign="bottom">
 							<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
 								<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
@@ -68,10 +68,10 @@
 					</mx:Tile>
 					<mx:Tile direction="vertical" horizontalAlign="right">
 						<mx:FormItem label="Game requires play in specific locations">
-							<mx:CheckBox id="gameIsLocationalCb"/>
+							<mx:CheckBox id="isLocationalCb"/>
 						</mx:FormItem>
 						<mx:FormItem label="Game ready to be published/ rated">
-							<mx:CheckBox id="gameReadyForPublicCb"/>
+							<mx:CheckBox id="readyForPublicCb"/>
 						</mx:FormItem>						
 					</mx:Tile>
 				</mx:Tile>

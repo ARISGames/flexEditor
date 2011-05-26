@@ -234,7 +234,7 @@ public class ItemEditorMediaPickerView extends Panel
 							break;
 						case AppConstants.MEDIATYPE_ICON:
 							if (this.isIconPicker) {
-								trace("hello?:"+node);
+								trace("Node:"+node);
 								if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
 								xmlData.appendChild(node);
 								numIconDefaults+=k;

@@ -81,6 +81,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, 
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
+																//PHIL ADD THIS HERE- game.isLocational, game.readyForPublic
 		}
 		else
 		{
@@ -90,6 +91,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, 
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
+																//PHIL ADD THIS HERE- game.isLocational, game.readyForPublic
 		}
 		r.addResponder(resp);
 	}
