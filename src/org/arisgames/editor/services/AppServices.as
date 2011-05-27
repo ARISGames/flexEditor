@@ -81,7 +81,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, 
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
-																//PHIL ADD THIS HERE- game.isLocational, game.readyForPublic
+																//PHIL ADD CODE TO SAVE GAME MEDIA
 		}
 		else
 		{
@@ -89,9 +89,10 @@ public class AppServices
 			r = AppDAO.getInstance().getGameServer().updateGame(game.gameId,
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, 
+																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
-																//PHIL ADD THIS HERE- game.isLocational, game.readyForPublic
+																//PHIL ADD CODE TO SAVE GAME MEDIA
 		}
 		r.addResponder(resp);
 	}

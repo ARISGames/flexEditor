@@ -328,6 +328,9 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.description = description.text;
 		GameModel.getInstance().game.allowsPlayerCreatedLocations = allowPlayerLocationsCb.selected;
 		GameModel.getInstance().game.resetDeletesPlayerCreatedLocations = deletePlayerLocationsCb.selected;
+		GameModel.getInstance().game.isLocational = isLocationalCb.selected;
+		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
+
 		var introNode:Node = introNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.introNodeId = introNode.nodeId;
 		var selectedNode:Node = completeNodeCbo.selectedItem as Node;
@@ -536,12 +539,15 @@ public class GameDetailsEditorView extends Panel{
 		var found:Boolean = false;
 
 		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
-			if(obj.result.data[x].email == addEditorEmail.text){
+			trace(x + " " + obj.result.data[x].editor_id + " " + obj.result.data[x].email);
+			if(obj.result.data[x].email == removeEditorEmail.text){
 				found = true;
 				editorId = obj.result.data[x].editor_id;
+				trace(obj.result.data[x].email);
 			}
 		}
 		if(found){
+			trace("Is this correct? ^");
 			trace("Found ID for " + removeEditorEmail.text + "; Id=" + editorId);
 			AppServices.getInstance().removeEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleRemovedEditor, handleFault));
 		}

@@ -98,9 +98,8 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.completeNodeId = obj.result.data.list.getItemAt(j).game_complete_node_id;
 			g.allowsPlayerCreatedLocations = obj.result.data.list.getItemAt(j).allow_player_created_locations;
 			g.resetDeletesPlayerCreatedLocations = obj.result.data.list.getItemAt(j).delete_player_locations_on_reset;
-			//PHIL ADD THIS HERE-
-			//g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
-			//g.readyForPublic = obj.result.data.list.getItemAt(j).readyForPublic;
+			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
+			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
 			
 			usersGames.addItem(g);
         }
