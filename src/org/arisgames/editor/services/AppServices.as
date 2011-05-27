@@ -78,7 +78,7 @@ public class AppServices
 			trace("Appservices: saveGame: This game doesn't have a gameId, so call create Game.");
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
-																game.pcMediaId, game.iconMediaId, 
+																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
 																//PHIL ADD CODE TO SAVE GAME MEDIA
@@ -88,7 +88,7 @@ public class AppServices
 			trace("Appservices: saveGame: This game has an Id (" + game.gameId + "), so call update Item.");
 			r = AppDAO.getInstance().getGameServer().updateGame(game.gameId,
 																game.name, game.description,
-																game.pcMediaId, game.iconMediaId, 
+																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);

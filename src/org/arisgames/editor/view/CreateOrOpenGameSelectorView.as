@@ -92,7 +92,8 @@ public class CreateOrOpenGameSelectorView extends Panel
             g.gameId = obj.result.data.list.getItemAt(j).game_id;
             g.name = obj.result.data.list.getItemAt(j).name;
             g.description = obj.result.data.list.getItemAt(j).description;
-			g.iconMediaId = obj.result.data.list.getItemAt(j).game_icon_media_id;
+			g.iconMediaId = obj.result.data.list.getItemAt(j).icon_media_id;
+			g.mediaId = obj.result.data.list.getItemAt(j).media_id;
 			g.pcMediaId = obj.result.data.list.getItemAt(j).pc_media_id;
 			g.introNodeId = obj.result.data.list.getItemAt(j).on_launch_node_id;
 			g.completeNodeId = obj.result.data.list.getItemAt(j).game_complete_node_id;
@@ -100,8 +101,9 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.resetDeletesPlayerCreatedLocations = obj.result.data.list.getItemAt(j).delete_player_locations_on_reset;
 			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
 			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
-			
+
 			usersGames.addItem(g);
+			
         }
         trace("done loading UsersGames.");
     }

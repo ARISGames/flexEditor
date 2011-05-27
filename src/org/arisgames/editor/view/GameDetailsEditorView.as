@@ -97,6 +97,10 @@ public class GameDetailsEditorView extends Panel{
 
     private function onComplete(event:FlexEvent): void
     {
+		trace("IconMediaId:" + GameModel.getInstance().game.iconMediaId + " MediaId:" + GameModel.getInstance().game.mediaId);
+		
+		loadGameMedia();
+		
 		saveAndCloseButton.addEventListener(MouseEvent.CLICK, handleSaveAndCloseButton);
 		deleteButton.addEventListener(MouseEvent.CLICK, deleteButtonOnClickHandler);
 		
@@ -122,6 +126,35 @@ public class GameDetailsEditorView extends Panel{
 		mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleMediaPickerButton);
 	
 		pushDataIntoGUI();
+	}
+	
+	private function loadGameMedia():void {
+		if(GameModel.getInstance().game.iconMediaId != 0 && GameModel.getInstance().game.media == null)
+			AppServices.getInstance().getMediaByGameIdAndMediaId(GameModel.getInstance().game.gameId, GameModel.getInstance().game.iconMediaId, new Responder(handleSetIconMedia, handleFault));
+		if(GameModel.getInstance().game.mediaId != 0 && GameModel.getInstance().game.media == null)
+			AppServices.getInstance().getMediaByGameIdAndMediaId(GameModel.getInstance().game.gameId, GameModel.getInstance().game.mediaId, new Responder(handleSetMedia, handleFault));
+	}
+	
+	private function handleSetMedia(obj:Object):void{
+		GameModel.getInstance().game.media = new Media();
+		GameModel.getInstance().game.media.mediaId = obj.result.data.media_id;
+		GameModel.getInstance().game.media.name = obj.result.data.name;
+		GameModel.getInstance().game.media.type = obj.result.data.type;
+		GameModel.getInstance().game.media.urlPath = obj.result.data.url_path;
+		GameModel.getInstance().game.media.fileName = obj.result.data.file_name;
+		GameModel.getInstance().game.media.isDefault = obj.result.data.is_default;
+		this.pushDataIntoGUI();
+	}
+	
+	private function handleSetIconMedia(obj:Object):void{
+		GameModel.getInstance().game.iconMedia = new Media();
+		GameModel.getInstance().game.iconMedia.mediaId = obj.result.data.media_id;
+		GameModel.getInstance().game.iconMedia.name = obj.result.data.name;
+		GameModel.getInstance().game.iconMedia.type = obj.result.data.type;
+		GameModel.getInstance().game.iconMedia.urlPath = obj.result.data.url_path;
+		GameModel.getInstance().game.iconMedia.fileName = obj.result.data.file_name;
+		GameModel.getInstance().game.iconMedia.isDefault = obj.result.data.is_default;
+		this.pushDataIntoGUI();
 	}
 	
 	private function handleIconPickerButton(evt:MouseEvent):void
@@ -153,23 +186,6 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.media = null;
 		
 		AppServices.getInstance().saveGame(GameModel.getInstance().game, new Responder(handleSaveGameAfterRemove, handleFault));
-		/*
-		if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
-		{
-			objectPaletteItem.character.mediaId = 0;
-			AppServices.getInstance().saveCharacter(GameModel.getInstance().game.gameId, objectPaletteItem.character, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
-		{
-			objectPaletteItem.item.mediaId = 0;
-			AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
-		{
-			objectPaletteItem.page.mediaId = 0;            
-			AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		*/
 	}
 	
 	public function didSelectMediaItem(picker:GameEditorMediaPickerMX, m:Media):void
@@ -219,23 +235,6 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.iconMedia = null;
 		
 		AppServices.getInstance().saveGame(GameModel.getInstance().game, new Responder(handleSaveGameAfterRemove, handleFault));
-		/*
-		if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
-		{
-			objectPaletteItem.character.iconMediaId = 0;
-			AppServices.getInstance().saveCharacter(GameModel.getInstance().game.gameId, objectPaletteItem.character, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
-		{
-			objectPaletteItem.item.iconMediaId = 0;
-			AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
-		{
-			objectPaletteItem.page.iconMediaId = 0;            
-			AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		*/
 	}
 
 	
@@ -539,7 +538,6 @@ public class GameDetailsEditorView extends Panel{
 		var found:Boolean = false;
 
 		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
-			trace(x + " " + obj.result.data[x].editor_id + " " + obj.result.data[x].email);
 			if(obj.result.data[x].email == removeEditorEmail.text){
 				found = true;
 				editorId = obj.result.data[x].editor_id;
@@ -547,7 +545,6 @@ public class GameDetailsEditorView extends Panel{
 			}
 		}
 		if(found){
-			trace("Is this correct? ^");
 			trace("Found ID for " + removeEditorEmail.text + "; Id=" + editorId);
 			AppServices.getInstance().removeEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleRemovedEditor, handleFault));
 		}
