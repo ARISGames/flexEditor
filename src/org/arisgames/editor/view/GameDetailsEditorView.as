@@ -84,6 +84,7 @@ public class GameDetailsEditorView extends Panel{
 		
 	public var game:Game;
 	[Bindable] public var nodes:ArrayCollection;
+	private var editors:ArrayCollection;
 
     /**
      * Constructor
@@ -480,6 +481,9 @@ public class GameDetailsEditorView extends Panel{
 		}
 	}
 	
+	public function populateEditors(){
+		
+	}
 	
 	public function handleAddEditor(evt:Event):void {
 		if(addEditorEmail.text != ""){
