@@ -79,6 +79,7 @@ public class AppServices
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
+																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
 																//PHIL ADD CODE TO SAVE GAME MEDIA

@@ -112,6 +112,7 @@ public class CreateOrOpenGameSelectorView extends Panel
     {
 		trace("create button clicked!");
 		var g:Game = new Game();
+		GameModel.getInstance().game = g;
 		g.name = nameOfGame.text;
 		g.description = gameDescription.text;
 

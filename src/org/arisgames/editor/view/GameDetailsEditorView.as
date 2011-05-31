@@ -138,23 +138,27 @@ public class GameDetailsEditorView extends Panel{
 	
 	private function handleSetMedia(obj:Object):void{
 		GameModel.getInstance().game.media = new Media();
-		GameModel.getInstance().game.media.mediaId = obj.result.data.media_id;
-		GameModel.getInstance().game.media.name = obj.result.data.name;
-		GameModel.getInstance().game.media.type = obj.result.data.type;
-		GameModel.getInstance().game.media.urlPath = obj.result.data.url_path;
-		GameModel.getInstance().game.media.fileName = obj.result.data.file_name;
-		GameModel.getInstance().game.media.isDefault = obj.result.data.is_default;
+		if(obj.result.data != null){
+			GameModel.getInstance().game.media.mediaId = obj.result.data.media_id;
+			GameModel.getInstance().game.media.name = obj.result.data.name;
+			GameModel.getInstance().game.media.type = obj.result.data.type;
+			GameModel.getInstance().game.media.urlPath = obj.result.data.url_path;
+			GameModel.getInstance().game.media.fileName = obj.result.data.file_name;
+			GameModel.getInstance().game.media.isDefault = obj.result.data.is_default;
+		}
 		this.pushDataIntoGUI();
 	}
 	
 	private function handleSetIconMedia(obj:Object):void{
 		GameModel.getInstance().game.iconMedia = new Media();
-		GameModel.getInstance().game.iconMedia.mediaId = obj.result.data.media_id;
-		GameModel.getInstance().game.iconMedia.name = obj.result.data.name;
-		GameModel.getInstance().game.iconMedia.type = obj.result.data.type;
-		GameModel.getInstance().game.iconMedia.urlPath = obj.result.data.url_path;
-		GameModel.getInstance().game.iconMedia.fileName = obj.result.data.file_name;
-		GameModel.getInstance().game.iconMedia.isDefault = obj.result.data.is_default;
+		if(obj.result.data != null){
+			GameModel.getInstance().game.iconMedia.mediaId = obj.result.data.media_id;
+			GameModel.getInstance().game.iconMedia.name = obj.result.data.name;
+			GameModel.getInstance().game.iconMedia.type = obj.result.data.type;
+			GameModel.getInstance().game.iconMedia.urlPath = obj.result.data.url_path;
+			GameModel.getInstance().game.iconMedia.fileName = obj.result.data.file_name;
+			GameModel.getInstance().game.iconMedia.isDefault = obj.result.data.is_default;
+		}
 		this.pushDataIntoGUI();
 	}
 	
