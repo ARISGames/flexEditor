@@ -624,7 +624,7 @@ public class GameEditorObjectPaletteView extends VBox
         trace("In handleRefreshTreeEvent...");
         refreshData = true;
         this.renderTree();
-		//paletteTree.openFolders();
+		paletteTree.openFolders();
         trace("Done in handleRefreshTreeEvent.");
     }
 
