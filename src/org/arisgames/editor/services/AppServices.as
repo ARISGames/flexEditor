@@ -82,7 +82,6 @@ public class AppServices
 																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
-																//PHIL ADD CODE TO SAVE GAME MEDIA
 		}
 		else
 		{
@@ -93,7 +92,6 @@ public class AppServices
 																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
 																game.introNodeId, game.completeNodeId);
-																//PHIL ADD CODE TO SAVE GAME MEDIA
 		}
 		r.addResponder(resp);
 	}
@@ -242,7 +240,7 @@ public class AppServices
     public function saveContent(gid:Number, opi:ObjectPaletteItemBO, resp:IResponder):void
     {
         var l:Object;
-        trace("SaveContent: GameId = " + gid + "; Object Content Id = " + opi.id + "; Folder Id = " + opi.parentContentFolderId + "; Content Id = " + opi.objectId + "; Previous Content Object Id = " + opi.previousContentId);
+        trace("SaveContent: GameId = " + gid + "; Object Content Id = " + opi.id + "; Folder Id = " + opi.parentContentFolderId + "; Object type = " + opi.objectType + ", Content Id = " + opi.objectId + "; Previous Content Object Id = " + opi.previousContentId);
         l = AppDAO.getInstance().getContentServer().saveContent(gid, opi.id, opi.parentContentFolderId, opi.objectType, opi.objectId, opi.previousContentId);
         l.addResponder(resp);
     }
@@ -524,6 +522,14 @@ public class AppServices
 		trace("Retreiving all Editors");
 		var r:Object;
 		r = AppDAO.getInstance().getGameServer().getEditors();
+		r.addResponder(resp);
+	}
+	
+	public function getGameEditors(gid:Number, resp:IResponder):void
+	{
+		trace("Retreiving all Editors");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().getGameEditors(gid);
 		r.addResponder(resp);
 	}
 	

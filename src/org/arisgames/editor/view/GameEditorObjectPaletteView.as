@@ -362,6 +362,7 @@ public class GameEditorObjectPaletteView extends VBox
 	
 	private function handleLoadSpecificData(retObj:ResultEvent):void
 	{
+		trace("GameEditorObjectPaletteView: handleLoadSpecificData()");
 		var item:Item = null;
 		var npc:NPC = null;
 		var node:Node = null;
@@ -371,21 +372,21 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		if (data.hasOwnProperty("item_id"))
 		{
-			trace("retObj has an item_id!  It's value = '" + data.item_id + "'.");
+			trace("retObj has an item_id!  It's value = '" + data.item_id + "', its name = '" + data.name + "'.");
 			item = AppUtils.parseResultDataIntoItem(data);
 			
 			objType = AppConstants.CONTENTTYPE_ITEM_DATABASE;
 		}
 		else if (data.hasOwnProperty("npc_id"))
 		{
-			trace("retObj has an npc_id!  It's value = '" + data.npc_id + "'.");
+			trace("retObj has an npc_id!  It's value = '" + data.npc_id + "', its name = '" + data.name + "'.");
 			npc = AppUtils.parseResultDataIntoNPC(data);
 			
 			objType = AppConstants.CONTENTTYPE_CHARACTER_DATABASE;
 		}
 		else if (data.hasOwnProperty("node_id"))
 		{
-			trace("retObj has an node_id!  It's value = '" + data.node_id + "'.");
+			trace("retObj has an node_id!  It's value = '" + data.node_id + "', its name = '" + data.name + "'.");
 			node = AppUtils.parseResultDataIntoNode(data);
 			
 			objType = AppConstants.CONTENTTYPE_PAGE_DATABASE;
@@ -403,7 +404,7 @@ public class GameEditorObjectPaletteView extends VBox
 		for (var j:Number = 0; j < GameModel.getInstance().game.gameObjects.length; j++)
 		{
 			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
-			//trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
+			trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + ", and its name = '" + obj.name + "'");
 			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node);
 		}
 	}
@@ -613,6 +614,7 @@ public class GameEditorObjectPaletteView extends VBox
 
         open = paletteTree.openItems;
         refreshData = true;
+		this.renderTree();
         trace("End of addObjectPaletteItem()");
 
     }
@@ -622,7 +624,7 @@ public class GameEditorObjectPaletteView extends VBox
         trace("In handleRefreshTreeEvent...");
         refreshData = true;
         this.renderTree();
-		paletteTree.openFolders();
+		//paletteTree.openFolders();
         trace("Done in handleRefreshTreeEvent.");
     }
 

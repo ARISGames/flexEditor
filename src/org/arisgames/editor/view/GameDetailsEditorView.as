@@ -77,14 +77,15 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var addEditor:Button;
 	[Bindable] public var removeEditor:Button;
 	[Bindable] public var addEditorEmail:TextInput;
-	[Bindable] public var removeEditorEmail:TextInput;
+	[Bindable] public var removeEditorDG:DataGrid;
+	//[Bindable] public var removeEditorEmail:TextInput;
 
 
 	//
 		
 	public var game:Game;
 	[Bindable] public var nodes:ArrayCollection;
-	private var editors:ArrayCollection;
+	[Bindable] public var editors:ArrayCollection;
 
     /**
      * Constructor
@@ -112,6 +113,7 @@ public class GameDetailsEditorView extends Panel{
 		deletePlayerLocationsCb.selected = GameModel.getInstance().game.resetDeletesPlayerCreatedLocations;
 		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
 		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
+		populateEditors();
 		
 		//ComboBoxes will load after their data loads
 		
@@ -485,8 +487,16 @@ public class GameDetailsEditorView extends Panel{
 		}
 	}
 	
-	public function populateEditors(){
+	public function populateEditors():void{
+		AppServices.getInstance().getGameEditors(GameModel.getInstance().game.gameId, new Responder(handlePopulateEditors, handleFault));
+	}
+	
+	public function handlePopulateEditors(obj:Object):void{
+		editors = new ArrayCollection();
 		
+		for(var x:Number = 0; x < obj.result.data.length; x++){
+			editors.addItem(obj.result.data[x].email);
+		}
 	}
 	
 	public function handleAddEditor(evt:Event):void {
@@ -496,22 +506,26 @@ public class GameDetailsEditorView extends Panel{
 	}
 	
 	public function handleRemoveEditor(evt:Event):void {
-		if(removeEditorEmail.text != ""){
-			findUserIdFromEmail(addEditorEmail.text, false);
+		if(removeEditorDG.selectedIndex != -1 && editors.getItemAt(removeEditorDG.selectedIndex) != null){
+			findUserIdFromEmail(editors.getItemAt(removeEditorDG.selectedIndex) as String, false);
 		}
 	}
 	
 	private function handleAddedEditor(obj:Object):void{
 		if(obj.result.returnCode != 0)
 			Alert.show("User was not successfully added. Something went wrong.", "Error Adding Editor");
-		else
+		else{
+			editors.addItem(addEditorEmail.text);
 			Alert.show("User was successfully added as an editor.", "Success!");
+		}
 	}
 	private function handleRemovedEditor(obj:Object):void{
 		if(obj.result.returnCode != 0)
 			Alert.show("User was not successfully removed. Something went wrong.", "Error Removing Editor");
-		else
+		else{
+			editors.removeItemAt(removeEditorDG.selectedIndex);
 			Alert.show("User was successfully removed as an editor.", "Success!");
+		}
 	}
 	private function findUserIdFromEmail(email:String, add:Boolean):void{
 		if(add){
@@ -546,14 +560,14 @@ public class GameDetailsEditorView extends Panel{
 		var found:Boolean = false;
 
 		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
-			if(obj.result.data[x].email == removeEditorEmail.text){
+			if(obj.result.data[x].email == editors.getItemAt(removeEditorDG.selectedIndex) as String){
 				found = true;
 				editorId = obj.result.data[x].editor_id;
 				trace(obj.result.data[x].email);
 			}
 		}
 		if(found){
-			trace("Found ID for " + removeEditorEmail.text + "; Id=" + editorId);
+			trace("Found ID for " + (editors.getItemAt(removeEditorDG.selectedIndex) as String) + "; Id=" + editorId);
 			AppServices.getInstance().removeEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleRemovedEditor, handleFault));
 		}
 		else

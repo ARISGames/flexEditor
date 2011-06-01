@@ -273,7 +273,7 @@ public class AppUtils
         }
         else if (obj.isFolder())
         {
-            //trace("This is a folder so need to check it's children.  Number of children to check = '" + obj.children.length + "'");
+            trace("This (" + obj.name + ") is a folder so need to check it's children.  Number of children to check = '" + obj.children.length + "'");
             for (var lc:Number = 0; lc < obj.children.length; lc++)
             {
                 var childObj:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
@@ -310,7 +310,7 @@ public class AppUtils
         }
         else
         {
-            //trace("Data passed in was not an Item Result set, returning NULL.");
+            trace("Data passed in was not an Item Result set, returning NULL.");
             return null;
         }
     }

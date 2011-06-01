@@ -81,6 +81,8 @@
 				</mx:FormItem>
 			</mx:Form>
 		</mx:Canvas>
+		
+		<!-- Add and Remove Editor Tab -->
 		<mx:Canvas label="Add/Remove Editor">
 			<mx:Form>
 				<mx:Label text="Add User As Editor Of This Game"/>
@@ -93,7 +95,12 @@
 				<mx:Spacer height="20"/>
 				<mx:Label text="Remove Editor Of This Game"/>
 				<mx:FormItem label="Current Editors">
-					<mx:TextInput id="removeEditorEmail" width = "250"/>
+					<mx:DataGrid id="removeEditorDG" width="250" dataProvider="{editors}">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Current Editors" dataField="name"/>
+						</mx:columns>
+					</mx:DataGrid>
+					<!-- <mx:TextInput id="removeEditorEmail" width = "1"/> -->
 				</mx:FormItem>
 				<mx:FormItem>
 					<mx:Button id="removeEditor" label="Remove Editor" click="handleRemoveEditor(event)"/>

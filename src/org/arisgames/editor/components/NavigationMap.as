@@ -233,10 +233,8 @@ public class NavigationMap extends Map3D
                     if (placemarks.length > 0)
                     {
 						
-                        //flyTo(placemarks[0].point, 15, new Attitude(20, 30, 0), 3);
-						//Phil commented out that^ line and replaced with the one below, 
-                        //because he didn't like the funky angles that resulted. Feel free to change it back.
-						flyTo(placemarks[0].point, 15, new Attitude(0, 0, 0), 3);
+                        //flyTo(placemarks[0].point, 15, new Attitude(20, 30, 0), 3); //Funky Angles
+						flyTo(placemarks[0].point, 15, new Attitude(0, 0, 0), 3); //Not Funky Angles
 /*
                         var marker:Marker = new Marker(placemarks[0].point);
                         marker.addEventListener(MapMouseEvent.CLICK, function (event:MapMouseEvent):void

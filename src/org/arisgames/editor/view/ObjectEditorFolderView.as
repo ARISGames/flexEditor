@@ -40,7 +40,7 @@ public class ObjectEditorFolderView extends Panel
 
     private function handleInit(event:FlexEvent):void
     {
-        trace("in ItemEditorFolderView's handleInit");
+        trace("in ObjectEditorFolderView's handleInit");
         cancelButton.addEventListener(MouseEvent.CLICK, handleCancelButton);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
     }
