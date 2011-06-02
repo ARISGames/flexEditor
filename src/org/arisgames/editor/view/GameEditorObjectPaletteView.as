@@ -129,6 +129,19 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
+		trace("Add client-side-only folder for user created media (photos, etc...)");
+		op = new ObjectPaletteItemBO(true);
+		op.id = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_ID;
+		op.name = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_NAME;
+		op.parentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
+		op.parentContentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
+		op.previousFolderId = -1; //Keep it on top no matter what
+		op.previousContentId = -1;//Keep it on top no matter what
+		op.isOpen = false;
+		op.isClientContentFolder = true;
+		ops.addItem(op);
+		trace("Done adding special folder");
+		
 		var dataSortField:SortField = new SortField();
 		dataSortField.name = "previousFolderId"; //"previousFolderId";
 		dataSortField.numeric = true;
@@ -289,6 +302,7 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		treeModel = GameModel.getInstance().game.gameObjects;
 		treeModel.refresh();
+		trace("Opening folders after handleLoadFoldersAndContentForObjectPalette");
 		paletteTree.openFolders();
 	}
 	
@@ -325,6 +339,8 @@ public class GameEditorObjectPaletteView extends VBox
 			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
 			this.processLoadingSpecificData(obj);
 		}
+		trace("Opening Folders after loadSpecificDataIntoGameObjects");
+		paletteTree.openFolders();
 		
 	}
 	
@@ -554,6 +570,7 @@ public class GameEditorObjectPaletteView extends VBox
             p.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_PLAQUE;
             this.addObjectPaletteItem(p);
         }
+		
         trace("Done with menuHandler.");
     }
 
@@ -642,6 +659,9 @@ public class GameEditorObjectPaletteView extends VBox
             // Validate and update properties
             // of the Tree and redraw it if necessary.
             paletteTree.validateNow();
+			
+			trace("Opening folders after renderTree");
+			paletteTree.openFolders();
         }
     }
 
@@ -662,8 +682,13 @@ public class GameEditorObjectPaletteView extends VBox
         var okDrop:Boolean = true;
         if (it.isFolder())
         {
-            trace("Dragged Object is a folder, so check to see if it's got any children before allowing deletion.")
-            if (it.children.length > 0)
+            trace("Dragged Object is a folder, so check to see if it's got any children/if it is iOS content folder before allowing deletion.")
+			if(it.isClientContentFolder){
+				trace("Folder is client content thing, can't be deleted.");
+				okDrop = false;
+				Alert.show("This folder is created by the system to store player created content (photos and audio from out in the world). It cannot be deleted.", "Cannot Delete This Folder");
+			}
+			else if (it.children.length > 0)
             {
                 trace("This folder has children, so can't allow it to be deleted.");
                 okDrop = false;
@@ -970,6 +995,7 @@ public class GameEditorObjectPaletteView extends VBox
             }
         }
         trace("Finished with handleSaveContent().");
+		this.handleRedrawTreeEvent(null);
     }
 
     private function handlePairingOfCharacterData(obj:Object):void
@@ -1095,13 +1121,15 @@ public class GameEditorObjectPaletteView extends VBox
             var obj:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
             if (obj.isFolder())
             {
-                AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, obj, new Responder(handleSortAndSaveCallback, handleFault));
+				if(!obj.isClientContentFolder) //don't save this folder!
+                	AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, obj, new Responder(handleSortAndSaveCallback, handleFault));
             }
             else
             {
                 AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, obj, new Responder(handleSortAndSaveCallback, handleFault));
             }
         }
+		trace("Opening folders after sortAndSavePaletteObjects()");
 		paletteTree.openFolders();
         trace("Finished with sortAndSavePaletteObjects().");
     }

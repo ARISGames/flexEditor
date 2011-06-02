@@ -32,7 +32,8 @@ public class ObjectPaletteItemBO
     public var parentFolderId:Number = 0;
     public var previousFolderId:Number = 0;
 	public var isOpen:Boolean = false;
-
+	public var isClientContentFolder:Boolean = false; // DO NOT SAVE THIS FOLDER if this is true...
+	
     // Specific Data
     public var character:NPC;
     public var item:Item;

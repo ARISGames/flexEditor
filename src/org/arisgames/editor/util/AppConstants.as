@@ -122,6 +122,11 @@ public class AppConstants
     public static const DEFAULT_ICON_MEDIA_ID_NPC:Number = 1;
     public static const DEFAULT_ICON_MEDIA_ID_ITEM:Number = 2;
     public static const DEFAULT_ICON_MEDIA_ID_PLAQUE:Number = 3;
+	
+	// Palette Tree Stuff
+	public static const PALETTE_TREE_SELF_FOLDER_ID:Number = 0;
+	public static const PLAYER_GENERATED_MEDIA_FOLDER_ID:Number = 99;
+	public static const PLAYER_GENERATED_MEDIA_FOLDER_NAME:String = "Player Created Items";
 
     /**
      * Constructor

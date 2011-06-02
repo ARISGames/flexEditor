@@ -26,6 +26,7 @@ import org.arisgames.editor.util.AppUtils;
 public class PaletteTree extends Tree
 {
     private var currentObjectBeingDragged:ObjectPaletteItemBO = null;
+	private var playerContentFolderOpen:Boolean = false;
 
     /**
      * Constructor
@@ -49,6 +50,10 @@ public class PaletteTree extends Tree
 		trace("Folder Opening...");
 		var thisFolder:ObjectPaletteItemBO = event.item as ObjectPaletteItemBO;
 		thisFolder.isOpen = true;
+		if(thisFolder.isClientContentFolder){
+			trace("Opened PlayerGenContent Folder");
+			this.playerContentFolderOpen = true;
+		}
 		AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, thisFolder, new Responder(handleSavePaletteObject, handleFault));
 	}
 	
@@ -56,11 +61,16 @@ public class PaletteTree extends Tree
 		trace("Folder Closing...");
 		var thisFolder:ObjectPaletteItemBO = event.item as ObjectPaletteItemBO;
 		thisFolder.isOpen = false;
+		if(thisFolder.isClientContentFolder){
+			trace("ClosePlayerGenContent Folder");
+			this.playerContentFolderOpen = false;
+		}
 		AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, thisFolder, new Responder(handleSavePaletteObject, handleFault));
 	}
 	
 	private function handleCloseBOEditor(evt:Event):void {
 		trace("Closing editor...");
+		trace("Opening folders after handleCloseBOEditor");
 		openFolders();
 	}
 	
@@ -72,12 +82,19 @@ public class PaletteTree extends Tree
 			var obj:ObjectPaletteItemBO = go.getItemAt(lc) as ObjectPaletteItemBO;
 			if (obj.isFolder())
 			{
+				if(obj.isClientContentFolder){
+					if(this.playerContentFolderOpen){
+						trace("PlayerCreatedObjects folder IS open");
+						expandItem(obj, true, false, false, null);
+					}
+				}
 				if(obj.isOpen){
 					trace("This folder is open: "+ obj.name);
 					expandItem(obj, true, false, false, null);
 				}
 			}
 		}
+		trace("PaleteTree: Done Opening Folders... (openFolders())");
 	}
 
 	private function listenForMouseSingleClicks(evt:MouseEvent):void
@@ -105,7 +122,10 @@ public class PaletteTree extends Tree
 			return;
 		}
         trace("Just got a double click for '" + evt.currentTarget + "'; Selected Item = '" + this.selectedItem + "'; Selected Data = '" + this.selectedData + "'; Object Name = '" + obj.name + "'");
-
+		if(this.selectedItem.isClientContentFolder) {
+			trace("Don't do anything though, because it is the ios content folder");
+			return;	
+		}
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM);
         de.objectPaletteItem = this.selectedItem;
         AppDynamicEventManager.getInstance().dispatchEvent(de);
@@ -293,6 +313,10 @@ public class PaletteTree extends Tree
 
     protected override function dragEnterHandler(event:DragEvent):void
     {
+		if(this.selectedItem.isClientContentFolder) {
+			trace("Do not allow this to be dragged");
+			return;
+		}
         super.dragEnterHandler(event);
         trace("In overriden dragEnterHandler with DragEvent's dragged source = " + event.dragSource + "; Has TreeItems Format: " + event.dragSource.hasFormat('treeItems') + "; Dragged Item = '" + event.draggedItem + "'");
         // Get Object That Moved
