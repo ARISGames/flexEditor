@@ -125,7 +125,7 @@ public class AppConstants
 	
 	// Palette Tree Stuff
 	public static const PALETTE_TREE_SELF_FOLDER_ID:Number = 0;
-	public static const PLAYER_GENERATED_MEDIA_FOLDER_ID:Number = 99;
+	public static const PLAYER_GENERATED_MEDIA_FOLDER_ID:Number = -1;
 	public static const PLAYER_GENERATED_MEDIA_FOLDER_NAME:String = "Player Created Items";
 
     /**
