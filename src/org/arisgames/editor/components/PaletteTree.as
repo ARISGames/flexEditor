@@ -65,6 +65,7 @@ public class PaletteTree extends Tree
 			trace("ClosePlayerGenContent Folder");
 			this.playerContentFolderOpen = false;
 		}
+		//
 		AppServices.getInstance().saveFolder(GameModel.getInstance().game.gameId, thisFolder, new Responder(handleSavePaletteObject, handleFault));
 	}
 	
