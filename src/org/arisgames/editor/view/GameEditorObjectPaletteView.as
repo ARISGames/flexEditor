@@ -621,11 +621,12 @@ public class GameEditorObjectPaletteView extends VBox
 
     private function handleRedrawTreeEvent(evt:DynamicEvent):void
     {
-        trace("In handleRefreshTreeEvent...");
-        refreshData = true;
-        this.renderTree();
-		paletteTree.openFolders();
-        trace("Done in handleRefreshTreeEvent.");
+        trace("In handleRedrawTreeEvent...");
+
+		this.refreshData = true;
+		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
+
+        trace("Done in handleRedrawTreeEvent.");
     }
 
     public function renderTree():void
@@ -669,21 +670,7 @@ public class GameEditorObjectPaletteView extends VBox
 				Alert.show("This folder has items in it and can't be deleted until they are first removed.  Please do so and then try deleting the folder again.", "Can't Delete Folder Yet");
 
             }
-			else if (it.parentFolderId != 0){
-				trace("This folder is a child, so can't allow it to be deleted.");
-				okDrop = false;
-				Alert.show("This folder is in a folder, and cannot be deleted until it is first removed. Please do so and then try deleting it again.", "Can't Delete Nested Object");
-
-			}
         }
-		else
-		{
-			if(it.parentContentFolderId != 0)
-			{
-				trace("This object is in a folder, so don't allow it to be deleted.");
-				okDrop = false;
-			}
-		}
 
         if (okDrop)
         {
@@ -694,11 +681,7 @@ public class GameEditorObjectPaletteView extends VBox
             // Accept the drop.
             DragManager.acceptDragDrop(dropTarget);
         }
-        else
-        {
-			if(!it.isFolder())
-				Alert.show("This item is in a folder, and cannot be deleted until it is first removed. Please do so and then try deleting it again.", "Can't Delete Nested Object");
-		}
+
     }
 
     public function trashDragExitHandler(evt:DragEvent):void
@@ -728,22 +711,9 @@ public class GameEditorObjectPaletteView extends VBox
             AppServices.getInstance().deleteContent(GameModel.getInstance().game.gameId, it, new Responder(handleDeleteContent, handleFault));
         }
 
-        // Remove From Client Data Model
-        var index:Number;
-        for (var lc:Number = 0; lc < treeModel.length; lc++)
-        {
-            var t:ObjectPaletteItemBO = treeModel[lc] as ObjectPaletteItemBO;
-            if (t.id == it.id)
-            {
-                index = lc;
-                break;
-            }
-        }
-        trace("Found index to remove...");
-        treeModel.removeItemAt(index);
-        refreshData = true;
-        this.renderTree();
-		paletteTree.openFolders();
+        // Refresh Client Data Model
+		this.refreshData = true;
+		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
 
         // Stop Effect And Reset Trash Bin To Original State
         glowImage.end();
