@@ -150,6 +150,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			{
 				var to:Object = new Object();
 				to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
 				to.data = obj.result.data[j].quest_id;
 				possibleObjects.addItem(to);
 			}
@@ -177,6 +179,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             {
                 var to:Object = new Object();
                 to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
                 to.data = obj.result.data[j].item_id;
                 possibleObjects.addItem(to);
             }
@@ -202,6 +206,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             {
                 var to:Object = new Object();
                 to.label = obj.result.data[j].title;
+				if(obj.result.data[j].title != "")
+					to.label += ": " + obj.result.data[j].text;
                 to.data = obj.result.data[j].node_id;
                 possibleObjects.addItem(to);
             }
@@ -227,6 +233,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             {
                 var to:Object = new Object();
                 to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
                 to.data = obj.result.data[j].npc_id;
                 possibleObjects.addItem(to);
             }

@@ -124,26 +124,36 @@ public class Requirement
             {
                 trace("going to load item name - 1");
                 name = obj.result.data.name;
+				if(obj.result.data.description != "")
+					name += ": " + obj.result.data.description;
             }
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE)
             {
                 trace("going to load item name - 2");
                 name = obj.result.data.name;
+				if(obj.result.data.description != "")
+					name += ": " + obj.result.data.description;
             }
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE)
             {
                 trace("going to load node name - 3");
                 name = obj.result.data.title;
+				if(obj.result.data.text != "")
+					name += ": " + obj.result.data.text;
             }
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE)
             {
                 trace("going to load np name - 4");
                 name = obj.result.data.name;
+				if(obj.result.data.description != "")
+					name += ": " + obj.result.data.description;
             }
 			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
 			{
 				trace("going to load quest name - 5");
 				name = obj.result.data.name;
+				if(obj.result.data.description != "")
+					name += ": " + obj.result.data.description;
 			}
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
             {
