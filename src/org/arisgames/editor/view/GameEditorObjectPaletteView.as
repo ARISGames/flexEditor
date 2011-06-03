@@ -129,19 +129,6 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
-		trace("Add client-side-only folder for user created media (photos, etc...)");
-		op = new ObjectPaletteItemBO(true);
-		op.id = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_ID;
-		op.name = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_NAME;
-		op.parentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
-		op.parentContentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
-		op.previousFolderId = -1; //Keep it on top no matter what
-		op.previousContentId = -1;//Keep it on top no matter what
-		op.isOpen = false;
-		op.isClientContentFolder = true;
-		ops.addItem(op);
-		trace("Done adding special folder");
-		
 		var dataSortField:SortField = new SortField();
 		dataSortField.name = "previousFolderId"; //"previousFolderId";
 		dataSortField.numeric = true;
@@ -263,7 +250,7 @@ public class GameEditorObjectPaletteView extends VBox
 		rfc.addAll(fc);
 		
 		trace("Converted Folder Dictionary Into Final ArrayCollection used for Tree rendering");
-		
+		var cFolderAdded:Boolean = false;
 		for (j = 0; j < ops.length; j++)
 		{
 			op = ops.getItemAt(j) as ObjectPaletteItemBO;
@@ -273,6 +260,26 @@ public class GameEditorObjectPaletteView extends VBox
 			if (op.parentContentFolderId == 0)
 			{
 				rfc.addItem(op);
+			}
+			// if parent content folder id == -1, then it's root else it goes on as a child of a folder
+			else if (op.parentContentFolderId == -1) 
+			{
+				if(!cFolderAdded){
+					trace("Add client-side-only folder for user created media (photos, etc...)");
+					var cFolder:ObjectPaletteItemBO = new ObjectPaletteItemBO(true);
+					cFolder.id = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_ID;
+					cFolder.name = AppConstants.PLAYER_GENERATED_MEDIA_FOLDER_NAME;
+					cFolder.parentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
+					cFolder.parentContentFolderId = AppConstants.PALETTE_TREE_SELF_FOLDER_ID;
+					cFolder.previousFolderId = -1; //Keep it on top no matter what
+					cFolder.previousContentId = -1;//Keep it on top no matter what
+					cFolder.isOpen = false;
+					cFolder.isClientContentFolder = true;
+					rfc.addItem(cFolder);
+					cFolderAdded = true;
+					trace("Done adding special folder");
+				}
+				cFolder.children.addItem(op);
 			}
 			else
 			{
@@ -639,7 +646,6 @@ public class GameEditorObjectPaletteView extends VBox
     private function handleRedrawTreeEvent(evt:DynamicEvent):void
     {
         trace("In handleRedrawTreeEvent...");
-
 		this.refreshData = true;
 		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
 

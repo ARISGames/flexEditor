@@ -405,7 +405,7 @@ public class GameDetailsEditorView extends Panel{
 			
 			var iconurl:String = GameModel.getInstance().game.iconMedia.urlPath + GameModel.getInstance().game.iconMedia.fileName;
 			iconPreviewImage.source = iconurl;
-			trace("ItemEditorMediaDisplayView: Just set icon image url = '" + iconurl + "'");
+			trace("GameDetailsEditorView: Just set icon image url = '" + iconurl + "'");
 		}
 		else
 		{

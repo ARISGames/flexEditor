@@ -12,9 +12,9 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 
 import org.arisgames.editor.components.NavigationMap;
+import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
-import org.arisgames.editor.models.GameModel;
 
 
 // WB: Handles GeoSearch Events for The Map, passes them along to NavigationMap for FlyTo. 
@@ -73,7 +73,6 @@ public class GameEditorMapView extends VBox
 	private function onRefreshButtonClick(evt:MouseEvent):void
 	{
 		trace("GameEditorMapView: Refresh Button Clicked!");
-		
 		GameModel.getInstance().loadLocations(); //Refresh Map Locations
 		theMap.centerMapOnData(false); //Center Map
 		var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE); //Refresh Side Palette
