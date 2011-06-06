@@ -130,7 +130,7 @@ public class GameEditorObjectPaletteView extends VBox
 		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
 		var dataSortField:SortField = new SortField();
-		dataSortField.name = "previousFolderId"; //"previousFolderId";
+		dataSortField.name = "previousFolderId";
 		dataSortField.numeric = true;
 		
 		var numericDataSort:Sort = new Sort();
@@ -139,40 +139,14 @@ public class GameEditorObjectPaletteView extends VBox
 		ops.sort = numericDataSort;
 		ops.refresh();
 		
-		trace("Folders sorted by Previous Folder Id"); //Previous Folder Id");
+		trace("Folders sorted by Previous Folder Id");
 		
 		var dict:Dictionary = new Dictionary();
 		var par:ObjectPaletteItemBO;
 		var Key:Object
-		for (j = 0; j < ops.length; j++)
-		{
-			op = ops.getItemAt(j) as ObjectPaletteItemBO;
-			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
-			if (op.parentFolderId == 0)
-			{
-				// It's at the root level
-				dict[op.id] = op;
-			}
-			else
-			{
-				// It's a child of a previously added object
-				var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO; //dict[op.previousFolderId] as ObjectPaletteItemBO;
-				if(o != null){
-					o.children.addItem(op);					
-				}
-				else{
-					trace("GameEditorObjectPaletteView: Starting recursive check for parent folder of FOLDER...");
-					for(Key in dict)
-					{ //For All things at root...
-						par = dict[Key] as ObjectPaletteItemBO;
-						if(par.isFolder()){
-							recursiveFindParentOfFolder(par, op);
-						}
-					}
-				}
-				trace("Internal Folder- " + op.name + " Parent ID " + op.parentFolderId);
-			}
-		}
+		
+		loadFoldersIntoDict(0, ops, dict);
+		
 		trace("Folders loaded into dictionary.");
 		
 		ops.removeAll();
@@ -312,6 +286,46 @@ public class GameEditorObjectPaletteView extends VBox
 		trace("Opening folders after handleLoadFoldersAndContentForObjectPalette");
 		paletteTree.openFolders();
 	}
+	
+	
+	private function loadFoldersIntoDict(parentId:Number, source:ArrayCollection, dict:Dictionary):void {
+		
+		var op:ObjectPaletteItemBO;
+		for (var j:Number = 0; j < source.length; j++)
+		{
+			op = source.getItemAt(j) as ObjectPaletteItemBO;
+			trace("j = " + j + "; Folder Id = '" + op.id +"'; Folder Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
+			if (op.parentFolderId == parentId)
+			{
+				if(parentId == 0){
+					// It's at the root level
+					dict[op.id] = op;
+				}
+				else{
+					// It's a child of a previously added object
+					var o:ObjectPaletteItemBO = dict[op.parentFolderId] as ObjectPaletteItemBO; //dict[op.previousFolderId] as ObjectPaletteItemBO;
+					if(o != null){
+						o.children.addItem(op);
+					}
+					else{
+						trace("GameEditorObjectPaletteView: Starting recursive check for parent folder of FOLDER...");
+						for(var Key:Object in dict)
+						{ //For All things at root...
+							var par:ObjectPaletteItemBO;
+							par = dict[Key] as ObjectPaletteItemBO;
+							if(par.isFolder()){
+								recursiveFindParentOfFolder(par, op);
+							}
+						}
+					}
+				}
+				loadFoldersIntoDict(op.id, source, dict);
+			}
+		}
+	}
+	
+	
+	
 	
 	//A folder is passed in to this function (parent) along with an ObjectPaletteItemBO (which can be either another
 	//folder, OR a normal Item... IE NPC, plaque, item) those ParentID is not a value at root (orphan). This function
