@@ -35,6 +35,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.models.StateModel;
@@ -379,6 +380,11 @@ public class GameEditorObjectPaletteView extends VBox
 				//trace("Load underlying item data...");
 				AppServices.getInstance().getItemById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (obj.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+			{
+				//trace("Load underlying web page data...");
+				AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 			else if (obj.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
 			{
 				//trace("Load underlying page data...");
@@ -403,6 +409,7 @@ public class GameEditorObjectPaletteView extends VBox
 		var item:Item = null;
 		var npc:NPC = null;
 		var node:Node = null;
+		var webPage:WebPage = null;
 		
 		var data:Object = retObj.result.data;
 		var objType:String = "";
@@ -428,6 +435,13 @@ public class GameEditorObjectPaletteView extends VBox
 			
 			objType = AppConstants.CONTENTTYPE_PAGE_DATABASE;
 		}
+		else if (data.hasOwnProperty("web_page_id"))
+		{
+			trace("retObj has a web_page_id!  It's value = '" + data.web_page_id + "', its name = '" + data.name + "'.");
+			webPage = AppUtils.parseResultDataIntoWebPage(data);
+			
+			objType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
+		}
 		else
 		{
 			trace("retObj data type couldn't be found, returning.");
@@ -442,7 +456,7 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + ", and its name = '" + obj.name + "'");
-			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node);
+			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node, webPage);
 		}
 	}
 
@@ -484,6 +498,14 @@ public class GameEditorObjectPaletteView extends VBox
                 node.title = ti.text;
                 AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, node, new Responder(handleSavePage, handleFault));
         }
+		else if (obj.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+		{
+			trace("It's a web page...");
+			var webPage:WebPage = new WebPage();
+			webPage.webPageId = obj.objectId;
+			webPage.name = ti.text;
+			AppServices.getInstance().saveWebPage(GameModel.getInstance().game.gameId, webPage, new Responder(handleSaveWebPage, handleFault));
+		}
         else if (obj.isFolder())
         {
             trace("It's a folder, with ID = '" + obj.id + "'");
@@ -524,7 +546,7 @@ public class GameEditorObjectPaletteView extends VBox
         var pt:Point = new Point();
         var myMenu:Menu;
 
-        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}];
+        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}];
 
         myMenu = Menu.createMenu(objectPalette, myMenuData, false);
         myMenu.addEventListener("itemClick", menuHandler);
@@ -591,6 +613,15 @@ public class GameEditorObjectPaletteView extends VBox
             p.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_PLAQUE;
             this.addObjectPaletteItem(p);
         }
+		else if (AppConstants.CONTENTTYPE_WEBPAGE == stuff)
+		{
+			trace("add a web page to the object palette...");
+			var w:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
+			w.name = "Unnamed WebPage";
+			w.objectType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
+			w.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_WEBPAGE;
+			this.addObjectPaletteItem(w);
+		}
 		
         trace("Done with menuHandler.");
     }
@@ -628,6 +659,15 @@ public class GameEditorObjectPaletteView extends VBox
             AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, node, new Responder(handleCreatePage, handleFault));
             trace("Just finished calling savePage() for name = '" + item.name + "'.");
         }
+		else if (item.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+		{
+			var webPage:WebPage = new WebPage();
+			webPage.webPageId = 0;
+			webPage.name = item.name;
+			webPage.iconMediaId = item.iconMediaId;
+			AppServices.getInstance().saveWebPage(GameModel.getInstance().game.gameId, webPage, new Responder(handleCreateWebPage, handleFault));
+			trace("Just finished calling saveWebPage() for name = '" + item.name + "'.");
+		}
         else if (item.isFolder())
         {
             trace("Item is a folder, so do initial save of it here.")
@@ -780,6 +820,22 @@ public class GameEditorObjectPaletteView extends VBox
         trace("GameEditorObjectPalletView: Finished with handleSaveItem().");
     }
 
+	public function handleSaveWebPage(obj:Object):void
+	{
+		trace("GameEditorObjectPalletView: In handleSaveWebPage() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("GameEditorObjectPalletView: Bad save web page attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Saving Web Page");
+		}
+		else
+		{
+			trace("GameEditorObjectPalletView: Save Web Page was successful.");
+		}
+		trace("GameEditorObjectPalletView: Finished with handleSaveWebPage().");
+	}
+	
     public function handleSaveCharacter(obj:Object):void
     {
         trace("GameEditorObjectPalletView: handleSaveCharacter() Result called with obj = " + obj + "; Result = " + obj.result);
@@ -840,6 +896,37 @@ public class GameEditorObjectPaletteView extends VBox
         }
         trace("Finished with handleCreateItem().");
     }
+	
+	
+	public function handleCreateWebPage(obj:Object):void
+	{
+		trace("In handleCreateWebPage() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad create webPage attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Creating WebPage");
+		}
+		else
+		{
+			trace("Create webPage was successful.");
+			for (var lc:Number = 0; lc < treeModel.length; lc++)
+			{
+				var it:ObjectPaletteItemBO = treeModel.getItemAt(lc) as ObjectPaletteItemBO;
+				trace("LC = " + lc + "; it.id = '" + it.id + "; Object Type = '" + it.objectType + "'; objectId = '" + it.objectId + "'; Return Object Id = '" + obj.result.data + "'");
+				if (it.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && isNaN(it.objectId))
+				{
+					it.id = 0;
+					it.objectId = obj.result.data;
+					trace("Found a webPage with a NULL object Id, so setting it to the data's result: " + obj.result.data);
+					AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, it, new Responder(handleSaveContent, handleFault));
+					break;
+				}
+			}
+		}
+		trace("Finished with handleCreateItem().");
+	}
+	
 
     public function handleCreateCharacter(obj:Object):void
     {
@@ -1010,6 +1097,11 @@ public class GameEditorObjectPaletteView extends VBox
                         trace("Object With Id = " + it.id + " is missing it's Page data (ID = " + it.objectId + "), so need to load it.");
                         AppServices.getInstance().getPageById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfPlaqueData, handleFault))
                     }
+					else if (it.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && it.webPage == null)
+					{
+						trace("Object With Id = " + it.id + " is missing it's webPage data (ID = " + it.objectId + "), so need to load it.");
+						AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfWebPageData, handleFault))
+					}
                     break;
                 }
             }
@@ -1035,7 +1127,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null, null);
             }
         }
     }
@@ -1057,10 +1149,32 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null, null);
             }
         }
     }
+	
+	private function handlePairingOfWebPageData(obj:Object):void
+	{
+		trace("In handlePairingOfWebPageData() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handlePairingOfWebPageData... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Adding WebPage");
+		}
+		else
+		{
+			var data:Object = obj.result.data;
+			var webPage:WebPage = AppUtils.parseResultDataIntoWebPage(data);
+			
+			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
+			{
+				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_WEBPAGE_DATABASE, null, null, null, webPage);
+			}
+		}
+	}
 
     private function handlePairingOfPlaqueData(obj:Object):void
     {
@@ -1079,7 +1193,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node, null);
             }
         }
     }

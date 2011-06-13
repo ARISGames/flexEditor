@@ -6,6 +6,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.util.IconUtility;
 
 public class ObjectPaletteItemBO
@@ -38,6 +39,7 @@ public class ObjectPaletteItemBO
     public var character:NPC;
     public var item:Item;
     public var page:Node;
+	public var webPage:WebPage;
 
     /**
      * Constructor

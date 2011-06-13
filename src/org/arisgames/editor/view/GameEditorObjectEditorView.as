@@ -9,6 +9,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -37,7 +38,7 @@ public class GameEditorObjectEditorView extends Canvas
 
     private function handleInit(event:FlexEvent):void
     {
-        trace("in handleInit");
+        trace("GameEditorObjectEditorView: in handleInit");
     }
 
     public function getObjectPaletteItem():ObjectPaletteItemBO
@@ -131,6 +132,11 @@ public class GameEditorObjectEditorView extends Canvas
                 //trace("Load underlying page data...");
                 AppServices.getInstance().getPageById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
             }
+			else if (op.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+			{
+				//trace("Load underlying WebPage data...");
+				AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 
             this.objectPaletteItem = op;
         }
@@ -142,6 +148,7 @@ public class GameEditorObjectEditorView extends Canvas
         var item:Item = null;
         var npc:NPC = null;
         var node:Node = null;
+		var webPage:WebPage = null;
 
         var data:Object = retObj.result.data;
         var objType:String = "";
@@ -167,6 +174,13 @@ public class GameEditorObjectEditorView extends Canvas
 
             objType = AppConstants.CONTENTTYPE_PAGE_DATABASE;
         }
+		else if (data.hasOwnProperty("web_page_id"))
+		{
+			trace("retObj has a web_page_id!  It's value = '" + data.web_page_id + "'.");
+			webPage = AppUtils.parseResultDataIntoWebPage(data);
+			
+			objType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
+		}
         else
         {
             trace("retObj data type couldn't be found, returning.");
@@ -174,7 +188,7 @@ public class GameEditorObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -207,6 +221,13 @@ public class GameEditorObjectEditorView extends Canvas
             itemEditor.setVisible(true);
             itemEditor.includeInLayout = true;
         }
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+		{
+			trace("It's a Web Page, so display the Web Page Editor.")
+			webPageEditor.setObjectPaletteItem(objectPaletteItem);
+			webPageEditor.setVisible(true);
+			webPageEditor.includeInLayout = true;
+		}
         else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE)
         {
             trace("It's a Character, so display the Character Editor.")

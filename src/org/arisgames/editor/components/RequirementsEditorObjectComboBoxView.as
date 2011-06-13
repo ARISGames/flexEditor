@@ -123,6 +123,11 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			trace("going to load quests - 5");
 			AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
 		}
+		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE)
+		{
+			trace("going to load webPages - 6");
+			AppServices.getInstance().getWebPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadWebPages, handleFault));
+		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
@@ -189,6 +194,35 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("Loaded '" + possibleObjects.length + "' Possible Item Object(s).");
         }
     }
+	
+	
+	private function handleLoadWebPages(obj:Object):void
+	{
+		trace("handling load web Pages...");
+		possibleObjects.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible webPages attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible web Pages");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
+				to.data = obj.result.data[j].web_page_id;
+				possibleObjects.addItem(to);
+			}
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Web Page Object(s).");
+		}
+	}
+	
 
     private function handleLoadNodes(obj:Object):void
     {

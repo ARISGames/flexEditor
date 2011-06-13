@@ -132,58 +132,66 @@ public class ItemEditorMediaDisplayView extends HBox
         }
 
         // Load The Media GUI
-        if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.media.type == AppConstants.MEDIATYPE_VIDEO))
-        {
-            mediaImageCanvas.setVisible(false);
-            mediaImageCanvas.includeInLayout = false;
-            mediaPreviewImage.setVisible(false);
-            mediaPreviewImage.includeInLayout = false;
-            mediaAVLinkButton.setVisible(true);
-            mediaAVLinkButton.includeInLayout = true;
-            mediaNoMediaLabel.setVisible(false);
-            mediaNoMediaLabel.includeInLayout = false;
-            mediaRemoveButton.setVisible(true);
-            mediaRemoveButton.includeInLayout = true;
-
-            if (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO)
-            {
-                mediaAVLinkButton.label = "Listen To Audio";
-            }
-            else
-            {
-                mediaAVLinkButton.label = "View Video";
-            }
-        }
-        else if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_IMAGE || objectPaletteItem.media.type == AppConstants.MEDIATYPE_ICON))
-        {
-            mediaImageCanvas.setVisible(true);
-            mediaImageCanvas.includeInLayout = true;
-            mediaPreviewImage.setVisible(true);
-            mediaPreviewImage.includeInLayout = true;
-            mediaAVLinkButton.setVisible(false);
-            mediaAVLinkButton.includeInLayout = false;
-            mediaNoMediaLabel.setVisible(false);
-            mediaNoMediaLabel.includeInLayout = false;
-            mediaRemoveButton.setVisible(true);
-            mediaRemoveButton.includeInLayout = true;
-
-            var mediaurl:String = objectPaletteItem.media.urlPath + objectPaletteItem.media.fileName;
-            mediaPreviewImage.source = mediaurl;
-            trace("Just set media image url = '" + mediaurl + "'");
-        }
-        else
-        {
-            mediaImageCanvas.setVisible(true);
-            mediaImageCanvas.includeInLayout = true;
-            mediaPreviewImage.setVisible(false);
-            mediaPreviewImage.includeInLayout = false;
-            mediaAVLinkButton.setVisible(false);
-            mediaAVLinkButton.includeInLayout = false;
-            mediaNoMediaLabel.setVisible(true);
-            mediaNoMediaLabel.includeInLayout = true;
-            mediaRemoveButton.setVisible(false);
-            mediaRemoveButton.includeInLayout = false;
-        }
+		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE){
+			mediaPopupMediaPickerButton.setVisible(true);
+			mediaPopupMediaPickerButton.includeInLayout = true;
+	        if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.media.type == AppConstants.MEDIATYPE_VIDEO))
+	        {
+	            mediaImageCanvas.setVisible(false);
+	            mediaImageCanvas.includeInLayout = false;
+	            mediaPreviewImage.setVisible(false);
+	            mediaPreviewImage.includeInLayout = false;
+	            mediaAVLinkButton.setVisible(true);
+	            mediaAVLinkButton.includeInLayout = true;
+	            mediaNoMediaLabel.setVisible(false);
+	            mediaNoMediaLabel.includeInLayout = false;
+	            mediaRemoveButton.setVisible(true);
+	            mediaRemoveButton.includeInLayout = true;
+	
+    	        if (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO)
+    	        {
+    	            mediaAVLinkButton.label = "Listen To Audio";
+    	        }
+    	        else
+    	        {
+    	            mediaAVLinkButton.label = "View Video";
+    	        }
+    	    }
+    	    else if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_IMAGE || objectPaletteItem.media.type == AppConstants.MEDIATYPE_ICON))
+    	    {
+	            mediaImageCanvas.setVisible(true);
+	            mediaImageCanvas.includeInLayout = true;
+	            mediaPreviewImage.setVisible(true);
+	            mediaPreviewImage.includeInLayout = true;
+	            mediaAVLinkButton.setVisible(false);
+	            mediaAVLinkButton.includeInLayout = false;
+	            mediaNoMediaLabel.setVisible(false);
+	            mediaNoMediaLabel.includeInLayout = false;
+	            mediaRemoveButton.setVisible(true);
+	            mediaRemoveButton.includeInLayout = true;
+	
+        	    var mediaurl:String = objectPaletteItem.media.urlPath + objectPaletteItem.media.fileName;
+        	    mediaPreviewImage.source = mediaurl;
+        	    trace("Just set media image url = '" + mediaurl + "'");
+        	}
+        	else
+        	{
+        	    mediaImageCanvas.setVisible(true);
+        	    mediaImageCanvas.includeInLayout = true;
+        	    mediaPreviewImage.setVisible(false);
+        	    mediaPreviewImage.includeInLayout = false;
+        	    mediaAVLinkButton.setVisible(false);
+        	    mediaAVLinkButton.includeInLayout = false;
+        	    mediaNoMediaLabel.setVisible(true);
+        	    mediaNoMediaLabel.includeInLayout = true;
+        	    mediaRemoveButton.setVisible(false);
+        	    mediaRemoveButton.includeInLayout = false;
+        	}
+		}
+		else{
+			mediaPopupMediaPickerButton.setVisible(false);
+			mediaPopupMediaPickerButton.includeInLayout = false;
+		}
     }
 
     private function handleIconPickerButton(evt:MouseEvent):void
@@ -267,6 +275,17 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			//AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObject, handleFault));
 		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.webPage.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set WebPage with ID = '" + objectPaletteItem.webPage.webPageId + "' Icon Media Id = '" + objectPaletteItem.webPage.iconMediaId + "'");
+			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
 		
 		this.pushDataIntoGUI();
 		
@@ -322,6 +341,12 @@ public class ItemEditorMediaDisplayView extends HBox
             objectPaletteItem.page.iconMediaId = 0;            
             AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObjectAfterRemove, handleFault));
         }
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_WEBPAGE_DATABASE)
+		{
+			objectPaletteItem.webPage.iconMediaId = 0;
+			AppServices.getInstance().saveWebPage(GameModel.getInstance().game.gameId, objectPaletteItem.webPage, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
+		
         // Reload Icon In Object Palette
         var uop:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
         AppDynamicEventManager.getInstance().dispatchEvent(uop);

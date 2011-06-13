@@ -161,6 +161,14 @@ public class RequirementsEditorRequirementComboBoxView extends VBox implements I
                         trace("20");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN;
                             break;
+					case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:
+						trace("21");
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN;
+						break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:
+						trace("22");
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN;
+						break;
                     default:
                             trace("1 default in case statement in load requirement types for '" + (obj.result.data[j] as String) + "'");
                             to.humanLabel = obj.result.data[j];

@@ -9,6 +9,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
@@ -57,6 +58,8 @@ public class AppUtils
                 return AppConstants.CONTENTTYPE_ITEM;
             case AppConstants.CONTENTTYPE_PAGE_VAL:
                 return AppConstants.CONTENTTYPE_PAGE;
+			case AppConstants.CONTENTTYPE_WEBPAGE_VAL:
+				return AppConstants.CONTENTTYPE_WEBPAGE;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP_VAL:
              return AppConstants.CONTENTTYPE_QRCODEGROUP;
@@ -76,6 +79,8 @@ public class AppUtils
                 return AppConstants.CONTENTTYPE_ITEM_DATABASE;
             case AppConstants.CONTENTTYPE_PAGE_VAL:
                 return AppConstants.CONTENTTYPE_PAGE_DATABASE;
+			case AppConstants.CONTENTTYPE_WEBPAGE_VAL:
+				return AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP_VAL:
              return AppConstants.CONTENTTYPE_QRCODEGROUP;
@@ -101,6 +106,10 @@ public class AppUtils
                 return AppConstants.CONTENTTYPE_PAGE_VAL;
             case AppConstants.CONTENTTYPE_PAGE_DATABASE:
                 return AppConstants.CONTENTTYPE_PAGE_VAL;
+			case AppConstants.CONTENTTYPE_WEBPAGE:
+				return AppConstants.CONTENTTYPE_WEBPAGE_VAL;
+			case AppConstants.CONTENTTYPE_WEBPAGE_DATABASE:
+				return AppConstants.CONTENTTYPE_WEBPAGE_VAL;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP:
              return AppConstants.CONTENTTYPE_QRCODEGROUP_VAL;
@@ -238,7 +247,7 @@ public class AppUtils
         }
     }
 
-    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node):void
+    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage):void
     {
         //trace("matchDataWithGameObject() called: Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
 
@@ -269,6 +278,13 @@ public class AppUtils
                         obj.page = node;
                     }
                     break;
+				case AppConstants.CONTENTTYPE_WEBPAGE_DATABASE:
+					if (obj.objectId == webPage.webPageId)
+					{
+						//trace("Just matched Game Object Id " + obj.id + " with webPage of ID = " + webPage.webPageId);
+						obj.webPage = webPage;
+					}
+					break;
             }
         }
         else if (obj.isFolder())
@@ -277,7 +293,7 @@ public class AppUtils
             for (var lc:Number = 0; lc < obj.children.length; lc++)
             {
                 var childObj:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
-                matchDataWithGameObject(childObj, objType, npc, item, node);
+                matchDataWithGameObject(childObj, objType, npc, item, node, webPage);
             }
         }
     }
@@ -338,6 +354,28 @@ public class AppUtils
             return null;
         }
     }
+	
+	
+	public static function parseResultDataIntoWebPage(data:Object):WebPage
+	{
+		if (data.hasOwnProperty("web_page_id"))
+		{
+			trace("retObj has a web_page_id!  It's value = '" + data.web_page_id + "'.");
+			var webPage:WebPage = new WebPage();
+			
+			webPage.webPageId = data.web_page_id;
+			webPage.name = data.name;
+			webPage.url = data.url;
+			webPage.iconMediaId = data.icon_media_id;
+			
+			return webPage;
+		}
+		else
+		{
+			trace("Data passed in was not a Web Page Result set, returning NULL.");
+			return null;
+		}
+	}
 	
 	public static function parseResultDataIntoNode(data:Object):Node
 	{
@@ -463,6 +501,10 @@ public class AppUtils
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_HUMAN:
@@ -493,6 +535,10 @@ public class AppUtils
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:

@@ -350,7 +350,7 @@ public class NavigationMap extends Map3D
         trace("Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {
-            trace("Bad create location (placemark) attempt... let's see what happened.");
+            trace("NavigationMap: Bad create location (placemark) attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Creating Placemark");
         }

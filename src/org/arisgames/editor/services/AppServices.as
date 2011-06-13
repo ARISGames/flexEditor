@@ -10,6 +10,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
@@ -141,6 +142,13 @@ public class AppServices
         r = AppDAO.getInstance().getItemServer().getItems(gid);
         r.addResponder(resp);
     }
+	
+	public function getWebPagesByGameId(gid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getWebPageServer().getWebPages(gid);
+		r.addResponder(resp);
+	}
 
     public function saveItem(gid:Number, item:Item, resp:IResponder):void
     {
@@ -173,18 +181,35 @@ public class AppServices
         }
         r.addResponder(resp);
     }
+	
+	public function saveWebPage(gid:Number, webPage:WebPage, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(webPage.webPageId) || webPage.webPageId == 0)
+		{
+			trace("This Web Page doesn't have an Id, so call create WebPage.");
+			r = AppDAO.getInstance().getWebPageServer().createWebPage(gid, webPage.name, webPage.url, webPage.iconMediaId);
+		}
+		else
+		{
+			trace("This Web Page has an Id (" + webPage.webPageId + "), so call update webPage. gameid:" + gid + " name:" + webPage.name);
+			r = AppDAO.getInstance().getWebPageServer().updateWebPage(gid, webPage.webPageId, webPage.name, webPage.url, webPage.iconMediaId);
+		}
+		r.addResponder(resp);
+	}
+	
 
     public function savePage(gid:Number, n:Node, resp:IResponder):void
     {
         var r:Object;
         if (isNaN(n.nodeId) || n.nodeId == 0)
         {
-            trace("This NPC doesn't have an Id, so call create NPC.");
+            trace("This page doesn't have an Id, so call create page.");
             r = AppDAO.getInstance().getNodeServer().createNode(gid, n.title, n.text, n.mediaId, n.iconMediaId, n.opt1Text, n.opt1NodeId, n.opt2Text, n.opt2NodeId, n.opt3Text, n.opt3NodeId, n.qaCorrectAnswer, n.qaIncorrectNodeId, n.qaCorrectNodeId);
         }
         else
         {
-            trace("This NPC has an Id (" + n.nodeId + "), so call update NPC.");
+            trace("This page has an Id (" + n.nodeId + "), so call update page.");
             r = AppDAO.getInstance().getNodeServer().updateNode(gid, n.nodeId, n.title, n.text, n.mediaId, n.iconMediaId, n.opt1Text, n.opt1NodeId, n.opt2Text, n.opt2NodeId, n.opt3Text, n.opt3NodeId, n.qaCorrectAnswer, n.qaIncorrectNodeId, n.qaCorrectNodeId);
         }
         r.addResponder(resp);
@@ -195,7 +220,7 @@ public class AppServices
         var l:Object;
         if (isNaN(loc.locationId))
         {
-            trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + "QuickTravel = " + loc.quickTravel);
+            trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + " QuickTravel = " + loc.quickTravel);
 
             l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode);
         }
@@ -282,6 +307,14 @@ public class AppServices
         l = AppDAO.getInstance().getNPCServer().getNpc(gid, id);
         l.addResponder(resp);
     }
+	
+	public function getWebPageById(gid:Number, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getWebPageById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getWebPageServer().getWebPage(gid, id);
+		l.addResponder(resp);
+	}
 
     public function getMediaForGame(gid:Number, resp:IResponder):void
     {

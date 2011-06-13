@@ -10,5 +10,6 @@
     <v:ObjectEditorItemMX id="itemEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorCharacterMX id="characterEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorPlaqueMX id="plaqueEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+	<v:ObjectEditorWebPageMX id="webPageEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 
 </v:ObjectEditorView>

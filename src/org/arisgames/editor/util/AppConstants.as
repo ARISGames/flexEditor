@@ -3,10 +3,10 @@ package org.arisgames.editor.util
 public class AppConstants
 {
 	//Server URL
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/stagingserver1"; //For other URL's to append to- Staging
-	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
-	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris/"; //staging		
-	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris/uploadhandler.php"; //davembp
+	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/stagingserver1"; //For other URL's to append to- Staging
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
+	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris_1_4/"; //staging		
+	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris_1_4/uploadhandler.php"; //davembp
 	public static const APPLICATION_ENVIRONMENT_GATEWAY_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gateway.php"; //services-config.xml
 
 	//Google API
@@ -44,14 +44,17 @@ public class AppConstants
     public static const CONTENTTYPE_PAGE:String = "Plaque";
     public static const CONTENTTYPE_CHARACTER:String = "Character";
     public static const CONTENTTYPE_ITEM:String = "Item";
+	public static const CONTENTTYPE_WEBPAGE:String = "WebPage";
     public static const CONTENTTYPE_QRCODEGROUP:String = "QR Code Group";
     public static const CONTENTTYPE_PAGE_VAL:Number = 0;
     public static const CONTENTTYPE_CHARACTER_VAL:Number = 1;
     public static const CONTENTTYPE_ITEM_VAL:Number = 2;
     public static const CONTENTTYPE_QRCODEGROUP_VAL:Number = 3;
+	public static const CONTENTTYPE_WEBPAGE_VAL:Number = 4;
     public static const CONTENTTYPE_PAGE_DATABASE:String = "Node";
     public static const CONTENTTYPE_CHARACTER_DATABASE:String = "Npc";
-    public static const CONTENTTYPE_ITEM_DATABASE:String = "Item";
+	public static const CONTENTTYPE_ITEM_DATABASE:String = "Item";
+	public static const CONTENTTYPE_WEBPAGE_DATABASE:String = "WebPage";
     public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
 
     // Label Constants
@@ -78,6 +81,7 @@ public class AppConstants
 
 	//Player State Changes
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";
+	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_WEBPAGE:String = "VIEW_WEBPAGE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE:String = "VIEW_NODE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NPC:String = "VIEW_NPC";
 	public static const PLAYERSTATECHANGE_ACTION_GIVEITEM:String = "GIVE_ITEM";
@@ -96,10 +100,14 @@ public class AppConstants
     public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "Player Has At Least Qty of an Item";
     public static const REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE:String = "PLAYER_DOES_NOT_HAVE_ITEM";
     public static const REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_HUMAN:String = "Player Has Less Than Qty of an Item";
-    public static const REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:String = "PLAYER_VIEWED_ITEM";
-    public static const REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN:String = "Player Viewed Item";
-    public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_ITEM";
-    public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN:String = "Player Never Viewed Item";
+	public static const REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:String = "PLAYER_VIEWED_ITEM";
+	public static const REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN:String = "Player Viewed Item";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_ITEM";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN:String = "Player Never Viewed Item";
+	public static const REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:String = "PLAYER_VIEWED_WEBPAGE";
+	public static const REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN:String = "Player Viewed Web Page";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_WEBPAGE";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN:String = "Player Never Viewed Web Page";
     public static const REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:String = "PLAYER_VIEWED_NODE";
     public static const REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:String = "Player Viewed Plaque/Script";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_NODE";
@@ -122,6 +130,7 @@ public class AppConstants
     public static const DEFAULT_ICON_MEDIA_ID_NPC:Number = 1;
     public static const DEFAULT_ICON_MEDIA_ID_ITEM:Number = 2;
     public static const DEFAULT_ICON_MEDIA_ID_PLAQUE:Number = 3;
+	public static const DEFAULT_ICON_MEDIA_ID_WEBPAGE:Number = 4;
 	
 	// Palette Tree Stuff
 	public static const PALETTE_TREE_SELF_FOLDER_ID:Number = 0;

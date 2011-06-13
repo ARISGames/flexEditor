@@ -1,0 +1,155 @@
+package org.arisgames.editor.view
+{
+	import flash.events.MouseEvent;
+	
+	import mx.containers.HBox;
+	import mx.containers.Panel;
+	import mx.controls.Alert;
+	import mx.controls.Button;
+	import mx.controls.CheckBox;
+	import mx.controls.NumericStepper;
+	import mx.controls.TextArea;
+	import mx.controls.TextInput;
+	import mx.events.DynamicEvent;
+	import mx.events.FlexEvent;
+	import mx.rpc.Responder;
+	import mx.validators.Validator;
+	
+	import org.arisgames.editor.components.ItemEditorMediaDisplayMX;
+	import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
+	import org.arisgames.editor.models.GameModel;
+	import org.arisgames.editor.services.AppServices;
+	import org.arisgames.editor.util.AppConstants;
+	import org.arisgames.editor.util.AppDynamicEventManager;
+	
+	public class ObjectEditorWebPageView extends Panel
+	{
+		// Data Object
+		private var objectPaletteItem:ObjectPaletteItemBO;
+		
+		// GUI
+		[Bindable] public var theName:TextInput;
+		[Bindable] public var description:TextArea;
+		[Bindable] public var cancelButton:Button;
+		[Bindable] public var saveButton:Button;
+		[Bindable] public var hbox:HBox;
+		[Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
+		
+		[Bindable] public var v1:Validator;
+		[Bindable] public var v2:Validator;
+		
+		/**
+		 * Constructor
+		 */
+		public function ObjectEditorWebPageView()
+		{
+			super();
+			this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit)
+		}
+		
+		private function handleInit(event:FlexEvent):void
+		{
+			trace("ObjectEditorWebPageView: handleInit");
+			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		}
+		
+		public function getObjectPaletteItem():ObjectPaletteItemBO
+		{
+			return objectPaletteItem;
+		}
+		
+		public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
+		{
+			trace("ObjectEditorWebPageView: Setting objectPaletteItem with name = '" + opi.name);
+			objectPaletteItem = opi;
+			mediaDisplay.setObjectPaletteItem(opi);
+			this.pushDataIntoGUI();
+		}
+		
+		private function pushDataIntoGUI():void
+		{
+			var obj:Object = objectPaletteItem;
+			theName.text = objectPaletteItem.webPage.name;
+			description.text = objectPaletteItem.webPage.url;
+		}
+		
+		private function isFormValid():Boolean
+		{
+			return (Validator.validateAll([v1, v2]).length == 0)
+		}
+		
+		private function handleCancelButton(evt:MouseEvent):void
+		{
+			trace("ObjectEditorWebPageView: Cancel button clicked...");
+			var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);
+		}
+		
+		private function handleSaveButton(evt:MouseEvent):void
+		{
+			trace("ObjectEditorWebPageView: Save button clicked...");
+			
+			if (!isFormValid())
+			{
+				trace("ItemEditorItemView: Form is not valid, stop save processing.");
+				return;
+			}
+			
+			// Save Item Data
+			objectPaletteItem.webPage.name = theName.text;
+			objectPaletteItem.webPage.url = description.text;
+			
+			AppServices.getInstance().saveWebPage(GameModel.getInstance().game.gameId, objectPaletteItem.webPage, new Responder(handleSaveWebPage, handleFault));
+			
+			// Save ObjectPaletteItem
+			objectPaletteItem.name = objectPaletteItem.webPage.name;
+			AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, objectPaletteItem, new Responder(handleSaveContent, handleFault))
+			
+			// Close down the panel
+			var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);
+			
+		}
+		
+		private function handleSaveWebPage(obj:Object):void
+		{
+			trace("ObjectEditorWebPageView: In handleSaveWebPage() Result called with obj = " + obj + "; Result = " + obj.result);
+			if (obj.result.returnCode != 0)
+			{
+				trace("ObjectEditorWebPageView: Bad save web page attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+				var msg:String = obj.result.returnCodeDescription;
+				Alert.show("Error Was: " + msg, "Error While Saving Web Page");
+			}
+			else
+			{
+				trace("ObjectEditorWebPageView:  Save web page was successful, wait on saveContent now to close the editor and update the object palette.");
+			}
+			trace("ObjectEditorWebPageView: Finished with handleSaveWebPage().");
+		}
+		
+		private function handleSaveContent(obj:Object):void
+		{
+			trace("ObjectEditorWebPageView: In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
+			if (obj.result.returnCode != 0)
+			{
+				trace("ObjectEditorWebPageView: Bad save item content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+				var msg:String = obj.result.returnCodeDescription;
+				Alert.show("Error Was: " + msg, "Error While Saving Item");
+			}
+			else
+			{
+				trace("ObjectEditorWebPageView: Save item content was successful, now update the object palette.");
+				
+				var uop:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
+				AppDynamicEventManager.getInstance().dispatchEvent(uop);
+			}
+			trace("ItemEditorItemView: Finished with handleSaveContent().");
+		}
+		
+		public function handleFault(obj:Object):void
+		{
+			trace("Fault called: " + obj.message);
+			Alert.show("Error occurred: " + obj.message, "Problems Saving WebPage");
+		}
+	}
+}

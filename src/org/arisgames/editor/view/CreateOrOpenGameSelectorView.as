@@ -21,6 +21,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.models.SecurityModel;
