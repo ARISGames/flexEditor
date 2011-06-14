@@ -13,6 +13,7 @@ public class AppDAO
     private static var nodeServer:RemoteObject;
     private static var npcServer:RemoteObject;
 	private static var webPageServer:RemoteObject;
+	private static var augBubbleServer:RemoteObject;
 	private static var conversationServer:RemoteObject;
 	private static var itemServer:RemoteObject;
     private static var locationServer:RemoteObject;
@@ -112,6 +113,18 @@ public class AppDAO
 			webPageServer.showBusyCursor = true;
 		}
 		return webPageServer;
+	}
+	
+	public function getAugBubbleServer():RemoteObject
+	{
+		if (augBubbleServer == null)
+		{
+			augBubbleServer = new RemoteObject();
+			augBubbleServer.source = "aris_1_4.augbubbles";
+			augBubbleServer.destination = "amfphp";
+			augBubbleServer.showBusyCursor = true;
+		}
+		return augBubbleServer;
 	}
 
     public function getItemServer():RemoteObject

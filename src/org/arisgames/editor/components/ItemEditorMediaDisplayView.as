@@ -44,6 +44,13 @@ public class ItemEditorMediaDisplayView extends HBox
     [Bindable] public var mediaNoMediaLabel:Label;
     [Bindable] public var mediaPopupMediaPickerButton:Button;
 	
+	[Bindable] public var alignImageCanvas:Canvas;
+	[Bindable] public var alignPreviewImage:Image;
+	[Bindable] public var alignAVLinkButton:LinkButton;
+	[Bindable] public var alignRemoveButton:Button;
+	[Bindable] public var alignNoMediaLabel:Label;
+	[Bindable] public var alignPopupMediaPickerButton:Button;
+	
     private var mediaPicker:ItemEditorMediaPickerMX;
 
     /**
@@ -60,10 +67,16 @@ public class ItemEditorMediaDisplayView extends HBox
         trace("ItemEditorMediaDisplayView: handleInit");
 		iconAVLinkButton.addEventListener(MouseEvent.CLICK, handleIconAVButtonClick);
         mediaAVLinkButton.addEventListener(MouseEvent.CLICK, handleMediaAVButtonClick);
+		alignAVLinkButton.addEventListener(MouseEvent.CLICK, handleAlignAVButtonClick);
+
         iconRemoveButton.addEventListener(MouseEvent.CLICK, handleIconRemoveButtonClick);
         mediaRemoveButton.addEventListener(MouseEvent.CLICK, handleMediaRemoveButtonClick);
+		alignRemoveButton.addEventListener(MouseEvent.CLICK, handleAlignRemoveButtonClick);
+
         iconPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleIconPickerButton);
         mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleMediaPickerButton);
+		alignPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleAlignPickerButton);
+
     }
 
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
@@ -75,7 +88,7 @@ public class ItemEditorMediaDisplayView extends HBox
 
     private function pushDataIntoGUI():void
     {
-        trace("ItemEditorMediaDisplayView: pushDataIntoGUI called with Icon Media Id = '" + objectPaletteItem.iconMediaId + "'; Media Id = '" + objectPaletteItem.mediaId + "'; Icon Media Object = '" + objectPaletteItem.iconMedia + "'; Media Object = '" + objectPaletteItem.media + "'");
+        trace("ItemEditorMediaDisplayView: pushDataIntoGUI called with Icon Media Id = '" + objectPaletteItem.iconMediaId + "'; Media Id = '" + objectPaletteItem.mediaId + "'; Align Media Id = '" + objectPaletteItem.alignMediaId + "'; Icon Media Object = '" + objectPaletteItem.iconMedia + "'; Media Object = '" + objectPaletteItem.media + "'");
 
         // Load The Icon Media
         if (objectPaletteItem.iconMedia != null && (objectPaletteItem.iconMedia.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.iconMedia.type == AppConstants.MEDIATYPE_VIDEO))
@@ -192,25 +205,74 @@ public class ItemEditorMediaDisplayView extends HBox
 			mediaPopupMediaPickerButton.setVisible(false);
 			mediaPopupMediaPickerButton.includeInLayout = false;
 		}
+		
+		
+		// Load The alignMedia GUI
+		if(objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
+
+			if (objectPaletteItem.alignMedia != null && objectPaletteItem.alignMedia.type == AppConstants.MEDIATYPE_IMAGE)
+			{
+				alignImageCanvas.setVisible(true);
+				alignImageCanvas.includeInLayout = true;
+				alignPreviewImage.setVisible(true);
+				alignPreviewImage.includeInLayout = true;
+				alignAVLinkButton.setVisible(false);
+				alignAVLinkButton.includeInLayout = false;
+				alignNoMediaLabel.setVisible(false);
+				alignNoMediaLabel.includeInLayout = false;
+				alignRemoveButton.setVisible(true);
+				alignRemoveButton.includeInLayout = true;
+				
+				var alignmediaurl:String = objectPaletteItem.alignMedia.urlPath + objectPaletteItem.alignMedia.fileName;
+				alignPreviewImage.source = alignmediaurl;
+				trace("Just set align image url = '" + alignmediaurl + "'");
+			}
+			else
+			{
+				alignImageCanvas.setVisible(true);
+				alignImageCanvas.includeInLayout = true;
+				alignPreviewImage.setVisible(false);
+				alignPreviewImage.includeInLayout = false;
+				alignAVLinkButton.setVisible(false);
+				alignAVLinkButton.includeInLayout = false;
+				alignNoMediaLabel.setVisible(true);
+				alignNoMediaLabel.includeInLayout = true;
+				alignRemoveButton.setVisible(false);
+				alignRemoveButton.includeInLayout = false;
+			}
+		}
+		else{
+			alignPopupMediaPickerButton.setVisible(false);
+			alignPopupMediaPickerButton.includeInLayout = false;
+		}
     }
 
     private function handleIconPickerButton(evt:MouseEvent):void
     {
         trace("ItemEditorMediaDisplayView: handleIconPickerButton() called...");
-        this.openMediaPicker(true);
+        this.openMediaPicker(AppConstants.ICON_PICKER);
     }
 
     private function handleMediaPickerButton(evt:MouseEvent):void
     {
         trace("ItemEditorMediaDisplayView: handleMediaPickerButton() called...");
-        this.openMediaPicker(false);
+        this.openMediaPicker(AppConstants.MEDIA_PICKER);
     }
+	
+	private function handleAlignPickerButton(evt:MouseEvent):void
+	{
+		trace("ItemEditorMediaDisplayView: handleAlignPickerButton() called...");
+		this.openMediaPicker(AppConstants.ALIGNMENT_PICKER);
+	}
 
-    private function openMediaPicker(isIconMode:Boolean):void
+    private function openMediaPicker(pickerMode:Number):void
     {
         mediaPicker = new ItemEditorMediaPickerMX();
         mediaPicker.setObjectPaletteItem(objectPaletteItem);
-        mediaPicker.setIsIconPicker(isIconMode);
+		if(pickerMode == AppConstants.ICON_PICKER)
+        	mediaPicker.setIsIconPicker(true);
+		else if(pickerMode == AppConstants.ALIGNMENT_PICKER)
+			mediaPicker.setIsAlignmentPicker(true);
 		mediaPicker.delegate = this;
 
         PopUpManager.addPopUp(mediaPicker, AppUtils.getInstance().getMainView(), true);
@@ -286,6 +348,31 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
 		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.augBubble.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set AugBubble with ID = '" + objectPaletteItem.augBubble.augBubbleId + "' Icon Media Id = '" + objectPaletteItem.augBubble.iconMediaId + "'");
+			}
+			else if (picker.isInAlignmentPickerMode())
+			{
+				objectPaletteItem.augBubble.alignMediaId = m.mediaId;
+				objectPaletteItem.alignMediaId = m.mediaId;
+				objectPaletteItem.alignMedia = m;
+				trace("Just set AugBubble with ID = '" + objectPaletteItem.augBubble.augBubbleId + "' Icon Media Id = '" + objectPaletteItem.augBubble.alignMediaId + "'");
+			}
+			else
+			{
+				objectPaletteItem.augBubble.mediaId = m.mediaId;
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Page with ID = '" + objectPaletteItem.augBubble.augBubbleId + "' Media Id = '" + objectPaletteItem.augBubble.mediaId + "'");
+			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
 		
 		this.pushDataIntoGUI();
 		
@@ -319,6 +406,15 @@ public class ItemEditorMediaDisplayView extends HBox
         var req:URLRequest = new URLRequest(url);
         navigateToURL(req,"to_blank");
     }
+	
+	private function handleAlignAVButtonClick(evt:MouseEvent):void
+	{
+		trace("AlignAVButtonClick clicked!");
+		var url:String = objectPaletteItem.alignMedia.urlPath + objectPaletteItem.alignMedia.fileName;
+		trace("URL to launch = '" + url + "'");
+		var req:URLRequest = new URLRequest(url);
+		navigateToURL(req,"to_blank");
+	}
 
     private function handleIconRemoveButtonClick(evt:MouseEvent):void
     {
@@ -345,6 +441,11 @@ public class ItemEditorMediaDisplayView extends HBox
 		{
 			objectPaletteItem.webPage.iconMediaId = 0;
 			AppServices.getInstance().saveWebPage(GameModel.getInstance().game.gameId, objectPaletteItem.webPage, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			objectPaletteItem.augBubble.iconMediaId = 0;
+			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
 		}
 		
         // Reload Icon In Object Palette
@@ -373,7 +474,26 @@ public class ItemEditorMediaDisplayView extends HBox
             objectPaletteItem.page.mediaId = 0;            
             AppServices.getInstance().savePage(GameModel.getInstance().game.gameId, objectPaletteItem.page, new Responder(handleSaveObjectAfterRemove, handleFault));
         }
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			objectPaletteItem.augBubble.mediaId = 0;            
+			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
     }
+	
+	
+	private function handleAlignRemoveButtonClick(evt:MouseEvent):void
+	{
+		trace("handleMediaRemoveButtonClick() called.");
+		this.objectPaletteItem.alignMediaId = 0;
+		this.objectPaletteItem.alignMedia = null;
+		
+		if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			objectPaletteItem.augBubble.alignMediaId = 0;            
+			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
+	}
 
     private function handleSaveObjectAfterRemove(obj:Object):void
     {

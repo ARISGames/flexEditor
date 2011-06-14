@@ -128,6 +128,11 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			trace("going to load webPages - 6");
 			AppServices.getInstance().getWebPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadWebPages, handleFault));
 		}
+		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+		{
+			trace("going to load augBubbles - 7");
+			AppServices.getInstance().getAugBubblesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadAugBubbles, handleFault));
+		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
@@ -212,14 +217,42 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			{
 				var to:Object = new Object();
 				to.label = obj.result.data[j].name;
-				if(obj.result.data[j].description != "")
-					to.label += ": " + obj.result.data[j].description;
+				if(obj.result.data[j].url != "")
+					to.label += ": " + obj.result.data[j].url;
 				to.data = obj.result.data[j].web_page_id;
 				possibleObjects.addItem(to);
 			}
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("Loaded '" + possibleObjects.length + "' Possible Web Page Object(s).");
+		}
+	}
+	
+	
+	private function handleLoadAugBubbles(obj:Object):void
+	{
+		trace("handling load aug Bubbles...");
+		possibleObjects.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible augBubbles attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible aug bubbles");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
+				to.data = obj.result.data[j].aug_bubble_id;
+				possibleObjects.addItem(to);
+			}
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Aug Bubble Object(s).");
 		}
 	}
 	

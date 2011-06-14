@@ -37,5 +37,19 @@
 
         <mx:Button id="mediaPopupMediaPickerButton" label="Media Picker"/>
     </mx:VBox>
+	
+	<mx:VBox id="alignBox" horizontalAlign="center" verticalAlign="bottom">
+		<mx:Canvas id="alignImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="false">
+			<mx:Image id="alignPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+		</mx:Canvas>
+		
+		<mx:LinkButton id="alignAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+		
+		<mx:Button id="alignRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+		
+		<mx:Label id="alignNoMediaLabel" text="Choose Alignment Media" visible="false" includeInLayout="false"/>
+		
+		<mx:Button id="alignPopupMediaPickerButton" label="Alignment Media Picker"/>
+	</mx:VBox>
 
  </c:ItemEditorMediaDisplayView>   

@@ -2,6 +2,7 @@ package org.arisgames.editor.data.businessobjects
 {
 import mx.collections.ArrayCollection;
 
+import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -18,8 +19,10 @@ public class ObjectPaletteItemBO
     public var name:String;
     public var iconMediaId:Number;
     public var mediaId:Number;
+	public var alignMediaId:Number;
     public var iconMedia:Media;
     public var media:Media;
+	public var alignMedia:Media;
 	
     // Relationship Display Information
     //public var children:ObjectPaletteItemChildrenArray;
@@ -40,6 +43,8 @@ public class ObjectPaletteItemBO
     public var item:Item;
     public var page:Node;
 	public var webPage:WebPage;
+	public var augBubble:AugBubble;
+
 
     /**
      * Constructor

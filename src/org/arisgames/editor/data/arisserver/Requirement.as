@@ -86,6 +86,11 @@ public class Requirement
 			trace("going to load a web page for web page id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
 		}
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+		{
+			trace("going to load an aug bubble for aug bubble id = '" + new Number(requirementDetail1) + "'");
+			AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
+		}
         else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE)
         {
             trace("going to load a node for node id = '" + new Number(requirementDetail1) + "'");
@@ -166,6 +171,13 @@ public class Requirement
 				name = obj.result.data.name;
 				if(obj.result.data.url != "")
 					name += ": " + obj.result.data.url;
+			}
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+			{
+				trace("going to load aug bubble name - 7");
+				name = obj.result.data.name;
+				if(obj.result.data.description != "")
+					name += ": " + obj.result.data.description;
 			}
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
             {

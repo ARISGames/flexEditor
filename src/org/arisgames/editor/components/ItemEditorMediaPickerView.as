@@ -29,6 +29,7 @@ public class ItemEditorMediaPickerView extends Panel
 	public var delegate:Object;
     private var objectPaletteItem:ObjectPaletteItemBO;
     private var isIconPicker:Boolean = false;
+	private var isAlignmentPicker:Boolean = false;
 	private var isNPC:Boolean = false;
 	private var uploadFormVisable:Boolean = false;
 
@@ -88,6 +89,11 @@ public class ItemEditorMediaPickerView extends Panel
     {
         return isIconPicker;
     }
+	
+	public function isInAlignmentPickerMode():Boolean
+	{
+		return isAlignmentPicker;
+	}
 
     public function setIsIconPicker(isIconPickerMode:Boolean):void
     {
@@ -95,6 +101,14 @@ public class ItemEditorMediaPickerView extends Panel
         this.isIconPicker = isIconPickerMode;
         this.updateTitleBasedOnMode();
     }
+	
+	public function setIsAlignmentPicker(isAlignmentPickerMode:Boolean):void
+	{
+		trace("setting isAlignmentPicker mode to: " + isAlignmentPickerMode);
+		this.isAlignmentPicker = isAlignmentPickerMode;
+		this.updateTitleBasedOnMode();
+	}
+
 
     private function updateTitleBasedOnMode():void
     {
@@ -137,7 +151,10 @@ public class ItemEditorMediaPickerView extends Panel
 	
     private function handleLoadingOfMediaIntoXML(obj:Object):void
     {
-		if(this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE){
+		if(this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE || this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
+			//NOTE: This also gets set true if the object is an augbubble, so the name should REALLY be
+			//something more along the lines of "isNPCorAugBubble", but the concept of augbubbles was not
+			//yet introduced at the time of creation of this variable. Just a bit of ARIS history for ya...
 			this.isNPC = true;
 			trace("This is an NPC, so disallow Audio/Visual media");
 		}

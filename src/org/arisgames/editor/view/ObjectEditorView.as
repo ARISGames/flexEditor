@@ -5,6 +5,8 @@ import mx.controls.Alert;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
+
+import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -27,6 +29,8 @@ public class ObjectEditorView extends Canvas
 	[Bindable] public var webPageEditor:ObjectEditorWebPageView;
     [Bindable] public var characterEditor:ObjectEditorCharacterView;
     [Bindable] public var plaqueEditor:ObjectEditorPlaqueView;
+	[Bindable] public var augBubbleEditor:ObjectEditorAugBubbleView;
+
     
     /**
      * Constructor
@@ -113,6 +117,21 @@ public class ObjectEditorView extends Canvas
 
                 op.media = m;
             }
+			
+			op.alignMediaId = obj.result.data.alignment_media_id;
+			// Load Media Object (if exists)
+			if (obj.result.data.alignMedia != null)
+			{
+				m = new Media();
+				m.mediaId = obj.result.data.media.alignment_media_id;
+				m.name = obj.result.data.alignment_media.name;
+				m.type = obj.result.data.alignment_media.type;
+				m.urlPath = obj.result.data.alignment_media.url_path;
+				m.fileName = obj.result.data.alignment_media.file_name;
+				m.isDefault = obj.result.data.alignment_media.is_default;
+				
+				op.alignMedia = m;
+			}
 
             op.parentContentFolderId = obj.result.data.folder_id;
             op.previousContentId = obj.result.data.previous_id;
@@ -138,7 +157,12 @@ public class ObjectEditorView extends Canvas
 				//trace("Load underlying webPage data...");
 				AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
-
+			else if (op.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+			{
+				//trace("Load underlying augBubble data...");
+				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
+			
             this.objectPaletteItem = op;
         }
         trace("Finished with handleGetContent().");
@@ -150,6 +174,7 @@ public class ObjectEditorView extends Canvas
         var npc:NPC = null;
         var node:Node = null;
 		var webPage:WebPage = null;
+		var augBubble:AugBubble = null;
 
         var data:Object = retObj.result.data;
         var objType:String = "";
@@ -182,6 +207,13 @@ public class ObjectEditorView extends Canvas
 			
 			objType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
 		}
+		else if (data.hasOwnProperty("aug_bubble_id"))
+		{
+			trace("retObj has an aug_bubble_id!  It's value = '" + data.aug_bubble_id + "'.");
+			augBubble = AppUtils.parseResultDataIntoAugBubble(data);
+			
+			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
+		}
         else
         {
             trace("retObj data type couldn't be found, returning.");
@@ -189,7 +221,7 @@ public class ObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -209,6 +241,8 @@ public class ObjectEditorView extends Canvas
         plaqueEditor.includeInLayout = false;
 		webPageEditor.setVisible(false);
 		webPageEditor.includeInLayout = false;
+		augBubbleEditor.setVisible(false);
+		augBubbleEditor.includeInLayout = false;
 
         if (objectPaletteItem.isFolder())
         {
@@ -245,6 +279,13 @@ public class ObjectEditorView extends Canvas
 			webPageEditor.setObjectPaletteItem(objectPaletteItem);
 			webPageEditor.setVisible(true);
 			webPageEditor.includeInLayout = true;
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			trace("It's an AugBubble, so display the AugBubble Editor.")
+			augBubbleEditor.setObjectPaletteItem(objectPaletteItem);
+			augBubbleEditor.setVisible(true);
+			augBubbleEditor.includeInLayout = true;
 		}
     }
 

@@ -26,6 +26,9 @@ public class GameEditorObjectEditorView extends Canvas
     [Bindable] public var itemEditor:ItemEditorItemView;
     [Bindable] public var characterEditor:ItemEditorCharacterView;
     [Bindable] public var plaqueEditor:ItemEditorPlaqueView;
+	[Bindable] public var webPageEditor:ItemEditorWebPageView;
+	[Bindable] public var augBubbleEditor:ItemEditorAugBubbleView;
+
     
     /**
      * Constructor
@@ -137,6 +140,11 @@ public class GameEditorObjectEditorView extends Canvas
 				//trace("Load underlying WebPage data...");
 				AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (op.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+			{
+				//trace("Load underlying AugBubble data...");
+				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 
             this.objectPaletteItem = op;
         }
@@ -149,6 +157,7 @@ public class GameEditorObjectEditorView extends Canvas
         var npc:NPC = null;
         var node:Node = null;
 		var webPage:WebPage = null;
+		var augBubble:AugBubble = null;
 
         var data:Object = retObj.result.data;
         var objType:String = "";
@@ -181,6 +190,13 @@ public class GameEditorObjectEditorView extends Canvas
 			
 			objType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
 		}
+		else if (data.hasOwnProperty("aug_bubble_id"))
+		{
+			trace("retObj has an aug_bubble_id!  It's value = '" + data.aug_bubble_id + "'.");
+			augBubble = AppUtils.parseResultDataIntoAugBubble(data);
+			
+			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
+		}
         else
         {
             trace("retObj data type couldn't be found, returning.");
@@ -188,7 +204,7 @@ public class GameEditorObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -206,6 +222,10 @@ public class GameEditorObjectEditorView extends Canvas
         characterEditor.includeInLayout = false;
         plaqueEditor.setVisible(false);
         plaqueEditor.includeInLayout = false;
+		webPageEditor.setVisible(false);
+		webPageEditor.includeInLayout = false;
+		augBubbleEditor.setVisible(false);
+		augBubbleEditor.includeInLayout = false;
 
         if (objectPaletteItem.isFolder())
         {
@@ -243,6 +263,13 @@ public class GameEditorObjectEditorView extends Canvas
             plaqueEditor.setVisible(true);
             plaqueEditor.includeInLayout = true;
         }
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
+		{
+			trace("It's an Aug Bubble, so display the Aug Bubble Editor.")
+			augBubbleEditor.setObjectPaletteItem(objectPaletteItem);
+			augBubbleEditor.setVisible(true);
+			augBubbleEditor.includeInLayout = true;
+		}
     }
 
     public function handleFault(obj:Object):void

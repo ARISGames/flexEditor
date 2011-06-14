@@ -5,14 +5,15 @@ import mx.utils.ArrayUtil;
 
 import org.arisgames.editor.MainView;
 import org.arisgames.editor.data.PlaceMark;
+import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
-import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 
@@ -60,6 +61,8 @@ public class AppUtils
                 return AppConstants.CONTENTTYPE_PAGE;
 			case AppConstants.CONTENTTYPE_WEBPAGE_VAL:
 				return AppConstants.CONTENTTYPE_WEBPAGE;
+			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
+				return AppConstants.CONTENTTYPE_AUGBUBBLE;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP_VAL:
              return AppConstants.CONTENTTYPE_QRCODEGROUP;
@@ -81,6 +84,8 @@ public class AppUtils
                 return AppConstants.CONTENTTYPE_PAGE_DATABASE;
 			case AppConstants.CONTENTTYPE_WEBPAGE_VAL:
 				return AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
+			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
+				return AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP_VAL:
              return AppConstants.CONTENTTYPE_QRCODEGROUP;
@@ -110,6 +115,10 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_WEBPAGE_VAL;
 			case AppConstants.CONTENTTYPE_WEBPAGE_DATABASE:
 				return AppConstants.CONTENTTYPE_WEBPAGE_VAL;
+			case AppConstants.CONTENTTYPE_AUGBUBBLE:
+				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
+			case AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE:
+				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
             /*
              case AppConstants.CONTENTTYPE_QRCODEGROUP:
              return AppConstants.CONTENTTYPE_QRCODEGROUP_VAL;
@@ -247,7 +256,7 @@ public class AppUtils
         }
     }
 
-    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage):void
+    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage, augBubble:AugBubble):void
     {
         //trace("matchDataWithGameObject() called: Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
 
@@ -285,6 +294,13 @@ public class AppUtils
 						obj.webPage = webPage;
 					}
 					break;
+				case AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE:
+					if (obj.objectId == augBubble.augBubbleId)
+					{
+						//trace("Just matched Game Object Id " + obj.id + " with augBubble of ID = " + augBubble.augBubbleId);
+						obj.augBubble = augBubble;
+					}
+					break;
             }
         }
         else if (obj.isFolder())
@@ -293,7 +309,7 @@ public class AppUtils
             for (var lc:Number = 0; lc < obj.children.length; lc++)
             {
                 var childObj:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
-                matchDataWithGameObject(childObj, objType, npc, item, node, webPage);
+                matchDataWithGameObject(childObj, objType, npc, item, node, webPage, augBubble);
             }
         }
     }
@@ -373,6 +389,29 @@ public class AppUtils
 		else
 		{
 			trace("Data passed in was not a Web Page Result set, returning NULL.");
+			return null;
+		}
+	}
+	
+	public static function parseResultDataIntoAugBubble(data:Object):AugBubble
+	{
+		if (data.hasOwnProperty("aug_bubble_id"))
+		{
+			trace("retObj has a aug_bubble_id!  It's value = '" + data.aug_bubble_id + "'.");
+			var augBubble:AugBubble = new AugBubble();
+			
+			augBubble.augBubbleId = data.aug_bubble_id;
+			augBubble.name = data.name;
+			augBubble.desc = data.description;
+			augBubble.iconMediaId = data.icon_media_id;
+			augBubble.mediaId = data.media_id;
+			augBubble.alignMediaId = data.alignment_media_id;
+	
+			return augBubble;
+		}
+		else
+		{
+			trace("Data passed in was not an Aug Bubble Result set, returning NULL.");
 			return null;
 		}
 	}
@@ -505,6 +544,10 @@ public class AppUtils
 				return AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE;
 			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN:
 				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_HUMAN:
@@ -539,6 +582,10 @@ public class AppUtils
 				return AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN;
 			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:
 				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:

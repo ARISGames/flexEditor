@@ -11,6 +11,7 @@ import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.WebPage;
+import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
@@ -149,6 +150,13 @@ public class AppServices
 		r = AppDAO.getInstance().getWebPageServer().getWebPages(gid);
 		r.addResponder(resp);
 	}
+	
+	public function getAugBubblesByGameId(gid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getAugBubbleServer().getAugBubbles(gid);
+		r.addResponder(resp);
+	}
 
     public function saveItem(gid:Number, item:Item, resp:IResponder):void
     {
@@ -194,6 +202,22 @@ public class AppServices
 		{
 			trace("This Web Page has an Id (" + webPage.webPageId + "), so call update webPage. gameid:" + gid + " name:" + webPage.name);
 			r = AppDAO.getInstance().getWebPageServer().updateWebPage(gid, webPage.webPageId, webPage.name, webPage.url, webPage.iconMediaId);
+		}
+		r.addResponder(resp);
+	}
+	
+	public function saveAugBubble(gid:Number, augBubble:AugBubble, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(augBubble.augBubbleId) || augBubble.augBubbleId == 0)
+		{
+			trace("This Aug Bubble doesn't have an Id, so call create AugBubble.");
+			r = AppDAO.getInstance().getAugBubbleServer().createAugBubble(gid, augBubble.name, augBubble.desc, augBubble.iconMediaId, augBubble.mediaId, augBubble.alignMediaId);
+		}
+		else
+		{
+			trace("This Aug Bubble has an Id (" + augBubble.augBubbleId + "), so call update augBubble. gameid:" + gid + " name:" + augBubble.name);
+			r = AppDAO.getInstance().getAugBubbleServer().updateAugBubble(gid, augBubble.augBubbleId, augBubble.name, augBubble.desc, augBubble.iconMediaId, augBubble.mediaId, augBubble.alignMediaId);
 		}
 		r.addResponder(resp);
 	}
@@ -313,6 +337,14 @@ public class AppServices
 		var l:Object;
 		//trace("getWebPageById called with GID = '" + gid + "', and ID = '" + id + "'");
 		l = AppDAO.getInstance().getWebPageServer().getWebPage(gid, id);
+		l.addResponder(resp);
+	}
+	
+	public function getAugBubbleById(gid:Number, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getAugBubbleById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getAugBubbleServer().getAugBubble(gid, id);
 		l.addResponder(resp);
 	}
 
