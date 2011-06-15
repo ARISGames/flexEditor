@@ -139,7 +139,7 @@ public class AppConstants
     public static const DEFAULT_ICON_MEDIA_ID_ITEM:Number = 2;
     public static const DEFAULT_ICON_MEDIA_ID_PLAQUE:Number = 3;
 	public static const DEFAULT_ICON_MEDIA_ID_WEBPAGE:Number = 4;
-	public static const DEFAULT_ICON_MEDIA_ID_AUGBUBBLE:Number = 2;
+	public static const DEFAULT_ICON_MEDIA_ID_AUGBUBBLE:Number = 5;
 
 	// Palette Tree Stuff
 	public static const PALETTE_TREE_SELF_FOLDER_ID:Number = 0;
