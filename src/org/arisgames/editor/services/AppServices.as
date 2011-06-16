@@ -5,16 +5,16 @@ import mx.rpc.IResponder;
 
 import org.arisgames.editor.dao.AppDAO;
 import org.arisgames.editor.data.Game;
+import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
-import org.arisgames.editor.data.arisserver.WebPage;
-import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.util.AppConstants;
@@ -239,19 +239,19 @@ public class AppServices
         r.addResponder(resp);
     }
 
-    public function saveLocation(gid:Number, loc:Location, resp:IResponder):void
+    public function saveLocation(gid:Number, loc:Location, imageMatchMediaId:Number, resp:IResponder):void
     {
         var l:Object;
         if (isNaN(loc.locationId))
         {
             trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + " QuickTravel = " + loc.quickTravel);
 
-            l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode);
+            l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode, imageMatchMediaId);
         }
         else
         {
             trace("AppServices.as: This Location has an Id (" + loc.locationId + "), so call locations.updateLocationWithQrCode. GameId = " + gid + " LocName: " + loc.name + " iconMediaId: " + loc.iconMediaId + " Qr Code = " + loc.qrCode  + "QuickTravel = " + loc.quickTravel);
-            l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode);
+            l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode, imageMatchMediaId);
         }
         l.addResponder(resp);
     }

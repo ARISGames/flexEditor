@@ -339,7 +339,7 @@ public class NavigationMap extends Map3D
             loc.error = pm.errorRange;
             trace("location type looked up = '" + loc.type + "' for Content Type Number = '" + pm.contentType + "'");
 
-            AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleCreateNewLocation, handleFault));
+            AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, pm.placeMarker.imageMatchMediaId, new Responder(handleCreateNewLocation, handleFault));
 
         }
         trace("paletteObjectDragDropHandler is finished.");

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<c:ImageMatchEditorMediaPickerCustomEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+										 xmlns:c="org.arisgames.editor.components.*"
+										 creationPolicy="all"
+										 width="100%"
+										 height="100%"
+										 horizontalAlign="center"
+										 >
+	
+	<mx:Canvas id="imageCanvas" borderStyle="solid" width="95%" height="100" visible="false" includeInLayout="false">
+		<mx:Image id="previewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+	</mx:Canvas>
+		
+	<mx:Form>
+		<mx:FormItem label="Name" required="true">
+			<mx:TextInput id="mediaName" width="100" editable="false"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<mx:Button id="saveButton" label="Save Name Change" visible="false" includeInLayout="false"/>
+	<mx:Button id="deleteButton" label="Delete" visible="false" includeInLayout="false"/>
+	
+</c:ImageMatchEditorMediaPickerCustomEditorView>

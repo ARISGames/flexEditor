@@ -1,6 +1,7 @@
 package org.arisgames.editor.data
 {
 import org.arisgames.editor.components.PlaceMarker;
+import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.util.AppUtils;
 
@@ -21,6 +22,8 @@ public class PlaceMark
 	public var quickTravel:Boolean = false;	
 	public var qrCode:String;
 	public var placeMarker:PlaceMarker;
+	public var imageMatchMediaId:Number;
+	public var imageMatchMedia:Media;
 
 	public var objectPalletItemBO:ObjectPaletteItemBO;
 

@@ -6,6 +6,7 @@ import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.services.AppServices;
+import org.arisgames.editor.data.arisserver.Media;
 
 import mx.collections.ArrayCollection;
 
@@ -120,6 +121,8 @@ public class GameModel
 			pm.forcedView = obj.result.data.list.getItemAt(j).force_view;
 			pm.errorRange = obj.result.data.list.getItemAt(j).error;
 			pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
+			pm.imageMatchMediaId = obj.result.data.list.getItemAt(j).match_media_id;
+			
 			tmpPlacemarks.addItem(pm);
 		}
 

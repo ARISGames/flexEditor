@@ -627,7 +627,7 @@ public class GameEditorObjectPaletteView extends VBox
         {
             trace("add a character to the object palette...");
             var o:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
-            o.name = "Unnamed Character";
+            o.name = AppConstants.CONTENTTYPE_CHARACTER_DEFAULT_NAME;
             o.objectType = AppConstants.CONTENTTYPE_CHARACTER_DATABASE;
             o.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_NPC;
             this.addObjectPaletteItem(o);
@@ -636,8 +636,8 @@ public class GameEditorObjectPaletteView extends VBox
         {
             trace("add an item to the object palette...");
             var i:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
-            i.name = "Unnamed Item";
-            i.objectType = AppConstants.CONTENTTYPE_ITEM_DATABASE;
+            i.name = AppConstants.CONTENTTYPE_ITEM_DEFAULT_NAME;
+			i.objectType = AppConstants.CONTENTTYPE_ITEM_DATABASE;
             i.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_ITEM;
             this.addObjectPaletteItem(i);
         }
@@ -645,7 +645,7 @@ public class GameEditorObjectPaletteView extends VBox
         {
             trace("add a page to the object palette...");
             var p:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
-            p.name = "Unnamed Plaque";
+            p.name = AppConstants.CONTENTTYPE_PAGE_DEFAULT_NAME;
             p.objectType = AppConstants.CONTENTTYPE_PAGE_DATABASE;
             p.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_PLAQUE;
             this.addObjectPaletteItem(p);
@@ -654,7 +654,7 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			trace("add a web page to the object palette...");
 			var w:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
-			w.name = "Unnamed WebPage";
+			w.name = AppConstants.CONTENTTYPE_WEBPAGE_DEFAULT_NAME;
 			w.objectType = AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
 			w.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_WEBPAGE;
 			this.addObjectPaletteItem(w);
@@ -663,7 +663,7 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			trace("add an aug bubble to the object palette...");
 			var a:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
-			a.name = "Unnamed AugBubble";
+			a.name = AppConstants.CONTENTTYPE_AUGBUBBLE_DEFAULT_NAME;
 			a.objectType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
 			a.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_AUGBUBBLE;
 			this.addObjectPaletteItem(a);

@@ -15,7 +15,8 @@
 						  source="http://qrcode.kaywa.com/img.php?s=5&amp;d={qrCode.text}" 
 						  width="25" height="25"
 						  useHandCursor="true" buttonMode="true"/>
-				<mx:TextInput id="qrCode" width="160"/>
+				<mx:TextInput id="qrCode" width="35"/>
+				<mx:Button id="openImageMatchEditorButton" label="Image Matching"/>
 			</mx:HBox>
 		</mx:FormItem>
 		<mx:FormItem id="quantityFI" label="Quantity (-1 for inf)" required="true">

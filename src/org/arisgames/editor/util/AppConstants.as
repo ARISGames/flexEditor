@@ -27,6 +27,7 @@ public class AppConstants
     public static const DYNAMICEVENT_CLOSEMEDIAPICKER:String = "CloseMediaPicker";
     public static const DYNAMICEVENT_CLOSEMEDIAUPLOADER:String = "CloseMediaUploader";
     public static const DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR:String = "CloseRequirementsEditor";
+	public static const DYNAMICEVENT_CLOSEIMAGEMATCHEDITOR:String = "CloseImageMatchEditor";
     public static const DYNAMICEVENT_REFRESHDATAINREQUIREMENTSEDITOR:String = "RefreshDataInRequirementsEditor";
     public static const DYNAMICEVENT_OPENREQUIREMENTSEDITORMAP:String = "OpenRequirementsEditorMap";
     public static const DYNAMICEVENT_CLOSEREQUIREMENTSEDITORMAP:String = "CloseRequirementsEditorMap";
@@ -45,7 +46,7 @@ public class AppConstants
     public static const CONTENTTYPE_CHARACTER:String = "Character";
     public static const CONTENTTYPE_ITEM:String = "Item";
 	public static const CONTENTTYPE_WEBPAGE:String = "WebPage";
-	public static const CONTENTTYPE_AUGBUBBLE:String = "AugBubble";
+	public static const CONTENTTYPE_AUGBUBBLE:String = "Panoramic";
     public static const CONTENTTYPE_QRCODEGROUP:String = "QR Code Group";
     public static const CONTENTTYPE_PAGE_VAL:Number = 0;
     public static const CONTENTTYPE_CHARACTER_VAL:Number = 1;
@@ -59,6 +60,14 @@ public class AppConstants
 	public static const CONTENTTYPE_WEBPAGE_DATABASE:String = "WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DATABASE:String = "AugBubble";
     public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
+	
+	// Default Names (Name of new objects as they are created)
+	public static const CONTENTTYPE_CHARACTER_DEFAULT_NAME:String = "Unnamed Character";
+	public static const CONTENTTYPE_PAGE_DEFAULT_NAME:String = "Unnamed Plaque";
+	public static const CONTENTTYPE_ITEM_DEFAULT_NAME:String = "Unnamed Item";
+	public static const CONTENTTYPE_WEBPAGE_DEFAULT_NAME:String = "Unnamed WebPage";
+	public static const CONTENTTYPE_AUGBUBBLE_DEFAULT_NAME:String = "Unnamed Panoramic";
+
 
     // Label Constants
     public static const BUTTON_LOGIN:String = "Login!";

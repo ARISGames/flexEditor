@@ -35,6 +35,7 @@ import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.view.PlaceMarkerIcon;
 import org.arisgames.editor.view.RequirementsEditorMX;
+import org.arisgames.editor.view.ImageMatchEditorMX;
 
 
 public class PlaceMarkerEditorView extends Canvas
@@ -57,8 +58,10 @@ public class PlaceMarkerEditorView extends Canvas
 	public var deletePlaceMarkDataButton:Button;
     public var savePlaceMarkDataButton:Button;
     [Bindable] public var openRequirementsEditorButton:Button;
+	[Bindable] public var openImageMatchEditorButton:Button;
 
     private var requirementsEditor:RequirementsEditorMX;
+	private var imageMatchEditor:ImageMatchEditorMX;
 
     /**
      * Constructor
@@ -105,7 +108,10 @@ public class PlaceMarkerEditorView extends Canvas
         deletePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
         savePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleSaveDataButtonClick);
         openRequirementsEditorButton.addEventListener(MouseEvent.CLICK, handleOpenRequirementsButtonClick);
+		openImageMatchEditorButton.addEventListener(MouseEvent.CLICK, handleOpenImageMatchEditorButtonClick);
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);	
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEIMAGEMATCHEDITOR, closeImageMatchEditor);	
+
 	}
 
 	private function handleQRImageClick(event:Event):void
@@ -121,6 +127,13 @@ public class PlaceMarkerEditorView extends Canvas
         trace("Starting handle Open Requirements Button click.");
         this.openRequirementsEditor();
     }
+	
+	private function handleOpenImageMatchEditorButtonClick(evt:MouseEvent):void
+	{
+		trace("Starting handle Image Match Button click.");
+		this.openImageMatchEditor();
+	}
+	
     private function openRequirementsEditor():void
     {
         requirementsEditor = new RequirementsEditorMX();
@@ -138,6 +151,21 @@ public class PlaceMarkerEditorView extends Canvas
         requirementsEditor.setVisible(true);
         requirementsEditor.includeInLayout = true;
     }
+	
+	private function openImageMatchEditor():void
+	{
+		imageMatchEditor = new ImageMatchEditorMX();
+		this.parent.addChild(imageMatchEditor);
+		
+		// Need to validate the display so that entire component is rendered
+		imageMatchEditor.validateNow();
+		imageMatchEditor.setPlaceMarks(placeMark, placeMarker);
+
+		PopUpManager.addPopUp(imageMatchEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(imageMatchEditor);
+		imageMatchEditor.setVisible(true);
+		imageMatchEditor.includeInLayout = true;
+	}
 
     private function closeRequirementsEditor(evt:DynamicEvent):void
     {
@@ -145,6 +173,13 @@ public class PlaceMarkerEditorView extends Canvas
         PopUpManager.removePopUp(requirementsEditor);
         requirementsEditor = null;
     }
+	
+	private function closeImageMatchEditor(evt:DynamicEvent):void
+	{
+		trace("closeImageMatchEditor called...");
+		PopUpManager.removePopUp(imageMatchEditor);
+		imageMatchEditor = null;
+	}
     
     private function handleDeleteButtonClick(evt:MouseEvent):void
     {
@@ -180,7 +215,7 @@ public class PlaceMarkerEditorView extends Canvas
         loc.hidden = hidden.selected;
         loc.forceView = autoDisplay.selected;
 		loc.quickTravel = quickTravel.selected;
-		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
+		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, placeMarker.imageMatchMediaId, new Responder(handleUpdateLocation, handleFault));
 
 		placeMarker.closeInfoWindow();
         trace("Finished handleSaveDataButtonClick()");

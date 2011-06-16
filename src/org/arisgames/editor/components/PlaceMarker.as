@@ -16,6 +16,7 @@ import mx.rpc.Responder;
 
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
+import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.models.StateModel;
 import org.arisgames.editor.services.AppServices;
@@ -35,6 +36,8 @@ public class PlaceMarker extends Marker
 	public var iwo:InfoWindowOptions
 	public var icon:PlaceMarkerIcon;
 	public var instanceOfObjectId:Number;
+	public var imageMatchMediaId:Number;
+	public var imageMatchMedia:Media;
 
     /**
      * Constructor
@@ -47,6 +50,8 @@ public class PlaceMarker extends Marker
 		options.draggable = true;
 		icon = new PlaceMarkerIcon(pm.name);
 		options.icon = icon;
+		this.imageMatchMedia = pm.imageMatchMedia;
+		this.imageMatchMediaId = pm.imageMatchMediaId;
 		
 		super(latLng, options);
 		pm.placeMarker = this;
@@ -152,7 +157,7 @@ public class PlaceMarker extends Marker
 		loc.qrCode = placemark.qrCode;
         trace("location type looked up = '" + loc.type + "'");
 
-        AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, new Responder(handleUpdateLocation, handleFault));
+        AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, imageMatchMediaId, new Responder(handleUpdateLocation, handleFault));
         trace("Done with Drag PlaceMarker event.");
     }
 
