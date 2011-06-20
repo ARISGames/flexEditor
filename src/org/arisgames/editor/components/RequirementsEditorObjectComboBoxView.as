@@ -133,6 +133,10 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			trace("going to load augBubbles - 7");
 			AppServices.getInstance().getAugBubblesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadAugBubbles, handleFault));
 		}
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE){
+			trace("going to load incoming web hooks - 8");
+			AppServices.getInstance().getWebHooksByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadWebHooks, handleFault));
+		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
@@ -166,6 +170,38 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				possibleObjects.addItem(to);
 			}
 
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
+		}
+		
+	}
+	
+	private function handleLoadWebHooks(obj:Object):void
+	{
+		
+		trace("handling load quests...");
+		possibleObjects.removeAll();
+		if(obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible web hooks attempt... let's see what happened. Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible Items");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				if(obj.result.data[j].incoming){
+					var to:Object = new Object();
+					to.label = obj.result.data[j].name;
+					if(obj.result.data[j].url != "")
+						to.label += ": " + obj.result.data[j].url;
+					to.data = obj.result.data[j].web_hook_id;
+					possibleObjects.addItem(to);
+				}
+			}
+			
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");

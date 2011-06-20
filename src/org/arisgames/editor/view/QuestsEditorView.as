@@ -101,6 +101,7 @@ public class QuestsEditorView extends Panel
 		PopUpManager.removePopUp(requirementsEditor);
 		requirementsEditor = null;
 	}	
+	
     public function handleDeleteButtonClick(evt:MouseEvent):void
     {
         trace("QuestsEditorView: handleDeleteButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");

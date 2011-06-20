@@ -128,7 +128,7 @@ package org.arisgames.editor.view
 			this.placeMarker = placeMarker;
 			
 			if(placeMarker.imageMatchMediaId != 0){
-				if(placeMarker.imageMatchMedia == null){
+				if(placeMarker.imageMatchMedia != null){
 					AppServices.getInstance().getMediaByGameIdAndMediaId(GameModel.getInstance().game.gameId, placeMarker.imageMatchMediaId, new Responder(handleLoadImageMatchMedia, handleFault));
 					return;
 				}

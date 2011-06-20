@@ -16,6 +16,8 @@ public class GameEditorContainerView extends Canvas
     [Bindable] public var gameEditorObjectEditor:ObjectEditorView;
 	//[Bindable] public var questsMap:QuestsMapView; 
 	[Bindable] public var questsEditor:QuestsEditorView;
+	[Bindable] public var webHooksEditor:WebHooksEditorView;
+
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"
     [Bindable] public var panelIn:Move;  // WB "IN" actually means "into the toolbox, no longer displaying"
 	[Bindable] public var mapShow:Move;
@@ -23,6 +25,7 @@ public class GameEditorContainerView extends Canvas
     private var isItemEditorVis:Boolean = false;
 	private var isQuestsMapVis:Boolean = false;
 	private var isQuestsEditorVis:Boolean = false;
+	private var isWebHooksEditorVis:Boolean = false;
 
     /**
      * Constructor
@@ -41,7 +44,9 @@ public class GameEditorContainerView extends Canvas
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSMAP, handleOpenQuestsMapRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSMAP, handleCloseQuestsMapRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR, handleOpenQuestsEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR, handleOpenWebHooksEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEWEBHOOKSEDITOR, handleCloseWebHooksEditorRequest);
 		
     }
 	
@@ -121,6 +126,32 @@ public class GameEditorContainerView extends Canvas
 	}	
 	
 	
+	private function handleOpenWebHooksEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleOpenWebHooksEditorRequest() was called");
+		if (!isWebHooksEditorVis)
+		{
+			trace("WebHooksEditor is currently hidden, so show it!");
+			isWebHooksEditorVis = true;
+			webHooksEditor = new WebHooksEditorMX();
+			this.parent.addChild(webHooksEditor);
+			
+			// Need to validate the display so that entire component is rendered
+			webHooksEditor.validateNow();
+			
+			PopUpManager.addPopUp(webHooksEditor, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(webHooksEditor);
+			webHooksEditor.setVisible(true);
+			webHooksEditor.includeInLayout = true;			
+		}
+		else 
+		{
+			trace("WebHookEditor is already visible, so clicking the button again should close it!");
+			isWebHooksEditorVis = false;
+		}
+	}	
+	
+	
 	private function handleCloseQuestsEditorRequest(event:DynamicEvent):void 
 	{
 		trace("GameEditorContainer: handleCloseQuestsEditorRequest() was called");
@@ -137,6 +168,25 @@ public class GameEditorContainerView extends Canvas
 			isQuestsEditorVis = false;
 		}
 	}	
+	
+	
+	private function handleCloseWebHooksEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleCloseWebHooksEditorRequest() was called");
+		
+		if (!isWebHooksEditorVis)
+		{
+			trace("WebHooks Editor already hidden, so don't try to close again!");
+		}
+		else
+		{
+			trace("Closing the WebHooksEditor");
+			PopUpManager.removePopUp(webHooksEditor);
+			webHooksEditor = null;			
+			isWebHooksEditorVis = false;
+		}
+	}	
+	
 	
 	private function handleOpenQuestsMapRequest(event:DynamicEvent):void 
 	{

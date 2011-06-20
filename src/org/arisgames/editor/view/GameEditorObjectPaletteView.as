@@ -51,6 +51,7 @@ public class GameEditorObjectPaletteView extends VBox
     [Bindable] public var addObjectButton:Button;
     [Bindable] public var addFolderButton:Button;
 	[Bindable] public var editQuestsButton:Button;
+	[Bindable] public var webHooksButton:Button;
 	[Bindable] public var editGameButton:Button;
 	[Bindable] public var returnToGameListButton:Button;
 
@@ -85,6 +86,7 @@ public class GameEditorObjectPaletteView extends VBox
         addFolderButton.addEventListener(MouseEvent.CLICK, addFolderButtonOnClick);
 		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
 		editGameButton.addEventListener(MouseEvent.CLICK, editGameButtonOnClick);
+		webHooksButton.addEventListener(MouseEvent.CLICK, webHooksButtonOnClick);
 		returnToGameListButton.addEventListener(MouseEvent.CLICK, returnToGameListButtonOnClick);
 
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
@@ -94,6 +96,12 @@ public class GameEditorObjectPaletteView extends VBox
 		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
 
     }
+	
+	private function webHooksButtonOnClick(evt:MouseEvent):void{
+		trace("webHooksButtonOnClick() started... ");
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);	
+	}
 
 	private function handleCurrentStateChangedEvent(obj:Object):void
 	{
@@ -116,20 +124,22 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		trace("Starting to load the folders.");
 		// Load Folders
-		for (var j:Number = 0; j < obj.result.data.folders.list.length; j++)
-		{
-			op = new ObjectPaletteItemBO(true);
-			op.id = obj.result.data.folders.list.getItemAt(j).folder_id;
-			op.name = obj.result.data.folders.list.getItemAt(j).name;
-			op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
-			op.parentContentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
-			op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
-			op.previousContentId = obj.result.data.folders.list.getItemAt(j).previous_id;
-			op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
-			trace("Folder Loaded: Id-"+op.id+" Name-"+op.name+" parentFolderId-"+op.previousFolderId+" previousFolderId-"+op.previousFolderId+" isOpen-"+op.isOpen);
-			ops.addItem(op);
+		if(obj.result.data != null){
+			for (var j:Number = 0; j < obj.result.data.folders.list.length; j++)
+			{
+				op = new ObjectPaletteItemBO(true);
+				op.id = obj.result.data.folders.list.getItemAt(j).folder_id;
+				op.name = obj.result.data.folders.list.getItemAt(j).name;
+				op.parentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
+				op.parentContentFolderId = obj.result.data.folders.list.getItemAt(j).parent_id;
+				op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
+				op.previousContentId = obj.result.data.folders.list.getItemAt(j).previous_id;
+				op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
+				trace("Folder Loaded: Id-"+op.id+" Name-"+op.name+" parentFolderId-"+op.previousFolderId+" previousFolderId-"+op.previousFolderId+" isOpen-"+op.isOpen);
+				ops.addItem(op);
+			}
+			trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		}
-		trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		
 		var dataSortField:SortField = new SortField();
 		dataSortField.name = "previousFolderId";
@@ -153,64 +163,66 @@ public class GameEditorObjectPaletteView extends VBox
 		
 		ops.removeAll();
 		// Load Content
-		for (j = 0; j < obj.result.data.contents.list.length; j++)
-		{
-			op = new ObjectPaletteItemBO(false);
-			op.id = obj.result.data.contents.list.getItemAt(j).object_content_id;
-			op.objectId = obj.result.data.contents.list.getItemAt(j).content_id;
-			op.objectType = obj.result.data.contents.list.getItemAt(j).content_type;
-			op.name = obj.result.data.contents.list.getItemAt(j).name;
-			op.iconMediaId = obj.result.data.contents.list.getItemAt(j).icon_media_id;
-			
-			// Load Icon Media Object (if exists)
-			var m:Media;
-			
-			if (obj.result.data.contents.list.getItemAt(j).icon_media != null)
+		if(obj.result.data != null){
+			for (j = 0; j < obj.result.data.contents.list.length; j++)
 			{
-				m = new Media();
-				m.mediaId = obj.result.data.contents.list.getItemAt(j).icon_media.media_id;
-				m.name = obj.result.data.contents.list.getItemAt(j).icon_media.name;
-				m.type = obj.result.data.contents.list.getItemAt(j).icon_media.type;
-				m.urlPath = obj.result.data.contents.list.getItemAt(j).icon_media.url_path;
-				m.fileName = obj.result.data.contents.list.getItemAt(j).icon_media.file_name;
-				m.isDefault = obj.result.data.contents.list.getItemAt(j).icon_media.is_default;
+				op = new ObjectPaletteItemBO(false);
+				op.id = obj.result.data.contents.list.getItemAt(j).object_content_id;
+				op.objectId = obj.result.data.contents.list.getItemAt(j).content_id;
+				op.objectType = obj.result.data.contents.list.getItemAt(j).content_type;
+				op.name = obj.result.data.contents.list.getItemAt(j).name;
+				op.iconMediaId = obj.result.data.contents.list.getItemAt(j).icon_media_id;
 				
-				op.iconMedia = m;
-			}
-			
-			op.mediaId = obj.result.data.contents.list.getItemAt(j).media_id;
-			// Load Media Object (if exists)
-			if (obj.result.data.contents.list.getItemAt(j).media != null)
-			{
-				m = new Media();
-				m.mediaId = obj.result.data.contents.list.getItemAt(j).media.media_id;
-				m.name = obj.result.data.contents.list.getItemAt(j).media.name;
-				m.type = obj.result.data.contents.list.getItemAt(j).media.type;
-				m.urlPath = obj.result.data.contents.list.getItemAt(j).media.url_path;
-				m.fileName = obj.result.data.contents.list.getItemAt(j).media.file_name;
-				m.isDefault = obj.result.data.contents.list.getItemAt(j).media.is_default;
+				// Load Icon Media Object (if exists)
+				var m:Media;
 				
-				op.media = m;
-			}
+				if (obj.result.data.contents.list.getItemAt(j).icon_media != null)
+				{
+					m = new Media();
+					m.mediaId = obj.result.data.contents.list.getItemAt(j).icon_media.media_id;
+					m.name = obj.result.data.contents.list.getItemAt(j).icon_media.name;
+					m.type = obj.result.data.contents.list.getItemAt(j).icon_media.type;
+					m.urlPath = obj.result.data.contents.list.getItemAt(j).icon_media.url_path;
+					m.fileName = obj.result.data.contents.list.getItemAt(j).icon_media.file_name;
+					m.isDefault = obj.result.data.contents.list.getItemAt(j).icon_media.is_default;
+					
+					op.iconMedia = m;
+				}
 			
-			op.alignMediaId = obj.result.data.contents.list.getItemAt(j).alignment_media_id;
-			// Load Align Media Object (if exists)
-			if (obj.result.data.contents.list.getItemAt(j).alignment_media != null)
-			{
-				m = new Media();
-				m.mediaId = obj.result.data.contents.list.getItemAt(j).alignment_media.alignment_media_id;
-				m.name = obj.result.data.contents.list.getItemAt(j).alignment_media.name;
-				m.type = obj.result.data.contents.list.getItemAt(j).alignment_media.type;
-				m.urlPath = obj.result.data.contents.list.getItemAt(j).alignment_media.url_path;
-				m.fileName = obj.result.data.contents.list.getItemAt(j).alignment_media.file_name;
-				m.isDefault = obj.result.data.contents.list.getItemAt(j).alignment_media.is_default;
+				op.mediaId = obj.result.data.contents.list.getItemAt(j).media_id;
+				// Load Media Object (if exists)
+				if (obj.result.data.contents.list.getItemAt(j).media != null)
+				{
+					m = new Media();
+					m.mediaId = obj.result.data.contents.list.getItemAt(j).media.media_id;
+					m.name = obj.result.data.contents.list.getItemAt(j).media.name;
+					m.type = obj.result.data.contents.list.getItemAt(j).media.type;
+					m.urlPath = obj.result.data.contents.list.getItemAt(j).media.url_path;
+					m.fileName = obj.result.data.contents.list.getItemAt(j).media.file_name;
+					m.isDefault = obj.result.data.contents.list.getItemAt(j).media.is_default;
 				
-				op.alignMedia = m;
-			}
+					op.media = m;
+				}
 			
-			op.parentContentFolderId = obj.result.data.contents.list.getItemAt(j).folder_id;
-			op.previousContentId = obj.result.data.contents.list.getItemAt(j).previous_id;
-			ops.addItem(op);
+				op.alignMediaId = obj.result.data.contents.list.getItemAt(j).alignment_media_id;
+				// Load Align Media Object (if exists)
+				if (obj.result.data.contents.list.getItemAt(j).alignment_media != null)
+				{
+					m = new Media();
+					m.mediaId = obj.result.data.contents.list.getItemAt(j).alignment_media.alignment_media_id;
+					m.name = obj.result.data.contents.list.getItemAt(j).alignment_media.name;
+					m.type = obj.result.data.contents.list.getItemAt(j).alignment_media.type;
+					m.urlPath = obj.result.data.contents.list.getItemAt(j).alignment_media.url_path;
+					m.fileName = obj.result.data.contents.list.getItemAt(j).alignment_media.file_name;
+					m.isDefault = obj.result.data.contents.list.getItemAt(j).alignment_media.is_default;
+				
+					op.alignMedia = m;
+				}
+			
+				op.parentContentFolderId = obj.result.data.contents.list.getItemAt(j).folder_id;
+				op.previousContentId = obj.result.data.contents.list.getItemAt(j).previous_id;
+				ops.addItem(op);
+			}
 		}
 		trace("Content loaded, now time to sort; size = '" + ops.length + "'");
 		

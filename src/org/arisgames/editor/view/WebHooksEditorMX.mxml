@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<v:WebHooksEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+					xmlns:main="org.arisgames.editor.*"
+					xmlns:v="org.arisgames.editor.view.*"
+					xmlns:c="org.arisgames.editor.components.*"
+					paddingTop="10"
+					paddingLeft="10"
+					paddingRight="10"
+					paddingBottom="10"
+					width="800"
+					title="Web Hooks Editor"
+					creationPolicy="all"
+					height="500">
+	<mx:TabNavigator height="100%" width="100%">
+		
+		<!-- Incoming Tab -->
+		<mx:Canvas label = "Incoming">
+			<mx:Box width="100%">
+				<mx:Text id="inHead" fontSize="15" fontStyle="Bold" htmlText="Incoming Web Hooks"/>
+				<mx:DataGrid id="inDg" width="100%" rowCount="8" editable="true" dataProvider="{incomingWebHooks}" draggableColumns="false" variableRowHeight="true" height="250">
+					<mx:columns>
+						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
+						<mx:DataGridColumn id="inUrl"
+										   dataField="url" 
+										   headerText="URL To 'ping' To Satisfy Requirement" 
+										   editable="true" 
+										   wordWrap="true"
+										   itemEditor="mx.controls.TextArea"
+										   editorUsesEnterKey="true"
+										   width = "500"/>
+						<mx:DataGridColumn headerText="Delete" editable="false" width="40">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="50%" label="X" click="outerDocument.handleInDeleteButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+					</mx:columns>
+				</mx:DataGrid>
+				
+				<mx:ControlBar width="100%" horizontalAlign="right">
+					<mx:Button id="addInWebHookButton" label="+"/>
+				</mx:ControlBar>
+				<mx:Text id="inDesc"/>
+			</mx:Box>
+		</mx:Canvas>
+		
+		<!-- Outgoing Tab -->
+		<mx:Canvas label = "Outgoing">
+			<mx:Box width="100%">
+				<mx:Text id="outHead" fontSize="15" fontStyle="Bold" htmlText="Incoming Web Hooks"/>
+				<mx:DataGrid id="outDg" width="100%" rowCount="8" editable="true" dataProvider="{outgoingWebHooks}" draggableColumns="false" variableRowHeight="true" height="250">
+					<mx:columns>
+						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
+						<mx:DataGridColumn id="outUrl"
+										   dataField="url" 
+										   headerText="URL ARIS Will 'ping' On Completion Of Requirement" 
+										   editable="true" 
+										   wordWrap="true"
+										   itemEditor="mx.controls.TextArea"
+										   editorUsesEnterKey="true"
+										   width = "400"/>
+						<mx:DataGridColumn visible="true" headerText="Requirements" editable="false" width="100">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="50%" label="To Invoke" click="outerDocument.handleRequirementsButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+						<mx:DataGridColumn headerText="Delete" editable="false" width="40">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="50%" label="X" click="outerDocument.handleOutDeleteButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+					</mx:columns>
+				</mx:DataGrid>
+				
+				<mx:ControlBar width="100%" horizontalAlign="right">
+					<mx:Button id="addOutWebHookButton" label="+"/>
+				</mx:ControlBar>
+				<mx:Text id="outDesc"/>
+			</mx:Box>
+		</mx:Canvas>
+		
+	</mx:TabNavigator>
+	
+	<mx:ControlBar width="100%" horizontalAlign="right">
+		<mx:Button id="closeButton" label="Save and Close"/>
+	</mx:ControlBar>
+	
+</v:WebHooksEditorView>

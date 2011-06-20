@@ -14,6 +14,7 @@ import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.data.arisserver.WebHook;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.SecurityModel;
@@ -158,6 +159,13 @@ public class AppServices
 		r.addResponder(resp);
 	}
 
+	public function getWebHookById(gid:Number, wid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getWebHookServer().getWebHook(gid, wid);
+		r.addResponder(resp);
+	}
+	
     public function saveItem(gid:Number, item:Item, resp:IResponder):void
     {
         var r:Object;
@@ -238,6 +246,23 @@ public class AppServices
         }
         r.addResponder(resp);
     }
+	
+	public function saveWebHook(gid:Number, w:WebHook, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(w.webHookId) || w.webHookId == 0)
+		{
+			trace("This web hook doesn't have an Id, so call create web hook.");
+			r = AppDAO.getInstance().getWebHookServer().createWebHook(gid, w.name, w.url, w.incoming);
+		}
+		else
+		{
+			trace("This web hook has an Id (" + w.webHookId + "), so call update webhook.");
+			r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, w.url);
+		}
+		r.addResponder(resp);
+	}
+	
 
     public function saveLocation(gid:Number, loc:Location, imageMatchMediaId:Number, resp:IResponder):void
     {
@@ -315,6 +340,13 @@ public class AppServices
         l = AppDAO.getInstance().getItemServer().getItem(gid, id);
         l.addResponder(resp);
     }
+	
+	public function getWebHooksByGameId(gid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getWebHookServer().getWebHooks(gid);
+		l.addResponder(resp);
+	}
 
     public function getPageById(gid:Number, id:Number, resp:IResponder):void
     {
@@ -379,6 +411,14 @@ public class AppServices
         l = AppDAO.getInstance().getMediaServer().deleteMedia(gid, mid);
         l.addResponder(resp);
     }
+	
+	public function deleteWebHook(gid:Number, wid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		trace("deleteMediaForGame called with GID = '" + gid + "'; WID = '" + wid + "'");
+		l = AppDAO.getInstance().getWebHookServer().deleteWebHook(gid, wid);
+		l.addResponder(resp);
+	}
 
     public function createMediaForGame(gid:Number, mediaName:String, fileName:String, isIcon:Number, resp:IResponder):void
     {

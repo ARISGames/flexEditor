@@ -10,6 +10,7 @@ public class AppDAO
     // Data Servers
     private static var loginServer:RemoteObject;
     private static var gameServer:RemoteObject;
+	private static var webHookServer:RemoteObject;
     private static var nodeServer:RemoteObject;
     private static var npcServer:RemoteObject;
 	private static var webPageServer:RemoteObject;
@@ -56,17 +57,29 @@ public class AppDAO
         return loginServer;
     }
 
-    public function getGameServer():RemoteObject
-    {
-        if (gameServer == null)
-        {
-            gameServer = new RemoteObject();
-            gameServer.source = "aris_1_4.games";
-            gameServer.destination = "amfphp";
-            gameServer.showBusyCursor = true;
-        }
-        return gameServer;
-    }
+	public function getGameServer():RemoteObject
+	{
+		if (gameServer == null)
+		{
+			gameServer = new RemoteObject();
+			gameServer.source = "aris_1_4.games";
+			gameServer.destination = "amfphp";
+			gameServer.showBusyCursor = true;
+		}
+		return gameServer;
+	}
+	
+	public function getWebHookServer():RemoteObject
+	{
+		if (webHookServer == null)
+		{
+			webHookServer = new RemoteObject();
+			webHookServer.source = "aris_1_4.webhooks";
+			webHookServer.destination = "amfphp";
+			webHookServer.showBusyCursor = true;
+		}
+		return webHookServer;
+	}
 
     public function getNodeServer():RemoteObject
     {

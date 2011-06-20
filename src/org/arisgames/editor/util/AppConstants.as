@@ -37,6 +37,8 @@ public class AppConstants
 	public static const DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR:String = "RefreshDataInQuestsEditor";
 	public static const DYNAMICEVENT_OPENQUESTSEDITOR:String = "OpenQuestsEditor";
 	public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
+	public static const DYNAMICEVENT_OPENWEBHOOKSEDITOR:String = "OpenWebHooksEditor";
+	public static const DYNAMICEVENT_CLOSEWEBHOOKSEDITOR:String = "CloseWebHooksEditor";
 	public static const DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR:String = "DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR";
 	public static const DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR:String = "DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR";
 	public static const DYNAMICEVENT_REFRESHDATAINCONVERSATIONS:String = "DYNAMICEVENT_DYNAMICEVENT_REFRESHDATAINCONVERSATIONS";
@@ -68,7 +70,6 @@ public class AppConstants
 	public static const CONTENTTYPE_WEBPAGE_DEFAULT_NAME:String = "Unnamed WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DEFAULT_NAME:String = "Unnamed Panoramic";
 
-
     // Label Constants
     public static const BUTTON_LOGIN:String = "Login!";
     public static const BUTTON_REGISTER:String = "Register!";
@@ -97,6 +98,8 @@ public class AppConstants
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_AUGBUBBLE:String = "VIEW_AUGBUBBLE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE:String = "VIEW_NODE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NPC:String = "VIEW_NPC";
+	public static const PLAYERSTATECHANGE_EVENTTYPE_RECEIVE_WEBHOOK:String = "RECEIVE_WEBHOOK";
+	
 	public static const PLAYERSTATECHANGE_ACTION_GIVEITEM:String = "GIVE_ITEM";
 	public static const PLAYERSTATECHANGE_ACTION_GIVEITEM_HUMAN:String = "Give Item";
 	public static const PLAYERSTATECHANGE_ACTION_TAKEITEM:String = "TAKE_ITEM";
@@ -107,6 +110,8 @@ public class AppConstants
 	public static const REQUIREMENTTYPE_QUESTDISPLAY:String = "QuestDisplay";
 	public static const REQUIREMENTTYPE_QUESTCOMPLETE:String = "QuestComplete";
 	public static const REQUIREMENTTYPE_NODE:String = "Node";
+	public static const REQUIREMENTTYPE_WEBHOOK:String = "OutgoingWebHook";
+
 
     // Requirement Options
     public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
@@ -137,7 +142,9 @@ public class AppConstants
     public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:String = "Player Has Uploaded Media Item";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Player Has Completed Quest";
-	
+	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:String = "PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK";
+	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN:String = "Player Has Received Incoming Web Hook";
+
 	public static const REQUIREMENT_BOOLEAN_AND_DATABASE:String = "AND";
 	public static const REQUIREMENT_BOOLEAN_AND_HUMAN:String = "All";
 	public static const REQUIREMENT_BOOLEAN_OR_DATABASE:String = "OR";
