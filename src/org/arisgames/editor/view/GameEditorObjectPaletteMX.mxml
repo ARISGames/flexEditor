@@ -18,6 +18,7 @@
         <mx:VBox id="topMenuBox" width="100%" horizontalAlign="left" paddingBottom="20" paddingLeft="0" paddingRight="0" paddingTop="0">
 			<mx:Button id="returnToGameListButton" label="Back to Game List" width="100%" height="33"/>
 			<mx:Button id="editGameButton" label="Game Settings" width="100%" height="33"/>
+			<mx:Spacer height="20"/>
 			<mx:Button id="editQuestsButton" label="Quests" width="100%" height="33"/>
 			<mx:Button id="webHooksButton" label="Web Hooks" width="100%" height="33"/>
         </mx:VBox>

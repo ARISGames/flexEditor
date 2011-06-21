@@ -7,6 +7,7 @@ package org.arisgames.editor.view
 	import mx.controls.Alert;
 	import mx.controls.Button;
 	import mx.controls.CheckBox;
+	import mx.controls.Label;
 	import mx.controls.NumericStepper;
 	import mx.controls.TextArea;
 	import mx.controls.TextInput;
@@ -35,6 +36,8 @@ package org.arisgames.editor.view
 		[Bindable] public var hbox:HBox;
 		[Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
 		
+		[Bindable] public var appendage:Label;
+		
 		[Bindable] public var v1:Validator;
 		[Bindable] public var v2:Validator;
 		
@@ -51,6 +54,7 @@ package org.arisgames.editor.view
 		{
 			trace("ObjectEditorWebPageView: handleInit");
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+			appendage.text = "?gameid=" + GameModel.getInstance().game.gameId + "&playerid={the player's id}";
 		}
 		
 		public function getObjectPaletteItem():ObjectPaletteItemBO

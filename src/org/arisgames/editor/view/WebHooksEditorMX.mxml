@@ -22,13 +22,13 @@
 						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
 						<mx:DataGridColumn id="inUrl"
 										   dataField="url" 
-										   headerText="URL To 'ping' To Satisfy Requirement" 
+										   headerText="URL to 'Ping' to Satisfy Requirement" 
 										   editable="true" 
 										   wordWrap="true"
 										   itemEditor="mx.controls.TextArea"
 										   editorUsesEnterKey="true"
 										   width = "500"/>
-						<mx:DataGridColumn headerText="Delete" editable="false" width="40">
+						<mx:DataGridColumn headerText="Delete" editable="false" width="50">
 							<mx:itemRenderer>
 								<mx:Component>
 									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
@@ -56,13 +56,14 @@
 						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
 						<mx:DataGridColumn id="outUrl"
 										   dataField="url" 
-										   headerText="URL ARIS Will 'ping' On Completion Of Requirement" 
+										   headerText="URL ARIS will 'Ping'" 
 										   editable="true" 
 										   wordWrap="true"
 										   itemEditor="mx.controls.TextArea"
 										   editorUsesEnterKey="true"
-										   width = "400"/>
-						<mx:DataGridColumn visible="true" headerText="Requirements" editable="false" width="100">
+										   width = "130"/>
+						<mx:DataGridColumn dataField="appendage" headerText="Appendage" editable="true" wordWrap="true" width="300"/>
+						<mx:DataGridColumn visible="true" headerText="Requirements" editable="false" width="70">
 							<mx:itemRenderer>
 								<mx:Component>
 									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
@@ -71,7 +72,7 @@
 								</mx:Component>
 							</mx:itemRenderer>
 						</mx:DataGridColumn>
-						<mx:DataGridColumn headerText="Delete" editable="false" width="40">
+						<mx:DataGridColumn headerText="Delete" editable="false" width="50">
 							<mx:itemRenderer>
 								<mx:Component>
 									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
