@@ -119,7 +119,7 @@ package org.arisgames.editor.view
 		}
 		
 		public function handleOutEndEdit(evt:DataGridEvent):void {
-			(outgoingWebHooks.getItemAt(outDg.selectedIndex) as WebHook).appendage = "?hook=" + ((outgoingWebHooks.getItemAt(outDg.selectedIndex) as WebHook).name.split(" ").join("")) + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{The Player's ID}";
+			(outgoingWebHooks.getItemAt(outDg.selectedIndex) as WebHook).appendage = "?hook=" + ((outgoingWebHooks.getItemAt(outDg.selectedIndex) as WebHook).name.split(" ").join("")) + "&wid=" + (outgoingWebHooks.getItemAt(outDg.selectedIndex) as WebHook).webHookId + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{player id}";
 			outgoingWebHooks.refresh();
 		}
 		
@@ -193,7 +193,7 @@ package org.arisgames.editor.view
 		{
 			trace("Add WebHook Button clicked...");
 			var w:WebHook;
-			w = new WebHook("Incoming WebHook", 0, AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + "webhooks/setWebHookReq/" + GameModel.getInstance().game.gameId + "/" + "/" + 0 + "/{player id}", true);
+			w = new WebHook("Incoming WebHook", 0, AppConstants.APPLICATION_ENVIRONMENT_JSON_SERVICES_URL + "webhooks.setWebHookReq/" + GameModel.getInstance().game.gameId + "/" + "/" + 0 + "/{player id}", true);
 			incomingWebHooks.addItem(w);
 			AppServices.getInstance().saveWebHook(GameModel.getInstance().game.gameId, w, new Responder(handleAddInWebHookSave, handleFault));
 		}
@@ -204,7 +204,7 @@ package org.arisgames.editor.view
 			var w:WebHook;
 			w = new WebHook("Outgoing WebHook", 0, "(insert URL to ping here)", false);
 			var noSpaceName:String = w.name.split(" ").join("");
-			w.appendage = "?hook=" + noSpaceName + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{The Player's ID}";			outgoingWebHooks.addItem(w);
+			w.appendage = "?hook=" + noSpaceName + "&wid=" + w.webHookId + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{player id}";			outgoingWebHooks.addItem(w);
 			AppServices.getInstance().saveWebHook(GameModel.getInstance().game.gameId, w, new Responder(handleAddOutWebHookSave, handleFault));
 		}
 		
@@ -245,7 +245,7 @@ package org.arisgames.editor.view
 						{
 							trace("Found previously added / saved WebHook.  Add ID to it and exiting method.");
 							w.webHookId = wid;
-							w.url = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + "webhooks/setWebHookReq/" + GameModel.getInstance().game.gameId + "/" + w.webHookId + "/" + 0 + "/{player id}";
+							w.url = AppConstants.APPLICATION_ENVIRONMENT_JSON_SERVICES_URL + "webhooks.setWebHookReq/" + GameModel.getInstance().game.gameId + "/" + w.webHookId + "/" + 0 + "/{player id}";
 							AppServices.getInstance().saveWebHook(GameModel.getInstance().game.gameId, w, new Responder(handleUpdateWebHookSave, handleFault));
 							incomingWebHooks.refresh();
 							return;
@@ -344,7 +344,7 @@ package org.arisgames.editor.view
 					}
 					else{
 						var noSpaceName:String = w.name.split(" ").join("");
-						w.appendage = "?hook=" + noSpaceName + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{The Player's ID}";
+						w.appendage = "?hook=" + noSpaceName + "&wid=" + w.webHookId + "&gameid=" + GameModel.getInstance().game.gameId + "&playerid=" + "{player id}";
 						outgoingWebHooks.addItem(w);
 					}
 				}

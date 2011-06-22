@@ -79,6 +79,7 @@ public class AppServices
 		if (isNaN(game.gameId) || game.gameId == 0)
 		{
 			trace("Appservices: saveGame: This game doesn't have a gameId, so call create Game.");
+			game.isLocational = true;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
