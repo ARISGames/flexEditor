@@ -13,6 +13,7 @@ import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.events.FlexMouseEvent;
 import mx.rpc.Responder;
+import mx.collections.ArrayCollection;
 
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
@@ -36,6 +37,10 @@ public class PlaceMarker extends Marker
 	public var iwo:InfoWindowOptions
 	public var icon:PlaceMarkerIcon;
 	public var instanceOfObjectId:Number;
+	
+	public var imageMatchMediaIdList:ArrayCollection;
+	public var imageMatchMediaList:ArrayCollection;
+	
 	public var imageMatchMediaId:Number;
 	public var imageMatchMedia:Media;
 

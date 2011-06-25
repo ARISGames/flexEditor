@@ -15,14 +15,14 @@ package org.arisgames.editor.components
 	import mx.managers.PopUpManager;
 	import mx.rpc.Responder;
 	
-	import org.arisgames.editor.data.arisserver.Media;
+	import org.arisgames.editor.components.ImageMatchEditorMediaPickerCustomEditorMX;
 	import org.arisgames.editor.components.PlaceMarker;
+	import org.arisgames.editor.data.arisserver.Media;
 	import org.arisgames.editor.models.GameModel;
 	import org.arisgames.editor.services.AppServices;
 	import org.arisgames.editor.util.AppConstants;
 	import org.arisgames.editor.util.AppDynamicEventManager;
 	import org.arisgames.editor.util.AppUtils;
-	import org.arisgames.editor.components.ImageMatchEditorMediaPickerCustomEditorMX;
 	
 	public class PlaceMarkerEditorMediaPickerView extends Panel
 	{
@@ -95,9 +95,10 @@ package org.arisgames.editor.components
 		{
 			trace("Select Button clicked...");
 			
+			var obj:TreeBrowser = treeBrowser;
 			var m:Media = new Media();
 			m.mediaId = treeBrowser.selectedItem.@mediaId;
-			m.name = treeBrowser.selectedItem.@name;
+			m.name = treeBrowser.selectedItem.@label;
 			m.type = treeBrowser.selectedItem.@type;
 			m.urlPath = treeBrowser.selectedItem.@urlPath;
 			m.fileName = treeBrowser.selectedItem.@fileName;

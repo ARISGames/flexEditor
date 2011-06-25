@@ -17,6 +17,7 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.WebHook;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
+import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.util.AppConstants;
 
@@ -281,6 +282,54 @@ public class AppServices
         }
         l.addResponder(resp);
     }
+	
+	public function getAllImageMatchMedia(gid:Number, loc:PlaceMark, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get image match media for location ID:"+ loc.id);
+			l = AppDAO.getInstance().getLocationServer().getAllImageMatchEntriesForLocation(gid, loc.id);
+		}
+		l.addResponder(resp);
+	}
+	
+	public function addImageMatchMediaIdToLocation(gid:Number, loc:PlaceMark, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to add image match media to location ID:"+ loc.id);
+			l = AppDAO.getInstance().getLocationServer().addImageMatchEntryForLocation(gid, loc.id, id);
+		}
+		l.addResponder(resp);
+	}
+	
+	public function removeImageMatchMediaIdFromLocation(gid:Number, loc:PlaceMark, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to add image match media to location ID:"+ loc.id);
+			l = AppDAO.getInstance().getLocationServer().removeImageMatchEntryForLocation(gid, loc.id, id);
+		}
+		l.addResponder(resp);
+	}
 
     public function deleteLocation(gid:Number, locId:Number, resp:IResponder):void
     {

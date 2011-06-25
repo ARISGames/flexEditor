@@ -1,20 +1,19 @@
 package org.arisgames.editor.models
 {
-import org.arisgames.editor.data.Game;
-import org.arisgames.editor.data.PlaceMark;
-import org.arisgames.editor.util.AppConstants;
-import org.arisgames.editor.util.AppDynamicEventManager;
-import org.arisgames.editor.util.AppUtils;
-import org.arisgames.editor.services.AppServices;
-import org.arisgames.editor.data.arisserver.Media;
-
 import mx.collections.ArrayCollection;
-
 import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
+
+import org.arisgames.editor.data.Game;
+import org.arisgames.editor.data.PlaceMark;
+import org.arisgames.editor.data.arisserver.Media;
+import org.arisgames.editor.services.AppServices;
+import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
+import org.arisgames.editor.util.AppUtils;
 
 
 
@@ -105,10 +104,11 @@ public class GameModel
 		trace("GameModel: handleLoadLocations() called...");
 		var tmpPlacemarks:ArrayCollection;
 		tmpPlacemarks = new ArrayCollection();
-
+		var dup:Boolean;
 		if(obj.result.data != null){
 			for (var j:Number = 0; j < obj.result.data.list.length; j++)
 			{
+				dup = false;
 				var pm:PlaceMark = new PlaceMark();
 				pm.id = obj.result.data.list.getItemAt(j).location_id;
 				pm.latitude = obj.result.data.list.getItemAt(j).latitude;
@@ -124,7 +124,12 @@ public class GameModel
 				pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
 				pm.imageMatchMediaId = obj.result.data.list.getItemAt(j).match_media_id;
 				
-				tmpPlacemarks.addItem(pm);
+				for each (var p:PlaceMark in tmpPlacemarks){
+					if(pm.id == p.id){
+						dup = true;
+					}
+				}
+				if(!dup) tmpPlacemarks.addItem(pm);
 			}
 		}
 		
