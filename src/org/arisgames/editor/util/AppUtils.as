@@ -336,6 +336,7 @@ public class AppUtils
             item.mediaId = data.media_id;
             item.dropable = data.dropable;
             item.destroyable = data.destroyable;
+			item.isAttribute = data.is_attribute;
 			item.maxQty = data.max_qty_in_inventory;
 
             return item;

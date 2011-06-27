@@ -29,7 +29,8 @@ public class ObjectEditorItemView extends Panel
     [Bindable] public var theName:TextInput;
     [Bindable] public var description:TextArea;
     [Bindable] public var dropable:CheckBox;
-    [Bindable] public var destroyable:CheckBox;
+	[Bindable] public var destroyable:CheckBox;
+	[Bindable] public var attribute:CheckBox;
 	[Bindable] public var maxQty:NumericStepper;	
     [Bindable] public var cancelButton:Button;
     [Bindable] public var saveButton:Button;
@@ -72,7 +73,8 @@ public class ObjectEditorItemView extends Panel
         theName.text = objectPaletteItem.item.name;
         description.text = objectPaletteItem.item.description;
         dropable.selected = objectPaletteItem.item.dropable;
-        destroyable.selected = objectPaletteItem.item.destroyable;
+		destroyable.selected = objectPaletteItem.item.destroyable;
+		attribute.selected = objectPaletteItem.item.isAttribute;
 		maxQty.value = objectPaletteItem.item.maxQty;
     }
 
@@ -102,7 +104,8 @@ public class ObjectEditorItemView extends Panel
         objectPaletteItem.item.name = theName.text;
         objectPaletteItem.item.description = description.text;
         objectPaletteItem.item.dropable = dropable.selected;
-        objectPaletteItem.item.destroyable = destroyable.selected;
+		objectPaletteItem.item.destroyable = destroyable.selected;
+		objectPaletteItem.item.isAttribute = attribute.selected;
 		objectPaletteItem.item.maxQty = maxQty.value;
         AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 

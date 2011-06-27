@@ -28,7 +28,10 @@
             </mx:FormItem>
             <mx:FormItem label="Destroyable?">
             	<mx:CheckBox id="destroyable"/>
-            </mx:FormItem>            
+            </mx:FormItem>   
+			<mx:FormItem label="Attribute?">
+				<mx:CheckBox id="attribute"/>
+			</mx:FormItem>  
         </mx:Form>
     </mx:VBox>
 
