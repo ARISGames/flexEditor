@@ -8,6 +8,6 @@
 
     <mx:Binding destination="value" source="cbo.value"/>
 
-    <mx:ComboBox id="cbo" width="100%" dataProvider="{reqTypes}" labelField="humanLabel"/>
+    <mx:ComboBox id="cbo" width="100%" dataProvider="{reqTypes}" labelField="humanLabel" rowCount="100"/>
 
 </c:RequirementsEditorRequirementComboBoxView>
