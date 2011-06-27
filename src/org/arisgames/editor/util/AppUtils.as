@@ -232,7 +232,7 @@ public class AppUtils
 			for (var klc:Number = o.children.length - 1; klc >= 0; klc--)
 			{
 				var k:ObjectPaletteItemBO = o.children.getItemAt(klc) as ObjectPaletteItemBO;
-				repairPalleteObjectAssociation(k, lc, o.id);
+				repairPalleteObjectAssociation(k, klc, o.id);
 			}
 		}
 		else

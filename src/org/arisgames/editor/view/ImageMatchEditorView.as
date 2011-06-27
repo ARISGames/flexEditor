@@ -255,7 +255,7 @@ package org.arisgames.editor.view
 			placeMarker.imageMatchMediaList.removeAll();
 			placeMarker.imageMatchMediaIdList.removeAll();
 			images.removeAll();
-			for(var x:Number = 0; x < obj.result.data.length; x++){
+			for(var x:Number = 0; x < obj.result.data.length && obj.result.data[x].data != null; x++){
 				placeMarker.imageMatchMediaList.addItem(new Media());
 		
 				placeMarker.imageMatchMediaList[x].fileName = obj.result.data[x].data.file_name;
