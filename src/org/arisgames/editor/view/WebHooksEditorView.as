@@ -340,6 +340,7 @@ package org.arisgames.editor.view
 					w.url = obj.result.data.list.getItemAt(j).url;
 					w.incoming = obj.result.data.list.getItemAt(j).incoming;
 					if(w.incoming){
+						w.url = AppConstants.APPLICATION_ENVIRONMENT_JSON_SERVICES_URL + "webhooks.setWebHookReq/" + GameModel.getInstance().game.gameId + "/" + w.webHookId +  "/" + 0 + "/{player id}";
 						incomingWebHooks.addItem(w);
 					}
 					else{

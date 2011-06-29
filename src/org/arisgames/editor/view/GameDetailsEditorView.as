@@ -57,6 +57,8 @@ public class GameDetailsEditorView extends Panel{
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;
+	[Bindable] public var duplicateButton:LinkButton;
+
 	
 	//Media Stuff
 	[Bindable] public var iconImageCanvas:Canvas;
@@ -106,6 +108,7 @@ public class GameDetailsEditorView extends Panel{
 		
 		saveAndCloseButton.addEventListener(MouseEvent.CLICK, handleSaveAndCloseButton);
 		deleteButton.addEventListener(MouseEvent.CLICK, deleteButtonOnClickHandler);
+		duplicateButton.addEventListener(MouseEvent.CLICK, duplicateButtonOnClickHandler);
 		
 		//Load up the data from the current Game
 		gameName.text = GameModel.getInstance().game.name;
@@ -290,10 +293,14 @@ public class GameDetailsEditorView extends Panel{
 	
 
 	private function deleteButtonOnClickHandler(evt:Event):void {
-		Alert.show("Are you sure? This cannot be undone!", "Delete Game", Alert.YES|Alert.NO, this, alertClickHandler);
+		Alert.show("Are you sure? This cannot be undone!", "Delete Game", Alert.YES|Alert.NO, this, delAlertClickHandler);
 	}
 	
-	private function alertClickHandler(evt:CloseEvent):void {
+	private function duplicateButtonOnClickHandler(evt:Event):void {
+		Alert.show("Duplicate Game? The new name will be \""+GameModel.getInstance().game.name+"_copy\".", "Duplicate Game", Alert.YES|Alert.NO, this, dupAlertClickHandler);
+	}
+	
+	private function delAlertClickHandler(evt:CloseEvent):void {
 		if (evt.detail == Alert.YES) {
 			GameModel.getInstance().game.deleteOnServer();
 			StateModel.getInstance().currentState = StateModel.VIEWCREATEOROPENGAMEWINDOW;
@@ -302,7 +309,30 @@ public class GameDetailsEditorView extends Panel{
 			//Do nothing
 		}
 	}	
+	
+	private function dupAlertClickHandler(evt:CloseEvent):void {
+		if (evt.detail == Alert.YES) {
+			AppServices.getInstance().duplicateGame(GameModel.getInstance().game.gameId, new Responder(handleDuplicateGame, handleFault));
+			PopUpManager.removePopUp(this);
+		} else {
+			//Do nothing
+		}
+	}	
 
+	protected function handleDuplicateGame(obj:Object):void{
+		trace("handleDuplicateGame called...");
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad duplicate attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Duplicating Game");
+		}
+		else
+		{
+			trace("Successfully Duplicated Game! :)");
+			Alert.show("Game successfully duplicated!", "Success");
+		}
+	}
 	
 	protected function handlePcmMapButton(event:MouseEvent):void
 	{

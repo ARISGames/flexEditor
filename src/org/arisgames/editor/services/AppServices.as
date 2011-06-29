@@ -5,6 +5,7 @@ import mx.rpc.IResponder;
 
 import org.arisgames.editor.dao.AppDAO;
 import org.arisgames.editor.data.Game;
+import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
@@ -17,7 +18,6 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.WebHook;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.models.SecurityModel;
 import org.arisgames.editor.util.AppConstants;
 
@@ -260,7 +260,10 @@ public class AppServices
 		else
 		{
 			trace("This web hook has an Id (" + w.webHookId + "), so call update webhook.");
-			r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, w.url);
+
+			if(w.incoming) r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, ""); //save url as "" (causes problems with duplicating games... it gets generated non-server side anyways)
+			else r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, w.url);
+
 		}
 		r.addResponder(resp);
 	}
@@ -685,6 +688,13 @@ public class AppServices
 		trace("Retreiving all Editors");
 		var r:Object;
 		r = AppDAO.getInstance().getGameServer().getGameEditors(gid);
+		r.addResponder(resp);
+	}
+	
+	public function duplicateGame(gid:Number, resp:IResponder):void {
+		trace("Duplicating Game");
+		var r:Object;
+		r = AppDAO.getInstance().getGameServer().duplicateGame(gid);
 		r.addResponder(resp);
 	}
 	
