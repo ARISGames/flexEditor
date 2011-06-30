@@ -135,6 +135,9 @@ public class CreateOrOpenGameSelectorView extends Panel
 			GameModel.getInstance().loadLocations();
 	
 	        StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+			
+			var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);
 		}
     }
 
@@ -153,6 +156,9 @@ public class CreateOrOpenGameSelectorView extends Panel
 			GameModel.getInstance().loadLocations();
 			
 			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
+			
+			var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);
 		}
 	}
 
