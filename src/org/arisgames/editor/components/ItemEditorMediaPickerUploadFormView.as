@@ -179,20 +179,34 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 		var fileOK:Boolean = false;
         if (fileChooser.fileList.length >= 1)
         {
-            for (var k:Number = 0; k < fileChooser.fileList.length; k++)
-            {
-                trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
+			for (var k:Number = 0; k < fileChooser.fileList.length; k++)
+			{
+				trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
 				fileChosen = fileChooser.fileList[k];
-				if(fileChosen.size <= AppConstants.MAX_UPLOAD_SIZE){
-					fileName.text = fileChosen.name;
-					fileOK = true;
+				if(fileChosen.type == "mov"){
+					if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
+						fileName.text = fileChosen.name;
+						fileOK = true;
+					}
+					else {
+						Alert.show("Sorry! The file you chose is too large...\n\n"+
+							fileChosen.name+": "+Math.round(((fileChosen.size)/1024)/1024)+" MB\n"+
+							"Max Filesize: "+Math.round(((AppConstants.MAX_VIDEO_UPLOAD_SIZE)/1024)/1024)+" MB", "File Size Too Large");
+					}
 				}
 				else {
-					Alert.show("Sorry! The file you chose is too large...\n\n"+
-						fileChosen.name+": "+Math.round(((fileChosen.size)/1024)/1024)+" MB\n"+
-						"Max Filesize: "+Math.round(((AppConstants.MAX_UPLOAD_SIZE)/1024)/1024)+" MB", "File Size Too Large");
+					if(fileChosen.size <= AppConstants.MAX_IMAGE_UPLOAD_SIZE){
+						fileName.text = fileChosen.name;
+						fileOK = true;
+					}
+					else {
+						Alert.show("Sorry! The file you chose is too large...\n\n"+
+							fileChosen.name+": "+Math.round(((fileChosen.size)/1024)/1024)+" MB\n"+
+							"Max Filesize: "+Math.round(((AppConstants.MAX_IMAGE_UPLOAD_SIZE)/1024)/1024)+" MB", "File Size Too Large");
+					}
 				}
-            }
+				
+			}
         }
 
 		if(fileOK){
