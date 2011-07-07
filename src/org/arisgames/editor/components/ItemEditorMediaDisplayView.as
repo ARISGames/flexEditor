@@ -132,6 +132,8 @@ public class ItemEditorMediaDisplayView extends HBox
         }
         else
         {
+			/*
+			//BLANK SQUARE
             iconImageCanvas.setVisible(true);
             iconImageCanvas.includeInLayout = true;
             iconPreviewImage.setVisible(false);
@@ -142,6 +144,22 @@ public class ItemEditorMediaDisplayView extends HBox
             iconNoMediaLabel.includeInLayout = true;
             iconRemoveButton.setVisible(false);
             iconRemoveButton.includeInLayout = false;
+			*/
+			
+			iconImageCanvas.setVisible(true);
+			iconImageCanvas.includeInLayout = true;
+			iconPreviewImage.setVisible(true);
+			iconPreviewImage.includeInLayout = true;
+			iconAVLinkButton.setVisible(false);
+			iconAVLinkButton.includeInLayout = false;
+			iconNoMediaLabel.setVisible(false);
+			iconNoMediaLabel.includeInLayout = false;
+			iconRemoveButton.setVisible(true);
+			iconRemoveButton.includeInLayout = true;
+			
+			iconurl = AppConstants.IMG_DEFAULT_ICON_SIZE_REFERENCE_URL;
+			iconPreviewImage.source = iconurl;
+			trace("ItemEditorMediaDisplayView: Just set icon image url = '" + iconurl + "'");
         }
 
         // Load The Media GUI
@@ -189,6 +207,8 @@ public class ItemEditorMediaDisplayView extends HBox
         	}
         	else
         	{
+				/*
+				//BLANK SQUARE
         	    mediaImageCanvas.setVisible(true);
         	    mediaImageCanvas.includeInLayout = true;
         	    mediaPreviewImage.setVisible(false);
@@ -199,6 +219,24 @@ public class ItemEditorMediaDisplayView extends HBox
         	    mediaNoMediaLabel.includeInLayout = true;
         	    mediaRemoveButton.setVisible(false);
         	    mediaRemoveButton.includeInLayout = false;
+				*/
+				
+				mediaImageCanvas.setVisible(true);
+				mediaImageCanvas.includeInLayout = true;
+				mediaPreviewImage.setVisible(true);
+				mediaPreviewImage.includeInLayout = true;
+				mediaAVLinkButton.setVisible(false);
+				mediaAVLinkButton.includeInLayout = false;
+				mediaNoMediaLabel.setVisible(false);
+				mediaNoMediaLabel.includeInLayout = false;
+				mediaRemoveButton.setVisible(true);
+				mediaRemoveButton.includeInLayout = true;
+				
+				if(objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE) mediaurl = AppConstants.IMG_DEFAULT_PLAQUE_SIZE_REFERENCE_URL;
+				else if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE) mediaurl = AppConstants.IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL;
+				else mediaurl = AppConstants.IMG_DEFAULT_PANO_SIZE_REFERENCE_URL;
+				mediaPreviewImage.source = mediaurl;
+				trace("Just set media image url = '" + mediaurl + "'");
         	}
 		}
 		else{
@@ -229,6 +267,8 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			else
 			{
+				/*
+				//BLANK SQUARE
 				alignImageCanvas.setVisible(true);
 				alignImageCanvas.includeInLayout = true;
 				alignPreviewImage.setVisible(false);
@@ -239,6 +279,22 @@ public class ItemEditorMediaDisplayView extends HBox
 				alignNoMediaLabel.includeInLayout = true;
 				alignRemoveButton.setVisible(false);
 				alignRemoveButton.includeInLayout = false;
+				*/
+				
+				alignImageCanvas.setVisible(true);
+				alignImageCanvas.includeInLayout = true;
+				alignPreviewImage.setVisible(true);
+				alignPreviewImage.includeInLayout = true;
+				alignAVLinkButton.setVisible(false);
+				alignAVLinkButton.includeInLayout = false;
+				alignNoMediaLabel.setVisible(false);
+				alignNoMediaLabel.includeInLayout = false;
+				alignRemoveButton.setVisible(true);
+				alignRemoveButton.includeInLayout = true;
+				
+				alignmediaurl = AppConstants.IMG_DEFAULT_ALIGN_SIZE_REFERENCE_URL;
+				alignPreviewImage.source = alignmediaurl;
+				trace("Just set align image url = '" + alignmediaurl + "'");
 			}
 		}
 		else{

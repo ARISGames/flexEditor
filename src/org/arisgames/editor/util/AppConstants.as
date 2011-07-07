@@ -19,6 +19,14 @@ public class AppConstants
 	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
 
+	//Image Reference URL's
+	public static const IMG_DEFAULT_ICON_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_48x48.png";
+	public static const IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_gt320x416.png";
+	public static const IMG_DEFAULT_PANO_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_REQ1024x1024.png";
+	public static const IMG_DEFAULT_ALIGN_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_320x416.png";
+	public static const IMG_DEFAULT_PLAQUE_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_320x320.png";
+	
+	
     // Dynamic Events
     public static const APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED:String = "ApplicationDynamicEventCurrentStateChanged";
     public static const APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE:String = "ApplicationDynamicEventRedrawObjectPalette";
