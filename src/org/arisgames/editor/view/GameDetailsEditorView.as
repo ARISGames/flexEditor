@@ -440,6 +440,8 @@ public class GameDetailsEditorView extends Panel{
 		}
 		else
 		{
+			/*
+			//BLANK SQUARE
 			iconImageCanvas.setVisible(true);
 			iconImageCanvas.includeInLayout = true;
 			iconPreviewImage.setVisible(false);
@@ -450,6 +452,22 @@ public class GameDetailsEditorView extends Panel{
 			iconNoMediaLabel.includeInLayout = true;
 			iconRemoveButton.setVisible(false);
 			iconRemoveButton.includeInLayout = false;
+			*/
+			
+			iconImageCanvas.setVisible(true);
+			iconImageCanvas.includeInLayout = true;
+			iconPreviewImage.setVisible(true);
+			iconPreviewImage.includeInLayout = true;
+			iconAVLinkButton.setVisible(false);
+			iconAVLinkButton.includeInLayout = false;
+			iconNoMediaLabel.setVisible(true);
+			iconNoMediaLabel.includeInLayout = true;
+			iconRemoveButton.setVisible(false);
+			iconRemoveButton.includeInLayout = false;
+			
+			iconurl = AppConstants.IMG_DEFAULT_ICON_SIZE_REFERENCE_URL;
+			iconPreviewImage.source = iconurl;
+			trace("GameDetailsEditorView: Just set icon image url = '" + iconurl + "'");
 		}
 		
 		// Load The Media GUI
@@ -494,6 +512,9 @@ public class GameDetailsEditorView extends Panel{
 		}
 		else
 		{
+			
+			/*
+			// BLANK SQUARE
 			mediaImageCanvas.setVisible(true);
 			mediaImageCanvas.includeInLayout = true;
 			mediaPreviewImage.setVisible(false);//?
@@ -504,6 +525,22 @@ public class GameDetailsEditorView extends Panel{
 			mediaNoMediaLabel.includeInLayout = true;
 			mediaRemoveButton.setVisible(false);
 			mediaRemoveButton.includeInLayout = false;
+			*/
+			
+			mediaImageCanvas.setVisible(true);
+			mediaImageCanvas.includeInLayout = true;
+			mediaPreviewImage.setVisible(true);
+			mediaPreviewImage.includeInLayout = true;
+			mediaAVLinkButton.setVisible(false);
+			mediaAVLinkButton.includeInLayout = false;
+			mediaNoMediaLabel.setVisible(true);
+			mediaNoMediaLabel.includeInLayout = true;
+			mediaRemoveButton.setVisible(false);
+			mediaRemoveButton.includeInLayout = false;
+			
+			mediaurl = AppConstants.IMG_DEFAULT_SPLASH_SIZE_REFERENCE_URL;
+			mediaPreviewImage.source = mediaurl;
+			trace("Just set media image url = '" + mediaurl + "'");
 		}
 	}
 

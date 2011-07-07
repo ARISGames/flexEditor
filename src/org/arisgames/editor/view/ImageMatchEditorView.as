@@ -199,6 +199,9 @@ package org.arisgames.editor.view
 			}
 			else
 			{
+				
+				/*
+				//BLANK SQUARE
 				mediaImageCanvas.setVisible(true);
 				mediaImageCanvas.includeInLayout = true;
 				mediaPreviewImage.setVisible(false);
@@ -207,6 +210,20 @@ package org.arisgames.editor.view
 				mediaNoMediaLabel.includeInLayout = true;
 				mediaRemoveButton.setVisible(false);
 				mediaRemoveButton.includeInLayout = false;
+				*/
+				
+				mediaImageCanvas.setVisible(true);
+				mediaImageCanvas.includeInLayout = true;
+				mediaPreviewImage.setVisible(true);
+				mediaPreviewImage.includeInLayout = true;
+				mediaNoMediaLabel.setVisible(true);
+				mediaNoMediaLabel.includeInLayout = true;
+				mediaRemoveButton.setVisible(false);
+				mediaRemoveButton.includeInLayout = false;
+				
+				mediaurl = AppConstants.IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL;
+				mediaPreviewImage.source = mediaurl;
+				trace("Just set media image url = '" + mediaurl + "'");
 			}
 		}
 		

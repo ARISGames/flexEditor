@@ -152,10 +152,10 @@ public class ItemEditorMediaDisplayView extends HBox
 			iconPreviewImage.includeInLayout = true;
 			iconAVLinkButton.setVisible(false);
 			iconAVLinkButton.includeInLayout = false;
-			iconNoMediaLabel.setVisible(false);
-			iconNoMediaLabel.includeInLayout = false;
-			iconRemoveButton.setVisible(true);
-			iconRemoveButton.includeInLayout = true;
+			iconNoMediaLabel.setVisible(true);
+			iconNoMediaLabel.includeInLayout = true;
+			iconRemoveButton.setVisible(false);
+			iconRemoveButton.includeInLayout = false;
 			
 			iconurl = AppConstants.IMG_DEFAULT_ICON_SIZE_REFERENCE_URL;
 			iconPreviewImage.source = iconurl;
@@ -227,10 +227,10 @@ public class ItemEditorMediaDisplayView extends HBox
 				mediaPreviewImage.includeInLayout = true;
 				mediaAVLinkButton.setVisible(false);
 				mediaAVLinkButton.includeInLayout = false;
-				mediaNoMediaLabel.setVisible(false);
-				mediaNoMediaLabel.includeInLayout = false;
-				mediaRemoveButton.setVisible(true);
-				mediaRemoveButton.includeInLayout = true;
+				mediaNoMediaLabel.setVisible(true);
+				mediaNoMediaLabel.includeInLayout = true;
+				mediaRemoveButton.setVisible(false);
+				mediaRemoveButton.includeInLayout = false;
 				
 				if(objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE) mediaurl = AppConstants.IMG_DEFAULT_PLAQUE_SIZE_REFERENCE_URL;
 				else if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE) mediaurl = AppConstants.IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL;
@@ -287,10 +287,10 @@ public class ItemEditorMediaDisplayView extends HBox
 				alignPreviewImage.includeInLayout = true;
 				alignAVLinkButton.setVisible(false);
 				alignAVLinkButton.includeInLayout = false;
-				alignNoMediaLabel.setVisible(false);
-				alignNoMediaLabel.includeInLayout = false;
-				alignRemoveButton.setVisible(true);
-				alignRemoveButton.includeInLayout = true;
+				alignNoMediaLabel.setVisible(true);
+				alignNoMediaLabel.includeInLayout = true;
+				alignRemoveButton.setVisible(false);
+				alignRemoveButton.includeInLayout = false;
 				
 				alignmediaurl = AppConstants.IMG_DEFAULT_ALIGN_SIZE_REFERENCE_URL;
 				alignPreviewImage.source = alignmediaurl;
