@@ -80,6 +80,7 @@ public class ItemEditorItemView extends Panel
         destroyable.selected = objectPaletteItem.item.destroyable;
 		attribute.selected = objectPaletteItem.item.isAttribute;
 		maxQty.value = objectPaletteItem.item.maxQty;
+		weight.text = objectPaletteItem.item.weight;
     }
 
     private function isFormValid():Boolean
@@ -111,6 +112,7 @@ public class ItemEditorItemView extends Panel
 		objectPaletteItem.item.destroyable = destroyable.selected;
 		objectPaletteItem.item.isAttribute = attribute.selected;
 		objectPaletteItem.item.maxQty = maxQty.value;
+		objectPaletteItem.item.weight = weight.value;
         AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 
         // Save ObjectPaletteItem

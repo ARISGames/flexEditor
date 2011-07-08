@@ -57,8 +57,9 @@
 						<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem label="Inventory Weight Cap">
-						<mx:TextInput id="inventoryWeight" width = "100"/>
+					<mx:FormItem id="invWeightFI" label="Inventory Weight Cap" required="true">
+						<mx:NumericStepper id="inventoryCap" minimum="0" maximum="500000" stepSize="1"
+										   width="50"/>
 					</mx:FormItem>
 					<!-- Check Boxes -->
 					<mx:Tile direction="horizontal">

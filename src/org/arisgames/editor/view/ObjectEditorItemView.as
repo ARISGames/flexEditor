@@ -26,7 +26,8 @@ public class ObjectEditorItemView extends Panel
     private var objectPaletteItem:ObjectPaletteItemBO;
 
     // GUI
-    [Bindable] public var theName:TextInput;
+	[Bindable] public var theName:TextInput;
+	[Bindable] public var weight:NumericStepper;
     [Bindable] public var description:TextArea;
     [Bindable] public var dropable:CheckBox;
 	[Bindable] public var destroyable:CheckBox;
@@ -76,6 +77,7 @@ public class ObjectEditorItemView extends Panel
 		destroyable.selected = objectPaletteItem.item.destroyable;
 		attribute.selected = objectPaletteItem.item.isAttribute;
 		maxQty.value = objectPaletteItem.item.maxQty;
+		weight.value = objectPaletteItem.item.weight;
     }
 
     private function isFormValid():Boolean
@@ -107,6 +109,7 @@ public class ObjectEditorItemView extends Panel
 		objectPaletteItem.item.destroyable = destroyable.selected;
 		objectPaletteItem.item.isAttribute = attribute.selected;
 		objectPaletteItem.item.maxQty = maxQty.value;
+		objectPaletteItem.item.weight = weight.value;
         AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 
         // Save ObjectPaletteItem

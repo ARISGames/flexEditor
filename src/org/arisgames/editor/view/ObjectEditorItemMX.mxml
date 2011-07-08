@@ -16,9 +16,13 @@
             <mx:FormItem label="Item Name"/>
             <mx:TextInput id="theName" width="200"/>
             <mx:FormItem label="Description" textAlign="left"/>
-            <mx:TextArea id="description" width="200" height="110"/>
+            <mx:TextArea id="description" width="200" height="60"/>
         </mx:Form>
     	<mx:Form id="checkBoxForm">
+			<mx:FormItem id="weightFI" label="Weight" required="true">
+				<mx:NumericStepper id="weight" minimum="0" maximum="50000" stepSize="1"
+								   width="50"/>
+			</mx:FormItem>
 			<mx:FormItem id="maxQtyFI" label="Max Qty Per Player" required="true">
 				<mx:NumericStepper id="maxQty" minimum="1" maximum="500" stepSize="1"
 					width="50"/>

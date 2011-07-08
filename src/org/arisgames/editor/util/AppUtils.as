@@ -338,6 +338,7 @@ public class AppUtils
             item.destroyable = data.destroyable;
 			item.isAttribute = data.is_attribute;
 			item.maxQty = data.max_qty_in_inventory;
+			item.weight = data.weight;
 
             return item;
         }

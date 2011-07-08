@@ -11,6 +11,7 @@ public class Item
     public var destroyable:Boolean;
 	public var isAttribute:Boolean;
 	public var maxQty:Number;
+	public var weight:Number;
 
 	
 
