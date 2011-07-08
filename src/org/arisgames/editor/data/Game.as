@@ -5,10 +5,10 @@ import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.rpc.Responder;
 
+import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
-import org.arisgames.editor.data.arisserver.Media;
 
 
 
@@ -28,6 +28,7 @@ public class Game
 	public var pcMediaId:int;
 	public var introNodeId:int;
 	public var completeNodeId:int;
+	public var inventoryCap:int;
 	
 	//Variables for GameDetailsEditor media uploads
 	public var mediaId:Number;

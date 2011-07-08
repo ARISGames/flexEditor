@@ -57,6 +57,9 @@
 						<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
+					<mx:FormItem label="Inventory Weight Cap">
+						<mx:TextInput id="inventoryWeight" width = "100"/>
+					</mx:FormItem>
 					<!-- Check Boxes -->
 					<mx:Tile direction="horizontal">
 						<mx:Tile direction="vertical" horizontalAlign="right">

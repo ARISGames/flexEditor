@@ -102,6 +102,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.resetDeletesPlayerCreatedLocations = obj.result.data.list.getItemAt(j).delete_player_locations_on_reset;
 			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
 			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
+			g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
 
 			usersGames.addItem(g);
 			

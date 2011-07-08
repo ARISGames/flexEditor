@@ -86,7 +86,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
-																game.introNodeId, game.completeNodeId);
+																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		else
 		{
@@ -96,7 +96,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
-																game.introNodeId, game.completeNodeId);
+																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		r.addResponder(resp);
 	}

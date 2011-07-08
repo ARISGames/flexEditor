@@ -46,7 +46,8 @@ import org.arisgames.editor.util.AppUtils;
 
 
 public class GameDetailsEditorView extends Panel{
-    [Bindable] public var gameName:TextInput;
+	[Bindable] public var gameName:TextInput;
+	[Bindable] public var inventoryWeight:TextInput;
     [Bindable] public var description:TextArea;
 	[Bindable] public var introNodeCbo:mx.controls.ComboBox;
 	[Bindable] public var completeNodeCbo:mx.controls.ComboBox;
@@ -112,6 +113,7 @@ public class GameDetailsEditorView extends Panel{
 		
 		//Load up the data from the current Game
 		gameName.text = GameModel.getInstance().game.name;
+		inventoryWeight.text = ""+GameModel.getInstance().game.inventoryCap;
 		description.text = GameModel.getInstance().game.description;
 		allowPlayerLocationsCb.selected = GameModel.getInstance().game.allowsPlayerCreatedLocations;
 		deletePlayerLocationsCb.selected = GameModel.getInstance().game.resetDeletesPlayerCreatedLocations;
@@ -362,6 +364,7 @@ public class GameDetailsEditorView extends Panel{
 	{
 		trace("GameDetailsEditorView: handleSaveAndCloseButton");
 		GameModel.getInstance().game.name = gameName.text;
+		GameModel.getInstance().game.inventoryCap = parseInt(inventoryWeight.text);
 		GameModel.getInstance().game.description = description.text;
 		GameModel.getInstance().game.allowsPlayerCreatedLocations = allowPlayerLocationsCb.selected;
 		GameModel.getInstance().game.resetDeletesPlayerCreatedLocations = deletePlayerLocationsCb.selected;
