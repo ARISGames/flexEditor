@@ -183,7 +183,7 @@ package org.arisgames.editor.components
 				{
 					trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
 					fileChosen = fileChooser.fileList[k];
-					if(fileChosen.type == "mov"){
+					if(fileChosen.type == "mov" || fileChosen.type == "m4v"){
 						if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
 							fileName.text = fileChosen.name;
 							fileOK = true;
