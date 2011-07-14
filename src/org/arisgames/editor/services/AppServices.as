@@ -90,7 +90,7 @@ public class AppServices
 		}
 		else
 		{
-			trace("Appservices: saveGame: This game has an Id (" + game.gameId + "), so call update Item.");
+			trace("Appservices: saveGame: This game has an Id (" + game.gameId + "), so call update Game.");
 			r = AppDAO.getInstance().getGameServer().updateGame(game.gameId,
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
@@ -174,12 +174,12 @@ public class AppServices
         if (isNaN(item.itemId) || item.itemId == 0)
         {
             trace("This item doesn't have an itemId, so call create Item.");
-            r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.isAttribute, item.maxQty, item.weight);
+            r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.isAttribute, item.maxQty, item.weight, item.url);
         }
         else
         {
             trace("This item has an itemId (" + item.itemId + "), so call update Item.");
-            r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.isAttribute, item.maxQty, item.weight);
+            r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.isAttribute, item.maxQty, item.weight, item.url);
         }
         r.addResponder(resp);
     }

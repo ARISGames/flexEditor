@@ -15,6 +15,8 @@
     	<mx:Form id="theForm">
             <mx:FormItem label="Item Name"/>
             <mx:TextInput id="theName" width="200"/>
+			<mx:FormItem label="URL (optional)"/>
+			<mx:TextInput id="url" width="300"/>
             <mx:FormItem label="Description" textAlign="left"/>
             <mx:TextArea id="description" width="200" height="60"/>
         </mx:Form>

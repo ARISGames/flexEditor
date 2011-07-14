@@ -339,6 +339,7 @@ public class AppUtils
 			item.isAttribute = data.is_attribute;
 			item.maxQty = data.max_qty_in_inventory;
 			item.weight = data.weight;
+			item.url = data.url;
 
             return item;
         }

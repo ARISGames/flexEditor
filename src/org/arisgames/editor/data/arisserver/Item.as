@@ -12,6 +12,7 @@ public class Item
 	public var isAttribute:Boolean;
 	public var maxQty:Number;
 	public var weight:Number;
+	public var url:String;
 
 	
 
