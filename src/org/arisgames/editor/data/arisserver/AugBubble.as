@@ -1,5 +1,7 @@
 package org.arisgames.editor.data.arisserver
 {
+	import mx.collections.ArrayCollection;
+
 	public class AugBubble
 	{
 		public var augBubbleId:Number;
@@ -8,6 +10,7 @@ package org.arisgames.editor.data.arisserver
 		public var iconMediaId:Number;
 		public var mediaId:Number;
 		public var alignMediaId:Number;
+		public var media:ArrayCollection;
 		
 		/**
 		 * Constructor

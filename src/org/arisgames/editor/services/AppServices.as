@@ -501,6 +501,24 @@ public class AppServices
         l = AppDAO.getInstance().getMediaServer().getValidImageAndIconExtensions();
         l.addResponder(resp);
     }
+	
+	public function updateAugBubbleMediaIndex(augId:Number, mediaId:Number, game:Game, index:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getAugBubbleServer().updateAugBubbleMediaIndex(augId, mediaId, game.gameId, index);
+		l.addResponder(resp);
+	}
+	
+	public function removeAugBubbleMediaIndex(augId:Number, mediaId:Number, index:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getAugBubbleServer().removeAugBubbleMediaIndex(augId, mediaId, index);
+		l.addResponder(resp);
+	}
+	
+	public function getAugBubbleMedia(gid:Number, augId:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getAugBubbleServer().getAugBubbleMedia(gid, augId);
+		l.addResponder(resp);
+	}
 
     public function getRequirementsForObject(gid:Number, objectType:String, objectId:Number, resp:IResponder):void
     {

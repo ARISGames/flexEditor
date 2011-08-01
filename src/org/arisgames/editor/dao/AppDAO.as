@@ -1,6 +1,7 @@
 package org.arisgames.editor.dao
 {
 import mx.rpc.remoting.RemoteObject;
+import org.arisgames.editor.util.AppConstants;
 
 public class AppDAO
 {
@@ -50,7 +51,7 @@ public class AppDAO
         if (loginServer == null)
         {
             loginServer = new RemoteObject();
-            loginServer.source = "aris_1_4.editors";
+            loginServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".editors";
             loginServer.destination = "amfphp";
             loginServer.showBusyCursor = true;
         }
@@ -62,7 +63,7 @@ public class AppDAO
 		if (gameServer == null)
 		{
 			gameServer = new RemoteObject();
-			gameServer.source = "aris_1_4.games";
+			gameServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".games";
 			gameServer.destination = "amfphp";
 			gameServer.showBusyCursor = true;
 		}
@@ -74,7 +75,7 @@ public class AppDAO
 		if (webHookServer == null)
 		{
 			webHookServer = new RemoteObject();
-			webHookServer.source = "aris_1_4.webhooks";
+			webHookServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".webhooks";
 			webHookServer.destination = "amfphp";
 			webHookServer.showBusyCursor = true;
 		}
@@ -86,7 +87,7 @@ public class AppDAO
         if (nodeServer == null)
         {
             nodeServer = new RemoteObject();
-            nodeServer.source = "aris_1_4.nodes";
+            nodeServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".nodes";
             nodeServer.destination = "amfphp";
             nodeServer.showBusyCursor = true;
         }
@@ -97,7 +98,7 @@ public class AppDAO
 		if (conversationServer == null)
 		{
 			conversationServer = new RemoteObject();
-			conversationServer.source = "aris_1_4.conversations";
+			conversationServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".conversations";
 			conversationServer.destination = "amfphp";
 			conversationServer.showBusyCursor = true;
 		}
@@ -109,7 +110,7 @@ public class AppDAO
         if (npcServer == null)
         {
             npcServer = new RemoteObject();
-            npcServer.source = "aris_1_4.npcs";
+            npcServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".npcs";
             npcServer.destination = "amfphp";
             npcServer.showBusyCursor = true;
         }
@@ -121,7 +122,7 @@ public class AppDAO
 		if (webPageServer == null)
 		{
 			webPageServer = new RemoteObject();
-			webPageServer.source = "aris_1_4.webpages";
+			webPageServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".webpages";
 			webPageServer.destination = "amfphp";
 			webPageServer.showBusyCursor = true;
 		}
@@ -133,7 +134,7 @@ public class AppDAO
 		if (augBubbleServer == null)
 		{
 			augBubbleServer = new RemoteObject();
-			augBubbleServer.source = "aris_1_4.augbubbles";
+			augBubbleServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".augbubbles";
 			augBubbleServer.destination = "amfphp";
 			augBubbleServer.showBusyCursor = true;
 		}
@@ -145,7 +146,7 @@ public class AppDAO
         if (itemServer == null)
         {
             itemServer = new RemoteObject();
-            itemServer.source = "aris_1_4.items";
+            itemServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".items";
             itemServer.destination = "amfphp";
             itemServer.showBusyCursor = true;
         }
@@ -157,7 +158,7 @@ public class AppDAO
         if (locationServer == null)
         {
             locationServer = new RemoteObject();
-            locationServer.source = "aris_1_4.locations";
+            locationServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".locations";
             locationServer.destination = "amfphp";
             locationServer.showBusyCursor = true;
         }
@@ -169,7 +170,7 @@ public class AppDAO
         if (contentServer == null)
         {
             contentServer = new RemoteObject();
-            contentServer.source = "aris_1_4.editorFoldersAndContent";
+            contentServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".editorFoldersAndContent";
             contentServer.destination = "amfphp";
             contentServer.showBusyCursor = true;
         }
@@ -181,7 +182,7 @@ public class AppDAO
         if (mediaServer == null)
         {
             mediaServer = new RemoteObject();
-            mediaServer.source = "aris_1_4.media";
+            mediaServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".media";
             mediaServer.destination = "amfphp";
             mediaServer.showBusyCursor = true;
         }
@@ -193,7 +194,7 @@ public class AppDAO
         if (requirementsServer == null)
         {
             requirementsServer = new RemoteObject();
-            requirementsServer.source = "aris_1_4.requirements";
+            requirementsServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".requirements";
             requirementsServer.destination = "amfphp";
             requirementsServer.showBusyCursor = true;
         }
@@ -205,7 +206,7 @@ public class AppDAO
 		if (questsServer == null)
 		{
 			questsServer = new RemoteObject();
-			questsServer.source = "aris_1_4.quests";
+			questsServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".quests";
 			questsServer.destination = "amfphp";
 			questsServer.showBusyCursor = true;
 		}
@@ -216,7 +217,7 @@ public class AppDAO
 		if (playerStateChangeServer == null)
 		{
 			playerStateChangeServer = new RemoteObject();
-			playerStateChangeServer.source = "aris_1_4.playerStateChanges";
+			playerStateChangeServer.source = "aris_"+ AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".playerStateChanges";
 			playerStateChangeServer.destination = "amfphp";
 			playerStateChangeServer.showBusyCursor = true;
 		}

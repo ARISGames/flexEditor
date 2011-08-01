@@ -9,10 +9,14 @@
 						   paddingRight="10"
 						   paddingBottom="10">
 	
-	<mx:HBox id="hbox">
+	<mx:HBox id="hbox" verticalAlign="top">
 		<c:ItemEditorMediaDisplayMX id="mediaDisplay"/>
+		<v:MultiMediaPickerMX id="multiMedia"/>
 	</mx:HBox>
-	<mx:VBox id="vbox">
+	
+	
+	
+	<mx:VBox id="vbox" horizontalAlign="left">
 		<mx:Form id="theForm">
 			<mx:FormItem label="Name"/>
 			<mx:TextInput id="theName" width="200"/>

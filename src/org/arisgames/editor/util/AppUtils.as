@@ -16,6 +16,7 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
+import org.arisgames.editor.data.arisserver.AugBubbleMedia;
 
 /**
  * A singleton object that provides parsers, converters and other general utilities
@@ -403,6 +404,10 @@ public class AppUtils
 			trace("retObj has a aug_bubble_id!  It's value = '" + data.aug_bubble_id + "'.");
 			var augBubble:AugBubble = new AugBubble();
 			
+			augBubble.media = new ArrayCollection();
+			for(var x:Number = 0; x < data.media.length; x++){
+				augBubble.media.addItem(new AugBubbleMedia(data.media[x].media_id, data.media[x].text, data.media[x].index));
+			}
 			augBubble.augBubbleId = data.aug_bubble_id;
 			augBubble.name = data.name;
 			augBubble.desc = data.description;

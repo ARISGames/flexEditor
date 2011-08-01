@@ -165,7 +165,7 @@ public class ItemEditorMediaDisplayView extends HBox
         }
 
         // Load The Media GUI
-		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE){
+		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
 			mediaPopupMediaPickerButton.setVisible(true);
 			mediaPopupMediaPickerButton.includeInLayout = true;
 	        if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.media.type == AppConstants.MEDIATYPE_VIDEO))
