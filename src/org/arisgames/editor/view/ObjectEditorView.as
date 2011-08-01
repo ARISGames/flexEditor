@@ -2,6 +2,7 @@ package org.arisgames.editor.view
 {
 import mx.containers.Canvas;
 import mx.controls.Alert;
+import mx.controls.Label;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
@@ -22,6 +23,8 @@ public class ObjectEditorView extends Canvas
 {
     // Data Object
     private var objectPaletteItem:ObjectPaletteItemBO;
+	
+	[Bindable] public var secretText:Label;
 
     // Editors
     [Bindable] public var folderEditor:ObjectEditorFolderView;
@@ -248,6 +251,7 @@ public class ObjectEditorView extends Canvas
         {
             trace("It's a folder, so display the Folder Editor.");
             folderEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = folderEditor.objectPaletteItem.objectId+"";
             folderEditor.setVisible(true);
             folderEditor.includeInLayout = true;
         }
@@ -255,6 +259,7 @@ public class ObjectEditorView extends Canvas
         {
             trace("It's an Item, so display the Item Editor.")
             itemEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = itemEditor.objectPaletteItem.objectId+"";
             itemEditor.setVisible(true);
             itemEditor.includeInLayout = true;
         }
@@ -262,6 +267,7 @@ public class ObjectEditorView extends Canvas
         {
             trace("It's a Character, so display the Character Editor.")
             characterEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = characterEditor.objectPaletteItem.objectId+"";
             characterEditor.setVisible(true);
             characterEditor.includeInLayout = true;
 			characterEditor.reloadTheConversations();
@@ -270,6 +276,7 @@ public class ObjectEditorView extends Canvas
         {
             trace("It's an Page, so display the Page Editor.")
             plaqueEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = plaqueEditor.objectPaletteItem.objectId+"";
             plaqueEditor.setVisible(true);
             plaqueEditor.includeInLayout = true;
         }
@@ -277,6 +284,7 @@ public class ObjectEditorView extends Canvas
 		{
 			trace("It's a WebPage, so display the WebPage Editor.")
 			webPageEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = webPageEditor.objectPaletteItem.objectId+"";
 			webPageEditor.setVisible(true);
 			webPageEditor.includeInLayout = true;
 		}
@@ -284,6 +292,7 @@ public class ObjectEditorView extends Canvas
 		{
 			trace("It's an AugBubble, so display the AugBubble Editor.")
 			augBubbleEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = augBubbleEditor.objectPaletteItem.objectId+"";
 			augBubbleEditor.setVisible(true);
 			augBubbleEditor.includeInLayout = true;
 		}

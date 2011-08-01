@@ -1,18 +1,23 @@
 package org.arisgames.editor.view
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
+
+import mx.containers.FormItem;
 import mx.containers.HBox;
 import mx.containers.Panel;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.CheckBox;
+import mx.controls.ComboBox;
+import mx.controls.NumericStepper;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
-import mx.controls.NumericStepper;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.validators.Validator;
+
 import org.arisgames.editor.components.ItemEditorMediaDisplayMX;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -23,16 +28,22 @@ import org.arisgames.editor.util.AppDynamicEventManager;
 public class ObjectEditorItemView extends Panel
 {
     // Data Object
-    private var objectPaletteItem:ObjectPaletteItemBO;
+    public var objectPaletteItem:ObjectPaletteItemBO;
 
     // GUI
 	[Bindable] public var theName:TextInput;
+	[Bindable] public var type:ComboBox;
 	[Bindable] public var url:TextInput;
+	[Bindable] public var urlFI:FormItem;
 	[Bindable] public var weight:NumericStepper;
+	[Bindable] public var weightFI:FormItem;
     [Bindable] public var description:TextArea;
     [Bindable] public var dropable:CheckBox;
+	[Bindable] public var dropableFI:FormItem;
 	[Bindable] public var destroyable:CheckBox;
+	[Bindable] public var destroyableFI:FormItem;
 	[Bindable] public var attribute:CheckBox;
+	[Bindable] public var attributeFI:FormItem;
 	[Bindable] public var maxQty:NumericStepper;	
     [Bindable] public var cancelButton:Button;
     [Bindable] public var saveButton:Button;
@@ -53,10 +64,80 @@ public class ObjectEditorItemView extends Panel
 
     private function handleInit(event:FlexEvent):void
     {
+		attribute.setVisible(false);
+		attribute.includeInLayout = false;
+		attributeFI.setVisible(false);
+		attribute.includeInLayout = false;
+
+		handleTypeChange(null);
+		
         trace("ItemEditorItemView: handleInit");
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		type.addEventListener(flash.events.Event.CHANGE, handleTypeChange);
     }
 
+	public function handleTypeChange(evt:Event):void {
+		if(type.selectedIndex == 0){ //Normal
+			url.setVisible(false);
+			url.includeInLayout = false;
+			urlFI.setVisible(false);
+			urlFI.includeInLayout = false;
+			attribute.selected = false;
+			dropable.setVisible(true);
+			dropable.includeInLayout = true;
+			dropableFI.setVisible(true);
+			dropableFI.includeInLayout = true;
+			destroyable.setVisible(true);
+			destroyable.includeInLayout = true;
+			destroyableFI.setVisible(true);
+			destroyableFI.includeInLayout = true;
+			weightFI.includeInLayout = true;
+			weightFI.setVisible(true);
+			weight.includeInLayout = true;
+			weight.setVisible(true);
+		}
+		else if(type.selectedIndex == 1){ //Web Item
+			url.setVisible(true);
+			url.includeInLayout = true;
+			urlFI.setVisible(true);
+			urlFI.includeInLayout = true;
+			attribute.selected = false;
+			dropable.setVisible(true);
+			dropable.includeInLayout = true;
+			dropableFI.setVisible(true);
+			dropableFI.includeInLayout = true;
+			destroyable.setVisible(true);
+			destroyable.includeInLayout = true;
+			destroyableFI.setVisible(true);
+			destroyableFI.includeInLayout = true;
+			weightFI.includeInLayout = true;
+			weightFI.setVisible(true);
+			weight.includeInLayout = true;
+			weight.setVisible(true);
+		}
+		else if(type.selectedIndex == 2){ //Attribute
+			url.setVisible(false);
+			url.includeInLayout = false;
+			urlFI.setVisible(false);
+			urlFI.includeInLayout = false;
+			attribute.selected = true;
+			dropable.setVisible(false);
+			dropable.includeInLayout = false;
+			dropableFI.setVisible(false);
+			dropableFI.includeInLayout = false;
+			destroyable.setVisible(false);
+			destroyable.includeInLayout = false;
+			destroyableFI.setVisible(false);
+			destroyableFI.includeInLayout = false;
+			//.value = 0;
+			weightFI.includeInLayout = false;
+			weightFI.setVisible(false);
+			weight.includeInLayout = false;
+			weight.setVisible(false);
+		}
+		
+	}
+	
     public function getObjectPaletteItem():ObjectPaletteItemBO
     {
         return objectPaletteItem;

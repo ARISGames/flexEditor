@@ -29,7 +29,7 @@ package org.arisgames.editor.view
 	public class ObjectEditorAugBubbleView extends Panel
 	{
 		// Data Object
-		private var objectPaletteItem:ObjectPaletteItemBO;
+		public var objectPaletteItem:ObjectPaletteItemBO;
 		
 		// GUI
 		[Bindable] public var theName:TextInput;

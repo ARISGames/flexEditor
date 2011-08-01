@@ -20,7 +20,7 @@ import org.arisgames.editor.util.AppDynamicEventManager;
 public class ObjectEditorFolderView extends Panel
 {
     // Data Object
-    private var objectPaletteItem:ObjectPaletteItemBO;
+    public var objectPaletteItem:ObjectPaletteItemBO;
 
     // GUI
     [Bindable] public var folderName:TextInput;

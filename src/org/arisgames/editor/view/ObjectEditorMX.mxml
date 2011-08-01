@@ -5,12 +5,12 @@
                               xmlns:c="org.arisgames.editor.components.*"
                               backgroundColor="#869ca7"
                               >
-
+	<mx:Label x="430" id="secretText"/>
     <v:ObjectEditorFolderMX id="folderEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorItemMX id="itemEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorCharacterMX id="characterEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorPlaqueMX id="plaqueEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	<v:ObjectEditorWebPageMX id="webPageEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	<v:ObjectEditorAugBubbleMX id="augBubbleEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
-
+	
 </v:ObjectEditorView>

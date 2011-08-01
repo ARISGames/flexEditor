@@ -32,7 +32,7 @@ import org.arisgames.editor.util.AppUtils;
 public class ObjectEditorCharacterView extends Panel
 {
     // Data Object
-    private var objectPaletteItem:ObjectPaletteItemBO;
+    public var objectPaletteItem:ObjectPaletteItemBO;
 	
 	// Data For Conversations Table
 	[Bindable] public var conversations:ArrayCollection;

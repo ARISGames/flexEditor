@@ -27,7 +27,7 @@ import org.arisgames.editor.view.PlayerStateChangesEditorMX;
 public class ObjectEditorPlaqueView extends Panel
 {
     // Data Object
-    private var objectPaletteItem:ObjectPaletteItemBO;
+    public var objectPaletteItem:ObjectPaletteItemBO;
 
     // GUI
     [Bindable] public var theName:TextInput;

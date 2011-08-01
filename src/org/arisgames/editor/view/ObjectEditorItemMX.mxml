@@ -13,12 +13,24 @@
         <c:ItemEditorMediaDisplayMX id="mediaDisplay"/></mx:HBox>
     <mx:VBox id="vbox">
     	<mx:Form id="theForm">
-            <mx:FormItem label="Item Name"/>
+            <mx:FormItem label="Item Name">
             <mx:TextInput id="theName" width="200"/>
-			<mx:FormItem label="URL (optional)"/>
+			</mx:FormItem>
+			<mx:FormItem label="Type">
+			<mx:ComboBox id="type">
+				<mx:ArrayCollection>
+					<mx:String>Normal</mx:String>
+					<mx:String>Web Item</mx:String>
+					<mx:String>Attribute</mx:String>
+				</mx:ArrayCollection>
+			</mx:ComboBox>
+			</mx:FormItem>
+			<mx:FormItem label="URL (optional)" id="urlFI">
 			<mx:TextInput id="url" width="300"/>
-            <mx:FormItem label="Description" textAlign="left"/>
+			</mx:FormItem>
+            <mx:FormItem label="Description" textAlign="left">
             <mx:TextArea id="description" width="200" height="60"/>
+			</mx:FormItem>
         </mx:Form>
     	<mx:Form id="checkBoxForm">
 			<mx:FormItem id="weightFI" label="Weight" required="true">
@@ -29,13 +41,13 @@
 				<mx:NumericStepper id="maxQty" minimum="1" maximum="500" stepSize="1"
 					width="50"/>
 			</mx:FormItem>
-			<mx:FormItem label="Dropable?">
+			<mx:FormItem label="Dropable?" id="dropableFI">
             	<mx:CheckBox id="dropable"/>
             </mx:FormItem>
-            <mx:FormItem label="Destroyable?">
+            <mx:FormItem label="Destroyable?" id="destroyableFI">
             	<mx:CheckBox id="destroyable"/>
             </mx:FormItem>   
-			<mx:FormItem label="Attribute?">
+			<mx:FormItem label="Attribute?" id="attributeFI">
 				<mx:CheckBox id="attribute"/>
 			</mx:FormItem>  
         </mx:Form>

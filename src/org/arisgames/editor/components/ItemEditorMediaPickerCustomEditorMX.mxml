@@ -18,6 +18,7 @@
             <mx:TextInput id="mediaName" width="100" editable="false"/>
         </mx:FormItem>
     </mx:Form>
+	<mx:Label id="secretText"/>
 
     <mx:Button id="saveButton" label="Save Name Change" visible="false" includeInLayout="false"/>
     <mx:Button id="deleteButton" label="Delete" visible="false" includeInLayout="false"/>

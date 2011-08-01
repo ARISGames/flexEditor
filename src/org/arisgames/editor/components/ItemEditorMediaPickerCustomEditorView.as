@@ -3,16 +3,19 @@ package org.arisgames.editor.components
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
+
 import mx.containers.Canvas;
 import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.Image;
+import mx.controls.Label;
 import mx.controls.LinkButton;
 import mx.controls.TextInput;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
+
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -32,6 +35,8 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
     [Bindable] public var previewImage:Image;
     [Bindable] public var avLinkButton:LinkButton;
     [Bindable] public var mediaName:TextInput;
+	
+	[Bindable] public var secretText:Label;
 
     [Bindable] public var saveButton:Button;
     [Bindable] public var deleteButton:Button;
@@ -57,6 +62,7 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
     {
         super.data = value;
         dataChanged = true;
+		secretText.text = data.@mediaId+"";
         invalidateProperties();
     }
 
