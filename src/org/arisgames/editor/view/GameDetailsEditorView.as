@@ -613,7 +613,7 @@ public class GameDetailsEditorView extends Panel{
 		var found:Boolean = false;
 		
 		for(var x:Number = 0; x < obj.result.data.length && !found; x++){
-			if(obj.result.data[x].email == addEditorEmail.text){
+			if(obj.result.data[x].email.toLowerCase() == addEditorEmail.text.toLowerCase()){
 				found = true;
 				editorId = obj.result.data[x].editor_id;
 			}
