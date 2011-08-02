@@ -30,7 +30,6 @@ public class AppConstants
 	public static const IMG_DEFAULT_PLAQUE_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_320x320.png";
 	public static const IMG_DEFAULT_SPLASH_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_300x200.png";
 	
-	
     // Dynamic Events
     public static const APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED:String = "ApplicationDynamicEventCurrentStateChanged";
     public static const APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE:String = "ApplicationDynamicEventRedrawObjectPalette";
@@ -110,6 +109,11 @@ public class AppConstants
 	public static const MEDIATREEICON_SEPARATOR:String = "separatorIcon";
 	public static const MEDIATREEICON_UPLOAD:String = "uploadIcon";
 
+	//Item Types
+	public static const ITEM_TYPE_NORMAL:String = "NORMAL";
+	public static const ITEM_TYPE_ATTRIBUTE:String = "ATTRIB";
+	public static const ITEM_TYPE_URL:String = "URL";
+	
 	//Player State Changes
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_WEBPAGE:String = "VIEW_WEBPAGE";

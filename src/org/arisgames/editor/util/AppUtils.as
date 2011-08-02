@@ -341,6 +341,7 @@ public class AppUtils
 			item.maxQty = data.max_qty_in_inventory;
 			item.weight = data.weight;
 			item.url = data.url;
+			item.type = data.type;
 
             return item;
         }

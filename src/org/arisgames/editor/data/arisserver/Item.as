@@ -13,6 +13,7 @@ public class Item
 	public var maxQty:Number;
 	public var weight:Number;
 	public var url:String;
+	public var type:String;
 
 	
 

@@ -161,6 +161,9 @@ public class ObjectEditorItemView extends Panel
 		maxQty.value = objectPaletteItem.item.maxQty;
 		weight.value = objectPaletteItem.item.weight;
 		url.text = objectPaletteItem.item.url;
+		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_NORMAL) type.selectedIndex = 0;
+		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_ATTRIBUTE) type.selectedIndex = 2;
+		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_URL) type.selectedIndex = 1;
     }
 
     private function isFormValid():Boolean
@@ -194,7 +197,10 @@ public class ObjectEditorItemView extends Panel
 		objectPaletteItem.item.maxQty = maxQty.value;
 		objectPaletteItem.item.weight = weight.value;
 		objectPaletteItem.item.url = url.text;
-        AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
+		if(type.selectedIndex == 0) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_NORMAL;
+		if(type.selectedIndex == 1) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_URL;
+		if(type.selectedIndex == 2) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_ATTRIBUTE;
+		AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 
         // Save ObjectPaletteItem
         objectPaletteItem.name = objectPaletteItem.item.name;
