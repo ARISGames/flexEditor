@@ -181,8 +181,10 @@ package org.arisgames.editor.components
 			{
 				for (var k:Number = 0; k < fileChooser.fileList.length; k++)
 				{
-					trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
+					trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "' and type is " + fileChooser.fileList[k].type);
 					fileChosen = fileChooser.fileList[k];
+					trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "' and type is " + fileChosen.type);
+
 					if(fileChosen.type == "mov" || fileChosen.type == "m4v" || fileChosen.type == "3gp" || fileChosen.type == "mp4"){
 						if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
 							fileName.text = fileChosen.name;

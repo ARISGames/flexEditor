@@ -181,9 +181,11 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
         {
 			for (var k:Number = 0; k < fileChooser.fileList.length; k++)
 			{
-				trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "'");
+				trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "' and type is " + fileChooser.fileList[k].type);
 				fileChosen = fileChooser.fileList[k];
-				if(fileChosen.type == "mov"){
+				trace("File to Upload: Name = '" + fileChooser.fileList[k].name + "' and type is " + fileChosen.type);
+
+				if(fileChosen.name.slice(-3, fileChosen.name.length) == "mov" || fileChosen.name.slice(-3, fileChosen.name.length) == "m4v" || fileChosen.name.slice(-3, fileChosen.name.length) == "3gp" || fileChosen.name.slice(-3, fileChosen.name.length) == "mp4"){
 					if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
 						fileName.text = fileChosen.name;
 						fileOK = true;
