@@ -1,5 +1,6 @@
 package org.arisgames.editor.view
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
 
 import mx.collections.ArrayCollection;
@@ -51,6 +52,9 @@ public class ObjectEditorCharacterView extends Panel
 	//Conversations Area
 	[Bindable] public var dg:DataGrid;
 	[Bindable] public var addConversationButton:Button;
+	
+	[Bindable] public var up:Button;
+	[Bindable] public var down:Button;
 
 	//Requirements
 	private var requirementsEditor:RequirementsEditorMX;
@@ -86,6 +90,19 @@ public class ObjectEditorCharacterView extends Panel
 	{
 	}
 	
+	public function handleUpPressed(evt:Event):void{
+		if(dg.selectedIndex > 0 && dg.selectedIndex < conversations.length){
+			AppServices.getInstance().switchConversationOrder(GameModel.getInstance().game.gameId, objectPaletteItem.objectId, (conversations.getItemAt(dg.selectedIndex) as Conversation).conversationId, (conversations.getItemAt(dg.selectedIndex-1) as Conversation).conversationId, new Responder(handleSwitchedSortPosUp, handleFault));
+			trace("up");
+		}
+	}
+	
+	public function handleDownPressed(evt:Event):void{
+		if(dg.selectedIndex >= 0 && dg.selectedIndex < conversations.length-1){
+			AppServices.getInstance().switchConversationOrder(GameModel.getInstance().game.gameId, objectPaletteItem.objectId, (conversations.getItemAt(dg.selectedIndex) as Conversation).conversationId, (conversations.getItemAt(dg.selectedIndex+1) as Conversation).conversationId, new Responder(handleSwitchedSortPosDown, handleFault));
+			trace("down");
+		}
+	}
 	
 	public function handleRefreshConversationData(evt:DynamicEvent):void
 	{
@@ -181,7 +198,12 @@ public class ObjectEditorCharacterView extends Panel
 		else
 		{
 			trace("Deletion of Conversation went well in the database, so now removing it from UI datamodel and UI.");
-			conversations.removeItemAt(dg.selectedIndex);
+			var sel:Number = dg.selectedIndex;
+			conversations.removeItemAt(sel);
+			for(var x:Number = sel; x < conversations.length; x++){
+				conversations.getItemAt(x).index = x;
+				AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, conversations.getItemAt(x) as Conversation, new Responder(handleUpdateConversationSave, handleFault));
+			}
 			conversations.refresh();
 		}
 	}
@@ -192,6 +214,7 @@ public class ObjectEditorCharacterView extends Panel
 		var c:Conversation = new Conversation();
 		c.linkText = "New Conversation";
 		c.npcId = objectPaletteItem.objectId ; //set the npc id
+		c.index = conversations.length;
 		conversations.addItem(c);
 		AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, c, new Responder(handleAddConversationSave, handleFault));
 	}
@@ -277,6 +300,8 @@ public class ObjectEditorCharacterView extends Panel
 				c.nodeId = obj.result.data.list.getItemAt(j).node_id;
 				c.linkText = obj.result.data.list.getItemAt(j).conversation_text;
 				c.scriptText = obj.result.data.list.getItemAt(j).text;
+				c.index = j; //Should be returned from the server in ascending order, so if any server manipulations were done outside of the editor, this will normalize them again.
+				if(c.index != obj.result.data.list.getItemAt(j).sort_index) AppServices.getInstance().saveConversation(GameModel.getInstance().game.gameId, c, new Responder(handleUpdateConversationSave, handleFault));
 				conversations.addItem(c);
 			}
 			trace("Loaded '" + conversations.length + "' Conversation(s).");
@@ -355,6 +380,44 @@ public class ObjectEditorCharacterView extends Panel
         }
         trace("ItemEditorCharacterView: Finished with handleSaveCharacter().");
     }
+	
+	private function handleSwitchedSortPosUp(obj:Object):void {
+		trace("ObjectEditorCharacterView: In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("ItemEditorCharacterView: Bad save character content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("ItemEditorCharacterView: Error Was: " + msg, "Error While Saving Character");
+		}
+		else
+		{
+			var sel:Number = dg.selectedIndex;
+			conversations.getItemAt(sel).index = sel-1;
+			conversations.getItemAt(sel-1).index = sel;
+			conversations.addItemAt(conversations.removeItemAt(sel), sel-1);
+			conversations.refresh();
+			//dg.selectedIndex = sel-1;
+		}
+	}
+	
+	private function handleSwitchedSortPosDown(obj:Object):void {
+		trace("ObjectEditorCharacterView: In handleSaveContent() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("ItemEditorCharacterView: Bad save character content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("ItemEditorCharacterView: Error Was: " + msg, "Error While Saving Character");
+		}
+		else
+		{
+			var sel:Number = dg.selectedIndex;
+			conversations.getItemAt(sel).index = sel+1;
+			conversations.getItemAt(sel+1).index = sel;
+			conversations.addItemAt(conversations.removeItemAt(sel), sel+1);
+			conversations.refresh();
+			//dg.selectedIndex = sel+1;
+		}
+	}
 
     private function handleSaveContent(obj:Object):void
     {

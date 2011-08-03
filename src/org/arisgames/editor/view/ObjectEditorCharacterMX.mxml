@@ -37,7 +37,7 @@
 		</mx:Form>
 	
 	</mx:VBox>
-	<mx:DataGrid id="dg" width="90%" height = "150" dataProvider="{conversations}" editable="true"  draggableColumns="false">
+	<mx:DataGrid id="dg" width="90%" height = "150" dataProvider="{conversations}" editable="true"  draggableColumns="false" useRollOver="false">
 		<mx:columns>
 			<!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
 			<mx:DataGridColumn dataField="linkText" headerText="Option" editable="true" width="80"/>
@@ -53,6 +53,16 @@
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:Button label="+" click="outerDocument.handleConversationPlayerStateChangesButton(event)" />
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Up" editable="false" width="50">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+							<mx:LinkButton click="outerDocument.handleUpPressed(event)" label="↑" width="24"/>
+							<mx:LinkButton click="outerDocument.handleDownPressed(event)" label="↓" width="24"/>
+						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

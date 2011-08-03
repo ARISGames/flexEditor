@@ -653,6 +653,13 @@ public class AppServices
 		l.addResponder(resp);
 	}
 	
+	public function switchConversationOrder(gid:Number, npcId:Number, convoAId:Number, convoBId:Number, resp:IResponder):void {
+		trace("AppServices: switchConversationOrder called with GameId:" + gid + " NpcId: " + npcId + " convoA: " + convoAId + " convoB: " + convoBId);
+		var l:Object;
+		l = AppDAO.getInstance().getConversationServer().swapSortIndex(gid, npcId, convoAId, convoBId);
+		l.addResponder(resp);
+	}
+	
 	public function deleteConversation(gid:Number, c:Conversation, resp:IResponder):void
 	{
 		trace("AppServices: deleteConversation() called with Game Id:" + gid + " conversation Id:" + c.conversationId);
@@ -667,12 +674,12 @@ public class AppServices
 		if (isNaN(c.conversationId))
 		{
 			trace("This Conversation doesn't have an Id, so call createConversation function On Remote Server. npcId: " + c.npcId);
-			l = AppDAO.getInstance().getConversationServer().createConversationWithNode(gid, c.npcId, c.linkText, c.scriptText);
+			l = AppDAO.getInstance().getConversationServer().createConversationWithNode(gid, c.npcId, c.linkText, c.scriptText, c.index);
 		}
 		else
 		{
 			trace("This Conversation has an Id:" + c.conversationId + " so call updateConversationWithNode function on Remote Server.");
-			l = AppDAO.getInstance().getConversationServer().updateConversationWithNode(gid, c.conversationId, c.linkText, c.scriptText );
+			l = AppDAO.getInstance().getConversationServer().updateConversationWithNode(gid, c.conversationId, c.linkText, c.scriptText, c.index );
 		}
 		l.addResponder(resp);
 	}

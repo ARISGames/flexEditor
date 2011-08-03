@@ -276,7 +276,7 @@ public class ItemEditorCharacterView extends Panel
 		{
 			trace("Bad handle loading conversation attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
 			var msg:String = obj.result.returnCodeDescription;
-			Alert.show("Error Was: " + msg, "Error While Loading Quests");
+			Alert.show("Error Was: " + msg, "Error While Loading Convos");
 		}
 		else
 		{
@@ -287,6 +287,7 @@ public class ItemEditorCharacterView extends Panel
 				c.nodeId = obj.result.data.list.getItemAt(j).node_id;
 				c.linkText = obj.result.data.list.getItemAt(j).conversation_text;
 				c.scriptText = obj.result.data.list.getItemAt(j).text;
+				c.index = obj.result.data.list.getItemAt(j).sort_index;
 				conversations.addItem(c);
 			}
 			trace("Loaded '" + conversations.length + "' Conversation(s).");

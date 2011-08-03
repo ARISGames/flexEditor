@@ -7,6 +7,7 @@ package org.arisgames.editor.data.arisserver
 		public var nodeId:Number; //needed for requirements. They are associated with nodes not conversations
 		public var linkText:String;
 		public var scriptText:String;
+		public var index:Number;
 
 		
 		
