@@ -101,7 +101,7 @@ public class Requirement
             trace("going to load a npc for npc id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getCharacterById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
-		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
 		{
 			trace("going to load a quest for quest id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getQuestById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
@@ -163,7 +163,7 @@ public class Requirement
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
             }
-			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
 			{
 				trace("going to load quest name - 5");
 				name = obj.result.data.name;

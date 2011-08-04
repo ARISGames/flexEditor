@@ -118,7 +118,7 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("going to load npc - 4");
             AppServices.getInstance().getCharactersByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNPCs, handleFault));
         }
-		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
 		{
 			trace("going to load quests - 5");
 			AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));

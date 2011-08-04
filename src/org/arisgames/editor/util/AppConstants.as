@@ -129,13 +129,12 @@ public class AppConstants
 	public static const PLAYERSTATECHANGE_ACTION_TAKEITEM:String = "TAKE_ITEM";
 	public static const PLAYERSTATECHANGE_ACTION_TAKEITEM_HUMAN:String = "Take Item";
 	
-    // Requirement Types
+    // Requirement Types (what are the requirements for)
     public static const REQUIREMENTTYPE_LOCATION:String = "Location";
 	public static const REQUIREMENTTYPE_QUESTDISPLAY:String = "QuestDisplay";
 	public static const REQUIREMENTTYPE_QUESTCOMPLETE:String = "QuestComplete";
 	public static const REQUIREMENTTYPE_NODE:String = "Node";
 	public static const REQUIREMENTTYPE_WEBHOOK:String = "OutgoingWebHook";
-
 
     // Requirement Options
     public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
@@ -166,6 +165,8 @@ public class AppConstants
     public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:String = "Player Has Uploaded Media Item";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Player Has Completed Quest";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_NOT_COMPLETED_QUEST";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_HUMAN:String = "Player Has Not Completed Quest";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:String = "PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN:String = "Player Has Received Incoming Web Hook";
 

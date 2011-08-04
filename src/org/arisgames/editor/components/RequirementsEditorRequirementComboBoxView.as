@@ -161,6 +161,10 @@ public class RequirementsEditorRequirementComboBoxView extends VBox implements I
                         trace("20");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN;
                             break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE:
+						trace("20");
+							to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_HUMAN;
+							break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:
 						trace("20");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN;
