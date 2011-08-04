@@ -56,7 +56,7 @@
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Up" editable="false" width="50">
+			<mx:DataGridColumn headerText="Sort" editable="false" width="50">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
