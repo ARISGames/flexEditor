@@ -6,7 +6,7 @@
                               backgroundColor="#869ca7"
 							  horizontalScrollPolicy="off"
                               >
-	<mx:Label x="430" id="secretText"/>
+	<mx:Label x="420" id="secretText"/>
     <v:ObjectEditorFolderMX id="folderEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorItemMX id="itemEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
     <v:ObjectEditorCharacterMX id="characterEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
