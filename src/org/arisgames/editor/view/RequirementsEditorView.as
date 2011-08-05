@@ -207,7 +207,7 @@ public class RequirementsEditorView extends Panel
             AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
 
             // Renderer The Germane Editor So That The Event Will Be Received
-            if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
+            if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
             {
                 trace("RequirementEditorView: The requirement was just changed to Upload Media Item, so popup the Requirements Editor Map.");
                 this.openRequirementsEditorMapView(r);

@@ -26,7 +26,7 @@
 
        	
        	<!-- Copy and paste one of the above lines over the one below, rather than commenting/uncommenting them all the time -->
-       	<endpoint uri="http://www.arisgames.org/qaserver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
+       	<endpoint uri="http://atsosxdev.doit.wisc.edu/aris/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
        	
        	
         </channel-definition>

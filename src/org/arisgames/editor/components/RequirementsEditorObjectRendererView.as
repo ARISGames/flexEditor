@@ -55,7 +55,7 @@ public class RequirementsEditorObjectRendererView extends VBox implements IDropI
         var req:Requirement = value as Requirement;
         trace("set data called with value = '" + value + "'; The Requirement Id = '" + req.requirementId + "'; The Requirement = '" + req.requirement + "'");
 
-        if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
+        if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
         {
             trace("This is a Uploaded Media Item requirement, so display requirement map button mode.");
             this.setToButtonMode(true);

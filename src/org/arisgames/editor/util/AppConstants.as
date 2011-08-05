@@ -5,8 +5,8 @@ public class AppConstants
 	//Server URL
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/stagingserver1"; //For other URL's to append to- Staging
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://Phildos.local/server"; //For other URL's to append to- Phil's Machine
-	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/qaserver"; //For other URL's to append to- QA
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
+	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/qaserver"; //For other URL's to append to- QA
 
 	
 	//Server Version
@@ -18,10 +18,10 @@ public class AppConstants
 	public static const APPLICATION_ENVIRONMENT_GATEWAY_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gateway.php"; //services-config.xml
 
 	//Google API
-	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
+	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
-	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
+	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
 
 
 	//Image Reference URL's
@@ -161,8 +161,14 @@ public class AppConstants
     public static const REQUIREMENT_PLAYER_VIEWED_NPC_HUMAN:String = "Player Greeted By Character";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_NPC";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_HUMAN:String = "Player Never Greeted By Character";
-    public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM";
-    public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:String = "Player Has Uploaded Media Item";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN:String = "Player Has Uploaded Media Item";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_HUMAN:String = "Player Has Uploaded Image";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_HUMAN:String = "Player Has Uploaded Audio";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE:String = "PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO";
+	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_HUMAN:String = "Player Has Uploaded Video";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Player Has Completed Quest";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_NOT_COMPLETED_QUEST";

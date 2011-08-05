@@ -157,6 +157,18 @@ public class RequirementsEditorRequirementComboBoxView extends VBox implements I
                         trace("19");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN;
                             break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE:
+						trace("19");
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_HUMAN;
+						break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE:
+						trace("19");
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_HUMAN;
+						break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE:
+						trace("19");
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_HUMAN;
+						break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:
                         trace("20");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN;

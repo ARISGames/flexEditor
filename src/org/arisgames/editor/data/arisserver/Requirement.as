@@ -111,7 +111,7 @@ public class Requirement
 			trace("going to load incoming web hook for web hook id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getWebHookById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
 		}
-        else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
+        else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
         }
@@ -191,7 +191,7 @@ public class Requirement
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
 			}
-            else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
+            else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
             {
                 trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
             }
