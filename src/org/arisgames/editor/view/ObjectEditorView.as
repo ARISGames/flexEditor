@@ -246,7 +246,8 @@ public class ObjectEditorView extends Canvas
 		webPageEditor.includeInLayout = false;
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
-
+		this.width=470;
+		
         if (objectPaletteItem.isFolder())
         {
             trace("It's a folder, so display the Folder Editor.");
@@ -271,6 +272,7 @@ public class ObjectEditorView extends Canvas
             characterEditor.setVisible(true);
             characterEditor.includeInLayout = true;
 			characterEditor.reloadTheConversations();
+			this.width=800;
         }
         else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE_DATABASE)
         {
