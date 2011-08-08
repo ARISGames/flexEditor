@@ -29,6 +29,9 @@ public class QuestsEditorView extends Panel
     [Bindable] public var dg:DataGrid;
     [Bindable] public var addQuestButton:Button;
     [Bindable] public var closeButton:Button;
+	
+	[Bindable] public var up:Button;
+	[Bindable] public var down:Button;
 
 	private var requirementsEditor:RequirementsEditorMX;
 
@@ -52,6 +55,20 @@ public class QuestsEditorView extends Panel
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
 		this.reloadTheQuests();
     }
+	
+	public function handleUpPressed(evt:Event):void{
+		if(dg.selectedIndex > 0 && dg.selectedIndex < quests.length){
+			AppServices.getInstance().switchQuestOrder(GameModel.getInstance().game.gameId, (quests.getItemAt(dg.selectedIndex) as Quest).questId, (quests.getItemAt(dg.selectedIndex-1) as Quest).questId, new Responder(handleSwitchedSortPosUp, handleFault));
+			trace("up");
+		}
+	}
+	
+	public function handleDownPressed(evt:Event):void{
+		if(dg.selectedIndex >= 0 && dg.selectedIndex < quests.length-1){
+			AppServices.getInstance().switchQuestOrder(GameModel.getInstance().game.gameId, (quests.getItemAt(dg.selectedIndex) as Quest).questId, (quests.getItemAt(dg.selectedIndex+1) as Quest).questId, new Responder(handleSwitchedSortPosDown, handleFault));
+			trace("down");
+		}
+	}
 
     public function handleRefreshQuestData(evt:DynamicEvent):void
     {
@@ -119,8 +136,14 @@ public class QuestsEditorView extends Panel
         else
         {
             trace("Deletion of Quest went well in the database, so now removing it from UI datamodel and UI.");
-            quests.removeItemAt(dg.selectedIndex);
-            quests.refresh();
+			
+			var sel:Number = dg.selectedIndex;
+			quests.removeItemAt(sel);
+			for(var x:Number = sel; x < quests.length; x++){
+				quests.getItemAt(x).index = x;
+				AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quests.getItemAt(x) as Quest, new Responder(handleUpdateQuestSave, handleFault));
+			}
+			quests.refresh();
         }
     }
 
@@ -129,6 +152,7 @@ public class QuestsEditorView extends Panel
         trace("Add Quest Button clicked...");
         var q:Quest = new Quest();
         q.title = "New Quest";
+		q.index = quests.length;
         quests.addItem(q);
         AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleAddQuestSave, handleFault));
     }
@@ -222,12 +246,52 @@ public class QuestsEditorView extends Panel
                 q.activeText = obj.result.data.list.getItemAt(j).description;
                 q.completeText = obj.result.data.list.getItemAt(j).text_when_complete;
                 q.iconMediaId = obj.result.data.list.getItemAt(j).icon_media_id;
+				q.index = j;
+				if(q.index != obj.result.data.list.getItemAt(j).sort_index) AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
                 quests.addItem(q);
             }
             trace("Loaded '" + quests.length + "' Quest(s).");
         }
     }
 
+	private function handleSwitchedSortPosUp(obj:Object):void {
+		trace("QuestsEditorView: In handleSwitchedSortPosUp() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("QuestsEditorView: Bad switch content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("QuestsEditorView: Error Was: " + msg, "Error While Saving Quest");
+		}
+		else
+		{
+			var sel:Number = dg.selectedIndex;
+			quests.getItemAt(sel).index = sel-1;
+			quests.getItemAt(sel-1).index = sel;
+			quests.addItemAt(quests.removeItemAt(sel), sel-1);
+			quests.refresh();
+			//dg.selectedIndex = sel-1;
+		}
+	}
+	
+	private function handleSwitchedSortPosDown(obj:Object):void {
+		trace("QuestsEditorView: In handleSwitchedSortPosDown() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("QuestsEditorView: Bad switch content attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("QuestsEditorView: Error Was: " + msg, "Error While Saving Quest");
+		}
+		else
+		{
+			var sel:Number = dg.selectedIndex;
+			quests.getItemAt(sel).index = sel+1;
+			quests.getItemAt(sel+1).index = sel;
+			quests.addItemAt(quests.removeItemAt(sel), sel+1);
+			quests.refresh();
+			//dg.selectedIndex = sel+1;
+		}
+	}
+	
     public function handleFault(obj:Object):void
     {
         trace("Fault called: " + obj.message);

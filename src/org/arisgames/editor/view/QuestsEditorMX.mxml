@@ -12,7 +12,7 @@
                                   creationPolicy="all"
                                    height="500">
 
-    <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false" variableRowHeight="true" height="100%">
+    <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false" variableRowHeight="true" height="100%" useRollOver="false">
         <mx:columns>
             <!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
             <mx:DataGridColumn dataField="title" headerText="Title" editable="true"/>
@@ -37,6 +37,16 @@
 							<mx:Button width="95%" label="To Activate" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
 							<mx:Button width="95%" label="To Complete" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
 						</mx:VBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Sort" editable="false" width="50">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+							<mx:LinkButton click="outerDocument.handleUpPressed(event)" label="↑" width="24"/>
+							<mx:LinkButton click="outerDocument.handleDownPressed(event)" label="↓" width="24"/>
+						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

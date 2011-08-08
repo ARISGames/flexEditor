@@ -602,13 +602,13 @@ public class AppServices
 		if (isNaN(quest.questId))
 		{
 			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
-			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.iconMediaId );
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.iconMediaId, quest.index);
 		}
 		else
 		{
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
 			trace("Updating quest id: " + quest.questId + " title: " + quest.title + " activeText: " + quest.activeText + " completeText: " + quest.completeText + " iconMediaId: " + quest.iconMediaId);
-			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId);
+			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId, quest.index);
 		}
 		l.addResponder(resp);
 	}
@@ -657,6 +657,13 @@ public class AppServices
 		trace("AppServices: switchConversationOrder called with GameId:" + gid + " NpcId: " + npcId + " convoA: " + convoAId + " convoB: " + convoBId);
 		var l:Object;
 		l = AppDAO.getInstance().getConversationServer().swapSortIndex(gid, npcId, convoAId, convoBId);
+		l.addResponder(resp);
+	}
+	
+	public function switchQuestOrder(gid:Number, questAId:Number, questBId:Number, resp:IResponder):void {
+		trace("AppServices: switchConversationOrder called with GameId:" + gid + " QuestAId:" + questAId + " QuestBId: " + questBId);
+		var l:Object;
+		l = AppDAO.getInstance().getQuestsServer().swapSortIndex(gid, questAId, questBId);
 		l.addResponder(resp);
 	}
 	

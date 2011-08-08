@@ -8,6 +8,7 @@ package org.arisgames.editor.data.arisserver
 		public var activeText:String;
 		public var completeText:String;
 		public var iconMediaId:Number;
+		public var index:Number;
 		
 		/**
 		 * Constructor
