@@ -145,7 +145,7 @@ public class ObjectEditorItemView extends Panel
 
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
-        trace("ItemEditorItemView: Setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorItemView");
+        trace("ObjectEditorItemView: Setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorItemView");
         objectPaletteItem = opi;
         mediaDisplay.setObjectPaletteItem(opi);
         this.pushDataIntoGUI();
@@ -164,6 +164,7 @@ public class ObjectEditorItemView extends Panel
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_NORMAL) type.selectedIndex = 0;
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_ATTRIBUTE) type.selectedIndex = 2;
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_URL) type.selectedIndex = 1;
+		handleTypeChange(null);
     }
 
     private function isFormValid():Boolean

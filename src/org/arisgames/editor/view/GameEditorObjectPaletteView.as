@@ -704,6 +704,7 @@ public class GameEditorObjectPaletteView extends VBox
             var it:Item = new Item();
             it.itemId = 0;
             it.name = item.name;
+			it.type = AppConstants.ITEM_TYPE_NORMAL;
             it.iconMediaId = item.iconMediaId;
             AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, it, new Responder(handleCreateItem, handleFault));
             trace("Just finished calling saveItem() for name = '" + item.name + "'.");
