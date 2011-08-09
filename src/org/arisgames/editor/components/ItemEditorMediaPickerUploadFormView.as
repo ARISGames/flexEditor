@@ -188,6 +188,9 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 				if(fileChosen.name.slice(-3, fileChosen.name.length) == "mov" || fileChosen.name.slice(-3, fileChosen.name.length) == "m4v" || fileChosen.name.slice(-3, fileChosen.name.length) == "3gp" || fileChosen.name.slice(-3, fileChosen.name.length) == "mp4"){
 					if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
 						fileName.text = fileChosen.name;
+						if(mediaName.text == ""){
+							mediaName.text = fileName.text;
+						}
 						fileOK = true;
 					}
 					else {
@@ -199,6 +202,9 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 				else {
 					if(fileChosen.size <= AppConstants.MAX_IMAGE_UPLOAD_SIZE){
 						fileName.text = fileChosen.name;
+						if(mediaName.text == ""){
+							mediaName.text = fileName.text;
+						}
 						fileOK = true;
 					}
 					else {

@@ -188,6 +188,9 @@ package org.arisgames.editor.components
 					if(fileChosen.type == "mov" || fileChosen.type == "m4v" || fileChosen.type == "3gp" || fileChosen.type == "mp4"){
 						if(fileChosen.size <= AppConstants.MAX_VIDEO_UPLOAD_SIZE){
 							fileName.text = fileChosen.name;
+							if(mediaName.text == ""){
+								mediaName.text = fileName.text;
+							}
 							fileOK = true;
 						}
 						else {
@@ -199,6 +202,9 @@ package org.arisgames.editor.components
 					else {
 						if(fileChosen.size <= AppConstants.MAX_IMAGE_UPLOAD_SIZE){
 							fileName.text = fileChosen.name;
+							if(mediaName.text == ""){
+								mediaName.text = fileName.text;
+							}
 							fileOK = true;
 						}
 						else {
