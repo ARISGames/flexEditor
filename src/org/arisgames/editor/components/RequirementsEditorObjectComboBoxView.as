@@ -310,7 +310,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
                 var to:Object = new Object();
                 to.label = obj.result.data[j].title;
 				if(obj.result.data[j].title != "")
-					to.label += ": " + obj.result.data[j].text;
+					if(obj.result.data[j].npc_id != "0") to.label = obj.result.data[j].name + "::" + to.label + ": " + obj.result.data[j].text;
+					else to.label += ": " + obj.result.data[j].text;
                 to.data = obj.result.data[j].node_id;
                 possibleObjects.addItem(to);
             }
