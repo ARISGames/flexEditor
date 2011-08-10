@@ -115,6 +115,8 @@ public class AppConstants
 	public static const ITEM_TYPE_NORMAL:String = "NORMAL";
 	public static const ITEM_TYPE_ATTRIBUTE:String = "ATTRIB";
 	public static const ITEM_TYPE_URL:String = "URL";
+	public static const ITEM_TYPE_NOTE:String = "NOTE";
+
 	
 	//Player State Changes
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";

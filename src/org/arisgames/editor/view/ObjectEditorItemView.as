@@ -10,6 +10,7 @@ import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.CheckBox;
 import mx.controls.ComboBox;
+import mx.controls.Label;
 import mx.controls.NumericStepper;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
@@ -49,6 +50,7 @@ public class ObjectEditorItemView extends Panel
     [Bindable] public var saveButton:Button;
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
+	[Bindable] public var descLabel:FormItem;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
@@ -95,6 +97,8 @@ public class ObjectEditorItemView extends Panel
 			weightFI.setVisible(true);
 			weight.includeInLayout = true;
 			weight.setVisible(true);
+			mediaDisplay.hideMediaPicker(false);
+			descLabel.label = "Description";
 		}
 		else if(type.selectedIndex == 1){ //Web Item
 			url.setVisible(true);
@@ -114,6 +118,8 @@ public class ObjectEditorItemView extends Panel
 			weightFI.setVisible(true);
 			weight.includeInLayout = true;
 			weight.setVisible(true);
+			mediaDisplay.hideMediaPicker(true);
+			descLabel.label = "Description";
 		}
 		else if(type.selectedIndex == 2){ //Attribute
 			url.setVisible(false);
@@ -134,6 +140,30 @@ public class ObjectEditorItemView extends Panel
 			weightFI.setVisible(false);
 			weight.includeInLayout = false;
 			weight.setVisible(false);
+			mediaDisplay.hideMediaPicker(true);
+			descLabel.label = "Description";
+		}
+		else if(type.selectedIndex == 3){ //Note
+			url.setVisible(false);
+			url.includeInLayout = false;
+			urlFI.setVisible(false);
+			urlFI.includeInLayout = false;
+			attribute.selected = false;
+			dropable.setVisible(true);
+			dropable.includeInLayout = true;
+			dropableFI.setVisible(true);
+			dropableFI.includeInLayout = true;
+			destroyable.setVisible(true);
+			destroyable.includeInLayout = true;
+			destroyableFI.setVisible(true);
+			destroyableFI.includeInLayout = true;
+			//.value = 0;
+			weightFI.includeInLayout = true;
+			weightFI.setVisible(true);
+			weight.includeInLayout = true;
+			weight.setVisible(true);
+			mediaDisplay.hideMediaPicker(true);
+			descLabel.label = "Text";
 		}
 		
 	}
@@ -164,6 +194,7 @@ public class ObjectEditorItemView extends Panel
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_NORMAL) type.selectedIndex = 0;
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_ATTRIBUTE) type.selectedIndex = 2;
 		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_URL) type.selectedIndex = 1;
+		if(objectPaletteItem.item.type == AppConstants.ITEM_TYPE_NOTE) type.selectedIndex = 3;
 		handleTypeChange(null);
     }
 
@@ -201,6 +232,7 @@ public class ObjectEditorItemView extends Panel
 		if(type.selectedIndex == 0) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_NORMAL;
 		if(type.selectedIndex == 1) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_URL;
 		if(type.selectedIndex == 2) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_ATTRIBUTE;
+		if(type.selectedIndex == 3) objectPaletteItem.item.type = AppConstants.ITEM_TYPE_NOTE;
 		AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveItem, handleFault));
 
         // Save ObjectPaletteItem

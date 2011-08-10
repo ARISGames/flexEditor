@@ -22,13 +22,14 @@
 					<mx:String>Normal</mx:String>
 					<mx:String>Web Item</mx:String>
 					<mx:String>Attribute</mx:String>
+					<mx:String>Note</mx:String>
 				</mx:ArrayCollection>
 			</mx:ComboBox>
 			</mx:FormItem>
 			<mx:FormItem label="URL (optional)" id="urlFI">
 			<mx:TextInput id="url" width="300"/>
 			</mx:FormItem>
-            <mx:FormItem label="Description" textAlign="left">
+            <mx:FormItem id="descLabel" label="Description" textAlign="left">
             <mx:TextArea id="description" width="200" height="60"/>
 			</mx:FormItem>
         </mx:Form>
