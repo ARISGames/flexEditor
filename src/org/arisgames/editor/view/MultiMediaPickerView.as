@@ -198,6 +198,8 @@ package org.arisgames.editor.view
 				mediaNoMediaLabel.includeInLayout = true;
 				mediaRemoveButton.setVisible(false);
 				mediaRemoveButton.includeInLayout = false;
+				mediaPopupMediaPickerButton.setVisible(false);
+				mediaPopupMediaPickerButton.includeInLayout = false;
 				
 				mediaurl = AppConstants.IMG_DEFAULT_PANO_SIZE_REFERENCE_URL;
 				mediaPreviewImage.source = mediaurl;
@@ -264,6 +266,11 @@ package org.arisgames.editor.view
 			delegate.imageListWasUpdated(this.selectedIndex, images[selectedIndex], this.images);
 			images.refresh();
 			this.pushDataIntoGUI();
+		}
+		
+		public function didCloseWindow(picker:MultiMediaPickerPickerMX):void
+		{
+			this.handleMediaRemoveButtonClick(null);
 		}
 		
 		private function handleLoadMedia(obj:Object):void{

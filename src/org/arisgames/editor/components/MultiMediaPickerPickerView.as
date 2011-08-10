@@ -88,6 +88,10 @@ package org.arisgames.editor.components
 		{
 			trace("PlaceMarkerEditorMediaPickerView: handleCloseButton()");
 			PopUpManager.removePopUp(this);
+			
+			if (delegate.hasOwnProperty("didCloseWindow")){
+				delegate.didCloseWindow(this);
+			}	
 		}
 		
 		
