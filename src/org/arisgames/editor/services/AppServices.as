@@ -222,12 +222,12 @@ public class AppServices
 		if (isNaN(augBubble.augBubbleId) || augBubble.augBubbleId == 0)
 		{
 			trace("This Aug Bubble doesn't have an Id, so call create AugBubble.");
-			r = AppDAO.getInstance().getAugBubbleServer().createAugBubble(gid, augBubble.name, augBubble.desc, augBubble.iconMediaId, augBubble.mediaId, augBubble.alignMediaId);
+			r = AppDAO.getInstance().getAugBubbleServer().createAugBubble(gid, augBubble.name, augBubble.desc, augBubble.iconMediaId);
 		}
 		else
 		{
 			trace("This Aug Bubble has an Id (" + augBubble.augBubbleId + "), so call update augBubble. gameid:" + gid + " name:" + augBubble.name);
-			r = AppDAO.getInstance().getAugBubbleServer().updateAugBubble(gid, augBubble.augBubbleId, augBubble.name, augBubble.desc, augBubble.iconMediaId, augBubble.mediaId, augBubble.alignMediaId);
+			r = AppDAO.getInstance().getAugBubbleServer().updateAugBubble(gid, augBubble.augBubbleId, augBubble.name, augBubble.desc, augBubble.iconMediaId);
 		}
 		r.addResponder(resp);
 	}

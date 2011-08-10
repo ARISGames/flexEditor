@@ -413,8 +413,6 @@ public class AppUtils
 			augBubble.name = data.name;
 			augBubble.desc = data.description;
 			augBubble.iconMediaId = data.icon_media_id;
-			augBubble.mediaId = data.media_id;
-			augBubble.alignMediaId = data.alignment_media_id;
 	
 			return augBubble;
 		}

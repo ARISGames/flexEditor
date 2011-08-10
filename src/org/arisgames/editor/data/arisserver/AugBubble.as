@@ -8,8 +8,6 @@ package org.arisgames.editor.data.arisserver
 		public var name:String;
 		public var desc:String;
 		public var iconMediaId:Number;
-		public var mediaId:Number;
-		public var alignMediaId:Number;
 		public var media:ArrayCollection;
 		
 		/**
