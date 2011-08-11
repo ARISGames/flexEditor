@@ -54,6 +54,8 @@ public class PlaceMarker extends Marker
 		var options:MarkerOptions = new MarkerOptions();
 		options.draggable = true;
 		icon = new PlaceMarkerIcon(pm.name);
+		// TO SHOW IT WORKS IF GIVEN A URL
+		//icon.setNewIcon("http://www.profish-n-sea.com/images/banana1.gif");
 		options.icon = icon;
 		this.imageMatchMedia = pm.imageMatchMedia;
 		this.imageMatchMediaId = pm.imageMatchMediaId;
@@ -64,6 +66,7 @@ public class PlaceMarker extends Marker
         this.placemark.latitude = latLng.lat();
         this.placemark.longitude = latLng.lng();
         this.map = theMap;
+
         addEventListener(MapMouseEvent.CLICK, handleMouseClickedEvent);
         addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM, highlightMe);
