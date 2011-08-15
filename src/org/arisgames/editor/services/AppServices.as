@@ -502,9 +502,9 @@ public class AppServices
         l.addResponder(resp);
     }
 	
-	public function updateAugBubbleMediaIndex(augId:Number, mediaId:Number, game:Game, index:Number, resp:IResponder):void{
+	public function updateAugBubbleMediaIndex(augId:Number, mediaId:Number, name:String, game:Game, index:Number, resp:IResponder):void{
 		var l:Object;
-		l = AppDAO.getInstance().getAugBubbleServer().updateAugBubbleMediaIndex(augId, mediaId, game.gameId, index);
+		l = AppDAO.getInstance().getAugBubbleServer().updateAugBubbleMediaIndex(augId, mediaId, name, game.gameId, index);
 		l.addResponder(resp);
 	}
 	

@@ -24,6 +24,7 @@ public class PlaceMark
 	public var placeMarker:PlaceMarker;
 	public var imageMatchMediaId:Number;
 	public var imageMatchMedia:Media;
+	public var iconURL:String;
 
 	public var objectPalletItemBO:ObjectPaletteItemBO;
 

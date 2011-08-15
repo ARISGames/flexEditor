@@ -54,8 +54,13 @@ public class PlaceMarker extends Marker
 		var options:MarkerOptions = new MarkerOptions();
 		options.draggable = true;
 		icon = new PlaceMarkerIcon(pm.name);
-		// TO SHOW IT WORKS IF GIVEN A URL
-		//icon.setNewIcon("http://www.profish-n-sea.com/images/banana1.gif");
+		if(pm.objectPalletItemBO){
+			if(pm.objectPalletItemBO.iconMedia){
+				if(pm.objectPalletItemBO.iconMedia.urlPath){
+					icon.setNewIcon(pm.objectPalletItemBO.iconMedia.urlPath+pm.objectPalletItemBO.iconMedia.fileName);
+				}
+			}
+		}
 		options.icon = icon;
 		this.imageMatchMedia = pm.imageMatchMedia;
 		this.imageMatchMediaId = pm.imageMatchMediaId;
@@ -70,6 +75,7 @@ public class PlaceMarker extends Marker
         addEventListener(MapMouseEvent.CLICK, handleMouseClickedEvent);
         addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM, highlightMe);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OBJECTPALETTEITEMICONSET, setIcon);
     }
 	
 	public function highlightMe(evt:DynamicEvent):void {
@@ -90,6 +96,17 @@ public class PlaceMarker extends Marker
 		}
 		else{
 			icon.unHighlight();
+		}
+	}
+	
+	public function setIcon(evt:DynamicEvent):void {
+		trace("Placemarker: setting Icon");
+		var sameType:Boolean = false;
+		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5))
+			sameType = true;
+		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
+			this.placemark.iconURL = evt.iconURL;
+			this.icon.setNewIcon(evt.iconURL);
 		}
 	}
 

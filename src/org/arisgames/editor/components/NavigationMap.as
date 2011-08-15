@@ -126,6 +126,15 @@ public class NavigationMap extends Map3D
         trace("adding Place Marker with lat = " + pm.latitude + " lng = " + pm.longitude + "qrCode = " + pm.qrCode);
         var latLng:LatLng = new LatLng(pm.latitude, pm.longitude);
         var marker:PlaceMarker = new PlaceMarker(latLng, pm, this);
+		/*
+		for(var x:int = 0; x < GameModel.getInstance().game.gameObjects.length; x++){
+			if(pm.contentId == GameModel.getInstance().game.gameObjects.getItemAt(x).id){
+				var obj:ObjectPaletteItemBO = (GameModel.getInstance().game.gameObjects.getItemAt(x)) as ObjectPaletteItemBO;
+				pm.iconURL == GameModel.getInstance().game.gameObjects.getItemAt(x).iconMedia.urlPath + GameModel.getInstance().game.gameObjects.getItemAt(x).iconMedia.fileName;
+			}
+		}
+		/*/
+		marker.icon.setNewIcon(pm.iconURL);
         addOverlay(marker);
         markers.addItem(marker);
     }

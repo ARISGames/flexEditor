@@ -6,6 +6,7 @@ import mx.controls.Label;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
+import mx.events.DynamicEvent;
 
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Item;
@@ -17,7 +18,9 @@ import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.util.AppDynamicEventManager;
 
 public class ObjectEditorView extends Canvas
 {
@@ -104,6 +107,12 @@ public class ObjectEditorView extends Canvas
                 m.isDefault = obj.result.data.icon_media.is_default;
 
                 op.iconMedia = m;
+				
+				trace("ObjectEditorView: sending notification that new media was set");
+				var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OBJECTPALETTEITEMICONSET);
+				de.objectPaletteItem = op;
+				de.iconURL = m.urlPath + m.fileName;
+				AppDynamicEventManager.getInstance().dispatchEvent(de);		
             }
 
             op.mediaId = obj.result.data.media_id;

@@ -60,7 +60,7 @@ package org.arisgames.editor.view
 		}
 		
 		public function imageListWasUpdated(index:Number, obj:Object, uList:ArrayCollection):void{
-			AppServices.getInstance().updateAugBubbleMediaIndex(objectPaletteItem.augBubble.augBubbleId, obj.id, GameModel.getInstance().game, index, new Responder(handleUpdatedImageList, handleFault));
+			AppServices.getInstance().updateAugBubbleMediaIndex(objectPaletteItem.augBubble.augBubbleId, obj.id, obj.name, GameModel.getInstance().game, index, new Responder(handleUpdatedImageList, handleFault));
 		}
 		
 		public function mediaWasRemoved(index:Number, obj:Object):void {

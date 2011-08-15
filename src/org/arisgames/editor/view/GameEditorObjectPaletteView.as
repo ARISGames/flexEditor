@@ -187,6 +187,12 @@ public class GameEditorObjectPaletteView extends VBox
 					m.isDefault = obj.result.data.contents.list.getItemAt(j).icon_media.is_default;
 					
 					op.iconMedia = m;
+					
+					trace("GameEditorObjectPaletteView: sending notification that new media was set");
+					var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OBJECTPALETTEITEMICONSET);
+					de.objectPaletteItem = op;
+					de.iconURL = m.urlPath + m.fileName;
+					AppDynamicEventManager.getInstance().dispatchEvent(de);		
 				}
 			
 				op.mediaId = obj.result.data.contents.list.getItemAt(j).media_id;

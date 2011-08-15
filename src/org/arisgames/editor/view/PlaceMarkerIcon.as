@@ -31,6 +31,7 @@ public class PlaceMarkerIcon extends Sprite {
 	private var format:TextFormat;
 	private var ct:ColorTransform;
 	public var isHighlighted:Boolean;
+	public var bmp:Bitmap;
 	
 	public var ldr:Loader;
   
@@ -158,13 +159,23 @@ public class PlaceMarkerIcon extends Sprite {
   }
   
   public function setNewIcon(url:String):void {
-	  ldr.load(new URLRequest(url));
+	  if(url)
+	  	ldr.load(new URLRequest(url));
   }
   
   public function handleNewIcon(evt:Event):void {
-	  var bmp:Bitmap = ldr.content as Bitmap;
-	  bmp.x = 0;
+	  //Delete below line once fully implemented
+	  return;
+	  
+	  
+	  if(bmp)
+	  	removeChild(bmp);
+	  bmp = ldr.content as Bitmap;
+	  bmp.x = -16;
 	  bmp.y = 0;
+	  var tempW:int = bmp.width;
+	  bmp.width = 32;
+	  bmp.height *= (bmp.width/tempW)
 	  addChild(bmp);
   }
   

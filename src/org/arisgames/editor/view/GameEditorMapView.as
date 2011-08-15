@@ -47,7 +47,7 @@ public class GameEditorMapView extends VBox
         addEventListener(AppConstants.DYNAMICEVENT_GEOSEARCH, handleGeoSearchEvent);
     }
 
-    private function onMapGoButtonClick(evt:MouseEvent):void
+    private function onMapGoButtonClick(evt:Event):void
     {
         trace("process map search...");
         if (mapSearchText.text == null || mapSearchText.text.length < 1)
