@@ -6,6 +6,7 @@ import mx.rpc.IResponder;
 import org.arisgames.editor.dao.AppDAO;
 import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
+import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
@@ -378,6 +379,22 @@ public class AppServices
         l = AppDAO.getInstance().getContentServer().deleteContent(gid, opi.id);
         l.addResponder(resp);
     }
+	
+	public function getTabBarItemsForGame(gid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		trace("GetTabBarItemsForGame: GameId = " + gid);
+		l = AppDAO.getInstance().getGameServer().getTabBarItemsForGame(gid);
+		l.addResponder(resp);
+	}
+	
+	public function saveTab(gid:Number, tab:TabBarItem, resp:IResponder):void
+	{
+		var l:Object;
+		trace("Saving tab...");
+		l =  AppDAO.getInstance().getGameServer().saveTab(gid, tab.type, tab.index);
+		l.addResponder(resp);
+	}
 
     public function getFoldersAndContentByGameId(gid:Number, resp:IResponder):void
     {

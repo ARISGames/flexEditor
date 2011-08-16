@@ -184,6 +184,19 @@ public class AppConstants
 	public static const REQUIREMENT_BOOLEAN_OR_DATABASE:String = "OR";
 	public static const REQUIREMENT_BOOLEAN_OR_HUMAN:String = "Only this one";
 	
+	// Tab Bar Server Type
+	public static const TAB_BAR_TYPE_QUESTS:String = "QUESTS";
+	public static const TAB_BAR_TYP_GPSE:String = "GPS";
+	public static const TAB_BAR_TYPE_INVENTORY:String = "INVENTORY";
+	public static const TAB_BAR_TYPE_QR:String = "QR";
+	public static const TAB_BAR_TYPE_PLAYER:String = "PLAYER";
+	public static const TAB_BAR_TYPE_CAMERA:String = "CAMERA";
+	public static const TAB_BAR_TYPE_MICROPHONE:String = "MICROPHONE";
+	public static const TAB_BAR_TYPE_NOTE:String = "NOTE";
+	public static const TAB_BAR_TYPE_PICKGAME:String = "PICKGAME";
+	public static const TAB_BAR_TYPE_LOGOUT:String = "LOGOUT";
+	public static const TAB_BAR_TYPE_STARTOVER:String = "STARTOVER";
+	
     // Defaults
     public static const DEFAULT_ICON_MEDIA_ID_NPC:Number = 1;
     public static const DEFAULT_ICON_MEDIA_ID_ITEM:Number = 2;

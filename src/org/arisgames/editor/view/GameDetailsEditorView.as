@@ -19,19 +19,21 @@ import mx.controls.DataGrid;
 import mx.controls.Image;
 import mx.controls.Label;
 import mx.controls.LinkButton;
+import mx.controls.NumericStepper;
 import mx.controls.TextArea;
 import mx.controls.TextInput;
 import mx.events.CloseEvent;
+import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
-import mx.controls.NumericStepper;
 
 import org.arisgames.editor.components.GameEditorMediaPickerMX;
 import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
+import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -91,6 +93,7 @@ public class GameDetailsEditorView extends Panel{
 	public var game:Game;
 	[Bindable] public var nodes:ArrayCollection;
 	[Bindable] public var editors:ArrayCollection;
+	[Bindable] public var tabList:ArrayCollection;
 
     /**
      * Constructor
@@ -99,6 +102,7 @@ public class GameDetailsEditorView extends Panel{
     {
         super();
 		this.nodes = new ArrayCollection();
+		this.tabList = new ArrayCollection();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
     }
 
@@ -126,6 +130,8 @@ public class GameDetailsEditorView extends Panel{
 		
 		//Fetch the nodes
 		AppServices.getInstance().getPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNodes, handleFault));
+		//Fetch tab bar data
+		AppServices.getInstance().getTabBarItemsForGame(GameModel.getInstance().game.gameId, new Responder(handleLoadTabBarItems, handleFault));
     
 		//MediaStuff
 		iconAVLinkButton.addEventListener(MouseEvent.CLICK, handleIconAVButtonClick);
@@ -378,7 +384,16 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.completeNodeId = selectedNode.nodeId;
 		
 		GameModel.getInstance().game.saveOnServer();
+		this.saveTabs();
 		PopUpManager.removePopUp(this);
+	}
+	
+	public function saveTabs():void{
+		for(var x:Number = 0; x < this.tabList.length; x++)
+		{
+			tabList.getItemAt(x).index = x+1;
+			AppServices.getInstance().saveTab(GameModel.getInstance().game.gameId, tabList.getItemAt(x) as TabBarItem, new Responder(handleSaveTab, handleFault));
+		}
 	}
 	
 	private function handleSaveGameAfterRemove(obj:Object):void
@@ -644,6 +659,32 @@ public class GameDetailsEditorView extends Panel{
 		}
 		else
 			Alert.show("User was not found in database", "404");
+	}
+	
+	public function handleLoadTabBarItems(obj:Object):void
+	{
+		if(obj.result.returnCode != 0)
+			Alert.show("Error Loading Tab Bar Items");
+		else{
+			trace("Loaded tab bar items");
+			for(var x:Number = 0; x < obj.result.data.length; x++)
+			{
+				var tab:TabBarItem = new TabBarItem(obj.result.data[x].tab, obj.result.data[x].tab_index, true);
+				this.tabList.addItem(tab);
+			}
+			this.tabList.refresh();
+		}
+		
+	}
+	
+	public function handleSaveTab(obj:Object):void
+	{
+		
+	}
+	
+	public function handleTabReorder(evt:DragEvent):void
+	{
+		trace("whoopie!");
 	}
 	
     public function handleFault(obj:Object):void

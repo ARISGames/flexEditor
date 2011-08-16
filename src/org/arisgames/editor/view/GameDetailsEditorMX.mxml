@@ -109,13 +109,41 @@
 							<mx:DataGridColumn headerText="Current Editors" dataField="name"/>
 						</mx:columns>
 					</mx:DataGrid>
-					<!-- <mx:TextInput id="removeEditorEmail" width = "1"/> -->
 				</mx:FormItem>
 				<mx:FormItem>
 					<mx:Button id="removeEditor" label="Remove Editor" click="handleRemoveEditor(event)"/>
 				</mx:FormItem>
 			</mx:Form>
 		</mx:Canvas>
+		
+		<!-- Tab Config -->
+		<mx:Canvas label="Configure Tabs">
+			<mx:HorizontalList id="TabView"
+							   dataProvider="{tabList}"
+							   top="20"
+							   left="20"
+							   height="90%"
+							   width="90%"
+							   rowHeight="40"
+							   columnWidth="40"
+							   dragEnabled="true" 
+							   dropEnabled="true"
+							   dragMoveEnabled="true"
+							   dragDrop="handleTabReorder(event)"
+							   rollOverColor="#FFFFFF"
+							   selectionColor="#FFFFFF"
+							>
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:HBox>
+							<mx:Image source="{'assets/img/' + data.type + '.png'}" height="30" width="30" />
+						</mx:HBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:HorizontalList>
+		</mx:Canvas>
+		
+		
 		<mx:Canvas label="Game Links">
 			<mx:Button x="112" y="89" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>
 			<mx:Button x="112" y="119" label="Download KML of Player Created Media" width="286" id="pcmKMLButton" click="handlePcmKMLButton(event)"/>
