@@ -392,6 +392,7 @@ public class AppServices
 	{
 		var l:Object;
 		trace("Saving tab...");
+		if(!tab.enabled) tab.index = 0;
 		l =  AppDAO.getInstance().getGameServer().saveTab(gid, tab.type, tab.index);
 		l.addResponder(resp);
 	}

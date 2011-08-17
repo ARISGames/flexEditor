@@ -118,7 +118,7 @@
 		
 		<!-- Tab Config -->
 		<mx:Canvas label="Configure Tabs">
-			<mx:HorizontalList id="TabView"
+			<mx:HorizontalList id="tabView"
 							   dataProvider="{tabList}"
 							   top="20"
 							   left="20"
@@ -130,13 +130,14 @@
 							   dropEnabled="true"
 							   dragMoveEnabled="true"
 							   dragDrop="handleTabReorder(event)"
+							   click="handleIconClick(event)"
 							   rollOverColor="#FFFFFF"
 							   selectionColor="#FFFFFF"
 							>
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:HBox>
-							<mx:Image source="{'assets/img/' + data.type + '.png'}" height="30" width="30" />
+							<mx:Image source="{'assets/img/' + data.type + data.append + '.png'}" height="30" width="30" />
 						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>

@@ -1,6 +1,7 @@
 package org.arisgames.editor.view
 {
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
@@ -16,6 +17,7 @@ import mx.controls.Button;
 import mx.controls.CheckBox;
 import mx.controls.ComboBox;
 import mx.controls.DataGrid;
+import mx.controls.HorizontalList;
 import mx.controls.Image;
 import mx.controls.Label;
 import mx.controls.LinkButton;
@@ -94,6 +96,7 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var nodes:ArrayCollection;
 	[Bindable] public var editors:ArrayCollection;
 	[Bindable] public var tabList:ArrayCollection;
+	[Bindable] public var tabView:HorizontalList;
 
     /**
      * Constructor
@@ -142,6 +145,21 @@ public class GameDetailsEditorView extends Panel{
 		mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleMediaPickerButton);
 	
 		pushDataIntoGUI();
+	}
+	
+	public function handleIconClick(evt:Event):void {
+		trace("THIS-> "+tabView.selectedIndex);
+		if(!tabList[tabView.selectedIndex].enabled)
+		{
+			tabList[tabView.selectedIndex].enabled = true;
+			tabList[tabView.selectedIndex].append = "";
+		}
+		else if(tabList[tabView.selectedIndex].enabled)
+		{
+			tabList[tabView.selectedIndex].enabled = false;
+			tabList[tabView.selectedIndex].append = "_DIM";
+		}
+		tabList.refresh();
 	}
 	
 	private function loadGameMedia():void {
@@ -669,7 +687,8 @@ public class GameDetailsEditorView extends Panel{
 			trace("Loaded tab bar items");
 			for(var x:Number = 0; x < obj.result.data.length; x++)
 			{
-				var tab:TabBarItem = new TabBarItem(obj.result.data[x].tab, obj.result.data[x].tab_index, true);
+				var tab:TabBarItem = new TabBarItem(obj.result.data[x].tab, obj.result.data[x].tab_index, true, "");
+				if(tab.index == 0){ tab.append = "_DIM"; tab.enabled = false;}
 				this.tabList.addItem(tab);
 			}
 			this.tabList.refresh();
@@ -684,7 +703,7 @@ public class GameDetailsEditorView extends Panel{
 	
 	public function handleTabReorder(evt:DragEvent):void
 	{
-		trace("whoopie!");
+		trace("Tab Re-ordered");
 	}
 	
     public function handleFault(obj:Object):void
