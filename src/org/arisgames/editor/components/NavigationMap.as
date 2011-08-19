@@ -95,6 +95,7 @@ public class NavigationMap extends Map3D
 
         // Add listener to Game model
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED, handlePlaceMarkModelChanges);
+		this.centerMapOnData(false);
     }
 
     private function handlePlaceMarkModelChanges(de:DynamicEvent):void
@@ -118,7 +119,7 @@ public class NavigationMap extends Map3D
         trace("Done with handlePlaceMarkModelChanges");
 		
 		trace("centering map on data...");
-		centerMapOnData(false);
+		//centerMapOnData(false);
     }
 
     private function addPlaceMarker(pm:PlaceMark):void

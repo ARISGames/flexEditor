@@ -74,7 +74,7 @@ public class GameEditorMapView extends VBox
 	{
 		trace("GameEditorMapView: Refresh Button Clicked!");
 		GameModel.getInstance().loadLocations(); //Refresh Map Locations
-		theMap.centerMapOnData(false); //Center Map
+		//theMap.centerMapOnData(false); //Center Map
 		var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE); //Refresh Side Palette
 		AppDynamicEventManager.getInstance().dispatchEvent(de);
 	}
