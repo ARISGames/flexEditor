@@ -111,6 +111,13 @@ public class AppServices
 
 	}
 
+	public function duplicateObject(game:Game, obId:int, resp:IResponder):void
+	{
+		trace("Appservices: duplicateItem");
+		var r:Object;
+		r = AppDAO.getInstance().getContentServer().duplicateObject(game.gameId, obId);
+		r.addResponder(resp);
+	}
 
     public function loadGamesByUserId(userId:Number, resp:IResponder):void
     {

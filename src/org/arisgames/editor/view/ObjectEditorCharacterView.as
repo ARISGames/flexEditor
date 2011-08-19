@@ -88,6 +88,11 @@ public class ObjectEditorCharacterView extends Panel
 
 	public function handleConversationInventoryButton(evt:MouseEvent):void
 	{
+		//?
+	}
+	
+	public function duplicateObject(evt:Event):void {
+		AppServices.getInstance().duplicateObject(GameModel.getInstance().game, objectPaletteItem.id, new Responder(handleDupedObject, handleFault));
 	}
 	
 	public function handleUpPressed(evt:Event):void{
@@ -437,6 +442,23 @@ public class ObjectEditorCharacterView extends Panel
         }
         trace("ItemEditorCharacterView: Finished with handleSaveContent().");
     }
+	
+	public function handleDupedObject(obj:Object):void
+	{
+		trace("In handleDupedObject() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad dub object attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Getting Content For Editor");
+		}
+		else
+		{
+			trace("refresh the sideBar");
+			var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);	
+		}
+	}
 
     public function handleFault(obj:Object):void
     {
