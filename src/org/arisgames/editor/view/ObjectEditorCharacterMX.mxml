@@ -45,14 +45,18 @@
 			<mx:DataGridColumn headerText="Requires" editable="false" width="65">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="+" click="outerDocument.handleConversationRequirementsButton(event)" />
+						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+							<mx:Button label="+" width="65" click="outerDocument.handleConversationRequirementsButton(event)" />
+						</mx:HBox>
 					</mx:Component>	
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
 			<mx:DataGridColumn headerText="Exchange" editable="false" width="65">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Button label="+" click="outerDocument.handleConversationPlayerStateChangesButton(event)" />
+						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+							<mx:Button label="+" width="65" click="outerDocument.handleConversationPlayerStateChangesButton(event)" />
+						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
@@ -69,7 +73,9 @@
 			<mx:DataGridColumn headerText="Delete" editable="false" width="55">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:LinkButton label="X" click="outerDocument.handleDeleteButtonClick(event)" />
+						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+							<mx:LinkButton label="X" width="55" click="outerDocument.handleDeleteButtonClick(event)" />
+						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

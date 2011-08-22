@@ -37,6 +37,7 @@ public class ObjectEditorView extends Canvas
     [Bindable] public var characterEditor:ObjectEditorCharacterView;
     [Bindable] public var plaqueEditor:ObjectEditorPlaqueView;
 	[Bindable] public var augBubbleEditor:ObjectEditorAugBubbleView;
+	public var stdHeight:Number;
 
     
     /**
@@ -51,6 +52,7 @@ public class ObjectEditorView extends Canvas
     private function handleInit(event:FlexEvent):void
     {
         trace("ObjectEditorView: in handleInit");
+		this.stdHeight = this.height;
     }
 
     public function getObjectPaletteItem():ObjectPaletteItemBO
@@ -261,6 +263,8 @@ public class ObjectEditorView extends Canvas
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
 		this.width=470;
+		this.height = this.stdHeight;
+		
 		
         if (objectPaletteItem.isFolder())
         {
@@ -269,6 +273,7 @@ public class ObjectEditorView extends Canvas
 			secretText.text = "id="+folderEditor.objectPaletteItem.objectId+"";
             folderEditor.setVisible(true);
             folderEditor.includeInLayout = true;
+			this.height = 100;
         }
         else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
         {
