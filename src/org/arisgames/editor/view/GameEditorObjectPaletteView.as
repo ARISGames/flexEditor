@@ -36,6 +36,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.PlayerNote;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
@@ -429,6 +430,11 @@ public class GameEditorObjectPaletteView extends VBox
 				//trace("Load underlying aug Bubble data...");
 				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (obj.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
+			{
+				//trace("Load underlying player note data...");
+				AppServices.getInstance().getPlayerNoteById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 		}
 		else
 		{
@@ -450,6 +456,7 @@ public class GameEditorObjectPaletteView extends VBox
 		var node:Node = null;
 		var webPage:WebPage = null;
 		var augBubble:AugBubble = null;
+		var playerNote:PlayerNote = null;
 		
 		var data:Object = retObj.result.data;
 		var objType:String = "";
@@ -489,6 +496,13 @@ public class GameEditorObjectPaletteView extends VBox
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
 		}
+		else if (data.hasOwnProperty("note_id"))
+		{
+			trace("retObj has a note_id!  It's value = '" + data.note_id + "', its name = '" + data.title + "'.");
+			playerNote = AppUtils.parseResultDataIntoPlayerNote(data);
+			
+			objType = AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE;
+		}
 		else
 		{
 			trace("retObj data type couldn't be found, returning.");
@@ -503,7 +517,7 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + ", and its name = '" + obj.name + "'");
-			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node, webPage, augBubble);
+			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node, webPage, augBubble, playerNote);
 		}
 	}
 
@@ -561,6 +575,14 @@ public class GameEditorObjectPaletteView extends VBox
 			augBubble.name = ti.text;
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, augBubble, new Responder(handleSaveAugBubble, handleFault));
 		}
+		else if (obj.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
+		{
+			trace("It's a note...");
+			var playerNote:PlayerNote = new PlayerNote();
+			playerNote.playerNoteId = obj.objectId;
+			playerNote.title = ti.text;
+			AppServices.getInstance().savePlayerNote(GameModel.getInstance().game.gameId, playerNote, new Responder(handleSavePlayerNote, handleFault));
+		}
         else if (obj.isFolder())
         {
             trace("It's a folder, with ID = '" + obj.id + "'");
@@ -601,7 +623,7 @@ public class GameEditorObjectPaletteView extends VBox
         var pt:Point = new Point();
         var myMenu:Menu;
 
-        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}];
+        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}, {label: AppConstants.CONTENTTYPE_PLAYER_NOTE, type: "normal"}];
 
         myMenu = Menu.createMenu(objectPalette, myMenuData, false);
         myMenu.addEventListener("itemClick", menuHandler);
@@ -611,7 +633,7 @@ public class GameEditorObjectPaletteView extends VBox
         pt.y = addObjectButton.y;
         pt = addObjectButton.localToGlobal(pt);
 
-        myMenu.show(pt.x + 0, pt.y - 66); // WB Magic number values here, play around with them as needed
+        myMenu.show(pt.x + 0, pt.y-120); // WB Magic number values here, play around with them as needed
     }
 
     private function addFolderButtonOnClick(evt:MouseEvent):void
@@ -686,6 +708,15 @@ public class GameEditorObjectPaletteView extends VBox
 			a.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_AUGBUBBLE;
 			this.addObjectPaletteItem(a);
 		}
+		else if (AppConstants.CONTENTTYPE_PLAYER_NOTE == stuff)
+		{
+			trace("add a player note to the object palette...");
+			var pn:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
+			pn.name = AppConstants.CONTENTTYPE_PLAYER_NOTE_DEFAULT_NAME;
+			pn.objectType = AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE;
+			pn.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_PLAYER_NOTE;
+			this.addObjectPaletteItem(pn);
+		}
 		
         trace("Done with menuHandler.");
     }
@@ -741,6 +772,15 @@ public class GameEditorObjectPaletteView extends VBox
 			augBubble.iconMediaId = item.iconMediaId;
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, augBubble, new Responder(handleCreateAugBubble, handleFault));
 			trace("Just finished calling saveAugBubble() for name = '" + item.name + "'.");
+		}
+		else if (item.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
+		{
+			var playerNote:PlayerNote = new PlayerNote();
+			playerNote.playerNoteId = 0;
+			playerNote.title = item.name;
+			playerNote.iconMediaId = item.iconMediaId;
+			AppServices.getInstance().savePlayerNote(GameModel.getInstance().game.gameId, playerNote, new Responder(handleCreatePlayerNote, handleFault));
+			trace("Just finished calling savePlayerNote() for name = '" + item.name + "'.");
 		}
         else if (item.isFolder())
         {
@@ -927,6 +967,22 @@ public class GameEditorObjectPaletteView extends VBox
 		trace("GameEditorObjectPalletView: Finished with handleSaveAugBubble().");
 	}
 	
+	public function handleSavePlayerNote(obj:Object):void
+	{
+		trace("GameEditorObjectPalletView: In handleSavePlayerNote() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("GameEditorObjectPalletView: Bad save playerNote attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Saving PlayerNote");
+		}
+		else
+		{
+			trace("GameEditorObjectPalletView: Save Player Note was successful.");
+		}
+		trace("GameEditorObjectPalletView: Finished with handleSavePlayerNote().");
+	}
+	
 	
     public function handleSaveCharacter(obj:Object):void
     {
@@ -1046,6 +1102,35 @@ public class GameEditorObjectPaletteView extends VBox
 			}
 		}
 		trace("Finished with handleCreateAugBubble().");
+	}
+	
+	public function handleCreatePlayerNote(obj:Object):void
+	{
+		trace("In handleCreatePlayerNote() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad create playerNote attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Creating playerNote");
+		}
+		else
+		{
+			trace("Create playerNote was successful.");
+			for (var lc:Number = 0; lc < treeModel.length; lc++)
+			{
+				var it:ObjectPaletteItemBO = treeModel.getItemAt(lc) as ObjectPaletteItemBO;
+				trace("LC = " + lc + "; it.id = '" + it.id + "; Object Type = '" + it.objectType + "'; objectId = '" + it.objectId + "'; Return Object Id = '" + obj.result.data + "'");
+				if (it.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE && isNaN(it.objectId))
+				{
+					it.id = 0;
+					it.objectId = obj.result.data;
+					trace("Found a playerNote with a NULL object Id, so setting it to the data's result: " + obj.result.data);
+					AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, it, new Responder(handleSaveContent, handleFault));
+					break;
+				}
+			}
+		}
+		trace("Finished with handleCreatePlayerNote().");
 	}
 	
 
@@ -1228,7 +1313,12 @@ public class GameEditorObjectPaletteView extends VBox
 						trace("Object With Id = " + it.id + " is missing it's augBubble data (ID = " + it.objectId + "), so need to load it.");
 						AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfAugBubbleData, handleFault))
 					}
-                    break;
+                    if (it.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE && it.playerNote == null)
+					{
+						trace("Object With Id = " + it.id + " is missing it's playerNote data (ID = " + it.objectId + "), so need to load it.");
+						AppServices.getInstance().getPlayerNoteById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfPlayerNoteData, handleFault))
+					}
+					break;
                 }
             }
         }
@@ -1253,7 +1343,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null, null, null, null);
             }
         }
     }
@@ -1275,7 +1365,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null, null, null, null);
             }
         }
     }
@@ -1297,7 +1387,7 @@ public class GameEditorObjectPaletteView extends VBox
 			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
 			{
 				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_WEBPAGE_DATABASE, null, null, null, webPage, null);
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_WEBPAGE_DATABASE, null, null, null, webPage, null, null);
 			}
 		}
 	}
@@ -1319,7 +1409,29 @@ public class GameEditorObjectPaletteView extends VBox
 			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
 			{
 				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE, null, null, null, null, augBubble);
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE, null, null, null, null, augBubble, null);
+			}
+		}
+	}
+	
+	private function handlePairingOfPlayerNoteData(obj:Object):void
+	{
+		trace("In handlePairingOfPlayerNoteData() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handlePairingOfPlayerNoteData... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Adding PlayerNote");
+		}
+		else
+		{
+			var data:Object = obj.result.data;
+			var playerNote:PlayerNote = AppUtils.parseResultDataIntoPlayerNote(data);
+			
+			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
+			{
+				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE, null, null, null, null, null, playerNote);
 			}
 		}
 	}
@@ -1341,7 +1453,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node, null, null, null);
             }
         }
     }

@@ -115,6 +115,10 @@ public class Requirement
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
         }
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE)
+		{
+			trace("requirement about player notes");
+		}
         else
         {
             trace("setRequirementDetail1(): Should never have gotten this far, but if it does there's not going to be any objects loaded.");
@@ -190,6 +194,10 @@ public class Requirement
 				name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
+			}
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE)
+			{
+				trace("Player note requriement picked. Do nothin'");
 			}
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
             {

@@ -68,6 +68,7 @@ public class AppConstants
     public static const CONTENTTYPE_ITEM:String = "Item";
 	public static const CONTENTTYPE_WEBPAGE:String = "WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE:String = "Panoramic";
+	public static const CONTENTTYPE_PLAYER_NOTE:String = "PlayerNote";
     public static const CONTENTTYPE_QRCODEGROUP:String = "QR Code Group";
     public static const CONTENTTYPE_PAGE_VAL:Number = 0;
     public static const CONTENTTYPE_CHARACTER_VAL:Number = 1;
@@ -75,11 +76,13 @@ public class AppConstants
     public static const CONTENTTYPE_QRCODEGROUP_VAL:Number = 3;
 	public static const CONTENTTYPE_WEBPAGE_VAL:Number = 4;
 	public static const CONTENTTYPE_AUGBUBBLE_VAL:Number = 5;
+	public static const CONTENTTYPE_PLAYER_NOTE_VAL:Number = 6;
     public static const CONTENTTYPE_PAGE_DATABASE:String = "Node";
     public static const CONTENTTYPE_CHARACTER_DATABASE:String = "Npc";
 	public static const CONTENTTYPE_ITEM_DATABASE:String = "Item";
 	public static const CONTENTTYPE_WEBPAGE_DATABASE:String = "WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DATABASE:String = "AugBubble";
+	public static const CONTENTTYPE_PLAYER_NOTE_DATABASE:String = "PlayerNote";
     public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
 	
 	// Default Names (Name of new objects as they are created)
@@ -88,6 +91,7 @@ public class AppConstants
 	public static const CONTENTTYPE_ITEM_DEFAULT_NAME:String = "Unnamed Item";
 	public static const CONTENTTYPE_WEBPAGE_DEFAULT_NAME:String = "Unnamed WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DEFAULT_NAME:String = "Unnamed Panoramic";
+	public static const CONTENTTYPE_PLAYER_NOTE_DEFAULT_NAME:String = "Unnamed Player Note";
 
     // Label Constants
     public static const BUTTON_LOGIN:String = "Login!";
@@ -123,6 +127,7 @@ public class AppConstants
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_WEBPAGE:String = "VIEW_WEBPAGE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_AUGBUBBLE:String = "VIEW_AUGBUBBLE";
+	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_PLAYER_NOTE:String = "VIEW_PLAYER_NOTE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NODE:String = "VIEW_NODE";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_NPC:String = "VIEW_NPC";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_RECEIVE_WEBHOOK:String = "RECEIVE_WEBHOOK";
@@ -156,6 +161,10 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN:String = "Player Viewed Aug Bubble";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_AUGBUBBLE";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN:String = "Player Never Viewed Aug Bubble";
+	public static const REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE:String = "PLAYER_VIEWED_PLAYER_NOTE";
+	public static const REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_HUMAN:String = "Player Viewed Player Note";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_HUMAN:String = "Player Never Viewed Player Note";
     public static const REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:String = "PLAYER_VIEWED_NODE";
     public static const REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN:String = "Player Viewed Plaque/Script";
     public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_NODE";
@@ -203,6 +212,7 @@ public class AppConstants
     public static const DEFAULT_ICON_MEDIA_ID_PLAQUE:Number = 3;
 	public static const DEFAULT_ICON_MEDIA_ID_WEBPAGE:Number = 4;
 	public static const DEFAULT_ICON_MEDIA_ID_AUGBUBBLE:Number = 5;
+	public static const DEFAULT_ICON_MEDIA_ID_PLAYER_NOTE:Number = 5;
 
 	// Palette Tree Stuff
 	public static const PALETTE_TREE_SELF_FOLDER_ID:Number = 0;

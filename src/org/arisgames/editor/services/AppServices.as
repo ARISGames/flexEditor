@@ -12,6 +12,7 @@ import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
+import org.arisgames.editor.data.arisserver.PlayerNote;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
@@ -168,11 +169,34 @@ public class AppServices
 		r = AppDAO.getInstance().getAugBubbleServer().getAugBubbles(gid);
 		r.addResponder(resp);
 	}
+	
+	public function getPlayerNoteById(gid:Number, pnid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getPlayerNoteServer().getNoteById(pnid);
+		r.addResponder(resp);
+	}
 
 	public function getWebHookById(gid:Number, wid:Number, resp:IResponder):void
 	{
 		var r:Object;
 		r = AppDAO.getInstance().getWebHookServer().getWebHook(gid, wid);
+		r.addResponder(resp);
+	}
+	
+	public function savePlayerNote(gid:Number, playerNote:PlayerNote, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(playerNote.playerNoteId) || playerNote.playerNoteId == 0)
+		{
+			trace("This item doesn't have a player note Id, so call create Player Note");
+			r = AppDAO.getInstance().getPlayerNoteServer().createNewNote(gid, 0);
+		}
+		else
+		{
+			trace("This item has a playerNoteId (" + playerNote.playerNoteId + "), so call update PlayerNote.");
+			r = AppDAO.getInstance().getPlayerNoteServer().updateNote(playerNote.playerNoteId, playerNote.title, playerNote.shared);
+		}
 		r.addResponder(resp);
 	}
 	
@@ -542,6 +566,24 @@ public class AppServices
 	public function getAugBubbleMedia(gid:Number, augId:Number, resp:IResponder):void{
 		var l:Object;
 		l = AppDAO.getInstance().getAugBubbleServer().getAugBubbleMedia(gid, augId);
+		l.addResponder(resp);
+	}
+	
+	public function updatePlayerNoteMediaIndex(pnId:Number, mediaId:Number, game:Game, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().addContentToNote(pnId, game.gameId, mediaId, "MEDIA", "");
+		l.addResponder(resp);
+	}
+	
+	public function removePlayerNoteMediaIndex(augId:Number, mediaId:Number, index:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().removePlayerNoteMediaIndex(augId, mediaId, index);
+		l.addResponder(resp);
+	}
+	
+	public function getPlayerNoteMedia(gid:Number, augId:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().getPlayerNoteMedia(gid, augId);
 		l.addResponder(resp);
 	}
 

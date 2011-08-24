@@ -465,6 +465,24 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
 		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.item.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Icon Media Id = '" + objectPaletteItem.item.iconMediaId + "'");
+			}
+			else
+			{
+				objectPaletteItem.item.mediaId = m.mediaId;
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
+			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
 		
 		this.pushDataIntoGUI();
 		
