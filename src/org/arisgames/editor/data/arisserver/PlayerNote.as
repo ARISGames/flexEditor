@@ -13,6 +13,7 @@ package org.arisgames.editor.data.arisserver
 		public var shared:Boolean;
 		public var iconMediaId:Number;
 		public var media:ArrayCollection;
+		public var textBlob:String;
 
 
 		/**

@@ -51,6 +51,7 @@ package org.arisgames.editor.view
 		{
 			trace("ItemEditorItemView: handleInit");
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+			multiMedia.allowAllMediaTypesf(true);
 			multiMedia.setDelegate(this);
 		}
 		
@@ -63,7 +64,7 @@ package org.arisgames.editor.view
 		}
 		
 		public function mediaWasRemoved(index:Number, obj:Object):void {
-			AppServices.getInstance().removePlayerNoteMediaIndex(objectPaletteItem.playerNote.playerNoteId, obj.id, index, new Responder(handleRemovedImageList, handleFault));
+			AppServices.getInstance().removePlayerNoteMediaIndex(obj.contentId, new Responder(handleRemovedImageList, handleFault));
 		}
 		
 		public function getObjectPaletteItem():ObjectPaletteItemBO

@@ -30,6 +30,7 @@ package org.arisgames.editor.components
 		public var delegate:Object;
 		private var placeMarker:PlaceMarker;
 		private var uploadFormVisable:Boolean = false;
+		public var allowAllMediaTypes:Boolean = false;
 		
 		// Media Data
 		[Bindable] public var xmlData:XML;
@@ -115,7 +116,7 @@ package org.arisgames.editor.components
 			PopUpManager.removePopUp(this);
 		}
 		
-		
+	
 		private function handleLoadingOfMediaIntoXML(obj:Object):void
 		{
 			trace("In handleLoadingOfMediaIntoXML() Result called with obj = " + obj + "; Result = " + obj.result);
@@ -129,6 +130,12 @@ package org.arisgames.editor.components
 			
 			//Init the XML Data
 			xmlData = new XML('<nodes label="' + AppConstants.MEDIATYPE + '"/>');
+			
+			if (this.allowAllMediaTypes) {
+				xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_IMAGE + '"/>');
+				xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_AUDIO + '"/>');
+				xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_VIDEO + '"/>');
+			}
 			
 			this.printXMLData();
 			
@@ -144,7 +151,15 @@ package org.arisgames.editor.components
 			{
 				//Add "Upload new" at top
 				if(k == 0){
-					xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
+					if(this.allowAllMediaTypes){
+						xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
+						xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
+						xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
+					}
+					else{
+						xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_UPLOADNEW + '" icon="'+ AppConstants.MEDIATREEICON_UPLOAD +'"/>');
+
+					}
 				}
 				for (var j:Number = 0; j < media.length; j++)
 				{
@@ -161,14 +176,44 @@ package org.arisgames.editor.components
 						m.isDefault = o.is_default; //for both default files and uploaded files
 						
 						var node:String = "<node label='" + AppUtils.filterStringToXMLEscapeCharacters(m.name) + "' mediaId='" + m.mediaId + "' type='" + m.type + "' urlPath='" + m.urlPath + "' fileName='" + m.fileName + "' isDefault='" + m.isDefault + "'/>";	
-						if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
-						xmlData.appendChild(node);
-						numIconDefaults+=k;
 						
+						if(this.allowAllMediaTypes){
+							switch (m.type)
+							{
+								case AppConstants.MEDIATYPE_IMAGE:
+									//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+									if(k > numImageDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+									xmlData.node.(@label == AppConstants.MEDIATYPE_IMAGE).appendChild(node);
+									numImageDefaults+=k;
+									break;
+								case AppConstants.MEDIATYPE_AUDIO:
+									//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+									if(k > numAudioDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+									xmlData.node.(@label == AppConstants.MEDIATYPE_AUDIO).appendChild(node);
+									numAudioDefaults+=k;
+									break;
+								case AppConstants.MEDIATYPE_VIDEO:
+									//Only add "-----------" (AppConstants.MEDIATYPE_SEPARATOR) if there are also defaults to choose from
+									if(k > numVideoDefaults) xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+									xmlData.node.(@label == AppConstants.MEDIATYPE_VIDEO).appendChild(node);
+									numVideoDefaults+=k;
+									break;
+								case AppConstants.MEDIATYPE_ICON:
+									break;
+								default:
+									trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
+									break;
+							}
+						}
+						else{
+							if(k > numIconDefaults) xmlData.appendChild('<node label="' + AppConstants.MEDIATYPE_SEPARATOR + '" icon="'+ AppConstants.MEDIATREEICON_SEPARATOR +'"/>');
+							xmlData.appendChild(node);
+							numIconDefaults+=k;
+						}
 					}
 				}
 			}
-			trace("PlaceMarkerEditorMediaPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
+			trace("MultiMediaPickerPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
 			this.printXMLData();
 			
 			trace("Finished with handleLoadingOfMediaIntoXML().");
@@ -211,8 +256,6 @@ package org.arisgames.editor.components
 				selectButton.enabled = false;	
 			}
 		}
-		
-		
 		
 		private function displayMediaUploader():void
 		{

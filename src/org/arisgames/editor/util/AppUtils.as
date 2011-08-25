@@ -12,6 +12,7 @@ import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.PlayerNote;
+import org.arisgames.editor.data.arisserver.PlayerNoteMedia;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
@@ -446,6 +447,13 @@ public class AppUtils
 		{
 			trace("retObj has a note_id!  It's value = '" + data.note_id + "'.");
 			var playerNote:PlayerNote= new PlayerNote();
+			
+			playerNote.media = new ArrayCollection();
+			playerNote.textBlob = "";
+			for(var x:Number = 0; x < data.contents.length; x++){
+				if(data.contents[x].type == "TEXT") playerNote.textBlob = playerNote.textBlob + data.contents[x].text + "; ";
+				else playerNote.media.addItem(new PlayerNoteMedia(data.contents[x].media_id, data.contents[x].text, data.contents[x].sort_index, data.contents[x].content_id));
+			}
 			
 			playerNote.playerNoteId = data.note_id;
 			playerNote.ownerId = data.owner_id;

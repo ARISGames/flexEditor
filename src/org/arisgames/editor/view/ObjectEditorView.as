@@ -277,6 +277,8 @@ public class ObjectEditorView extends Canvas
 		webPageEditor.includeInLayout = false;
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
+		playerNoteEditor.setVisible(false);
+		playerNoteEditor.includeInLayout = false;
 		this.width=470;
 		this.height = this.stdHeight;
 		

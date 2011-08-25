@@ -32,6 +32,7 @@ package org.arisgames.editor.view
 	{
 		
 		public var selectedIndex:Number;
+		public var allowAllMediaTypes:Boolean = false;
 		
 		// GUI
 		
@@ -68,6 +69,10 @@ package org.arisgames.editor.view
 			images = new ArrayCollection();
 			namez = new ArrayCollection();
 			this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit);
+		}
+		
+		public function allowAllMediaTypesf(y:Boolean){
+			this.allowAllMediaTypes = y;
 		}
 		
 		private function handleInit(event:FlexEvent):void
@@ -171,6 +176,7 @@ package org.arisgames.editor.view
 		{
 			mediaPicker = new MultiMediaPickerPickerMX();
 			mediaPicker.delegate = this;
+			mediaPicker.allowAllMediaTypes = this.allowAllMediaTypes;
 			
 			PopUpManager.addPopUp(mediaPicker, AppUtils.getInstance().getMainView(), true);
 			PopUpManager.centerPopUp(mediaPicker);

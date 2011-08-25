@@ -575,9 +575,9 @@ public class AppServices
 		l.addResponder(resp);
 	}
 	
-	public function removePlayerNoteMediaIndex(augId:Number, mediaId:Number, index:Number, resp:IResponder):void{
+	public function removePlayerNoteMediaIndex(contentId:Number, resp:IResponder):void{
 		var l:Object;
-		l = AppDAO.getInstance().getPlayerNoteServer().removePlayerNoteMediaIndex(augId, mediaId, index);
+		l = AppDAO.getInstance().getPlayerNoteServer().deleteNoteContent(contentId);
 		l.addResponder(resp);
 	}
 	

@@ -8,16 +8,18 @@ package org.arisgames.editor.data.arisserver
 		public var media:Media;
 		public var index:Number;
 		public var name:String;
+		public var contentId:Number;
 		
 		/**
 		 * Constructor
 		 */
-		public function PlayerNoteMedia(mId:Number, text:String, index:Number)
+		public function PlayerNoteMedia(mId:Number, text:String, index:Number, cId:Number)
 		{
 			super();
 			this.id = mId;
 			this.text = text;
 			this.index = index;
+			this.contentId = cId;
 		}
 	}
 }
