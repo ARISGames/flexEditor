@@ -22,7 +22,7 @@
 					<mx:String>Normal</mx:String>
 					<mx:String>Web Item</mx:String>
 					<mx:String>Attribute</mx:String>
-					<mx:String>Note</mx:String>
+					<!-- <mx:String>Note</mx:String> -->
 				</mx:ArrayCollection>
 			</mx:ComboBox>
 			</mx:FormItem>
