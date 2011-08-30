@@ -3,7 +3,7 @@
 						xmlns:main="org.arisgames.editor.*"
 						xmlns:v="org.arisgames.editor.view.*"
 						xmlns:c="org.arisgames.editor.components.*"
-						title="Item Editor"
+						title="WebPage Editor"
 						paddingTop="10"
 						paddingLeft="10"
 						paddingRight="10"

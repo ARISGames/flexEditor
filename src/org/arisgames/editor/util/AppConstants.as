@@ -4,9 +4,9 @@ public class AppConstants
 {
 	//Server URL
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/stagingserver1"; //For other URL's to append to- Staging
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://Phildos.local/server"; //For other URL's to append to- Phil's Machine
+	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://Phildos.local/server"; //For other URL's to append to- Phil's Machine
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
-	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/qaserver"; //For other URL's to append to- QA
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/qaserver"; //For other URL's to append to- QA
 
 	
 	//Server Version
@@ -18,9 +18,9 @@ public class AppConstants
 	public static const APPLICATION_ENVIRONMENT_GATEWAY_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gateway.php"; //services-config.xml
 
 	//Google API
-	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
+	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
-	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
+	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
 
 
@@ -158,9 +158,9 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_WEBPAGE";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN:String = "Player Never Viewed Web Page";
 	public static const REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE:String = "PLAYER_VIEWED_AUGBUBBLE";
-	public static const REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN:String = "Player Viewed Aug Bubble";
+	public static const REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN:String = "Player Viewed Panoramic";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_AUGBUBBLE";
-	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN:String = "Player Never Viewed Aug Bubble";
+	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN:String = "Player Never Viewed Panoramic";
 	public static const REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE:String = "PLAYER_VIEWED_PLAYER_NOTE";
 	public static const REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_HUMAN:String = "Player Viewed Player Note";
 	public static const REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE:String = "PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE";
