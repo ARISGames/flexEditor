@@ -19,9 +19,9 @@
 	<mx:VBox id="vbox" horizontalAlign="left">
 		<mx:Form id="theForm">
 			<mx:FormItem label="Name"/>
-			<mx:TextInput id="theName" width="200"/>
+			<mx:TextInput id="theName" width="400"/>
 			<mx:FormItem label="Description (invisible to client)" textAlign="left"/>
-			<mx:TextArea id="description" width="200" height="110"/>
+			<mx:TextArea id="description" width="400" height="110"/>
 		</mx:Form>
 	</mx:VBox>
 	

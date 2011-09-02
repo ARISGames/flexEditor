@@ -15,9 +15,9 @@
 	<mx:VBox id="vbox">
 		<mx:Form id="theForm">
 			<mx:Label text="Title (example: ARIS)"/>
-			<mx:TextInput id="theName" width="200"/>
+			<mx:TextInput id="theName" width="400"/>
 			<mx:Label text="URL  (example: http://www.arisgames.org)"/>
-			<mx:TextArea id="description" width="200" height="22"/>
+			<mx:TextArea id="description" width="400" height="22"/>
 			<mx:Label text="ARIS will append the following:"/>
 			<mx:Label id="appendage" color="#6D838E"/>
 		</mx:Form>

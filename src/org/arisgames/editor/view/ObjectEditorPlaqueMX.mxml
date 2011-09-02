@@ -16,9 +16,9 @@
     <mx:VBox id="vbox">
         <mx:Form>
             <mx:FormItem label="Plaque Name"/>
-            <mx:TextInput id="theName" width="200"/>
+            <mx:TextInput id="theName" width="400"/>
             <mx:FormItem label="Content"/>
-            <mx:TextArea id="description" height="110" width="200"/>
+            <mx:TextArea id="description" height="110" width="400"/>
         </mx:Form>
 		
 		<mx:HBox horizontalAlign="center" width="100%">

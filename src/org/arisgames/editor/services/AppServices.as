@@ -571,7 +571,7 @@ public class AppServices
 	
 	public function updatePlayerNoteMediaIndex(pnId:Number, mediaId:Number, game:Game, resp:IResponder):void{
 		var l:Object;
-		l = AppDAO.getInstance().getPlayerNoteServer().addContentToNote(pnId, game.gameId, mediaId, "MEDIA", "");
+		l = AppDAO.getInstance().getPlayerNoteServer().addContentToNote(pnId, game.gameId, 0, mediaId, "MEDIA", "");
 		l.addResponder(resp);
 	}
 	
