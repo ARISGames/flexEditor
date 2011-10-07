@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<c:RequirementsEditorBooleanComboBoxView xmlns:mx="http://www.adobe.com/2006/mxml"
-											 xmlns:c="org.arisgames.editor.components.*"
+<c:RequirementsEditorNotOpComboBoxView xmlns:mx="http://www.adobe.com/2006/mxml"
+										     xmlns:c="org.arisgames.editor.components.*"
 											 horizontalScrollPolicy="off"
 											 verticalScrollPolicy="off"
 											 >
@@ -9,9 +9,9 @@
 	
 	<mx:ComboBox id="cbo" editable="true" width="100%">
 		<mx:dataProvider>
-			<mx:String>AND</mx:String>
-			<mx:String>OR</mx:String>
+			<mx:String>Player Has</mx:String>
+			<mx:String>Player Has Not</mx:String>
 		</mx:dataProvider>
 	</mx:ComboBox>
 		
-</c:RequirementsEditorBooleanComboBoxView>
+</c:RequirementsEditorNotOpComboBoxView>

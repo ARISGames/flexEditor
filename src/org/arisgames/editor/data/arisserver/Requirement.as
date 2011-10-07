@@ -15,6 +15,8 @@ public class Requirement
     public var requirementId:Number;
     public var requirement:String;
 	public var boolean:String;
+	public var notOp:String;
+	public var notOpHuman:String;
     public var _requirementDetail1:String;
     public var requirementDetail1Human:String;
     public var requirementDetail2:String;
@@ -71,37 +73,37 @@ public class Requirement
             trace("requirement is currently null, so can't load any objects either");
             return;
         }
-        else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE)
+        else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
         {
             trace("going to load an item for item id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getItemById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
-        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE)
+        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
         {
             trace("going 2 load an item for item id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getItemById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
-		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE)
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE)
 		{
 			trace("going to load a web page for web page id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getWebPageById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
 		}
-		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE)
 		{
 			trace("going to load an aug bubble for aug bubble id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
 		}
-        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE)
+        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE)
         {
             trace("going to load a node for node id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getPageById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
-        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE)
+        else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE)
         {
             trace("going to load a npc for npc id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getCharacterById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
-		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
 		{
 			trace("going to load a quest for quest id = '" + new Number(requirementDetail1) + "'");
 			AppServices.getInstance().getQuestById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
@@ -115,7 +117,7 @@ public class Requirement
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
         }
-		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE)
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 		{
 			trace("requirement about player notes");
 		}
@@ -139,35 +141,35 @@ public class Requirement
         {
             var name:String;
 
-            if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE)
+            if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
             {
                 trace("going to load item name - 1");
                 name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
             }
-            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE)
+            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
             {
                 trace("going to load item name - 2");
                 name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
             }
-            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE)
+            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE)
             {
                 trace("going to load node name - 3");
                 name = obj.result.data.title;
 				if(obj.result.data.text != "")
 					name += ": " + obj.result.data.text;
             }
-            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE)
+            else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE)
             {
                 trace("going to load np name - 4");
                 name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
             }
-			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
 			{
 				trace("going to load quest name - 5");
 				name = obj.result.data.name;
@@ -181,21 +183,21 @@ public class Requirement
 				if(obj.result.data.url != "")
 					name += ": " + obj.result.data.url;
 			}
-			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE)
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE)
 			{
 				trace("going to load web page name - 6");
 				name = obj.result.data.name;
 				if(obj.result.data.url != "")
 					name += ": " + obj.result.data.url;
 			}
-			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE)
 			{
 				trace("going to load aug bubble name - 7");
 				name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
 			}
-			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_PLAYER_NOTE_DATABASE)
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 			{
 				trace("Player note requriement picked. Do nothin'");
 			}

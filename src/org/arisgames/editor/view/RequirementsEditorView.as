@@ -127,6 +127,8 @@ public class RequirementsEditorView extends Panel
         r.requirement = AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE;
 		r.contentType = this.requirementObjectType;
         r.contentId = this.requirementObjectId;
+		r.notOp = "DO";
+		r.notOpHuman = "Player Has";
         
         requirements.addItem(r);
         AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleAddRequirementSave, handleFault));
@@ -191,8 +193,7 @@ public class RequirementsEditorView extends Panel
             }
 			
 			//Check if Qty should be used
-			if (r.requirement == AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE || 
-				r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
+			if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
 			{
 				trace("RequirementEditorView: This requirement uses QTY");
 				r.requirementDetail2 = "1";
@@ -352,6 +353,9 @@ public class RequirementsEditorView extends Panel
                 r.requirementId = obj.result.data.list.getItemAt(j).requirement_id;
                 r.requirement = obj.result.data.list.getItemAt(j).requirement;
 				r.boolean = obj.result.data.list.getItemAt(j).boolean_operator;
+				r.notOp = obj.result.data.list.getItemAt(j).not_operator;
+				if(r.notOp == "DO") r.notOpHuman = "Player Has";
+				else if(r.notOp == "NOT") r.notOpHuman = "Player Has Not";
 				trace ("loading requirement - boolean was:" + r.boolean);
 		
                 r.requirementDetail1 = obj.result.data.list.getItemAt(j).requirement_detail_1;

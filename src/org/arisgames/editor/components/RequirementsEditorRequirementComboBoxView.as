@@ -122,80 +122,40 @@ public class RequirementsEditorRequirementComboBoxView extends VBox implements I
                 switch (obj.result.data[j] as String)
                 {
                     case AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:
-                            trace("11");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_HUMAN;
                             break;
-                    case AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE:
-                        trace("12");
-                            to.humanLabel = AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_HUMAN;
-                            break;
                     case AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:
-                        trace("13");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN;
                             break;
-                    case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE:
-                        trace("14");
-                            to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_HUMAN;
-                            break;
                     case AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE:
-                        trace("15");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_HUMAN;
                             break;
-                    case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE:
-                        trace("16");
-                            to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_HUMAN;
-                            break;
                     case AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE:
-                        trace("17");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_HUMAN;
                             break;
-                    case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE:
-                        trace("18");
-                            to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_HUMAN;
-                            break;
                     case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE:
-                        trace("19");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_HUMAN;
                             break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE:
-						trace("19");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_HUMAN;
 						break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE:
-						trace("19");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_HUMAN;
 						break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE:
-						trace("19");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_HUMAN;
 						break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:
-                        trace("20");
                             to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN;
                             break;
-					case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE:
-						trace("20");
-							to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_HUMAN;
-							break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:
-						trace("20");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN;
 						break;
 					case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:
-						trace("21");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN;
 						break;
-					case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE:
-						trace("22");
-						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_HUMAN;
-						break;
 					case AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE:
-						trace("23");
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_HUMAN;
-						break;
-					case AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE:
-						trace("24");
-						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_HUMAN;
 						break;
                     default:
                             trace("1 default in case statement in load requirement types for '" + (obj.result.data[j] as String) + "'");

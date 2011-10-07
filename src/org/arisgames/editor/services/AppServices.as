@@ -606,18 +606,20 @@ public class AppServices
     public function saveRequirement(gid:Number, req:Requirement, resp:IResponder):void
     {
         var l:Object;
+		if(req.notOpHuman == "Player Has") req.notOp = "DO";
+		else if(req.notOpHuman == "Player Has Not") req.notOp = "NOT";
         if (isNaN(req.requirementId))
         {
             trace("This Requirement doesn't have an Id, so call Create Requirement function On Remote Server..");
 			trace("Requirement ID:" + req.requirementId + " Requirement:" + req.requirement + " Detail1:" + req.requirementDetail1 + " Detail2:" + req.requirementDetail2 );
-			l = AppDAO.getInstance().getRequirementsServer().createRequirement(gid, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, req.boolean);
+			l = AppDAO.getInstance().getRequirementsServer().createRequirement(gid, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, req.boolean, req.notOp);
         }
         else
         {
             trace("This Requirement has an Id (" + req.requirementId + "), so call Update Requirement function on Remote Server.");
 			trace("Requirement ID:" + req.requirementId + " Requirement:" + req.requirement + " Detail1:" + req.requirementDetail1 + " Detail2:" + req.requirementDetail2 );
 
-			l = AppDAO.getInstance().getRequirementsServer().updateRequirement(gid, req.requirementId, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, req.boolean);
+			l = AppDAO.getInstance().getRequirementsServer().updateRequirement(gid, req.requirementId, req.contentType, req.contentId, req.requirement, req.requirementDetail1, req.requirementDetail2, req.requirementDetail3, req.boolean, req.notOp);
         }
         l.addResponder(resp);
     }

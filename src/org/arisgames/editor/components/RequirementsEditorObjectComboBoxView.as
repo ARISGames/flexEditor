@@ -98,37 +98,37 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("req passed in is null, can't load any objects based off of it.");
             return;
         }
-        else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_DOES_NOT_HAVE_ITEM_DATABASE)
+        else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE)
         {
             trace("going to load items - 1");
             AppServices.getInstance().getItemsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadItems, handleFault));
         }
-        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_ITEM_DATABASE)
+        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
         {
             trace("going to load items - 2");
             AppServices.getInstance().getItemsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadItems, handleFault));
         }
-        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NODE_DATABASE)
+        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE)
         {
             trace("going to load nodes - 3");
             AppServices.getInstance().getPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNodes, handleFault));
         }
-        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_NPC_DATABASE)
+        else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE)
         {
             trace("going to load npc - 4");
             AppServices.getInstance().getCharactersByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNPCs, handleFault));
         }
-		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_COMPLETED_QUEST_DATABASE)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE)
 		{
 			trace("going to load quests - 5");
 			AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
 		}
-		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_WEBPAGE_DATABASE)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE)
 		{
 			trace("going to load webPages - 6");
 			AppServices.getInstance().getWebPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadWebPages, handleFault));
 		}
-		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOT_VIEWED_AUGBUBBLE_DATABASE)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE)
 		{
 			trace("going to load augBubbles - 7");
 			AppServices.getInstance().getAugBubblesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadAugBubbles, handleFault));
