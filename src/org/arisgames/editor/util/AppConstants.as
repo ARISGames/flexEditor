@@ -4,23 +4,23 @@ public class AppConstants
 {
 	//Server URL
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/stagingserver1"; //For other URL's to append to- Staging
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://Phildos.local/server"; //For other URL's to append to- Phil's Machine
+	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://Phildos.local/server"; //For other URL's to append to- Phil's Machine
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://atsosxdev.doit.wisc.edu/aris/server"; //For other URL's to append to- Dev
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/qaserver"; //For other URL's to append to- QA
-
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://warhol.arisgames.org/devserver";
 	
 	//Server Version
 	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "1_5";
 	
 	public static const APPLICATION_ENVIRONMENT_JSON_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/json.php/aris_" + APPLICATION_ENVIRONMENT_SERVER_VERSION + ".";
 	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris_" + APPLICATION_ENVIRONMENT_SERVER_VERSION + "/"; //staging		
-	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris_" + APPLICATION_ENVIRONMENT_SERVER_VERSION + "/uploadhandler.php";
+	public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/aris_" + APPLICATION_ENVIRONMENT_SERVER_VERSION + "/uploadHandler.php";
 	public static const APPLICATION_ENVIRONMENT_GATEWAY_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gateway.php"; //services-config.xml
 
 	//Google API
-	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
+	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
-	public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
+	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAAo0AIYqWK4StlyQiw0FkCnhTFFMM2iSZ1Oq9cs2gegUR1k01AuBShe9g60gh2q1UpWRotcj3RpzpT2A"; //Phil's Machine
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
 
 
