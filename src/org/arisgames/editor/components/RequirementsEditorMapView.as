@@ -64,8 +64,8 @@ public class RequirementsEditorMapView extends Panel
     {
         trace("handleMouseCloseButtonClick() called...");
         var de:DynamicEvent;
-        trace("Original Radius = '" + requirement.requirementDetail3 + "'; UI Radius Value = '" + radius.value + "'");
-        if (parseInt(requirement.requirementDetail3) != radius.value)
+        trace("Original Radius = '" + requirement.requirementDetail1 + "'; UI Radius Value = '" + radius.value + "'");
+        if (parseInt(requirement.requirementDetail1) != radius.value)
         {
             trace("Original Radius and UI Radius value are different so fire a save event.");
             de = new DynamicEvent(AppConstants.DYNAMICEVENT_SAVEREQUIREMENTDUETOMAPDATACHANGE);
@@ -92,17 +92,17 @@ public class RequirementsEditorMapView extends Panel
 
         if (evt.latitude)
         {
-            requirement.requirementDetail1 = evt.latitude;
+            requirement.requirementDetail3 = evt.latitude;
             shouldSave = true;
         }
         if (evt.longitude)
         {
-            requirement.requirementDetail2 = evt.longitude;
+            requirement.requirementDetail4 = evt.longitude;
             shouldSave = true;
         }
         if (evt.radius)
         {
-            requirement.requirementDetail3 = evt.radius;
+            requirement.requirementDetail1 = evt.radius;
             shouldSave = true;
         }
 

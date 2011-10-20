@@ -20,7 +20,8 @@ public class Requirement
     public var _requirementDetail1:String;
     public var requirementDetail1Human:String;
     public var requirementDetail2:String;
-    public var requirementDetail3:String;
+	public var requirementDetail3:String;
+	public var requirementDetail4:String;
     public var contentId:Number;
     public var contentType:String;
 	

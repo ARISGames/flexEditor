@@ -15,7 +15,7 @@
 
     <mx:HBox width="100%" horizontalAlign="center">
         <mx:Label text="Range (meters):"/>
-        <mx:NumericStepper id="radius" minimum="5" maximum="1000000" stepSize="5" value="{parseInt(requirement.requirementDetail3)}"/>
+        <mx:NumericStepper id="radius" minimum="5" maximum="1000000" stepSize="5" value="{parseInt(requirement.requirementDetail1)}"/>
     </mx:HBox>
 
     <mx:ApplicationControlBar id="reMapControlBar" width="100%" defaultButton="{mapCloseButton}" horizontalAlign="right">
