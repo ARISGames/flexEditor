@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <c:PlaceMarkerEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
                          xmlns:c="org.arisgames.editor.components.*">	
-    <mx:Form id="pmForm" width = "350" height = "380">
+    <mx:Form id="pmForm" width = "350" height = "400">
         <mx:FormHeading label="Modify a Location" id="title"/>
         <mx:FormItem id="labelFI" label="Label" required="true">
             <mx:TextInput id="locLabel" width="192"/>
@@ -40,7 +40,7 @@
 		<mx:FormItem>
 			<mx:LinkButton label="Delete This Location" id = "deletePlaceMarkDataButton" color="#D50000" textAlign="left" width="100%" paddingLeft="0" paddingRight="0"/>
 		</mx:FormItem>
-		<mx:Spacer height="30"/>
+		<mx:Spacer height="10"/>
 		<mx:FormItem>
 			<mx:Button id="savePlaceMarkDataButton" label="Save and Close" textAlign="center"/>
 		</mx:FormItem>
