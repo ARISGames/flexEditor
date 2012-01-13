@@ -19,15 +19,12 @@
         <channel-definition id="my-amfphp" class="mx.messaging.channels.AMFChannel">
         
         <!-- DAVEMBP: <endpoint uri="http://davembp.local/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>  DAVEMBP --> 
-        <!-- PHIL: <endpoint uri="http://Phildos.local/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>  PHIL -->        
    		<!-- DEV <endpoint uri="http://warhol.arisgames.org/devserver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> DEV -->
    		<!-- QA: <endpoint uri="http://warhol.arisgames.org/qaserver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> QA -->
        	<!-- MAIN: <endpoint uri="http://www.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> STAGING -->
-
        	
        	<!-- Copy and paste one of the above lines over the one below, rather than commenting/uncommenting them all the time -->
        	<endpoint uri="http://warhol.arisgames.org/devserver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
-       	
        	
         </channel-definition>
     </channels>
