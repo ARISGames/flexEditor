@@ -114,6 +114,7 @@ public class GameModel
 				pm.latitude = obj.result.data.list.getItemAt(j).latitude;
 				pm.longitude = obj.result.data.list.getItemAt(j).longitude;
 				pm.name = obj.result.data.list.getItemAt(j).name;
+				pm.errorText = obj.result.data.list.getItemAt(j).fail_text;
 				pm.qrCode = obj.result.data.list.getItemAt(j).code;
 				pm.contentType = AppUtils.getContentTypeValueByName(obj.result.data.list.getItemAt(j).type);
 				pm.contentId = obj.result.data.list.getItemAt(j).type_id;

@@ -172,6 +172,7 @@ public class PlaceMarker extends Marker
         loc.latitude = placemark.latitude;
         loc.longitude = placemark.longitude;
         loc.name = placemark.name;
+		loc.errorText = placemark.errorText;
         loc.type = AppUtils.getContentTypeForDatabaseAsString(placemark.contentType);
         loc.typeId = placemark.contentId;
         loc.quantity = placemark.quantity;

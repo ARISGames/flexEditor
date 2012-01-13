@@ -308,12 +308,12 @@ public class AppServices
         {
             trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + " QuickTravel = " + loc.quickTravel);
 
-            l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode, imageMatchMediaId);
+            l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.qrCode, imageMatchMediaId, loc.errorText);
         }
         else
         {
             trace("AppServices.as: This Location has an Id (" + loc.locationId + "), so call locations.updateLocationWithQrCode. GameId = " + gid + " LocName: " + loc.name + " iconMediaId: " + loc.iconMediaId + " Qr Code = " + loc.qrCode  + "QuickTravel = " + loc.quickTravel);
-            l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode, imageMatchMediaId);
+            l = AppDAO.getInstance().getLocationServer().updateLocationWithQrCode(gid, loc.locationId, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel, loc.qrCode, imageMatchMediaId, loc.errorText);
         }
         l.addResponder(resp);
     }

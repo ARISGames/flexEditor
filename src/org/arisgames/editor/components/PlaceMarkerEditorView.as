@@ -47,6 +47,7 @@ public class PlaceMarkerEditorView extends Canvas
     // Form Components
     [Bindable] public var locLabel:TextInput;
 	[Bindable] public var qrCode:TextInput;
+	[Bindable] public var errorText:TextInput;
 	[Bindable] public var qrImage:Image;
 	[Bindable] public var quantityFI:FormItem;
     [Bindable] public var quantity:NumericStepper;
@@ -77,6 +78,7 @@ public class PlaceMarkerEditorView extends Canvas
         //this.title = "PlaceMark Editor (" + placeMark.getContentTypeForPublicDisplayAsString() + ")";
 
         locLabel.text = placeMark.name;
+		errorText.text = placeMark.errorText;
 		qrCode.text = placeMark.qrCode;
 		qrImage.addEventListener(MouseEvent.CLICK, handleQRImageClick);
 
@@ -200,6 +202,7 @@ public class PlaceMarkerEditorView extends Canvas
         loc.latitude = placeMark.latitude;
         loc.longitude = placeMark.longitude;
         loc.name = locLabel.text;
+		loc.errorText = errorText.text;
 		loc.qrCode = qrCode.text;
         loc.type = AppUtils.getContentTypeForDatabaseAsString(placeMark.contentType);
         loc.typeId = placeMark.contentId;
@@ -258,6 +261,7 @@ public class PlaceMarkerEditorView extends Canvas
 
 			// Update Place Mark Data Model
 			placeMark.name = locLabel.text;
+			placeMark.errorText = errorText.text;
 			placeMark.qrCode = qrCode.text;
 			placeMark.quantity = quantity.value;
 			placeMark.hidden = hidden.selected;

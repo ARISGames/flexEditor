@@ -15,6 +15,7 @@ public class PlaceMark
     public var contentId:Number;
 	public var name:String;
     public var description:String;
+	public var errorText:String;
     public var quantity:Number;
     public var errorRange:Number;
     public var hidden:Boolean = false;

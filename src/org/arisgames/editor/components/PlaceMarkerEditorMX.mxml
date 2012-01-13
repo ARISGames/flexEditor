@@ -19,6 +19,9 @@
 				<mx:Button id="openImageMatchEditorButton" label="Image Matching"/>
 			</mx:HBox>
 		</mx:FormItem>
+		<mx:FormItem id="errotTextFI" label="Error Text" required="true">
+			<mx:TextInput id="errorText" width="192"/>
+		</mx:FormItem>
 		<mx:FormItem id="quantityFI" label="Quantity (-1 for inf)" required="true">
 				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="193"/>
 		</mx:FormItem>

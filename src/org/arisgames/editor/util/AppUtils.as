@@ -149,6 +149,7 @@ public class AppUtils
         loc.latitude = pm.latitude;
         loc.longitude = pm.longitude;
         loc.name = pm.name;
+		loc.errorText = pm.errorText;
 		loc.qrCode = pm.qrCode;
         loc.type = AppUtils.getContentTypeForDatabaseAsString(pm.contentType);
         loc.typeId = pm.contentId;

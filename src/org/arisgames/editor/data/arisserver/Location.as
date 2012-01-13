@@ -5,7 +5,8 @@ public class Location
     public var locationId:Number;
     public var latitude:Number;
     public var longitude:Number;
-    public var name:String;
+	public var name:String;
+	public var errorText:String;
     public var type:String;
     public var typeId:Number;
     public var iconMediaId:Number;
