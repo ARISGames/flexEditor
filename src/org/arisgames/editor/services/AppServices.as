@@ -195,7 +195,7 @@ public class AppServices
 		else
 		{
 			trace("This item has a playerNoteId (" + playerNote.playerNoteId + "), so call update PlayerNote.");
-			r = AppDAO.getInstance().getPlayerNoteServer().updateNote(playerNote.playerNoteId, playerNote.title, playerNote.shared);
+			r = AppDAO.getInstance().getPlayerNoteServer().updateNote(playerNote.playerNoteId, playerNote.title, playerNote.sharedToMap, playerNote.sharedToNotebook);
 		}
 		r.addResponder(resp);
 	}

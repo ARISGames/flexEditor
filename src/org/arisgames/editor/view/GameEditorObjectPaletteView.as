@@ -1211,7 +1211,10 @@ public class GameEditorObjectPaletteView extends VBox
                 if (!it.isFolder() && it.id == obj.result.data.object_content_id)
                 {
                     var m:Media = new Media();
-                    m.mediaId = obj.result.data.icon_media.media_id;
+					if(obj.result.data.icon_media)
+                    	m.mediaId = obj.result.data.icon_media.media_id;
+					else
+						m.mediaId = obj.result.data.icon_media_id;
                     m.name = obj.result.data.icon_media.name;
                     m.type = obj.result.data.icon_media.type;
                     m.urlPath = obj.result.data.icon_media.url_path;

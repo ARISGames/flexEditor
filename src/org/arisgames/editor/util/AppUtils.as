@@ -461,7 +461,8 @@ public class AppUtils
 			playerNote.title = data.title;
 			playerNote.aveRating = data.ave_rating;
 			playerNote.numRatings = data.num_ratings;
-			playerNote.shared = data.shared;
+			playerNote.sharedToNotebook = data.public_to_notebook;
+			playerNote.sharedToMap = data.public_to_map;
 			
 			return playerNote;
 		}

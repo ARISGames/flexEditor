@@ -10,7 +10,8 @@ package org.arisgames.editor.data.arisserver
 		public var title:String;
 		public var aveRating:Number;
 		public var numRatings:Number;
-		public var shared:Boolean;
+		public var sharedToNotebook:Boolean;
+		public var sharedToMap:Boolean;
 		public var iconMediaId:Number;
 		public var media:ArrayCollection;
 		public var textBlob:String;
