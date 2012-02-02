@@ -3,22 +3,19 @@
                                 xmlns:v="org.arisgames.editor.view.*"
 								xmlns:c="org.arisgames.editor.components.*"
                                 title="Game Settings" xmlns:components="org.arisgames.editor.components.*"
-								horizontalAlign="center"
-								verticalAlign="middle"
-								horizontalScrollPolicy="off"
-								verticalScrollPolicy="off"
+								width="540"
+								height="540"
 								>	
-	<mx:TabNavigator height="450" width="520"><!-- Old Dimensions: height ="320" width="512"> -->
-		<mx:Canvas label="General Settings" horizontalScrollPolicy="off" verticalScrollPolicy="off">
-			<mx:Tile direction="vertical">
-				<mx:Form>
-					<mx:FormItem label="Name">
-						<mx:TextInput id="gameName" width = "250"/>
+	<mx:TabNavigator height="100%" width="100%">
+		<mx:Canvas label="General Settings" height="100%" width="100%">
+				<mx:Form width="100%">
+					<mx:FormItem label="Name" width="100%">
+						<mx:TextInput id="gameName"/>
 					</mx:FormItem>
-					<mx:FormItem>
+					<mx:FormItem width="100%">
 						<!-- Media -->
-						<mx:Tile direction="horizontal" horizontalAlign="left">
-							<mx:VBox id="iconBox" horizontalAlign="center" verticalAlign="bottom">
+						<mx:Tile horizontalAlign="left">
+							<mx:VBox id="iconBox" horizontalAlign="center">
 								<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
 									<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
 								</mx:Canvas>
@@ -31,7 +28,7 @@
 								
 								<mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
 							</mx:VBox>
-							<mx:VBox id="mediaBox" horizontalAlign="center" verticalAlign="bottom">
+							<mx:VBox id="mediaBox" horizontalAlign="center">
 								<mx:Canvas id="mediaImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
 									<mx:Image id="mediaPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
 								</mx:Canvas>
@@ -46,24 +43,24 @@
 							</mx:VBox>
 						</mx:Tile>
 					</mx:FormItem>
-					<mx:FormItem label="Description">
-						<mx:TextArea id="description" width = "250"/>
+					<mx:FormItem label="Description" width="100%">
+						<mx:TextArea id="description" width="100%"/>
 					</mx:FormItem>
-					<mx:FormItem label="Introduction Plaque">
+					<mx:FormItem label="Introduction Plaque" width="100%">
 						<mx:ComboBox id="introNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem label="Ending Plaque">
+					<mx:FormItem label="Ending Plaque" width="80%">
 						<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem id="invWeightFI" label="Inventory Weight Cap" required="true">
+					<mx:FormItem id="invWeightFI" label="Inventory Weight Cap" width="100%">
 						<mx:NumericStepper id="inventoryCap" minimum="0" maximum="500000" stepSize="1"
 										   width="50"/>
 					</mx:FormItem>
 					<!-- Check Boxes -->
 					<mx:Tile direction="horizontal">
-						<mx:Tile direction="vertical" horizontalAlign="right">
+						<mx:Tile direction="vertical" horizontalAlign="right" width="235" height="42">
 							<mx:FormItem label="Allow Players to create locations">
 								<mx:CheckBox id="allowPlayerLocationsCb"/>
 							</mx:FormItem>
@@ -81,18 +78,15 @@
 						</mx:Tile>
 					</mx:Tile>
 					<mx:Spacer height="10" />
+					<mx:Tile direction="horizontal">					
+						<mx:LinkButton label="Duplicate This Game" id = "duplicateButton" color="#0000D5" textAlign="right" width="100%"/>		
+						<mx:LinkButton label="Permanantly Delete This Game" id = "deleteButton" color="#D50000" textAlign="left" width="100%"/>		
+					</mx:Tile>
 				</mx:Form>
-				<mx:Tile direction="horizontal">					
-					<mx:LinkButton label="Duplicate This Game" id = "duplicateButton" color="#0000D5" textAlign="right" width="100%"/>		
-					<mx:LinkButton label="Permanantly Delete This Game" id = "deleteButton" color="#D50000" textAlign="left" width="100%"/>		
-				</mx:Tile>
-				
-			</mx:Tile>
-			
 		</mx:Canvas>
 		
 		<!-- Add and Remove Editor Tab -->
-		<mx:Canvas label="Add/Remove Editor">
+		<mx:Canvas label="Add/Remove Editor"  height="100%" width="100%">
 			<mx:Form>
 				<mx:Label text="Add User As Editor Of This Game"/>
 				<mx:FormItem label="User's Email">
@@ -117,7 +111,7 @@
 		</mx:Canvas>
 		
 		<!-- Tab Config -->
-		<mx:Canvas label="Configure Tabs">
+		<mx:Canvas label="Configure Tabs"  height="100%" width="100%">
 			<mx:HorizontalList id="tabView"
 							   dataProvider="{tabList}"
 							   top="20"
@@ -145,7 +139,7 @@
 		</mx:Canvas>
 		
 		
-		<mx:Canvas label="Game Links">
+		<mx:Canvas label="Game Links"  height="100%" width="100%">
 			<mx:Button x="112" y="89" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>
 			<mx:Button x="112" y="119" label="Download KML of Player Created Media" width="286" id="pcmKMLButton" click="handlePcmKMLButton(event)"/>
 			<mx:Button x="112" y="170" label="Download KML of Game Locations and Players" id="gameLocsKMLButton" click="handleGameLocsKMLButton(event)"/>
