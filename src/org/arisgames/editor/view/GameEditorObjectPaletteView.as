@@ -1211,15 +1211,19 @@ public class GameEditorObjectPaletteView extends VBox
                 if (!it.isFolder() && it.id == obj.result.data.object_content_id)
                 {
                     var m:Media = new Media();
+					//What the heck is this? Why sometimes icon_media.media_id and sometimes icon_media_id???
 					if(obj.result.data.icon_media)
+					{
                     	m.mediaId = obj.result.data.icon_media.media_id;
+						if(obj.result.data.icon_media.name) m.name = obj.result.data.icon_media.name; else trace("GameEditorObjectPaletteView: handleLoadingOfIconMedia: no icon media name");
+						if(obj.result.data.icon_media.type) m.type = obj.result.data.icon_media.type; else trace("GameEditorObjectPaletteView: handleLoadingOfIconMedia: no icon media type");
+						if(obj.result.data.icon_media.url_path) m.urlPath = obj.result.data.icon_media.url_path; else trace("GameEditorObjectPaletteView: handleLoadingOfIconMedia: no icon media url");
+						if(obj.result.data.icon_media.file_name) m.fileName = obj.result.data.icon_media.file_name; else trace("GameEditorObjectPaletteView: handleLoadingOfIconMedia: no icon media file name");
+						if(obj.result.data.icon_media.is_default) m.isDefault = obj.result.data.icon_media.is_default; else trace("GameEditorObjectPaletteView: handleLoadingOfIconMedia: no icon media default");
+					}
 					else
 						m.mediaId = obj.result.data.icon_media_id;
-                    m.name = obj.result.data.icon_media.name;
-                    m.type = obj.result.data.icon_media.type;
-                    m.urlPath = obj.result.data.icon_media.url_path;
-                    m.fileName = obj.result.data.icon_media.file_name;
-                    m.isDefault = obj.result.data.icon_media.is_default;
+                    
                     trace("Icon Media Data Loaded: mediaId = '" + m.mediaId + "'; name = '" + m.name + "'; type = '" + m.type + "'; urlPath = '" + m.urlPath + "'; fileName = '" + m.fileName + "'; isDefault = '" + m.isDefault + "'");
 
                     it.iconMediaId = obj.result.data.icon_media_id;
