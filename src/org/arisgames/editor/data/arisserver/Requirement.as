@@ -118,6 +118,10 @@ public class Requirement
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
         }
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE)
+		{
+			trace("setRequirementDetail1(): Note With (x) selected... nothing needs to be done.");
+		}
 		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 		{
 			trace("requirement about player notes");
@@ -197,6 +201,10 @@ public class Requirement
 				name = obj.result.data.name;
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
+			}
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE)
+			{
+				trace("Player note requriement picked. Do nothin'");
 			}
 			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 			{
