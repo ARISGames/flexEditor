@@ -141,7 +141,7 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
         }
-		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE)
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE)
 		{
 			trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
 		}

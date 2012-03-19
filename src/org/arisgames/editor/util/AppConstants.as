@@ -142,10 +142,10 @@ public class AppConstants
 	public static const REQUIREMENTTYPE_WEBHOOK:String = "OutgoingWebHook";
 
     // Requirement Options
-	public static const REQUIREMENT_NOT_OP_TRUE_DATABASE:String = "Player Has";
-	public static const REQUIREMENT_NOT_OP_TRUE_HUMAN:String = "DO";
-	public static const REQUIREMENT_NOT_OP_FALSE_DATABASE:String = "Player Has Not";
-	public static const REQUIREMENT_NOT_OP_FALSE_HUMAN:String = "NOT";
+	public static const REQUIREMENT_NOT_OP_TRUE_HUMAN:String = "Player Has";
+	public static const REQUIREMENT_NOT_OP_TRUE_DATABASE:String = "DO";
+	public static const REQUIREMENT_NOT_OP_FALSE_HUMAN:String = "Player Has Not";
+	public static const REQUIREMENT_NOT_OP_FALSE_DATABASE:String = "NOT";
     public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
     public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "At Least Qty of an Item";
 	public static const REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:String = "PLAYER_VIEWED_ITEM";
@@ -170,10 +170,14 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_HUMAN:String = "Uploaded Video";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Completed Quest";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_DATABASE:String = "PLAYER_HAS_NOTE";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_HUMAN:String = "Has A Note";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:String = "PLAYER_HAS_NOTE_WITH_LIKES";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Has A Note With (x) LIKES";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE:String = "PLAYER_HAS_NOTE_WITH_COMMENTS";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_HUMAN:String = "Has A Note With (x) Comments";
+	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE:String = "PLAYER_HAS_GIVEN_NOTE_COMMENTS";
+	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_HUMAN:String = "Has Given (x) Comments On Notes";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:String = "PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN:String = "Received Incoming Web Hook";
 
