@@ -173,7 +173,7 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_DATABASE:String = "PLAYER_HAS_NOTE";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_HUMAN:String = "Has A Note";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:String = "PLAYER_HAS_NOTE_WITH_LIKES";
-	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Has A Note With (x) LIKES";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Has A Note With (x) Likes";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE:String = "PLAYER_HAS_NOTE_WITH_COMMENTS";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_HUMAN:String = "Has A Note With (x) Comments";
 	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE:String = "PLAYER_HAS_GIVEN_NOTE_COMMENTS";
