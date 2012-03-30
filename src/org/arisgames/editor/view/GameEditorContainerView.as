@@ -17,6 +17,7 @@ public class GameEditorContainerView extends Canvas
 	//[Bindable] public var questsMap:QuestsMapView; 
 	[Bindable] public var questsEditor:QuestsEditorView;
 	[Bindable] public var webHooksEditor:WebHooksEditorView;
+	[Bindable] public var noteTagsEditor:NoteTagsEditorView;
 
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"
     [Bindable] public var panelIn:Move;  // WB "IN" actually means "into the toolbox, no longer displaying"
@@ -26,6 +27,7 @@ public class GameEditorContainerView extends Canvas
 	private var isQuestsMapVis:Boolean = false;
 	private var isQuestsEditorVis:Boolean = false;
 	private var isWebHooksEditorVis:Boolean = false;
+	private var isNoteTagsEditorVis:Boolean = false;
 
     /**
      * Constructor
@@ -45,8 +47,10 @@ public class GameEditorContainerView extends Canvas
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSMAP, handleCloseQuestsMapRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR, handleOpenQuestsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR, handleOpenWebHooksEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR, handleOpenNoteTagsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEWEBHOOKSEDITOR, handleCloseWebHooksEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSENOTETAGSEDITOR, handleCloseNoteTagsEditorRequest);
 		
     }
 	
@@ -151,6 +155,30 @@ public class GameEditorContainerView extends Canvas
 		}
 	}	
 	
+	private function handleOpenNoteTagsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleOpenNoteTagsEditorRequest() was called");
+		if (!isNoteTagsEditorVis)
+		{
+			trace("NoteTagsEditor is currently hidden, so show it!");
+			isNoteTagsEditorVis = true;
+			noteTagsEditor = new NoteTagsEditorMX();
+			this.parent.addChild(noteTagsEditor);
+			
+			// Need to validate the display so that entire component is rendered
+			noteTagsEditor.validateNow();
+			
+			PopUpManager.addPopUp(noteTagsEditor, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(noteTagsEditor);
+			noteTagsEditor.setVisible(true);
+			noteTagsEditor.includeInLayout = true;			
+		}
+		else 
+		{
+			trace("NoteTagsEditor is already visible, so clicking the button again should close it!");
+			isNoteTagsEditorVis = false;
+		}
+	}
 	
 	private function handleCloseQuestsEditorRequest(event:DynamicEvent):void 
 	{
@@ -187,6 +215,22 @@ public class GameEditorContainerView extends Canvas
 		}
 	}	
 	
+	private function handleCloseNoteTagsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleCloseNoteTagsEditorRequest() was called");
+		
+		if (!isNoteTagsEditorVis)
+		{
+			trace("NoteTags Editor already hidden, so don't try to close again!");
+		}
+		else
+		{
+			trace("Closing the NoteTagsEditor");
+			PopUpManager.removePopUp(noteTagsEditor);
+			noteTagsEditor = null;			
+			isNoteTagsEditorVis = false;
+		}
+	}	
 	
 	private function handleOpenQuestsMapRequest(event:DynamicEvent):void 
 	{

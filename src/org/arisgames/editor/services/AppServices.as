@@ -13,6 +13,7 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.PlayerNote;
+import org.arisgames.editor.data.arisserver.NoteTag;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
@@ -449,7 +450,28 @@ public class AppServices
 		l = AppDAO.getInstance().getWebHookServer().getWebHooks(gid);
 		l.addResponder(resp);
 	}
+	
+	public function getNoteTagsByGameId(gid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().getAllTagsInGame(gid);
+		l.addResponder(resp);
+	}
 
+	public function addNoteTag(gid:Number, tag:NoteTag, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().addTagToGame(gid, tag.tag);
+		l.addResponder(resp);
+	}
+	
+	public function deleteNoteTag(gid:Number, tag:NoteTag, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getPlayerNoteServer().deleteTagFromGame(gid, tag.tag_id);
+		l.addResponder(resp);
+	}
+	
     public function getPageById(gid:Number, id:Number, resp:IResponder):void
     {
         var l:Object;

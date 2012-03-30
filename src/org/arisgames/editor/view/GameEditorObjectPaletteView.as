@@ -53,6 +53,7 @@ public class GameEditorObjectPaletteView extends VBox
     [Bindable] public var addFolderButton:Button;
 	[Bindable] public var editQuestsButton:Button;
 	[Bindable] public var webHooksButton:Button;
+	[Bindable] public var noteTagsButton:Button;
 	[Bindable] public var editGameButton:Button;
 	[Bindable] public var returnToGameListButton:Button;
 
@@ -88,6 +89,7 @@ public class GameEditorObjectPaletteView extends VBox
 		editQuestsButton.addEventListener(MouseEvent.CLICK, editQuestsButtonOnClick);
 		editGameButton.addEventListener(MouseEvent.CLICK, editGameButtonOnClick);
 		webHooksButton.addEventListener(MouseEvent.CLICK, webHooksButtonOnClick);
+		noteTagsButton.addEventListener(MouseEvent.CLICK, noteTagsButtonOnClick);
 		returnToGameListButton.addEventListener(MouseEvent.CLICK, returnToGameListButtonOnClick);
 
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
@@ -95,7 +97,6 @@ public class GameEditorObjectPaletteView extends VBox
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE, handleRedrawTreeEvent);
 		
 		AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
-
     }
 	
 	private function webHooksButtonOnClick(evt:MouseEvent):void{
@@ -104,6 +105,12 @@ public class GameEditorObjectPaletteView extends VBox
 		AppDynamicEventManager.getInstance().dispatchEvent(de);	
 	}
 
+	private function noteTagsButtonOnClick(evt:MouseEvent):void{
+		trace("noteTagsButtonOnClick() started... ");
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);	
+	}
+	
 	private function handleCurrentStateChangedEvent(obj:Object):void
 	{
 		trace("GameEditorObjectPalletView: handleCurrentStateChangedEvent");
@@ -623,7 +630,7 @@ public class GameEditorObjectPaletteView extends VBox
         var pt:Point = new Point();
         var myMenu:Menu;
 
-        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}, {label: AppConstants.CONTENTTYPE_PLAYER_NOTE, type: "normal"}];
+        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}];
 
         myMenu = Menu.createMenu(objectPalette, myMenuData, false);
         myMenu.addEventListener("itemClick", menuHandler);
@@ -633,7 +640,7 @@ public class GameEditorObjectPaletteView extends VBox
         pt.y = addObjectButton.y;
         pt = addObjectButton.localToGlobal(pt);
 
-        myMenu.show(pt.x + 0, pt.y-120); // WB Magic number values here, play around with them as needed
+        myMenu.show(pt.x + 0, pt.y-105); // WB Magic number values here, play around with them as needed
     }
 
     private function addFolderButtonOnClick(evt:MouseEvent):void
@@ -710,12 +717,14 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		else if (AppConstants.CONTENTTYPE_PLAYER_NOTE == stuff)
 		{
+			/* DISABLED- Makes no sense to have a note author with playerId of 0
 			trace("add a player note to the object palette...");
 			var pn:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
 			pn.name = AppConstants.CONTENTTYPE_PLAYER_NOTE_DEFAULT_NAME;
 			pn.objectType = AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE;
 			pn.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_PLAYER_NOTE;
 			this.addObjectPaletteItem(pn);
+			*/
 		}
 		
         trace("Done with menuHandler.");
@@ -775,12 +784,14 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 		else if (item.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{
+			/* DISABLED- Makes no sense to have a note with authors player_id = 0
 			var playerNote:PlayerNote = new PlayerNote();
 			playerNote.playerNoteId = 0;
 			playerNote.title = item.name;
 			playerNote.iconMediaId = item.iconMediaId;
 			AppServices.getInstance().savePlayerNote(GameModel.getInstance().game.gameId, playerNote, new Responder(handleCreatePlayerNote, handleFault));
 			trace("Just finished calling savePlayerNote() for name = '" + item.name + "'.");
+			*/
 		}
         else if (item.isFolder())
         {
