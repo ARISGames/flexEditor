@@ -80,11 +80,13 @@ package org.arisgames.editor.view
 			trace("Edit Ending");
 			if(startedEditing)
 				AppServices.getInstance().addNoteTag(GameModel.getInstance().game.gameId, gtNoteTags.getItemAt(evt.rowIndex) as NoteTag, new Responder(handleAddNoteTagSave, handleFault));
-			
-			if(gtdg == (evt.currentTarget as DataGrid))
-				(gtNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
 			else
-				(ptNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
+			{
+				if(gtdg == (evt.currentTarget as DataGrid))
+					(gtNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
+				else
+					(ptNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
+			}
 			startedEditing = false;
 		}
 		
