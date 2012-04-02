@@ -3,8 +3,8 @@
                                 xmlns:v="org.arisgames.editor.view.*"
 								xmlns:c="org.arisgames.editor.components.*"
                                 title="Game Settings" xmlns:components="org.arisgames.editor.components.*"
-								width="540"
-								height="540"
+								width="560"
+								height="560"
 								>	
 	<mx:TabNavigator height="100%" width="100%">
 		<mx:Canvas label="General Settings" height="100%" width="100%">
@@ -59,22 +59,28 @@
 										   width="50"/>
 					</mx:FormItem>
 					<!-- Check Boxes -->
-					<mx:Tile direction="horizontal">
-						<mx:Tile direction="vertical" horizontalAlign="right" width="235" height="42">
-							<mx:FormItem label="Allow Players to create locations">
-								<mx:CheckBox id="allowPlayerLocationsCb"/>
+					<mx:Tile direction="horizontal" height="66">
+						<mx:Tile direction="vertical" horizontalAlign="right" width="235" height="66">
+							<mx:FormItem label="Allow notes to be shared to map">
+								<mx:CheckBox id="noteShareToMapCb"/>
 							</mx:FormItem>
-							<mx:FormItem label="Player reset deletes player locations">
-								<mx:CheckBox id="deletePlayerLocationsCb"/>
+							<mx:FormItem label="Allow Notes to be shared to book">
+								<mx:CheckBox id="noteShareToBookCb"/>
+							</mx:FormItem>
+							<mx:FormItem label="Allow player created note tags">
+								<mx:CheckBox id="playerCreateTagsCb"/>
 							</mx:FormItem>
 						</mx:Tile>
-						<mx:Tile direction="vertical" horizontalAlign="right">
+						<mx:Tile direction="vertical" horizontalAlign="right" height="66">
 							<mx:FormItem label="Game requires play in specific locations">
 								<mx:CheckBox id="isLocationalCb"/>
 							</mx:FormItem>
 							<mx:FormItem label="Game ready to be published/ rated">
 								<mx:CheckBox id="readyForPublicCb"/>
-							</mx:FormItem>						
+							</mx:FormItem>	
+							<mx:FormItem label="Allow player created comments">
+								<mx:CheckBox id="playerCreateCommentsCb"/>
+							</mx:FormItem>
 						</mx:Tile>
 					</mx:Tile>
 					<mx:Spacer height="10" />

@@ -20,10 +20,14 @@ public class Game
     public var description:String;
     public var placeMarks:ArrayCollection;
     public var gameObjects:ArrayCollection;
-	public var allowsPlayerCreatedLocations:Boolean;
-	public var resetDeletesPlayerCreatedLocations:Boolean;
+	
+	public var noteShareToMap:Boolean;
+	public var noteShareToBook:Boolean;
+	public var playerCreateTags:Boolean;
+	public var playerCreateComments:Boolean;
 	public var isLocational:Boolean;
 	public var readyForPublic:Boolean;
+	
 	public var iconMediaId:int;
 	public var pcMediaId:int;
 	public var introNodeId:int;

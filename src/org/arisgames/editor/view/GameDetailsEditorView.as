@@ -56,10 +56,13 @@ public class GameDetailsEditorView extends Panel{
     [Bindable] public var description:TextArea;
 	[Bindable] public var introNodeCbo:mx.controls.ComboBox;
 	[Bindable] public var completeNodeCbo:mx.controls.ComboBox;
-	[Bindable] public var allowPlayerLocationsCb:mx.controls.CheckBox;
-	[Bindable] public var deletePlayerLocationsCb:mx.controls.CheckBox;
+	
+	[Bindable] public var noteShareToMapCb:mx.controls.CheckBox;
+	[Bindable] public var noteShareToBookCb:mx.controls.CheckBox;
+	[Bindable] public var playerCreateTagsCb:mx.controls.CheckBox;
 	[Bindable] public var isLocationalCb:mx.controls.CheckBox;
 	[Bindable] public var readyForPublicCb:mx.controls.CheckBox;
+	[Bindable] public var playerCreateCommentsCb:mx.controls.CheckBox;
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;
@@ -123,10 +126,14 @@ public class GameDetailsEditorView extends Panel{
 		gameName.text = GameModel.getInstance().game.name;
 		inventoryCap.value = GameModel.getInstance().game.inventoryCap;
 		description.text = GameModel.getInstance().game.description;
-		allowPlayerLocationsCb.selected = GameModel.getInstance().game.allowsPlayerCreatedLocations;
-		deletePlayerLocationsCb.selected = GameModel.getInstance().game.resetDeletesPlayerCreatedLocations;
+		
+		noteShareToMapCb.selected = GameModel.getInstance().game.noteShareToMap;
+		noteShareToBookCb.selected = GameModel.getInstance().game.noteShareToBook;
+		playerCreateTagsCb.selected = GameModel.getInstance().game.playerCreateTags;
 		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
 		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
+		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
+		
 		populateEditors();
 		
 		//ComboBoxes will load after their data loads
@@ -391,10 +398,13 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.name = gameName.text;
 		GameModel.getInstance().game.inventoryCap = inventoryCap.value;
 		GameModel.getInstance().game.description = description.text;
-		GameModel.getInstance().game.allowsPlayerCreatedLocations = allowPlayerLocationsCb.selected;
-		GameModel.getInstance().game.resetDeletesPlayerCreatedLocations = deletePlayerLocationsCb.selected;
+		
+		GameModel.getInstance().game.noteShareToMap = noteShareToMapCb.selected;
+		GameModel.getInstance().game.noteShareToBook = noteShareToBookCb.selected;
+		GameModel.getInstance().game.playerCreateTags = playerCreateTagsCb.selected;
 		GameModel.getInstance().game.isLocational = isLocationalCb.selected;
 		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
+		GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
 
 		var introNode:Node = introNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.introNodeId = introNode.nodeId;

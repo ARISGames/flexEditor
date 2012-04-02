@@ -98,12 +98,14 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.pcMediaId = obj.result.data.list.getItemAt(j).pc_media_id;
 			g.introNodeId = obj.result.data.list.getItemAt(j).on_launch_node_id;
 			g.completeNodeId = obj.result.data.list.getItemAt(j).game_complete_node_id;
-			g.allowsPlayerCreatedLocations = obj.result.data.list.getItemAt(j).allow_player_created_locations;
-			g.resetDeletesPlayerCreatedLocations = obj.result.data.list.getItemAt(j).delete_player_locations_on_reset;
+			g.noteShareToMap = obj.result.data.list.getItemAt(j).allow_share_to_map;
+			g.noteShareToBook = obj.result.data.list.getItemAt(j).allow_share_to_book;
+			g.playerCreateComments = obj.result.data.list.getItemAt(j).allow_note_comments;
+			g.playerCreateTags = obj.result.data.list.getItemAt(j).allow_player_tags;
 			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
 			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
 			g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
-
+			
 			usersGames.addItem(g);
 			
         }

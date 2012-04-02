@@ -84,11 +84,15 @@ public class AppServices
 		{
 			trace("Appservices: saveGame: This game doesn't have a gameId, so call create Game.");
 			game.isLocational = true;
+			game.noteShareToMap = true;
+			game.noteShareToBook = true;
+			game.playerCreateTags = true;
+			game.playerCreateComments = true;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
-																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
+																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments,
 																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		else
@@ -98,7 +102,7 @@ public class AppServices
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
-																game.allowsPlayerCreatedLocations, game.resetDeletesPlayerCreatedLocations, 
+																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments,
 																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		r.addResponder(resp);
