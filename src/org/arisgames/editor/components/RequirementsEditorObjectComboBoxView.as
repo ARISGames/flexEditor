@@ -141,6 +141,10 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
         {
             trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
         }
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE){
+			trace("going to load game tags");
+			AppServices.getInstance().getNoteTagsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadGameTags, handleFault));
+		}
 		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE || req == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE)
 		{
 			trace("Upload Media option selected... editor will need to be reconfigured here to support different data model.");
@@ -184,13 +188,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 	private function handleLoadWebHooks(obj:Object):void
 	{
 		
-		trace("handling load quests...");
+		trace("handling load web hooks...");
 		possibleObjects.removeAll();
 		if(obj.result.returnCode != 0)
 		{
 			trace("Bad handle loading possible web hooks attempt... let's see what happened. Error = '" + obj.result.returnCodeDescription + "'");
 			var msg:String = obj.result.returnCodeDescription;
-			Alert.show("Error Was: " + msg, "Error While Loading Possible Items");
+			Alert.show("Error Was: " + msg, "Error While Loading Possible web hooks");
 		}
 		else
 		{
@@ -208,7 +212,35 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
-			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
+			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible web hook(s).");
+		}
+		
+	}
+	
+	private function handleLoadGameTags(obj:Object):void
+	{
+		
+		trace("handling load game note tags...");
+		possibleObjects.removeAll();
+		if(obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible game tags attempt... let's see what happened. Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible game tags");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].tag;
+				to.data = obj.result.data[j].tag_id;
+				possibleObjects.addItem(to);
+			}
+			
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible game tag(s).");
 		}
 		
 	}

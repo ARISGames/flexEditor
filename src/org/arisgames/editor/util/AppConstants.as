@@ -20,7 +20,6 @@ public class AppConstants
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
 	//public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
 
-
 	//Image Reference URL's
 	public static const IMG_DEFAULT_ICON_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_48x48.png";
 	public static const IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_gt320x416.png";
@@ -121,7 +120,6 @@ public class AppConstants
 	public static const ITEM_TYPE_URL:String = "URL";
 	public static const ITEM_TYPE_NOTE:String = "NOTE";
 
-	
 	//Player State Changes
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_ITEM:String = "VIEW_ITEM";
 	public static const PLAYERSTATECHANGE_EVENTTYPE_VIEW_WEBPAGE:String = "VIEW_WEBPAGE";
@@ -174,6 +172,8 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Completed Quest";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_DATABASE:String = "PLAYER_HAS_NOTE";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_HUMAN:String = "Has A Note";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE:String = "PLAYER_HAS_NOTE_WITH_TAG";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_HUMAN:String = "Has Note With Tag";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:String = "PLAYER_HAS_NOTE_WITH_LIKES";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Has A Note With (x) Likes";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE:String = "PLAYER_HAS_NOTE_WITH_COMMENTS";

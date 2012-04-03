@@ -263,7 +263,6 @@ public class RequirementsEditorView extends Panel
         }
     }
 
-
 	public function handleDataLineSavePostUpdate(evt:DataGridEvent):void
 	{
 		trace("RequirementEditorView: handleDataLineSavePostUpdate() called with DataGridEvent type = '" + evt.type + "'; Column Index = '" + evt.columnIndex + "'; Row Index = '" + evt.rowIndex + "' Item Renderer = '" + evt.itemRenderer + "'");
@@ -277,10 +276,7 @@ public class RequirementsEditorView extends Panel
 			
 		}
 	}
-	
-	
-	
-	
+
     private function handleUpdateRequirementSave(obj:Object):void
     {
         if (obj.result.returnCode != 0)

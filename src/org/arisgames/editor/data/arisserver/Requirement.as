@@ -118,10 +118,16 @@ public class Requirement
         {
             trace("setRequirementDetail1(): Upload Media option selected... nothing needs to be done.");
         }
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE)
+		{
+			trace("going to load incoming game tags = '" + new Number(requirementDetail1) + "'");
+			AppServices.getInstance().getNoteTagById(new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
+		}
 		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE)
 		{
 			trace("setRequirementDetail1(): Note With (x) selected... nothing needs to be done.");
 		}
+		
 		else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 		{
 			trace("requirement about player notes");
@@ -202,10 +208,16 @@ public class Requirement
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
 			}
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE )
+			{
+				trace("going to load note tag");
+				name = obj.result.data.tag;
+			}
 			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE || requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE || AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE)
 			{
 				trace("Player note requriement picked. Do nothin'");
 			}
+			
 			else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE)
 			{
 				trace("Player note requriement picked. Do nothin'");

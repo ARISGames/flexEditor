@@ -188,7 +188,7 @@ public class AppServices
 		r = AppDAO.getInstance().getWebHookServer().getWebHook(gid, wid);
 		r.addResponder(resp);
 	}
-	
+
 	public function savePlayerNote(gid:Number, playerNote:PlayerNote, resp:IResponder):void
 	{
 		var r:Object;
@@ -460,6 +460,13 @@ public class AppServices
 		var l:Object;
 		l = AppDAO.getInstance().getPlayerNoteServer().getAllTagsInGame(gid);
 		l.addResponder(resp);
+	}
+	
+	public function getNoteTagById(tid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getPlayerNoteServer().getGameTag(tid);
+		r.addResponder(resp);
 	}
 
 	public function addNoteTag(gid:Number, tag:NoteTag, resp:IResponder):void

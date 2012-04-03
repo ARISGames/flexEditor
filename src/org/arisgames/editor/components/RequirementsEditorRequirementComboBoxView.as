@@ -160,6 +160,9 @@ public class RequirementsEditorRequirementComboBoxView extends VBox implements I
 					case AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE:
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_HUMAN;
 						break;
+					case AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE:
+						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_HUMAN;
+						break;
 					case AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:
 						to.humanLabel = AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN;
 						break;
