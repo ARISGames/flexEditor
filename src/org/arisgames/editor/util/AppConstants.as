@@ -175,11 +175,11 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE:String = "PLAYER_HAS_NOTE_WITH_TAG";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_HUMAN:String = "Has Note With Tag";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:String = "PLAYER_HAS_NOTE_WITH_LIKES";
-	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Has A Note With (x) Likes";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Created A Note With (qty) Likes";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE:String = "PLAYER_HAS_NOTE_WITH_COMMENTS";
-	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_HUMAN:String = "Has A Note With (x) Comments";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_HUMAN:String = "Created A Note With (qty) Comments";
 	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE:String = "PLAYER_HAS_GIVEN_NOTE_COMMENTS";
-	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_HUMAN:String = "Has Given (x) Comments On Notes";
+	public static const REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_HUMAN:String = "Given (qty) Comments On Notes";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE:String = "PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK";
 	public static const REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_HUMAN:String = "Received Incoming Web Hook";
 
