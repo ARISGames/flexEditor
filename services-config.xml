@@ -24,7 +24,7 @@
        	<!-- MAIN: <endpoint uri="http://www.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> STAGING -->
        	
        	<!-- Copy and paste one of the above lines over the one below, rather than commenting/uncommenting them all the time -->
-       	<endpoint uri="http://warhol.arisgames.org/devserver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
+       	<endpoint uri="http://qa.arisgames.org/erver/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
        	
         </channel-definition>
     </channels>
