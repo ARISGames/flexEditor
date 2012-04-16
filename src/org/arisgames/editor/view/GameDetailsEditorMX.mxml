@@ -124,8 +124,8 @@
 							   left="20"
 							   height="90%"
 							   width="90%"
-							   rowHeight="40"
-							   columnWidth="40"
+							   rowHeight="80"
+							   columnWidth="65"
 							   dragEnabled="true" 
 							   dropEnabled="true"
 							   dragMoveEnabled="true"
@@ -136,9 +136,10 @@
 							>
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:HBox>
+						<mx:VBox horizontalAlign="center">
 							<mx:Image source="{'assets/img/' + data.type + data.append + '.png'}" height="30" width="30" />
-						</mx:HBox>
+							<mx:Label htmlText="{data.type}"/>
+						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:HorizontalList>

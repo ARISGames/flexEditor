@@ -141,8 +141,8 @@ public class RequirementsEditorView extends Panel
 
         if ((AppUtils.isUploadMediaItemRequirementType(r) || !AppUtils.isObjectsHavingRequirementType(r)) && evt.columnIndex != 4)
         {
-            trace("RequirementEditorView: This requirement is an Uploaded Media Item, so stop the itemEditor from being setup.");
-            evt.preventDefault();
+            trace("RequirementEditorView: This requirement does not require objects, so stop the itemEditor from being setup.");
+            ///evt.preventDefault();
         }
         else
         {

@@ -14,6 +14,7 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppUtils;
 
 public class RequirementsEditorObjectComboBoxView extends VBox implements IDropInListItemRenderer
 {
@@ -51,6 +52,8 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
         trace("RequirementsEditorObjectComboBoxView.setData() called with value = '" + value + "'");
         super.data = value;
         var req:Requirement = value as Requirement;
+		if(!AppUtils.isObjectsHavingRequirementType(req))
+			return;
 //        trace("What will be assigned = '" + value[_listData.dataField] + "'; The Requirement Id = '" + req.requirementId + "'; The Requirement = '" + req.requirement + "'");
         trace("What will be assigned (new) = '" + req.requirementDetail1 + "'; The Requirement Id = '" + req.requirementId + "'; The Requirement = '" + req.requirement + "'");
 
