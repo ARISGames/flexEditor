@@ -368,6 +368,13 @@ public class GameDetailsEditorView extends Panel{
 		}
 	}
 	
+	protected function handleWbpButton(event:MouseEvent):void
+	{
+		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
+			"samples/jsWebBackPack/index.html?gameId=" + GameModel.getInstance().game.gameId;
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
+	
 	protected function handlePcmMapButton(event:MouseEvent):void
 	{
 		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
