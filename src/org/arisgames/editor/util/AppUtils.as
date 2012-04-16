@@ -701,6 +701,38 @@ public class AppUtils
 		}
 	}	
 	
+	public static function convertGameTabDatabaseLabelToHumanLabel(str:String):String
+	{
+		switch (str)
+		{
+			case "QUESTS":
+				return "Quests";
+			case "GPS":
+				return "Map";
+			case "INVENTORY":
+				return "Inventory";
+			case "QR":
+				return "Scanner";
+			case "PLAYER":
+				return "Profile";
+			case "NOTE":
+				return "Notebook";
+			case "PICKGAME":
+				return "Game Picker";
+			case "LOGOUT":
+				return "Log Out";
+			case "STARTOVER":
+				return "Start Over";
+			case "CAMERA"://Depricated
+				return "Camera";
+			case "MICROPHONE"://Depricated
+				return "Mic";
+			default:
+				trace("SHOULD NOT GET HERE");
+				return str;
+		}
+	}
+	
 	
 	//Tests whether requirement uses map/distance thing as its object
     public static function isUploadMediaItemRequirementType(req:Requirement):Boolean

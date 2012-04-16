@@ -138,7 +138,7 @@
 					<mx:Component>
 						<mx:VBox horizontalAlign="center">
 							<mx:Image source="{'assets/img/' + data.type + data.append + '.png'}" height="30" width="30" />
-							<mx:Label htmlText="{data.type}"/>
+							<mx:Label htmlText="{data.human}"/>
 						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
