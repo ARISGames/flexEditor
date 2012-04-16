@@ -44,7 +44,6 @@ package org.arisgames.editor.view
 		{
 			super();
 			this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit)
-			
 		}
 		
 		private function handleInit(event:FlexEvent):void
@@ -53,6 +52,7 @@ package org.arisgames.editor.view
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 			multiMedia.allowAllMediaTypesf(true);
 			multiMedia.setDelegate(this);
+			this.multiMedia.allowAddMediaf(false);
 		}
 		
 		public function duplicateObject(evt:Event):void {

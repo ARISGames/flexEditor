@@ -33,6 +33,7 @@ package org.arisgames.editor.view
 		
 		public var selectedIndex:Number;
 		public var allowAllMediaTypes:Boolean = false;
+		public var allowAddMedia:Boolean = true;
 		
 		// GUI
 		
@@ -73,6 +74,14 @@ package org.arisgames.editor.view
 		
 		public function allowAllMediaTypesf(y:Boolean){
 			this.allowAllMediaTypes = y;
+		}
+		
+		public function allowAddMediaf(y:Boolean){
+			this.allowAddMedia = y;
+			if(y)
+				this.addMediaButton.visible = true;
+			else
+				this.addMediaButton.visible = false;
 		}
 		
 		private function handleInit(event:FlexEvent):void
