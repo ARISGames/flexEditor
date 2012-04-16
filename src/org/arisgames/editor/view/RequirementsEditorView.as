@@ -139,7 +139,7 @@ public class RequirementsEditorView extends Panel
         trace("RequirementEditorView: handleDataEditBeginning()....");
         var r:Requirement = reqs.selectedItem as Requirement;
 
-        if (AppUtils.isUploadMediaItemRequirementType(r) && evt.columnIndex != 4)
+        if ((AppUtils.isUploadMediaItemRequirementType(r) || !AppUtils.isObjectsHavingRequirementType(r)) && evt.columnIndex != 4)
         {
             trace("RequirementEditorView: This requirement is an Uploaded Media Item, so stop the itemEditor from being setup.");
             evt.preventDefault();
@@ -193,7 +193,7 @@ public class RequirementsEditorView extends Panel
             }
 			
 			//Check if Qty should be used
-			if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE)
+			if (AppUtils.isQtyHavingRequirementType(r))
 			{
 				trace("RequirementEditorView: This requirement uses QTY");
 				r.requirementDetail2 = "1";
@@ -208,11 +208,16 @@ public class RequirementsEditorView extends Panel
             AppServices.getInstance().saveRequirement(GameModel.getInstance().game.gameId, r, new Responder(handleUpdateRequirementSave, handleFault));
 
             // Renderer The Germane Editor So That The Event Will Be Received
-            if (r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || r.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
+            if (AppUtils.isUploadMediaItemRequirementType(r))
             {
                 trace("RequirementEditorView: The requirement was just changed to Upload Media Item, so popup the Requirements Editor Map.");
                 this.openRequirementsEditorMapView(r);
             }
+			else if (!AppUtils.isObjectsHavingRequirementType(r))
+			{
+				trace("RequirementEditorView: The requirement is not Upload Media Item, and has no objects, so just return");
+				return;
+			}
             else
             {
                 trace("RequirementEditorView: The requirement is not Upload Media Item, so just highlight the regular Object column.");
@@ -285,7 +290,6 @@ public class RequirementsEditorView extends Panel
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Updating Requirement");
         }
-        
     }
 
     private function handleAddRequirementSave(obj:Object):void

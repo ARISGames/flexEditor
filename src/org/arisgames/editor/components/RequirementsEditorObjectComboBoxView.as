@@ -272,7 +272,6 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
         }
     }
 	
-	
 	private function handleLoadWebPages(obj:Object):void
 	{
 		trace("handling load web Pages...");
@@ -299,7 +298,6 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			trace("Loaded '" + possibleObjects.length + "' Possible Web Page Object(s).");
 		}
 	}
-	
 	
 	private function handleLoadAugBubbles(obj:Object):void
 	{
@@ -328,7 +326,6 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 		}
 	}
 	
-
     private function handleLoadNodes(obj:Object):void
     {
         trace("handling load Nodes...");

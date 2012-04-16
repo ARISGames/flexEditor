@@ -274,12 +274,12 @@ public class GameEditorObjectPaletteView extends VBox
 			trace("j = " + j + "; Object Id = '" + op.id +"'; Object Name = '" + op.name + "'; Parent Id = '" + op.parentFolderId + "'; Previous Folder Id = '" + op.previousFolderId);
 			
 			// if parent content folder id == 0, then it's root else it goes on as a child of a folder
-			if (op.parentContentFolderId == 0)
+			if (op.parentContentFolderId == 0 && op.objectType != "PlayerNote")
 			{
 				rfc.addItem(op);
 			}
 			// if parent content folder id == -1, then it's root else it goes on as a child of a folder
-			else if (op.parentContentFolderId == -1) 
+			else if (op.objectType == "PlayerNote" || op.parentContentFolderId == -1) 
 			{
 				if(!cFolderAdded){
 					trace("Add client-side-only folder for user created media (photos, etc...)");

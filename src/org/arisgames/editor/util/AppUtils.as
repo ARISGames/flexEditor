@@ -702,7 +702,7 @@ public class AppUtils
 	}	
 	
 	
-
+	//Tests whether requirement uses map/distance thing as its object
     public static function isUploadMediaItemRequirementType(req:Requirement):Boolean
     {
         if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE)
@@ -711,5 +711,38 @@ public class AppUtils
         }
         return false;
     }
+	
+	//Tests whether requirement has a list of objects to chose from
+	public static function isObjectsHavingRequirementType(req:Requirement):Boolean
+	{
+		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	//Tests whether requirement is associated with a Qty
+	public static function isQtyHavingRequirementType(req:Requirement):Boolean
+	{
+		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE)
+		{
+			return true;
+		}
+		return false;
+	}
 }
 }

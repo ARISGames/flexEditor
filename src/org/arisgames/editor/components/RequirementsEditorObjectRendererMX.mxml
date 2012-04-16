@@ -39,11 +39,17 @@ override public function set data(value:Object):void
                     openREMapButton.visible = true;
                     objectLabel.visible = false;
                 }
+				else if(AppUtils.isObjectsHavingRequirementType(req))
+				{
+					objectLabel.text = req.requirementDetail1Human;
+					openREMapButton.visible = false;
+					objectLabel.visible = true;
+				}
                 else
                 {
-                    openREMapButton.visible = false;
-                    objectLabel.visible = true;
-                    objectLabel.text = req.requirementDetail1Human;
+					objectLabel.text = "N/A";
+					openREMapButton.visible = false;
+					objectLabel.visible = true;
                 }
             }
 
