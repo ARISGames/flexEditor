@@ -770,7 +770,10 @@ public class AppUtils
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_VIDEO_DATABASE ||
-			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE)
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE)
 		{
 			return true;
 		}
