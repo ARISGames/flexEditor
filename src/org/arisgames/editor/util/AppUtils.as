@@ -750,7 +750,8 @@ public class AppUtils
 		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || 
-			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_RECEIVED_INCOMING_WEB_HOOK_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_PLAYER_NOTE_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NODE_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_NPC_DATABASE || 
