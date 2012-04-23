@@ -125,7 +125,7 @@
 							   height="90%"
 							   width="90%"
 							   rowHeight="80"
-							   columnWidth="65"
+							   columnWidth="53"
 							   dragEnabled="true" 
 							   dropEnabled="true"
 							   dragMoveEnabled="true"
@@ -136,9 +136,9 @@
 							>
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:VBox horizontalAlign="center">
+						<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off">
 							<mx:Image source="{'assets/img/' + data.type + data.append + '.png'}" height="30" width="30" />
-							<mx:Label htmlText="{data.human}"/>
+							<mx:Label fontSize="8" htmlText="{data.human}"/>
 						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
