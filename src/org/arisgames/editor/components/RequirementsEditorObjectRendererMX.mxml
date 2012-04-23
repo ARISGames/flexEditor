@@ -85,7 +85,7 @@ override public function set data(value:Object):void
 </mx:Script>
 
 
-<mx:Button id="openREMapButton" width="100%" label="Open RE Map" click="handleButtonClick(event)"/>
+<mx:Button id="openREMapButton" width="100%" label="Select Location" click="handleButtonClick(event)"/>
 <mx:Label id="objectLabel"/>
 
 

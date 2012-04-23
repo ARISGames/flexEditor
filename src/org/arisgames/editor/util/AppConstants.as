@@ -5,7 +5,7 @@ public class AppConstants
 	//Server URL
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/server"; //For other URL's to append to- Prod
 	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://qa.arisgames.org/server"; //For other URL's to append to- QA
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://qa.arisgames.org/server"; //For other URL's to append to- Dev
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://dev.arisgames.org/server"; //For other URL's to append to- Dev
 	
 	//Server Version
 	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "v1";
@@ -171,9 +171,9 @@ public class AppConstants
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_DATABASE:String = "PLAYER_HAS_COMPLETED_QUEST";
 	public static const REQUIREMENT_PLAYER_HAS_COMPLETED_QUEST_HUMAN:String = "Completed Quest";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_DATABASE:String = "PLAYER_HAS_NOTE";
-	public static const REQUIREMENT_PLAYER_HAS_NOTE_HUMAN:String = "Has A Note";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_HUMAN:String = "Created A Note";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_DATABASE:String = "PLAYER_HAS_NOTE_WITH_TAG";
-	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_HUMAN:String = "Has Note With Tag";
+	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_TAG_HUMAN:String = "Created A Note With Tag";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_DATABASE:String = "PLAYER_HAS_NOTE_WITH_LIKES";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_LIKES_HUMAN:String = "Created A Note With (qty) Likes";
 	public static const REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE:String = "PLAYER_HAS_NOTE_WITH_COMMENTS";
