@@ -68,7 +68,7 @@ public class ForgotAccountInformationFormView extends Panel
     private function handleForgotPassword(obj:Object):void
     {
         trace("handleForgotPassword called with event: " + obj);
-        Alert.show("Your password has been reset and emailed to the email address on file for this account.", "Password Reset");
+        Alert.show("An email has been sent with instructions to change your password.", "Password Reset");
     }
 
     private function handleFault(obj:Object):void
