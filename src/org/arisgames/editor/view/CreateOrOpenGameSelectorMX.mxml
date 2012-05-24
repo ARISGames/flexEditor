@@ -6,7 +6,7 @@
     <mx:TabNavigator id="tn" width="100%" resizeToContent="true" creationPolicy="all">
 
             <mx:VBox label="Select And Open Existing Game" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
-                <mx:DataGrid id="gamesDataGrid" width="100%" rowCount="5" dataProvider="{usersGames}">
+                <mx:DataGrid id="gamesDataGrid" width="100%" rowCount="15" dataProvider="{usersGames}">
                             <mx:columns>
                                 <mx:DataGridColumn dataField="name" headerText="Name"/>
                                 <mx:DataGridColumn dataField="description" headerText="Description"/>

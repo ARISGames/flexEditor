@@ -107,7 +107,6 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
 			
 			usersGames.addItem(g);
-			
         }
         trace("done loading UsersGames.");
     }
