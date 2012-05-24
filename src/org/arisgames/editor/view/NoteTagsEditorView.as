@@ -6,6 +6,7 @@ package org.arisgames.editor.view
 	import mx.containers.Panel;
 	import mx.controls.Alert;
 	import mx.controls.Button;
+	import mx.controls.TextInput;
 	import mx.controls.DataGrid;
 	import mx.controls.Text;
 	import mx.events.DataGridEvent;
@@ -32,11 +33,9 @@ package org.arisgames.editor.view
 		[Bindable] public var ptdg:DataGrid;
 		[Bindable] public var gtheader:Text;
 		[Bindable] public var ptheader:Text;
+		[Bindable] public var addNoteTagText:TextInput;
 		[Bindable] public var addNoteTagButton:Button;
 		[Bindable] public var closeButton:Button;
-		
-		public var startedEditing:Boolean;
-		public var persistTag:String;
 
 		/**
 		 * Constructor
@@ -46,8 +45,6 @@ package org.arisgames.editor.view
 			super();
 			gtNoteTags = new ArrayCollection();
 			ptNoteTags = new ArrayCollection();
-			startedEditing = false;
-			persistTag = "";
 			this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit);
 		}
 		
@@ -57,37 +54,9 @@ package org.arisgames.editor.view
 			ptheader.htmlText = "Player Created Tags";
 			
 			closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
-			
 			addNoteTagButton.addEventListener(MouseEvent.CLICK, handleAddNoteTagButtonClick);
-
-			gtdg.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleBeginEdit);
-			gtdg.addEventListener(DataGridEvent.ITEM_FOCUS_OUT, handleEndEdit);	
-			ptdg.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleBeginEdit);
-			ptdg.addEventListener(DataGridEvent.ITEM_FOCUS_OUT, handleEndEdit);	
 			
 			this.reloadTheNoteTags();
-		}
-		
-		public function handleBeginEdit(evt:DataGridEvent):void {
-			trace("Edit Beginning");
-			if(gtdg == (evt.currentTarget as DataGrid))
-				persistTag = (gtNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag;
-			else
-				persistTag = (ptNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag;
-		}
-		
-		public function handleEndEdit(evt:DataGridEvent):void {
-			trace("Edit Ending");
-			if(startedEditing)
-				AppServices.getInstance().addNoteTag(GameModel.getInstance().game.gameId, gtNoteTags.getItemAt(evt.rowIndex) as NoteTag, new Responder(handleAddNoteTagSave, handleFault));
-			else
-			{
-				if(gtdg == (evt.currentTarget as DataGrid))
-					(gtNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
-				else
-					(ptNoteTags.getItemAt(evt.rowIndex) as NoteTag).tag = persistTag;
-			}
-			startedEditing = false;
 		}
 		
 		public function handleRefreshNoteTagData(evt:DynamicEvent):void
@@ -152,11 +121,11 @@ package org.arisgames.editor.view
 		private function handleAddNoteTagButtonClick(evt:MouseEvent):void
 		{
 			trace("Add NoteTag Button clicked...");
-			var n:NoteTag = new NoteTag(0, "New Tag", 0);
+			if(addNoteTagText.text != "")
+			var n:NoteTag = new NoteTag(0, addNoteTagText.text, 0);
 			gtNoteTags.addItem(n);
+			AppServices.getInstance().addNoteTag(GameModel.getInstance().game.gameId, n, new Responder(handleAddNoteTagSave, handleFault));
 			gtNoteTags.refresh();
-			startedEditing = true;
-			gtdg.editedItemPosition = {rowIndex: gtNoteTags.length-1, columnIndex: 0};
 		}
 
 		private function handleUpdateNoteTagSave(obj:Object):void
