@@ -100,65 +100,74 @@ public class ItemEditorMediaPickerUploadFormView extends Panel
 		PopUpManager.removePopUp(this);		
     }
 
-    private function handleFindFileButton(evt:MouseEvent):void
-    {
-        trace("Find File To Upload button clicked...");
-        // Build File Filters
-        var img:String = "";
-        if (validImageAndIconExtensions != null)
-        {
-            for (var j:Number = 0; j < validImageAndIconExtensions.length; j++)
-            {
-                if (j != 0)
-                {
-                    img = img + ";*." + validImageAndIconExtensions[j];
-                }
-                else
-                {
-                    img = "*." + validImageAndIconExtensions[j]
-                }
-            }
-        }
-        var imageAndIconFilter:FileFilter = new FileFilter("Image / Icon", img);
-
-        var vid:String = "";
-        if (validVideoExtensions != null)
-        {
-            for (j = 0; j < validVideoExtensions.length; j++)
-            {
-                if (j != 0)
-                {
-                    vid = vid + ";*." + validVideoExtensions[j];
-                }
-                else
-                {
-                    vid = "*." + validVideoExtensions[j]
-                }
-            }
-        }
-        var videoFilter:FileFilter = new FileFilter("Video", vid);
-
-        var aud:String = "";
-        if (validAudioExtensions != null)
-        {
-            for (j = 0; j < validAudioExtensions.length; j++)
-            {
-                if (j != 0)
-                {
-                    aud = aud + ";*." + validAudioExtensions[j];
-                }
-                else
-                {
-                    aud = "*." + validAudioExtensions[j]
-                }
-            }
-        }
-        var audioFilter:FileFilter = new FileFilter("Audio", aud);
-
-        fileChooser = new FileReferenceList();
-        fileChooser.addEventListener(Event.SELECT, onSelectFile);
-        fileChooser.browse([audioFilter, imageAndIconFilter, videoFilter]);
-    }
+	private function handleFindFileButton(evt:MouseEvent):void
+	{
+		trace("Find File To Upload button clicked...");
+		// Build File Filters
+		var all:String = "";
+		var img:String = "";
+		if (validImageAndIconExtensions != null)
+		{
+			for (var j:Number = 0; j < validImageAndIconExtensions.length; j++)
+			{
+				all = all + ";*." + validImageAndIconExtensions[j];
+				
+				if (j != 0)
+				{
+					img = img + ";*." + validImageAndIconExtensions[j];
+				}
+				else
+				{
+					img = "*." + validImageAndIconExtensions[j]
+				}
+			}
+		}
+		var imageAndIconFilter:FileFilter = new FileFilter("Image / Icon", img);
+		
+		var vid:String = "";
+		if (validVideoExtensions != null)
+		{
+			for (j = 0; j < validVideoExtensions.length; j++)
+			{
+				all = all + ";*." + validVideoExtensions[j];
+				
+				if (j != 0)
+				{
+					vid = vid + ";*." + validVideoExtensions[j];
+				}
+				else
+				{
+					vid = "*." + validVideoExtensions[j]
+				}
+			}
+		}
+		var videoFilter:FileFilter = new FileFilter("Video", vid);
+		
+		var aud:String = "";
+		if (validAudioExtensions != null)
+		{
+			for (j = 0; j < validAudioExtensions.length; j++)
+			{
+				all = all + ";*." + validAudioExtensions[j];
+				
+				if (j != 0)
+				{
+					aud = aud + ";*." + validAudioExtensions[j];
+				}
+				else
+				{
+					aud = "*." + validAudioExtensions[j]
+				}
+			}
+		}
+		var audioFilter:FileFilter = new FileFilter("Audio", aud);
+		all = all.substring(1, all.length); //remove the starting ';'
+		var allFilter:FileFilter = new FileFilter("Media", all);
+		
+		fileChooser = new FileReferenceList();
+		fileChooser.addEventListener(Event.SELECT, onSelectFile);
+		fileChooser.browse([allFilter, imageAndIconFilter, videoFilter, audioFilter]);
+	}
 
     private function handleClearFileButton(evt:MouseEvent):void
     {

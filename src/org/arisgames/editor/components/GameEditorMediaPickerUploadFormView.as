@@ -104,11 +104,14 @@ package org.arisgames.editor.components
 		{
 			trace("Find File To Upload button clicked...");
 			// Build File Filters
+			var all:String = "";
 			var img:String = "";
 			if (validImageAndIconExtensions != null)
 			{
 				for (var j:Number = 0; j < validImageAndIconExtensions.length; j++)
 				{
+					all = all + ";*." + validImageAndIconExtensions[j];
+
 					if (j != 0)
 					{
 						img = img + ";*." + validImageAndIconExtensions[j];
@@ -126,6 +129,8 @@ package org.arisgames.editor.components
 			{
 				for (j = 0; j < validVideoExtensions.length; j++)
 				{
+					all = all + ";*." + validVideoExtensions[j];
+
 					if (j != 0)
 					{
 						vid = vid + ";*." + validVideoExtensions[j];
@@ -143,6 +148,8 @@ package org.arisgames.editor.components
 			{
 				for (j = 0; j < validAudioExtensions.length; j++)
 				{
+					all = all + ";*." + validAudioExtensions[j];
+
 					if (j != 0)
 					{
 						aud = aud + ";*." + validAudioExtensions[j];
@@ -154,10 +161,12 @@ package org.arisgames.editor.components
 				}
 			}
 			var audioFilter:FileFilter = new FileFilter("Audio", aud);
+			all = all.substring(1, all.length); //remove the starting ';'
+			var allFilter:FileFilter = new FileFilter("Media", all);
 			
 			fileChooser = new FileReferenceList();
 			fileChooser.addEventListener(Event.SELECT, onSelectFile);
-			fileChooser.browse([imageAndIconFilter, videoFilter, audioFilter]);
+			fileChooser.browse([allFilter, imageAndIconFilter, videoFilter, audioFilter]);
 		}
 		
 		private function handleClearFileButton(evt:MouseEvent):void
