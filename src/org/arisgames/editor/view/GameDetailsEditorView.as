@@ -397,6 +397,17 @@ public class GameDetailsEditorView extends Panel{
 		navigateToURL(new URLRequest(loc),"_blank");
 	}
 	
+	protected function handleRtmButton(event:MouseEvent):void
+	{
+		var loc:String = "https://docs.google.com/document/d/1BYluK42uO_CxuqW4T6wJoA4eb7lOtmIL78a14cOiAsk/edit?hl=en_US";
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
+	
+	protected function handleJtcButton(event:MouseEvent):void
+	{
+		var loc:String = "https://groups.google.com/forum/?fromgroups#!forum/arisgames";
+		navigateToURL(new URLRequest(loc),"_blank");
+	}
 	
 	
 	private function handleSaveAndCloseButton(evt:MouseEvent):void

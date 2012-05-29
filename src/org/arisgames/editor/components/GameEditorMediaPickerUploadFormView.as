@@ -157,7 +157,7 @@ package org.arisgames.editor.components
 			
 			fileChooser = new FileReferenceList();
 			fileChooser.addEventListener(Event.SELECT, onSelectFile);
-			fileChooser.browse([audioFilter, imageAndIconFilter, videoFilter]);
+			fileChooser.browse([imageAndIconFilter, videoFilter, audioFilter]);
 		}
 		
 		private function handleClearFileButton(evt:MouseEvent):void

@@ -152,6 +152,11 @@
 			<mx:Button x="112" y="110" label="Download KML of Player Created Media" width="286" id="pcmKMLButton" click="handlePcmKMLButton(event)"/>
 			<mx:Button x="112" y="140" label="Download KML of Game Locations and Players" id="gameLocsKMLButton" click="handleGameLocsKMLButton(event)"/>
 		</mx:Canvas>
+		
+		<mx:Canvas label="Need Help?"  height="100%" width="100%">
+			<mx:Button x="112" y="50" label="Read the Manual" width="286" id="rtmButton" click="handleRtmButton(event)"/>
+			<mx:Button x="112" y="80" label="Join the Community" width="286" id="jtcButton" click="handleJtcButton(event)"/>
+		</mx:Canvas>
 	</mx:TabNavigator>
 	
 	<mx:ControlBar width="100%" horizontalAlign="right">
