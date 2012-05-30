@@ -717,16 +717,6 @@ public class AppUtils
 				return "Profile";
 			case "NOTE":
 				return "Notebook";
-			case "PICKGAME":
-				return "Game Picker";
-			case "LOGOUT":
-				return "Log Out";
-			case "STARTOVER":
-				return "Start Over";
-			case "CAMERA"://Depricated
-				return "Camera";
-			case "MICROPHONE"://Depricated
-				return "Mic";
 			default:
 				trace("SHOULD NOT GET HERE");
 				return str;
