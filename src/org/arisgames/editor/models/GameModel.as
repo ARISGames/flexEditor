@@ -119,10 +119,10 @@ public class GameModel
 				pm.contentType = AppUtils.getContentTypeValueByName(obj.result.data.list.getItemAt(j).type);
 				pm.contentId = obj.result.data.list.getItemAt(j).type_id;
 				pm.quantity = obj.result.data.list.getItemAt(j).item_qty;
-				pm.hidden = obj.result.data.list.getItemAt(j).hidden;
-				pm.forcedView = obj.result.data.list.getItemAt(j).force_view;
+				pm.hidden = obj.result.data.list.getItemAt(j).hidden ? (obj.result.data.list.getItemAt(j).hidden == '1' ? true : false) : false;
+				pm.forcedView = obj.result.data.list.getItemAt(j).force_view ? (obj.result.data.list.getItemAt(j).force_view == '1' ? true : false) : false;
 				pm.errorRange = obj.result.data.list.getItemAt(j).error;
-				pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel;
+				pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel ? (obj.result.data.list.getItemAt(j).allow_quick_travel == '1' ? true : false) : false;
 				pm.imageMatchMediaId = obj.result.data.list.getItemAt(j).match_media_id;
 				
 				for each (var p:PlaceMark in tmpPlacemarks){
