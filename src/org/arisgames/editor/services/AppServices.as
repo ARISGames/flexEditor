@@ -829,7 +829,7 @@ public class AppServices
 	public function duplicateGame(gid:Number, resp:IResponder):void {
 		trace("Duplicating Game");
 		var r:Object;
-		r = AppDAO.getInstance().getGameServer().duplicateGame(gid);
+		r = AppDAO.getInstance().getGameServer().duplicateGame(gid, SecurityModel.getInstance().getUserId());
 		r.addResponder(resp);
 	}
 	
