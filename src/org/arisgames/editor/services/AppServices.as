@@ -832,6 +832,5 @@ public class AppServices
 		r = AppDAO.getInstance().getGameServer().duplicateGame(gid, SecurityModel.getInstance().getUserId());
 		r.addResponder(resp);
 	}
-	
 }
 }
