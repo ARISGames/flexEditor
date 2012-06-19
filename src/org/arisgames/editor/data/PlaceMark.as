@@ -21,6 +21,7 @@ public class PlaceMark
     public var hidden:Boolean = false;
     public var forcedView:Boolean = false;
 	public var quickTravel:Boolean = false;	
+	public var wiggle:Boolean = false;	
 	public var qrCode:String;
 	public var placeMarker:PlaceMarker;
 	public var imageMatchMediaId:Number;

@@ -15,6 +15,7 @@ public class Location
 	public var hidden:Boolean;
     public var forceView:Boolean;
 	public var quickTravel:Boolean;
+	public var wiggle:Boolean;
 	public var qrCode:String;
 	
 

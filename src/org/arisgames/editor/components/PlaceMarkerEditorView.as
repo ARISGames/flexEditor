@@ -56,6 +56,8 @@ public class PlaceMarkerEditorView extends Canvas
     [Bindable] public var autoDisplay:CheckBox;
 	[Bindable] public var quickTravelFI:FormItem;
 	[Bindable] public var quickTravel:CheckBox;	
+	[Bindable] public var wiggleFI:FormItem;
+	[Bindable] public var wiggle:CheckBox;	
 	public var deletePlaceMarkDataButton:Button;
     public var savePlaceMarkDataButton:Button;
     [Bindable] public var openRequirementsEditorButton:Button;
@@ -106,6 +108,7 @@ public class PlaceMarkerEditorView extends Canvas
         hidden.selected = placeMark.hidden;
         autoDisplay.selected = placeMark.forcedView;
 		quickTravel.selected = placeMark.quickTravel;
+		wiggle.selected = placeMark.wiggle;
 		
         deletePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
         savePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleSaveDataButtonClick);
@@ -218,6 +221,7 @@ public class PlaceMarkerEditorView extends Canvas
         loc.hidden = hidden.selected;
         loc.forceView = autoDisplay.selected;
 		loc.quickTravel = quickTravel.selected;
+		loc.wiggle = wiggle.selected;
 		AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId, loc, placeMarker.imageMatchMediaId, new Responder(handleUpdateLocation, handleFault));
 
 		placeMarker.closeInfoWindow();
@@ -267,6 +271,7 @@ public class PlaceMarkerEditorView extends Canvas
 			placeMark.hidden = hidden.selected;
 			placeMark.forcedView = autoDisplay.selected;
 			placeMark.quickTravel = quickTravel.selected;
+			placeMark.wiggle = wiggle.selected;
 			placeMark.errorRange = errorRange.value;
 			
 			//Update the Google Marker

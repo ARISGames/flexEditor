@@ -389,7 +389,6 @@ public class GameDetailsEditorView extends Panel{
 		navigateToURL(new URLRequest(loc),"_blank");
 	}
 	
-	
 	protected function handleGameLocsKMLButton(event:MouseEvent):void
 	{
 		var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 

@@ -123,6 +123,7 @@ public class GameModel
 				pm.forcedView = obj.result.data.list.getItemAt(j).force_view ? (obj.result.data.list.getItemAt(j).force_view == '1' ? true : false) : false;
 				pm.errorRange = obj.result.data.list.getItemAt(j).error;
 				pm.quickTravel = obj.result.data.list.getItemAt(j).allow_quick_travel ? (obj.result.data.list.getItemAt(j).allow_quick_travel == '1' ? true : false) : false;
+				pm.wiggle = obj.result.data.list.getItemAt(j).wiggle ? (obj.result.data.list.getItemAt(j).wiggle == '1' ? true : false) : false;
 				pm.imageMatchMediaId = obj.result.data.list.getItemAt(j).match_media_id;
 				
 				for each (var p:PlaceMark in tmpPlacemarks){

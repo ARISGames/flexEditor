@@ -135,7 +135,7 @@ public class PlaceMarker extends Marker
                 iwo.customContent = pme;
                 iwo.drawDefaultFrame = true;
 				iwo.width = 360;
-				iwo.height = 360;
+				iwo.height = 400;
 				iwo.pointOffset = new Point(0,-30);//Sets window slightly above point clicked
 				iwo.tailHeight = 15;
 				iwo.hasCloseButton = false;
@@ -179,6 +179,7 @@ public class PlaceMarker extends Marker
         loc.hidden = placemark.hidden;
         loc.forceView = placemark.forcedView;
 		loc.quickTravel = placemark.quickTravel;
+		loc.wiggle = placemark.wiggle;
         loc.error = placemark.errorRange;
 		loc.qrCode = placemark.qrCode;
         trace("location type looked up = '" + loc.type + "'");

@@ -1,7 +1,8 @@
 <?xml version="1.0" ?>
 <c:PlaceMarkerEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
-                         xmlns:c="org.arisgames.editor.components.*">	
-    <mx:Form id="pmForm" width = "350" height = "400">
+                         xmlns:c="org.arisgames.editor.components.*"
+						 height = "500">	
+    <mx:Form id="pmForm" width = "350" height = "500">
         <mx:FormHeading label="Modify a Location" id="title"/>
         <mx:FormItem id="labelFI" label="Label" required="true">
             <mx:TextInput id="locLabel" width="192"/>
@@ -33,7 +34,10 @@
         </mx:FormItem>	
 		<mx:FormItem id="quickTravelFI">
 			<mx:CheckBox id="quickTravel" label="Quick Travel"/>
-		</mx:FormItem>				
+		</mx:FormItem>	
+		<mx:FormItem id="wiggleFI">
+			<mx:CheckBox id="wiggle" label="Wiggle"/>
+		</mx:FormItem>	
 		<mx:FormItem>
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>

@@ -159,6 +159,7 @@ public class AppUtils
         loc.hidden = pm.hidden;
         loc.forceView = pm.forcedView;
 		loc.quickTravel = pm.quickTravel;
+		loc.wiggle = pm.wiggle;
         return loc;
     }
 
