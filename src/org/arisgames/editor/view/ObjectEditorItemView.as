@@ -18,12 +18,15 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
 import mx.validators.Validator;
+import mx.managers.PopUpManager;
 
 import org.arisgames.editor.components.ItemEditorMediaDisplayMX;
+import org.arisgames.editor.view.SpawnableEditorMX;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.util.AppDynamicEventManager;
 
 public class ObjectEditorItemView extends Panel
@@ -51,9 +54,12 @@ public class ObjectEditorItemView extends Panel
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
 	[Bindable] public var descLabel:FormItem;
+	[Bindable] public var spawnablePopupButton:Button;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
+	
+	private var spawnablePopup:SpawnableEditorMX;
 
     /**
      * Constructor
@@ -76,7 +82,19 @@ public class ObjectEditorItemView extends Panel
         trace("ItemEditorItemView: handleInit");
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		type.addEventListener(flash.events.Event.CHANGE, handleTypeChange);
+		spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
     }
+	
+	private function handleSpawnableButton(evt:MouseEvent):void
+	{
+		trace("ObjectEditorItemView: handleSpawnableButton() called...");
+		spawnablePopup = new SpawnableEditorMX();
+		spawnablePopup.setObjectPaletteItem(objectPaletteItem);
+		spawnablePopup.delegate = this;
+		this.spawnablePopupButton.label = "Edit Spawn Settings";
+		PopUpManager.addPopUp(spawnablePopup, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(spawnablePopup);
+	}
 
 	public function duplicateObject(evt:Event):void {
 		AppServices.getInstance().duplicateObject(GameModel.getInstance().game, objectPaletteItem.id, new Responder(handleDupedObject, handleFault));
@@ -181,6 +199,8 @@ public class ObjectEditorItemView extends Panel
     {
         trace("ObjectEditorItemView: Setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorItemView");
         objectPaletteItem = opi;
+		if(opi.isSpawnable) this.spawnablePopupButton.label = "Edit Spawn Settings";
+		else this.spawnablePopupButton.label = "Make Spawn";
         mediaDisplay.setObjectPaletteItem(opi);
         this.pushDataIntoGUI();
     }

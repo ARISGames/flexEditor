@@ -29,6 +29,8 @@
 <!--
         <v:ItemEditorMediaPickerMX id="mediaPicker" visible="false" includeInLayout="false"/>
 -->
+		<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+
     </mx:VBox>
 
     <mx:ControlBar id="folderControlBar">

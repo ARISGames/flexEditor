@@ -20,6 +20,8 @@
 			<mx:TextArea id="description" width="400" height="22"/>
 			<mx:Label text="ARIS will append the following:"/>
 			<mx:Label id="appendage" color="#6D838E"/>
+			<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+
 		</mx:Form>
 	</mx:VBox>
 	

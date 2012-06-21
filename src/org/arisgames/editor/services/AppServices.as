@@ -12,12 +12,13 @@ import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
-import org.arisgames.editor.data.arisserver.PlayerNote;
-import org.arisgames.editor.data.arisserver.NoteTag;
 import org.arisgames.editor.data.arisserver.Node;
+import org.arisgames.editor.data.arisserver.NoteTag;
+import org.arisgames.editor.data.arisserver.PlayerNote;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
+import org.arisgames.editor.data.arisserver.Spawnable;
 import org.arisgames.editor.data.arisserver.WebHook;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
@@ -323,6 +324,70 @@ public class AppServices
         }
         l.addResponder(resp);
     }
+	
+	public function getSpawnableForObject(gid:Number, obj:ObjectPaletteItemBO, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(obj.objectId))
+		{
+			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get spawnable for object ID:"+ obj.objectId);
+			l = AppDAO.getInstance().getSpawnablesServer().getSpawnableForObject(gid, obj.objectType, obj.objectId);
+		}
+		l.addResponder(resp);
+	}
+	
+	public function createSpawnableForObject(gid:Number, obj:ObjectPaletteItemBO, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(obj.objectId))
+		{
+			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get spawnable for object ID:"+ obj.objectId);
+			l = AppDAO.getInstance().getSpawnablesServer().createSpawnableForObject(gid, obj.objectType, obj.objectId);
+		}
+		l.addResponder(resp);	
+	}
+	
+	public function deleteSpawnableFromObject(gid:Number, obj:ObjectPaletteItemBO, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(obj.objectId))
+		{
+			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get spawnable for object ID:"+ obj.objectId);
+			l = AppDAO.getInstance().getSpawnablesServer().deleteSpawnablesOfObject(gid, obj.objectType, obj.objectId);
+		}
+		l.addResponder(resp);	
+	}
+
+	public function saveSpawnableForObject(gid:Number, obj:ObjectPaletteItemBO, spawnable:Spawnable, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(obj.objectId) || isNaN(spawnable.spawnableId))
+		{
+			trace("AppServices.as: This Object/Spawnable doesn't have an Id- the Object/Spawnable should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to save spawnable ID:"+ spawnable.spawnableId);
+			l = AppDAO.getInstance().getSpawnablesServer().updateSpawnable(spawnable.spawnableId, gid, obj.objectType, obj.objectId, spawnable.amount, spawnable.area, (spawnable.amountRestriction == "Per Player" ? "PER_PLAYER" : "TOTAL"), (spawnable.locationBoundType == "Player" ? "PLAYER" : "LOCATION"), spawnable.latitude, spawnable.longitude, spawnable.spawnProbability, spawnable.spawnRate, (spawnable.deleteWhenViewed ? 1 : 0), spawnable.timeToLive, spawnable.errorRange, (spawnable.forceView ? 1 : 0), (spawnable.hidden ? 1 : 0), (spawnable.quickTravel ? 1 : 0), (spawnable.wiggle ? 1 : 0));
+		}
+		l.addResponder(resp);
+	}
 	
 	public function getAllImageMatchMedia(gid:Number, loc:PlaceMark, resp:IResponder):void
 	{

@@ -180,6 +180,7 @@ public class GameEditorObjectPaletteView extends VBox
 				op.objectType = obj.result.data.contents.list.getItemAt(j).content_type;
 				op.name = obj.result.data.contents.list.getItemAt(j).name;
 				op.iconMediaId = obj.result.data.contents.list.getItemAt(j).icon_media_id;
+				op.isSpawnable = obj.result.data.contents.list.getItemAt(j).is_spawnable;
 				
 				// Load Icon Media Object (if exists)
 				var m:Media;

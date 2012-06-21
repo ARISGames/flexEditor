@@ -48,6 +48,8 @@ public class ObjectEditorCharacterView extends Panel
     [Bindable] public var saveButton:Button;
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
+	[Bindable] public var spawnablePopupButton:Button;
+
 
 	//Conversations Area
 	[Bindable] public var dg:DataGrid;
@@ -58,6 +60,7 @@ public class ObjectEditorCharacterView extends Panel
 
 	//Requirements
 	private var requirementsEditor:RequirementsEditorMX;
+	private var spawnablePopup:SpawnableEditorMX;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
@@ -84,7 +87,19 @@ public class ObjectEditorCharacterView extends Panel
 		addConversationButton.addEventListener(MouseEvent.CLICK, handleAddConversationButton);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM, handleRefreshConversationData);
-    }
+		spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
+	}
+	
+	private function handleSpawnableButton(evt:MouseEvent):void
+	{
+		trace("ObjectEditorItemView: handleSpawnableButton() called...");
+		spawnablePopup = new SpawnableEditorMX();
+		spawnablePopup.setObjectPaletteItem(objectPaletteItem);
+		spawnablePopup.delegate = this;
+		this.spawnablePopupButton.label = "Edit Spawn Settings";
+		PopUpManager.addPopUp(spawnablePopup, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(spawnablePopup);
+	}
 
 	public function handleConversationInventoryButton(evt:MouseEvent):void
 	{

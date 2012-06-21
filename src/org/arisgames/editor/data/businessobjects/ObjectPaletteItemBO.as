@@ -7,8 +7,8 @@ import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
-import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.arisserver.PlayerNote;
+import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.util.IconUtility;
 
 public class ObjectPaletteItemBO
@@ -24,6 +24,7 @@ public class ObjectPaletteItemBO
     public var iconMedia:Media;
     public var media:Media;
 	public var alignMedia:Media;
+	public var isSpawnable:Boolean;
 	
     // Relationship Display Information
     //public var children:ObjectPaletteItemChildrenArray;

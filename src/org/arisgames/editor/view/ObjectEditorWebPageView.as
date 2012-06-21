@@ -15,12 +15,15 @@ package org.arisgames.editor.view
 	import mx.events.FlexEvent;
 	import mx.rpc.Responder;
 	import mx.validators.Validator;
+	import mx.managers.PopUpManager;
+
 	
 	import org.arisgames.editor.components.ItemEditorMediaDisplayMX;
 	import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 	import org.arisgames.editor.models.GameModel;
 	import org.arisgames.editor.services.AppServices;
 	import org.arisgames.editor.util.AppConstants;
+	import org.arisgames.editor.util.AppUtils;
 	import org.arisgames.editor.util.AppDynamicEventManager;
 	
 	public class ObjectEditorWebPageView extends Panel
@@ -35,11 +38,16 @@ package org.arisgames.editor.view
 		[Bindable] public var saveButton:Button;
 		[Bindable] public var hbox:HBox;
 		[Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
+		[Bindable] public var spawnablePopupButton:Button;
+
 		
 		[Bindable] public var appendage:Label;
 		
 		[Bindable] public var v1:Validator;
 		[Bindable] public var v2:Validator;
+		
+		private var spawnablePopup:SpawnableEditorMX;
+
 		
 		/**
 		 * Constructor
@@ -55,6 +63,18 @@ package org.arisgames.editor.view
 			trace("ObjectEditorWebPageView: handleInit");
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 			appendage.text = "?gameid=" + GameModel.getInstance().game.gameId + "&playerid={the player's id}";
+			spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
+		}
+		
+		private function handleSpawnableButton(evt:MouseEvent):void
+		{
+			trace("ObjectEditorItemView: handleSpawnableButton() called...");
+			spawnablePopup = new SpawnableEditorMX();
+			spawnablePopup.setObjectPaletteItem(objectPaletteItem);
+			spawnablePopup.delegate = this;
+			this.spawnablePopupButton.label = "Edit Spawn Settings";
+			PopUpManager.addPopUp(spawnablePopup, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(spawnablePopup);
 		}
 		
 		public function duplicateObject(evt:Event):void {

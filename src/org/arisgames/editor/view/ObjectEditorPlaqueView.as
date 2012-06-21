@@ -37,9 +37,12 @@ public class ObjectEditorPlaqueView extends Panel
 	[Bindable] public var changePlayerStateButton:Button;
     [Bindable] public var hbox:HBox;
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
+	[Bindable] public var spawnablePopupButton:Button;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
+	
+	private var spawnablePopup:SpawnableEditorMX;
     
 		
     /**
@@ -57,7 +60,19 @@ public class ObjectEditorPlaqueView extends Panel
         trace("ItemEditorItemView: handleInit");
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		changePlayerStateButton.addEventListener(MouseEvent.CLICK, handlePlayerInventoryChangeButtonClick);
-    }
+		spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
+	}
+	
+	private function handleSpawnableButton(evt:MouseEvent):void
+	{
+		trace("ObjectEditorItemView: handleSpawnableButton() called...");
+		spawnablePopup = new SpawnableEditorMX();
+		spawnablePopup.setObjectPaletteItem(objectPaletteItem);
+		spawnablePopup.delegate = this;
+		this.spawnablePopupButton.label = "Edit Spawn Settings";
+		PopUpManager.addPopUp(spawnablePopup, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(spawnablePopup);
+	}
 	
 	public function duplicateObject(evt:Event):void {
 		AppServices.getInstance().duplicateObject(GameModel.getInstance().game, objectPaletteItem.id, new Responder(handleDupedObject, handleFault));

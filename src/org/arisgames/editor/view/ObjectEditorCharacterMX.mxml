@@ -86,6 +86,9 @@
 		<mx:Button id = "addConversationButton" label="+"/>
 	</mx:ControlBar>	
 	
+	<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+
+	
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
 		<mx:Button x="200" y="-20" id="duplicate" label="Duplicate Item" click="duplicateObject(event)"/>

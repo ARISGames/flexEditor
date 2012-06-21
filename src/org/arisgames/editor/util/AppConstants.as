@@ -52,6 +52,7 @@ public class AppConstants
 	public static const DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR:String = "RefreshDataInQuestsEditor";
 	public static const DYNAMICEVENT_OPENQUESTSEDITOR:String = "OpenQuestsEditor";
 	public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
+	public static const DYNAMICEVENT_CLOSESPAWNABLESEDITOR:String = "CloseSpawnablesEditor";
 	public static const DYNAMICEVENT_OPENWEBHOOKSEDITOR:String = "OpenWebHooksEditor";
 	public static const DYNAMICEVENT_CLOSEWEBHOOKSEDITOR:String = "CloseWebHooksEditor";
 	public static const DYNAMICEVENT_OPENNOTETAGSEDITOR:String = "OpenNoteTagsEditor";
@@ -136,6 +137,7 @@ public class AppConstants
 	
     // Requirement Types (what are the requirements for)
     public static const REQUIREMENTTYPE_LOCATION:String = "Location";
+	public static const REQUIREMENTTYPE_SPAWNABLE:String = "Spawnable";
 	public static const REQUIREMENTTYPE_QUESTDISPLAY:String = "QuestDisplay";
 	public static const REQUIREMENTTYPE_QUESTCOMPLETE:String = "QuestComplete";
 	public static const REQUIREMENTTYPE_NODE:String = "Node";
