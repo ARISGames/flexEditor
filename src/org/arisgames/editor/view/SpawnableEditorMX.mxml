@@ -3,82 +3,85 @@
                                   xmlns:main="org.arisgames.editor.*"
                                   xmlns:v="org.arisgames.editor.view.*"
                                   xmlns:c="org.arisgames.editor.components.*"
-								  height="550"
-								  width="300"
+								  height="335"
+								  width="650"
+								  title="Spawn Settings"
                                   paddingTop="10"
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
                                   >
 
-	<mx:VBox id="vbox">
-		<mx:Form id="theForm">
-			<mx:FormItem id="amountFI" label="Amount" required="true">
-				<mx:NumericStepper id="amount" minimum="1" maximum="1000000" stepSize="1" width="50"/>
-			</mx:FormItem>		
-			<mx:FormItem id="amountRestrictionFI" label="Amount Restriction" required="true">
-				<mx:ComboBox id="amountRestriction">
-					<mx:ArrayCollection>
-						<mx:String>Per Player</mx:String>
-						<mx:String>Total</mx:String>
-					</mx:ArrayCollection>
-				</mx:ComboBox>
-			</mx:FormItem>
-			
-			<mx:FormItem id="areaFI" label="Area" required="true">
-				<mx:NumericStepper id="area" minimum="0" maximum="1000000" stepSize="1" width="50"/>
-			</mx:FormItem>		
-			<mx:FormItem id="locationBoundTypeFI" label="Location Bound Type" required="true">
-				<mx:ComboBox id="locationBoundType">
-					<mx:ArrayCollection>
-						<mx:String>Player</mx:String>
-						<mx:String>Location</mx:String>
-					</mx:ArrayCollection>
-				</mx:ComboBox>
-			</mx:FormItem>
-			
-			<mx:FormItem id="latFI" label="Lat" required="true">
-				<mx:NumericStepper id="lat" minimum="-180" maximum="180" stepSize="1" width="50"/>
-			</mx:FormItem>	
-			<mx:FormItem id="lonFI" label="Lon" required="true">
-				<mx:NumericStepper id="lon" minimum="-180" maximum="180" stepSize="1" width="50"/>
-			</mx:FormItem>	
-			
-			<mx:FormItem id="spawnProbabilityFI" label="Spawn Probability" required="true">
-				<mx:NumericStepper id="spawnProbability" minimum="0" maximum="100" stepSize="1" width="50"/>
-			</mx:FormItem>		
-			<mx:FormItem id="spawnRateFI" label="Spawn Rate" required="true">
-				<mx:NumericStepper id="spawnRate" minimum="0" maximum="1000000" stepSize="1" width="50"/>
-			</mx:FormItem>		
-			
-			<mx:FormItem label="Delete When Viewed">
-				<mx:CheckBox id="deleteWhenViewed"/>
-			</mx:FormItem>
-			<mx:FormItem id="timeToLiveFI" label="Time To Live" required="true">
-				<mx:NumericStepper id="timeToLive" minimum="-1" maximum="1000000" stepSize="1" width="50"/>
-			</mx:FormItem>	
-			
-			<mx:FormItem id="errorRangeFI" label="Error Range" required="true">
-				<mx:NumericStepper id="errorRange" minimum="0" maximum="10000000" stepSize="1" width="50"/>
-			</mx:FormItem>	
-			<mx:FormItem label="Force View">
-				<mx:CheckBox id="forceView"/>
-			</mx:FormItem>
-			<mx:FormItem label="Hidden">
-				<mx:CheckBox id="hidden"/>
-			</mx:FormItem>
-			<mx:FormItem label="Quick Travel">
-				<mx:CheckBox id="quickTravel"/>
-			</mx:FormItem>
-			<mx:FormItem label="Wiggle">
-				<mx:CheckBox id="wiggle"/>
-			</mx:FormItem>
-			<mx:FormItem>
-				<mx:Button id="openRequirementsEditorButton" label="Requirements"/>
-			</mx:FormItem>
-		</mx:Form>
-	</mx:VBox>
+	<mx:VBox id="vbox" horizontalAlign="center">
+
+		<mx:VBox id="vbox1">
+		<mx:HBox id="hbox">
+			<mx:Text text="Spawn (a maximum of)" />
+			<mx:NumericStepper id="amount" minimum="1" maximum="1000000" stepSize="1" width="50"/>
+			<mx:ComboBox id="amountRestriction">
+				<mx:ArrayCollection>
+					<mx:String>Per Player</mx:String>
+					<mx:String>Total</mx:String>
+				</mx:ArrayCollection>
+			</mx:ComboBox>
+			<mx:Text text="within" />
+			<mx:NumericStepper id="area" minimum="0" maximum="1000000" stepSize="1" width="50"/>
+			<mx:Text text="meters of" />
+			<mx:ComboBox id="locationBoundType">
+				<mx:ArrayCollection>
+					<mx:String>Player</mx:String>
+					<mx:String>Location</mx:String>
+				</mx:ArrayCollection>
+			</mx:ComboBox>
+		</mx:HBox>
+		<mx:HBox id="mapButtonBox" width="100%" horizontalAlign="right" visible="false" includeInLayout="false">
+			<mx:Button id="mapButton" label="Select Location"/>
+			<mx:TextInput id="lat" visible="false" includeInLayout="false"/>
+			<mx:TextInput id="lon" visible="false" includeInLayout="false"/>
+		</mx:HBox>
+		<mx:HBox id="hbox2">
+			<mx:Spacer width="12" />
+			<mx:Text text="with a probability of" />
+			<mx:NumericStepper id="spawnProbability" minimum="0" maximum="100" stepSize="1" width="50"/>
+			<mx:Text text="% every" />
+			<mx:NumericStepper id="spawnRate" minimum="0" maximum="1000000" stepSize="1" width="50"/>
+			<mx:Text text="seconds." />
+		</mx:HBox>
+		</mx:VBox>
+
+
 	
+		<mx:HBox>
+			<mx:Form>
+				<mx:FormItem label="Delete When Viewed">
+					<mx:CheckBox id="deleteWhenViewed"/>
+				</mx:FormItem>
+				<mx:FormItem id="timeToLiveFI" label="Time To Live (seconds)" required="true">
+					<mx:NumericStepper id="timeToLive" minimum="-1" maximum="1000000" stepSize="1" width="50"/>
+				</mx:FormItem>	
+			
+				<mx:FormItem id="errorRangeFI" label="Error Range (meters)" required="true">
+					<mx:NumericStepper id="errorRange" minimum="0" maximum="10000000" stepSize="1" width="50"/>
+				</mx:FormItem>	
+			</mx:Form>
+			<mx:Form>
+				<mx:FormItem label="Force View">
+					<mx:CheckBox id="forceView"/>
+				</mx:FormItem>
+				<mx:FormItem label="Hidden">
+					<mx:CheckBox id="hidden"/>
+				</mx:FormItem>
+				<mx:FormItem label="Quick Travel">
+					<mx:CheckBox id="quickTravel"/>
+				</mx:FormItem>
+				<mx:FormItem label="Wiggle">
+					<mx:CheckBox id="wiggle"/>
+				</mx:FormItem>
+			</mx:Form>
+		</mx:HBox>
+		<mx:Button id="openRequirementsEditorButton" label="Requirements"/>
+	</mx:VBox>
+
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
 		<mx:Button id="deleteButton" label="Stop Spawning" color="#FF5555"/>

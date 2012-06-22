@@ -52,7 +52,7 @@
 				<mx:CheckBox id="attribute"/>
 			</mx:FormItem>  
 			
-			<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+			<mx:Button id="spawnablePopupButton" label="Make Spawn"/>
 
         </mx:Form>
     </mx:VBox>

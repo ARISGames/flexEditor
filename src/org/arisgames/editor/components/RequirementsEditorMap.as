@@ -76,6 +76,14 @@ public class RequirementsEditorMap extends Map3D
         mapReady = true;
     }
 
+	public function getMarkerLat():Number
+	{
+		return marker.getLatLng().lat();
+	}
+	public function getMarkerLon():Number
+	{
+		return marker.getLatLng().lng();
+	}
     public function getMarkerLatLon():LatLng
     {
         return marker.getLatLng();

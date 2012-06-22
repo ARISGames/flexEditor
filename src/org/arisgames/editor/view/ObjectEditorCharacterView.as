@@ -332,6 +332,7 @@ public class ObjectEditorCharacterView extends Panel
     {
         trace("setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorCharacterView");
         objectPaletteItem = opi;
+		if(opi.isSpawnable) this.spawnablePopupButton.label = "Edit Spawn Settings";
         mediaDisplay.setObjectPaletteItem(opi);
         this.pushDataIntoGUI();
     }

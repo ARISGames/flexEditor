@@ -86,7 +86,7 @@
 		<mx:Button id = "addConversationButton" label="+"/>
 	</mx:ControlBar>	
 	
-	<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+	<mx:Button id="spawnablePopupButton" label="Make Spawn"/>
 
 	
     <mx:ControlBar id="folderControlBar">

@@ -22,7 +22,7 @@
 			<mx:TextInput id="theName" width="400"/>
 			<mx:FormItem label="Description (invisible to client)" textAlign="left"/>
 			<mx:TextArea id="description" width="400" height="110"/>
-			<mx:Button id="spawnablePopupButton" label="Spawnable"/>
+			<mx:Button id="spawnablePopupButton" label="Make Spawn"/>
 		</mx:Form>
 	</mx:VBox>
 	

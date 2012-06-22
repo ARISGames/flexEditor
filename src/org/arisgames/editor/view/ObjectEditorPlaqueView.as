@@ -82,6 +82,7 @@ public class ObjectEditorPlaqueView extends Panel
     {
         trace("ItemEditorItemView: setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorPlaqueView");
         objectPaletteItem = opi;
+		if(opi.isSpawnable) this.spawnablePopupButton.label = "Edit Spawn Settings";
         mediaDisplay.setObjectPaletteItem(opi);
         this.pushDataIntoGUI();
     }

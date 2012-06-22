@@ -90,6 +90,7 @@ package org.arisgames.editor.view
 		{
 			trace("ObjectEditorWebPageView: Setting objectPaletteItem with name = '" + opi.name);
 			objectPaletteItem = opi;
+			if(opi.isSpawnable) this.spawnablePopupButton.label = "Edit Spawn Settings";
 			mediaDisplay.setObjectPaletteItem(opi);
 			this.pushDataIntoGUI();
 		}

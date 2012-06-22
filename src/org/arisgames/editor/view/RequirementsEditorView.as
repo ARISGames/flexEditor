@@ -380,7 +380,6 @@ public class RequirementsEditorView extends Panel
     {
         trace("handleOpenRequirementEditMapDynamicEvent() called...");
         this.openRequirementsEditorMapView(reqs.selectedItem as Requirement);
-
     }
     
     private function openRequirementsEditorMapView(r:Requirement):void

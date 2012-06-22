@@ -21,16 +21,14 @@
             <mx:TextArea id="description" height="110" width="400"/>
         </mx:Form>
 		
-		<mx:HBox horizontalAlign="center" width="100%">
+		<mx:VBox horizontalAlign="left" width="100%">
 			<mx:Button id="changePlayerStateButton" label="Change Player Inventory When Viewed"/>
-		</mx:HBox>
+			<mx:Button id="spawnablePopupButton" label="Make Spawn"/>
+		</mx:VBox>
 		
-	
 <!--
         <v:ItemEditorMediaPickerMX id="mediaPicker" visible="false" includeInLayout="false"/>
 -->
-		<mx:Button id="spawnablePopupButton" label="Spawnable"/>
-
     </mx:VBox>
 
     <mx:ControlBar id="folderControlBar">
