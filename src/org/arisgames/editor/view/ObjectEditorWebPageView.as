@@ -62,7 +62,7 @@ package org.arisgames.editor.view
 		{
 			trace("ObjectEditorWebPageView: handleInit");
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
-			appendage.text = "?gameid=" + GameModel.getInstance().game.gameId + "&playerid={the player's id}";
+			appendage.text = "?gameId=" + GameModel.getInstance().game.gameId + "&webPageId=playerId={the player's id}";
 			spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
 		}
 		
@@ -90,6 +90,7 @@ package org.arisgames.editor.view
 		{
 			trace("ObjectEditorWebPageView: Setting objectPaletteItem with name = '" + opi.name);
 			objectPaletteItem = opi;
+			appendage.text = "?gameId=" + GameModel.getInstance().game.gameId + "&webPageId="+this.objectPaletteItem.objectId+"playerId={the player's id}";
 			if(opi.isSpawnable) this.spawnablePopupButton.label = "Edit Spawn Settings";
 			mediaDisplay.setObjectPaletteItem(opi);
 			this.pushDataIntoGUI();
