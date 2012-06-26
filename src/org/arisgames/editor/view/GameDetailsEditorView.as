@@ -716,7 +716,7 @@ public class GameDetailsEditorView extends Panel{
 			{
 				var tab:TabBarItem = new TabBarItem(obj.result.data[x].tab, obj.result.data[x].tab_index, true, "");
 				if(tab.index == 0){ tab.append = "_DIM"; tab.enabled = false;}
-				if(tab.type != "PICKGAME") this.tabList.addItem(tab); //Don't allow changing of gamepicker
+				if(tab.type != "PICKGAME" && tab.type != "STARTOVER") this.tabList.addItem(tab); //Don't allow changing of gamepicker
 			}
 			this.tabList.refresh();
 		}
