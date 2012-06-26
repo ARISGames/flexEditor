@@ -53,8 +53,8 @@
 	
 		<mx:HBox>
 			<mx:Form>
-				<mx:FormItem label="Delete When Viewed">
-					<mx:CheckBox id="deleteWhenViewed"/>
+				<mx:FormItem label="Location Name">
+					<mx:TextInput id="locationName"/>
 				</mx:FormItem>
 				<mx:FormItem id="timeToLiveFI" label="Time To Live (seconds)" required="true">
 					<mx:NumericStepper id="timeToLive" minimum="-1" maximum="1000000" stepSize="1" width="50"/>
@@ -65,6 +65,9 @@
 				</mx:FormItem>	
 			</mx:Form>
 			<mx:Form>
+				<mx:FormItem label="Delete When Viewed">
+					<mx:CheckBox id="deleteWhenViewed"/>
+				</mx:FormItem>
 				<mx:FormItem label="Force View">
 					<mx:CheckBox id="forceView"/>
 				</mx:FormItem>

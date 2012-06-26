@@ -384,7 +384,7 @@ public class AppServices
 		else
 		{
 			trace("AppServices.as: Going to save spawnable ID:"+ spawnable.spawnableId);
-			l = AppDAO.getInstance().getSpawnablesServer().updateSpawnable(spawnable.spawnableId, gid, obj.objectType, obj.objectId, spawnable.amount, spawnable.area, (spawnable.amountRestriction == "Per Player" ? "PER_PLAYER" : "TOTAL"), (spawnable.locationBoundType == "Player" ? "PLAYER" : "LOCATION"), spawnable.latitude, spawnable.longitude, spawnable.spawnProbability, spawnable.spawnRate, (spawnable.deleteWhenViewed ? 1 : 0), spawnable.timeToLive, spawnable.errorRange, (spawnable.forceView ? 1 : 0), (spawnable.hidden ? 1 : 0), (spawnable.quickTravel ? 1 : 0), (spawnable.wiggle ? 1 : 0));
+			l = AppDAO.getInstance().getSpawnablesServer().updateSpawnable(spawnable.spawnableId, gid, obj.objectType, obj.objectId, spawnable.locationName, spawnable.amount, spawnable.area, (spawnable.amountRestriction == "Per Player" ? "PER_PLAYER" : "TOTAL"), (spawnable.locationBoundType == "Player" ? "PLAYER" : "LOCATION"), spawnable.latitude, spawnable.longitude, spawnable.spawnProbability, spawnable.spawnRate, (spawnable.deleteWhenViewed ? 1 : 0), spawnable.timeToLive, spawnable.errorRange, (spawnable.forceView ? 1 : 0), (spawnable.hidden ? 1 : 0), (spawnable.quickTravel ? 1 : 0), (spawnable.wiggle ? 1 : 0));
 		}
 		l.addResponder(resp);
 	}

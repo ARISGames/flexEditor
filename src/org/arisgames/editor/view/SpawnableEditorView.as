@@ -51,6 +51,7 @@ package org.arisgames.editor.view
 		[Bindable] public var lon:TextInput;
 		[Bindable] public var spawnProbability:NumericStepper;
 		[Bindable] public var spawnRate:NumericStepper;
+		[Bindable] public var locationName:TextInput;
 		[Bindable] public var deleteWhenViewed:CheckBox;
 		[Bindable] public var timeToLive:NumericStepper;
 		[Bindable] public var errorRange:NumericStepper;
@@ -156,6 +157,7 @@ package org.arisgames.editor.view
 				this.spawnable.amount = obj.result.data.amount;
 				this.spawnable.amountRestriction = obj.result.data.amount_restriction;
 				this.spawnable.area = obj.result.data.area;
+				this.spawnable.locationName = obj.result.data.location_name;
 				this.spawnable.deleteWhenViewed = (obj.result.data.delete_when_viewed == 1 ? true : false);
 				this.spawnable.errorRange = obj.result.data.error_range;
 				this.spawnable.forceView = (obj.result.data.force_view == 1 ? true : false);
@@ -188,6 +190,7 @@ package org.arisgames.editor.view
 			this.amount.value = this.spawnable.amount;
 			this.amountRestriction.selectedIndex = (this.spawnable.amountRestriction == "PER_PLAYER" ? 0 : 1);
 			this.area.value = this.spawnable.area;
+			this.locationName.text = this.spawnable.locationName;
 			this.deleteWhenViewed.selected = this.spawnable.deleteWhenViewed;
 			this.errorRange.value = this.spawnable.errorRange;
 			this.forceView.selected = this.spawnable.forceView;
@@ -215,6 +218,7 @@ package org.arisgames.editor.view
 			this.spawnable.amount = this.amount.value;
 			this.spawnable.amountRestriction = this.amountRestriction.selectedLabel;
 			this.spawnable.area = this.area.value;
+			this.spawnable.locationName = this.locationName.text;
 			this.spawnable.deleteWhenViewed = this.deleteWhenViewed.selected;
 			this.spawnable.errorRange = this.errorRange.value;
 			this.spawnable.forceView = this.forceView.selected;
