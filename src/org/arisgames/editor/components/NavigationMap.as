@@ -348,6 +348,7 @@ public class NavigationMap extends Map3D
             loc.forceView = pm.forcedView;
 			loc.quickTravel = pm.quickTravel;
 			loc.wiggle = pm.wiggle;
+			loc.displayAnnotation = pm.displayAnnotation;
             loc.error = pm.errorRange;
             trace("location type looked up = '" + loc.type + "' for Content Type Number = '" + pm.contentType + "'");
 

@@ -59,6 +59,7 @@ package org.arisgames.editor.view
 		[Bindable] public var hidden:CheckBox;
 		[Bindable] public var quickTravel:CheckBox;
 		[Bindable] public var wiggle:CheckBox;
+		[Bindable] public var displayAnnotation:CheckBox;
 		
 		// GUI
 		[Bindable] public var openRequirementsEditorButton:Button;
@@ -173,6 +174,7 @@ package org.arisgames.editor.view
 				this.spawnable.type = obj.result.data.type;
 				this.spawnable.typeId = obj.result.data.type_id;
 				this.spawnable.wiggle = (obj.result.data.wiggle == 1 ? true : false);
+				this.spawnable.displayAnnotation = (obj.result.data.show_title == 1 ? true : false);
 			}
 			else
 			{
@@ -211,6 +213,7 @@ package org.arisgames.editor.view
 			this.spawnRate.value = this.spawnable.spawnRate;
 			this.timeToLive.value = this.spawnable.timeToLive;
 			this.wiggle.selected = this.spawnable.wiggle;
+			this.displayAnnotation.selected = this.spawnable.displayAnnotation;
 		}
 		
 		public function populateSpawnableFromForm():void
@@ -231,6 +234,7 @@ package org.arisgames.editor.view
 			this.spawnable.spawnRate = this.spawnRate.value;
 			this.spawnable.timeToLive = this.timeToLive.value;
 			this.spawnable.wiggle = this.wiggle.selected;
+			this.spawnable.displayAnnotation = this.displayAnnotation.selected;
 		}
 		
 		public function handleMapClick(evt:Event):void

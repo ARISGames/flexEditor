@@ -38,13 +38,15 @@
 		<mx:FormItem id="wiggleFI">
 			<mx:CheckBox id="wiggle" label="Wiggle"/>
 		</mx:FormItem>	
+		<mx:FormItem id="displayAnnotationFI">
+			<mx:CheckBox id="displayAnnotation" label="Display Annotation"/>
+		</mx:FormItem>	
 		<mx:FormItem>
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>
 		<mx:FormItem>
 			<mx:LinkButton label="Delete This Location" id = "deletePlaceMarkDataButton" color="#D50000" textAlign="left" width="100%" paddingLeft="0" paddingRight="0"/>
 		</mx:FormItem>
-		<mx:Spacer height="10"/>
 		<mx:FormItem>
 			<mx:Button id="savePlaceMarkDataButton" label="Save and Close" textAlign="center"/>
 		</mx:FormItem>

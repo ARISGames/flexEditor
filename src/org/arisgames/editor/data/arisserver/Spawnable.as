@@ -20,6 +20,7 @@ public class Spawnable
 	public var hidden:Boolean;
 	public var quickTravel:Boolean;
 	public var wiggle:Boolean;	
+	public var displayAnnotation:Boolean;	
 	public var locationName:String;	
 
     /**

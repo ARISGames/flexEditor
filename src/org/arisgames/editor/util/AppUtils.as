@@ -160,6 +160,7 @@ public class AppUtils
         loc.forceView = pm.forcedView;
 		loc.quickTravel = pm.quickTravel;
 		loc.wiggle = pm.wiggle;
+		loc.displayAnnotation = pm.displayAnnotation;
         return loc;
     }
 

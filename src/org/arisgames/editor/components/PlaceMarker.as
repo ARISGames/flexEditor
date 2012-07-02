@@ -180,6 +180,7 @@ public class PlaceMarker extends Marker
         loc.forceView = placemark.forcedView;
 		loc.quickTravel = placemark.quickTravel;
 		loc.wiggle = placemark.wiggle;
+		loc.displayAnnotation = placemark.displayAnnotation;
         loc.error = placemark.errorRange;
 		loc.qrCode = placemark.qrCode;
         trace("location type looked up = '" + loc.type + "'");
