@@ -310,7 +310,7 @@ public class AppServices
     public function saveLocation(gid:Number, loc:Location, imageMatchMediaId:Number, resp:IResponder):void
     {
         var l:Object;
-		if(loc.type == "PlayerNote") loc.iconMediaId = 72; //Set it to notebook- can't reference 'notes' table because notes have no custom icon media
+		if(loc.type == "PlayerNote") loc.iconMediaId = 94; //Set it to notebook- can't reference 'notes' table because notes have no custom icon media
         if (isNaN(loc.locationId))
         {
             trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + " QuickTravel = " + loc.quickTravel);
