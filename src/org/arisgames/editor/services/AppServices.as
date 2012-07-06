@@ -89,11 +89,12 @@ public class AppServices
 			game.noteShareToBook = true;
 			game.playerCreateTags = true;
 			game.playerCreateComments = true;
+			game.playerLikesNotes = true;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
-																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments,
+																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
 																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		else
@@ -103,7 +104,7 @@ public class AppServices
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
-																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments,
+																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
 																game.introNodeId, game.completeNodeId, game.inventoryCap);
 		}
 		r.addResponder(resp);

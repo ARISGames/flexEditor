@@ -63,6 +63,7 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var isLocationalCb:mx.controls.CheckBox;
 	[Bindable] public var readyForPublicCb:mx.controls.CheckBox;
 	[Bindable] public var playerCreateCommentsCb:mx.controls.CheckBox;
+	[Bindable] public var playerLikesNotesCb:mx.controls.CheckBox;
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;
@@ -133,6 +134,7 @@ public class GameDetailsEditorView extends Panel{
 		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
 		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
 		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
+		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
 		
 		populateEditors();
 		
@@ -422,6 +424,7 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.isLocational = isLocationalCb.selected;
 		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
 		GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
+		GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
 
 		var introNode:Node = introNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.introNodeId = introNode.nodeId;

@@ -25,6 +25,7 @@ public class Game
 	public var noteShareToBook:Boolean;
 	public var playerCreateTags:Boolean;
 	public var playerCreateComments:Boolean;
+	public var playerLikesNotes:Boolean;
 	public var isLocational:Boolean;
 	public var readyForPublic:Boolean;
 	

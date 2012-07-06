@@ -101,6 +101,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.noteShareToMap = obj.result.data.list.getItemAt(j).allow_share_note_to_map;
 			g.noteShareToBook = obj.result.data.list.getItemAt(j).allow_share_note_to_book;
 			g.playerCreateComments = obj.result.data.list.getItemAt(j).allow_note_comments;
+			g.playerLikesNotes = obj.result.data.list.getItemAt(j).allow_note_likes;
 			g.playerCreateTags = obj.result.data.list.getItemAt(j).allow_player_tags;
 			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
 			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
