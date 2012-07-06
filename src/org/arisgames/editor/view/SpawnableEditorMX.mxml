@@ -58,7 +58,7 @@
 					<mx:NumericStepper id="timeToLive" minimum="-1" maximum="1000000" stepSize="1" width="50"/>
 				</mx:FormItem>	
 			
-				<mx:FormItem id="errorRangeFI" label="Error Range (meters)" required="true">
+				<mx:FormItem id="errorRangeFI" label="Nearby Range (meters)" required="true">
 					<mx:NumericStepper id="errorRange" minimum="0" maximum="10000000" stepSize="1" width="50"/>
 				</mx:FormItem>	
 			</mx:Form>
