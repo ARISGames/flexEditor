@@ -139,8 +139,14 @@ package org.arisgames.editor.view
 		{
 			trace("SpawnableEditorView: handleSaveAndCloseButton()");
 			this.populateSpawnableFromForm();
-			AppServices.getInstance().saveSpawnableForObject(GameModel.getInstance().game.gameId, this.objectPaletteItem, this.spawnable, new Responder(handleLoadingOfSpawnable, handleFault));
+			AppServices.getInstance().saveSpawnableForObject(GameModel.getInstance().game.gameId, this.objectPaletteItem, this.spawnable, new Responder(handleSavingOfSpawnable, handleFault));
 			PopUpManager.removePopUp(this);
+		}
+		
+		private function handleSavingOfSpawnable(obj:Object):void
+		{
+			if(obj.result.returnCode != 0)
+				Alert.show("There was an error saving the spawn settings.");
 		}
 		
 		private function handleLoadingOfSpawnable(obj:Object):void
