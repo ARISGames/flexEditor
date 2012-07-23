@@ -88,7 +88,7 @@ public class PlaceMarkerEditorView extends Canvas
 		qrCode.text = placeMark.qrCode;
 		qrImage.addEventListener(MouseEvent.CLICK, handleQRImageClick);
 		if(this.placeMark.contentType != AppConstants.CONTENTTYPE_ITEM_VAL) this.fountainPopupButton.visible = false;
-		if(placeMark.isFountain) this.fountainPopupButton.label = "Edit Fountain Settings";
+		if(placeMark.isFountain) this.fountainPopupButton.label = "Auto-Settings";
 
 
 		errorRange.value = placeMark.errorRange;
@@ -158,7 +158,7 @@ public class PlaceMarkerEditorView extends Canvas
 		fountainEditor = new FountainEditorMX();
 		fountainEditor.setLocation(this.placeMark);
 		fountainEditor.delegate = this;
-		this.fountainPopupButton.label = "Edit Fountain Settings";
+		this.fountainPopupButton.label = "Auto-Settings";
 
 		this.parent.addChild(fountainEditor);
 		fountainEditor.validateNow();

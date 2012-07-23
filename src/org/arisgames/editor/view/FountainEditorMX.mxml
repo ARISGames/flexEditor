@@ -3,33 +3,41 @@
                                   xmlns:main="org.arisgames.editor.*"
                                   xmlns:v="org.arisgames.editor.view.*"
                                   xmlns:c="org.arisgames.editor.components.*"
-								  height="180"
+								  height="190"
 								  width="400"
-								  title="Spawn Settings"
+								  title="Qty Generation Settings"
                                   paddingTop="10"
                                   paddingLeft="10"
                                   paddingRight="10"
                                   paddingBottom="10"
+								  verticalScrollPolicy="off"
                                   >
 
-	<mx:VBox id="vbox" horizontalAlign="center">
-		<mx:HBox id="hbox">
-			<mx:Text text="Spawn a maximum of" />
-			<mx:NumericStepper id="maxAmount" minimum="1" maximum="1000000" stepSize="1" width="50"/>
-			<mx:Text text="items" />
-		</mx:HBox>
-		<mx:HBox id="hbox2">
-			<mx:Text text="with a probability of" />
-			<mx:NumericStepper id="spawnProbability" minimum="0" maximum="100" stepSize="1" width="50"/>
-			<mx:Text text="% every" />
-			<mx:NumericStepper id="spawnRate" minimum="0" maximum="1000000" stepSize="1" width="50"/>
-			<mx:Text text="seconds." />
-		</mx:HBox>
-	</mx:VBox>
+	<mx:Form verticalScrollPolicy="off">
+		<mx:FormItem label="Generate to a maximum qty of">
+			<mx:HBox>
+				<mx:NumericStepper id="maxAmount" value="10" minimum="1" maximum="1000000" stepSize="1" width="50"/>
+				<mx:Text text="items" />
+			</mx:HBox>
+		</mx:FormItem>
+			
+		<mx:FormItem label="creating 1 every">
+			<mx:HBox>
+				<mx:NumericStepper id="spawnRate" value="10" minimum="0" maximum="1000000" stepSize="1" width="50"/>
+				<mx:Text text="seconds" />
+			</mx:HBox>
+		</mx:FormItem>
 
+		<mx:FormItem label="with a probability of">
+			<mx:HBox>
+				<mx:NumericStepper id="spawnProbability" value="50" minimum="0" maximum="100" stepSize="1" width="50"/>
+				<mx:Text text="% " />
+			</mx:HBox>
+		</mx:FormItem>
+	</mx:Form>
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
-		<mx:Button id="deleteButton" label="Stop Fountain" color="#FF5555"/>
+		<mx:Button id="deleteButton" label="Stop Automation" color="#FF5555"/>
         <mx:Button id="closeButton" label="Cancel"/>
 		<mx:Button id="selectButton" label="Save and Close"/>
     </mx:ControlBar>

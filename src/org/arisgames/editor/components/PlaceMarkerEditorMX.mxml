@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <c:PlaceMarkerEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
                          xmlns:c="org.arisgames.editor.components.*"
-						 height = "500">	
-    <mx:Form id="pmForm" width = "350" height = "500">
+						 height = "450">	
+    <mx:Form id="pmForm" width = "350" height = "450">
         <mx:FormHeading label="Modify a Location" id="title"/>
         <mx:FormItem id="labelFI" label="Label" required="true">
             <mx:TextInput id="locLabel" width="192"/>
@@ -24,7 +24,10 @@
 			<mx:TextInput id="errorText" width="192"/>
 		</mx:FormItem>
 		<mx:FormItem id="quantityFI" label="Quantity (-1 for inf)" required="true">
-				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="193"/>
+			<mx:HBox>
+				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="50"/>
+				<mx:Button id="fountainPopupButton" label="Automate"/>
+			</mx:HBox>
 		</mx:FormItem>
 		<mx:HBox>
 			<mx:Spacer width="50" />
@@ -48,10 +51,7 @@
 				</mx:FormItem>	
 			</mx:VBox>
 		</mx:HBox>
-       
-		<mx:FormItem>
-			<mx:Button id="fountainPopupButton" label="Make Fountain"/>
-		</mx:FormItem>
+     
 		<mx:FormItem>
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>

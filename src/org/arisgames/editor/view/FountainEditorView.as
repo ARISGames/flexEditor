@@ -76,7 +76,7 @@ package org.arisgames.editor.view
 		private function handleDeleteButton(evt:MouseEvent):void
 		{
 			trace("FountainEditorView: handleDeleteButton()");
-			this.delegate.fountainPopupButton.label = "Make Fountain";
+			this.delegate.fountainPopupButton.label = "Automate";
 			this.location.isFountain = false;
 			AppServices.getInstance().deleteFountainFromLocation(GameModel.getInstance().game.gameId, this.location, null);
 			PopUpManager.removePopUp(this);
@@ -119,6 +119,7 @@ package org.arisgames.editor.view
 				this.fountain.spawnProbability = obj.result.data.spawn_probability;
 				this.fountain.spawnRate = obj.result.data.spawn_rate;
 				this.fountain.maxAmount = obj.result.data.max_amount;
+				this.populateFormFromFountain();
 			}
 			else
 			{
@@ -127,7 +128,6 @@ package org.arisgames.editor.view
 				return;
 			}
 			
-			this.populateFormFromFountain();
 			trace("Finished with handleLoadingOfFountain().");
 		}
 		
