@@ -87,6 +87,7 @@ public class PlaceMarkerEditorView extends Canvas
 		errorText.text = placeMark.errorText;
 		qrCode.text = placeMark.qrCode;
 		qrImage.addEventListener(MouseEvent.CLICK, handleQRImageClick);
+		if(this.placeMark.contentType != AppConstants.CONTENTTYPE_ITEM_VAL) this.fountainPopupButton.visible = false;
 		if(placeMark.isFountain) this.fountainPopupButton.label = "Edit Fountain Settings";
 
 
