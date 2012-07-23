@@ -18,7 +18,7 @@ public class Location
 	public var wiggle:Boolean;
 	public var displayAnnotation:Boolean;
 	public var qrCode:String;
-	
+	public var isFountain:Boolean;
 
     /**
      * Constructor

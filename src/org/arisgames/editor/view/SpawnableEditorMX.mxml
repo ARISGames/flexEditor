@@ -24,8 +24,13 @@
 					<mx:String>Total</mx:String>
 				</mx:ArrayCollection>
 			</mx:ComboBox>
-			<mx:Text text="within" />
-			<mx:NumericStepper id="area" minimum="0" maximum="1000000" stepSize="1" width="50"/>
+		</mx:HBox>
+		<mx:HBox>
+			<mx:Spacer width="50" />
+			<mx:Text text="within (min)" />
+			<mx:NumericStepper id="minArea" minimum="0" maximum="1000000" stepSize="1" width="50"/>
+			<mx:Text text="to (max)" />
+			<mx:NumericStepper id="maxArea" minimum="0" maximum="1000000" stepSize="1" width="50"/>
 			<mx:Text text="meters of" />
 			<mx:ComboBox id="locationBoundType">
 				<mx:ArrayCollection>

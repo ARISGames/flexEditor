@@ -1,6 +1,8 @@
 package org.arisgames.editor.services
 {
 
+import flash.net.LocalConnection;
+
 import mx.rpc.IResponder;
 
 import org.arisgames.editor.dao.AppDAO;
@@ -19,6 +21,7 @@ import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.Spawnable;
+import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.WebHook;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
@@ -325,6 +328,70 @@ public class AppServices
         l.addResponder(resp);
     }
 	
+	public function getFountainForLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
+	{				
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get fountain for location ID:"+ loc.id);
+			l = AppDAO.getInstance().getFountainsServer().getFountainForLocation(gid, loc.id);
+		}
+		l.addResponder(resp);
+	}
+	
+	public function createFountainForLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Location doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get fountain for object ID:"+ loc.id);
+			l = AppDAO.getInstance().getFountainsServer().createFountainForLocation(gid, loc.id);
+		}
+		l.addResponder(resp);	
+	}
+	
+	public function deleteFountainFromLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id))
+		{
+			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to get spawnable for object ID:"+ loc.id);
+			l = AppDAO.getInstance().getFountainsServer().deleteFountainOfLocation(gid, loc.id);
+		}
+		l.addResponder(resp);	
+	}
+	
+	public function saveFountainForLocation(gid:Number, loc:PlaceMark, fountain:Fountain, resp:IResponder):void
+	{
+		var l:Object;
+		if (isNaN(loc.id) || isNaN(fountain.fountainId))
+		{
+			trace("AppServices.as: This Location/Fountain doesn't have an Id- the Location/Fountain should have been saved to the database previously. :(");
+			l = null;
+		}
+		else
+		{
+			trace("AppServices.as: Going to save fountain ID:"+ fountain.fountainId);
+			l = AppDAO.getInstance().getFountainsServer().updateFountain(fountain.fountainId, gid, loc.id, 'Location', fountain.spawnProbability, fountain.spawnRate, fountain.maxAmount, 1);
+		}
+		l.addResponder(resp);
+	}
+	
 	public function getSpawnableForObject(gid:Number, obj:ObjectPaletteItemBO, resp:IResponder):void
 	{
 		var l:Object;
@@ -384,7 +451,7 @@ public class AppServices
 		else
 		{
 			trace("AppServices.as: Going to save spawnable ID:"+ spawnable.spawnableId);
-			l = AppDAO.getInstance().getSpawnablesServer().updateSpawnable(spawnable.spawnableId, gid, obj.objectType, obj.objectId, spawnable.locationName, spawnable.amount, spawnable.area, (spawnable.amountRestriction == "Per Player" ? "PER_PLAYER" : "TOTAL"), (spawnable.locationBoundType == "Player" ? "PLAYER" : "LOCATION"), spawnable.latitude, spawnable.longitude, spawnable.spawnProbability, spawnable.spawnRate, (spawnable.deleteWhenViewed ? 1 : 0), spawnable.timeToLive, spawnable.errorRange, (spawnable.forceView ? 1 : 0), (spawnable.hidden ? 1 : 0), (spawnable.quickTravel ? 1 : 0), (spawnable.wiggle ? 1 : 0), 1, (spawnable.displayAnnotation ? 1 : 0));
+			l = AppDAO.getInstance().getSpawnablesServer().updateSpawnable(spawnable.spawnableId, gid, obj.objectType, obj.objectId, spawnable.locationName, spawnable.amount, spawnable.minArea, spawnable.maxArea, (spawnable.amountRestriction == "Per Player" ? "PER_PLAYER" : "TOTAL"), (spawnable.locationBoundType == "Player" ? "PLAYER" : "LOCATION"), spawnable.latitude, spawnable.longitude, spawnable.spawnProbability, spawnable.spawnRate, (spawnable.deleteWhenViewed ? 1 : 0), spawnable.timeToLive, spawnable.errorRange, (spawnable.forceView ? 1 : 0), (spawnable.hidden ? 1 : 0), (spawnable.quickTravel ? 1 : 0), (spawnable.wiggle ? 1 : 0), 1, (spawnable.displayAnnotation ? 1 : 0));
 		}
 		l.addResponder(resp);
 	}

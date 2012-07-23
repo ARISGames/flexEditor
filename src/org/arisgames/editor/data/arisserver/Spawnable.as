@@ -6,7 +6,8 @@ public class Spawnable
 	public var type:String;
 	public var typeId:Number;
 	public var amount:Number;
-	public var area:Number;
+	public var minArea:Number;
+	public var maxArea:Number;
 	public var amountRestriction:String;
 	public var locationBoundType:String;
 	public var latitude:Number;

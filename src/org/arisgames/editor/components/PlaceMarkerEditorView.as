@@ -33,9 +33,10 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.view.FountainEditorMX;
+import org.arisgames.editor.view.ImageMatchEditorMX;
 import org.arisgames.editor.view.PlaceMarkerIcon;
 import org.arisgames.editor.view.RequirementsEditorMX;
-import org.arisgames.editor.view.ImageMatchEditorMX;
 
 
 public class PlaceMarkerEditorView extends Canvas
@@ -62,9 +63,11 @@ public class PlaceMarkerEditorView extends Canvas
 	[Bindable] public var displayAnnotation:CheckBox;	
 	public var deletePlaceMarkDataButton:Button;
     public var savePlaceMarkDataButton:Button;
+	[Bindable] public var fountainPopupButton:Button;
     [Bindable] public var openRequirementsEditorButton:Button;
 	[Bindable] public var openImageMatchEditorButton:Button;
 
+	private var fountainEditor:FountainEditorMX;
     private var requirementsEditor:RequirementsEditorMX;
 	private var imageMatchEditor:ImageMatchEditorMX;
 
@@ -80,13 +83,12 @@ public class PlaceMarkerEditorView extends Canvas
     private function initComponents(evt:FlexEvent):void
     {
         //this.title = "PlaceMark Editor (" + placeMark.getContentTypeForPublicDisplayAsString() + ")";
-
         locLabel.text = placeMark.name;
 		errorText.text = placeMark.errorText;
 		qrCode.text = placeMark.qrCode;
 		qrImage.addEventListener(MouseEvent.CLICK, handleQRImageClick);
+		if(placeMark.isFountain) this.fountainPopupButton.label = "Edit Fountain Settings";
 
-		
 
 		errorRange.value = placeMark.errorRange;
         if (placeMark.getContentTypeForDataBaseAsString() == AppConstants.CONTENTTYPE_ITEM_DATABASE)
@@ -117,7 +119,8 @@ public class PlaceMarkerEditorView extends Canvas
         savePlaceMarkDataButton.addEventListener(MouseEvent.CLICK, handleSaveDataButtonClick);
         openRequirementsEditorButton.addEventListener(MouseEvent.CLICK, handleOpenRequirementsButtonClick);
 		openImageMatchEditorButton.addEventListener(MouseEvent.CLICK, handleOpenImageMatchEditorButtonClick);
-        AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);	
+		fountainPopupButton.addEventListener(MouseEvent.CLICK, handleOpenFountainEditorButtonClick);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);	
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEIMAGEMATCHEDITOR, closeImageMatchEditor);	
 
 	}
@@ -130,6 +133,13 @@ public class PlaceMarkerEditorView extends Canvas
 		navigateToURL(urlRequest, "_blank");
 	}
 	
+	
+	private function handleOpenFountainEditorButtonClick(event:Event):void
+	{
+		trace("Starting handle Open Fountain Button click.");
+		this.openFountainEditor();
+	}
+	
     private function handleOpenRequirementsButtonClick(evt:MouseEvent):void
     {
         trace("Starting handle Open Requirements Button click.");
@@ -140,6 +150,22 @@ public class PlaceMarkerEditorView extends Canvas
 	{
 		trace("Starting handle Image Match Button click.");
 		this.openImageMatchEditor();
+	}
+	
+	private function openFountainEditor():void
+	{
+		fountainEditor = new FountainEditorMX();
+		fountainEditor.setLocation(this.placeMark);
+		fountainEditor.delegate = this;
+		this.fountainPopupButton.label = "Edit Fountain Settings";
+
+		this.parent.addChild(fountainEditor);
+		fountainEditor.validateNow();
+		
+		PopUpManager.addPopUp(fountainEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(fountainEditor);
+		fountainEditor.setVisible(true);
+		fountainEditor.includeInLayout = true;
 	}
 	
     private function openRequirementsEditor():void

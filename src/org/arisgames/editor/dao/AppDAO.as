@@ -27,6 +27,7 @@ public class AppDAO
 	private static var questsServer:RemoteObject;
 	private static var playerStateChangeServer:RemoteObject;
 	private static var spawnablesServer:RemoteObject;
+	private static var fountainsServer:RemoteObject;
 
     /**
      * Singleton constructor
@@ -251,6 +252,17 @@ public class AppDAO
 		}
 		return spawnablesServer;
 	}	
-
+	
+	public function getFountainsServer():RemoteObject 
+	{
+		if (fountainsServer == null)
+		{
+			fountainsServer = new RemoteObject();
+			fountainsServer.source = AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".fountains";
+			fountainsServer.destination = "amfphp";
+			fountainsServer.showBusyCursor = true;
+		}
+		return fountainsServer;
+	}
 }
 }

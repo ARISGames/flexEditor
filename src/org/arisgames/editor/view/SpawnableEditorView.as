@@ -43,7 +43,8 @@ package org.arisgames.editor.view
 		// Params
 		[Bindable] public var amount:NumericStepper;
 		[Bindable] public var amountRestriction:ComboBox;
-		[Bindable] public var area:NumericStepper;
+		[Bindable] public var minArea:NumericStepper;
+		[Bindable] public var maxArea:NumericStepper;
 		[Bindable] public var locationBoundType:ComboBox;
 		[Bindable] public var mapButtonBox:HBox;
 		[Bindable] public var mapButton:Button;
@@ -163,7 +164,8 @@ package org.arisgames.editor.view
 			{
 				this.spawnable.amount = obj.result.data.amount;
 				this.spawnable.amountRestriction = obj.result.data.amount_restriction;
-				this.spawnable.area = obj.result.data.area;
+				this.spawnable.minArea = obj.result.data.min_area;
+				this.spawnable.maxArea = obj.result.data.max_area;
 				this.spawnable.locationName = obj.result.data.location_name;
 				this.spawnable.deleteWhenViewed = (obj.result.data.delete_when_viewed == 1 ? true : false);
 				this.spawnable.errorRange = obj.result.data.error_range;
@@ -197,7 +199,8 @@ package org.arisgames.editor.view
 		{
 			this.amount.value = this.spawnable.amount;
 			this.amountRestriction.selectedIndex = (this.spawnable.amountRestriction == "PER_PLAYER" ? 0 : 1);
-			this.area.value = this.spawnable.area;
+			this.minArea.value = this.spawnable.minArea;
+			this.maxArea.value = this.spawnable.maxArea;
 			this.locationName.text = this.spawnable.locationName;
 			this.deleteWhenViewed.selected = this.spawnable.deleteWhenViewed;
 			this.errorRange.value = this.spawnable.errorRange;
@@ -226,7 +229,8 @@ package org.arisgames.editor.view
 		{
 			this.spawnable.amount = this.amount.value;
 			this.spawnable.amountRestriction = this.amountRestriction.selectedLabel;
-			this.spawnable.area = this.area.value;
+			this.spawnable.minArea = this.minArea.value;
+			this.spawnable.maxArea = this.maxArea.value;
 			this.spawnable.locationName = this.locationName.text;
 			this.spawnable.deleteWhenViewed = this.deleteWhenViewed.selected;
 			this.spawnable.errorRange = this.errorRange.value;

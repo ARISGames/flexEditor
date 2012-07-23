@@ -126,7 +126,8 @@ public class GameModel
 				pm.wiggle = obj.result.data.list.getItemAt(j).wiggle ? (obj.result.data.list.getItemAt(j).wiggle == '1' ? true : false) : false;
 				pm.displayAnnotation = obj.result.data.list.getItemAt(j).show_title ? (obj.result.data.list.getItemAt(j).show_title == '1' ? true : false) : false;
 				pm.imageMatchMediaId = obj.result.data.list.getItemAt(j).match_media_id;
-				
+				pm.isFountain = obj.result.data.list.getItemAt(j).is_fountain == 1;
+
 				for each (var p:PlaceMark in tmpPlacemarks){
 					if(pm.id == p.id){
 						dup = true;

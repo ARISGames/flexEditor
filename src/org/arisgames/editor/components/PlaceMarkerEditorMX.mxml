@@ -26,21 +26,32 @@
 		<mx:FormItem id="quantityFI" label="Quantity (-1 for inf)" required="true">
 				<mx:NumericStepper id="quantity" minimum="-1" maximum="9999999999" stepSize="1" width="193"/>
 		</mx:FormItem>
-        <mx:FormItem id="hiddenFI">
-            <mx:CheckBox id="hidden" label="Hidden"/>
-        </mx:FormItem>
-        <mx:FormItem id="autoDisplayFI">
-            <mx:CheckBox id="autoDisplay" label="Auto Display"/>
-        </mx:FormItem>	
-		<mx:FormItem id="quickTravelFI">
-			<mx:CheckBox id="quickTravel" label="Quick Travel"/>
-		</mx:FormItem>	
-		<mx:FormItem id="wiggleFI">
-			<mx:CheckBox id="wiggle" label="Wiggle"/>
-		</mx:FormItem>	
-		<mx:FormItem id="displayAnnotationFI">
-			<mx:CheckBox id="displayAnnotation" label="Display Annotation"/>
-		</mx:FormItem>	
+		<mx:HBox>
+			<mx:Spacer width="50" />
+			<mx:VBox>
+				<mx:FormItem id="hiddenFI">
+					<mx:CheckBox id="hidden" label="Hidden"/>
+				</mx:FormItem>
+				<mx:FormItem id="autoDisplayFI">
+					<mx:CheckBox id="autoDisplay" label="Auto Display"/>
+				</mx:FormItem>	
+				<mx:FormItem id="quickTravelFI">
+					<mx:CheckBox id="quickTravel" label="Quick Travel"/>
+				</mx:FormItem>	
+			</mx:VBox>
+			<mx:VBox>
+				<mx:FormItem id="wiggleFI">
+					<mx:CheckBox id="wiggle" label="Wiggle"/>
+				</mx:FormItem>	
+				<mx:FormItem id="displayAnnotationFI">
+					<mx:CheckBox id="displayAnnotation" label="Display Annotation"/>
+				</mx:FormItem>	
+			</mx:VBox>
+		</mx:HBox>
+       
+		<mx:FormItem>
+			<mx:Button id="fountainPopupButton" label="Make Fountain"/>
+		</mx:FormItem>
 		<mx:FormItem>
 			<mx:Button id="openRequirementsEditorButton" label="Edit Requirements"/>
 		</mx:FormItem>

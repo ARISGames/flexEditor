@@ -53,6 +53,7 @@ public class AppConstants
 	public static const DYNAMICEVENT_OPENQUESTSEDITOR:String = "OpenQuestsEditor";
 	public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
 	public static const DYNAMICEVENT_CLOSESPAWNABLESEDITOR:String = "CloseSpawnablesEditor";
+	public static const DYNAMICEVENT_CLOSEFOUNTAINEDITOR:String = "CloseFountainEditor";
 	public static const DYNAMICEVENT_OPENWEBHOOKSEDITOR:String = "OpenWebHooksEditor";
 	public static const DYNAMICEVENT_CLOSEWEBHOOKSEDITOR:String = "CloseWebHooksEditor";
 	public static const DYNAMICEVENT_OPENNOTETAGSEDITOR:String = "OpenNoteTagsEditor";
