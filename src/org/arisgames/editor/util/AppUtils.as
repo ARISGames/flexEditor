@@ -627,6 +627,8 @@ public class AppUtils
 				return AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_DATABASE;
 			case AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_HUMAN:
 				return AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_LIKES_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_LIKES_DATABASE;
             default:
 				trace("SHOULD NOT GET HERE");
                 return str;
@@ -671,6 +673,8 @@ public class AppUtils
 				return AppConstants.REQUIREMENT_PLAYER_HAS_NOTE_WITH_COMMENTS_HUMAN;
 			case AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_DATABASE:
 				return AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_COMMENTS_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_LIKES_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_GIVEN_NOTE_LIKES_HUMAN;
             default:
 				trace("SHOULD NOT GET HERE");
                 return str;
