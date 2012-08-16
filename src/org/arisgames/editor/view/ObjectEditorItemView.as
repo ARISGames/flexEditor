@@ -44,6 +44,8 @@ public class ObjectEditorItemView extends Panel
     [Bindable] public var description:TextArea;
     [Bindable] public var dropable:CheckBox;
 	[Bindable] public var dropableFI:FormItem;
+	[Bindable] public var tradeable:CheckBox;
+	[Bindable] public var tradeableFI:FormItem;
 	[Bindable] public var destroyable:CheckBox;
 	[Bindable] public var destroyableFI:FormItem;
 	[Bindable] public var attribute:CheckBox;
@@ -111,6 +113,10 @@ public class ObjectEditorItemView extends Panel
 			dropable.includeInLayout = true;
 			dropableFI.setVisible(true);
 			dropableFI.includeInLayout = true;
+			tradeable.setVisible(true);
+			tradeable.includeInLayout = true;
+			tradeableFI.setVisible(true);
+			tradeableFI.includeInLayout = true;
 			destroyable.setVisible(true);
 			destroyable.includeInLayout = true;
 			destroyableFI.setVisible(true);
@@ -132,6 +138,10 @@ public class ObjectEditorItemView extends Panel
 			dropable.includeInLayout = true;
 			dropableFI.setVisible(true);
 			dropableFI.includeInLayout = true;
+			tradeable.setVisible(true);
+			tradeable.includeInLayout = true;
+			tradeableFI.setVisible(true);
+			tradeableFI.includeInLayout = true;
 			destroyable.setVisible(true);
 			destroyable.includeInLayout = true;
 			destroyableFI.setVisible(true);
@@ -153,6 +163,10 @@ public class ObjectEditorItemView extends Panel
 			dropable.includeInLayout = false;
 			dropableFI.setVisible(false);
 			dropableFI.includeInLayout = false;
+			tradeable.setVisible(false);
+			tradeable.includeInLayout = false;
+			tradeableFI.setVisible(false);
+			tradeableFI.includeInLayout = false;
 			destroyable.setVisible(false);
 			destroyable.includeInLayout = false;
 			destroyableFI.setVisible(false);
@@ -175,6 +189,10 @@ public class ObjectEditorItemView extends Panel
 			dropable.includeInLayout = true;
 			dropableFI.setVisible(true);
 			dropableFI.includeInLayout = true;
+			tradeable.setVisible(true);
+			tradeable.includeInLayout = true;
+			tradeableFI.setVisible(true);
+			tradeableFI.includeInLayout = true;
 			destroyable.setVisible(true);
 			destroyable.includeInLayout = true;
 			destroyableFI.setVisible(true);
@@ -210,6 +228,7 @@ public class ObjectEditorItemView extends Panel
         theName.text = objectPaletteItem.item.name;
         description.text = objectPaletteItem.item.description;
         dropable.selected = objectPaletteItem.item.dropable;
+		tradeable.selected = objectPaletteItem.item.tradeable;
 		destroyable.selected = objectPaletteItem.item.destroyable;
 		attribute.selected = objectPaletteItem.item.isAttribute;
 		maxQty.value = objectPaletteItem.item.maxQty;
@@ -248,6 +267,7 @@ public class ObjectEditorItemView extends Panel
         objectPaletteItem.item.name = theName.text;
         objectPaletteItem.item.description = description.text;
         objectPaletteItem.item.dropable = dropable.selected;
+		objectPaletteItem.item.tradeable = tradeable.selected;
 		objectPaletteItem.item.destroyable = destroyable.selected;
 		objectPaletteItem.item.isAttribute = attribute.selected;
 		objectPaletteItem.item.maxQty = maxQty.value;

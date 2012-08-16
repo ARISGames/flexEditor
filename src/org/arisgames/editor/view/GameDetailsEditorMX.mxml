@@ -70,6 +70,9 @@
 							<mx:FormItem label="Allow player created note tags">
 								<mx:CheckBox id="playerCreateTagsCb"/>
 							</mx:FormItem>
+							<mx:FormItem label="Allow trading items">
+								<mx:CheckBox id="allowtradingCb"/>
+							</mx:FormItem>
 						</mx:Tile>
 						<mx:Tile direction="vertical" horizontalAlign="right" height="96">
 							<mx:FormItem label="Game requires play in specific locations">

@@ -45,6 +45,9 @@
 			<mx:FormItem label="Dropable?" id="dropableFI">
             	<mx:CheckBox id="dropable"/>
             </mx:FormItem>
+			<mx:FormItem label="Tradeable?" id="tradeableFI">
+				<mx:CheckBox id="tradeable"/>
+			</mx:FormItem>
             <mx:FormItem label="Destroyable?" id="destroyableFI">
             	<mx:CheckBox id="destroyable"/>
             </mx:FormItem>   

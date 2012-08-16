@@ -26,6 +26,9 @@
 			<mx:FormItem label="Dropable?">
             	<mx:CheckBox id="dropable"/>
             </mx:FormItem>
+			<mx:FormItem label="Tradeable?">
+				<mx:CheckBox id="tradeable"/>
+			</mx:FormItem>
             <mx:FormItem label="Destroyable?">
             	<mx:CheckBox id="destroyable"/>
             </mx:FormItem>   

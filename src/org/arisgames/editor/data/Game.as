@@ -24,6 +24,7 @@ public class Game
 	public var noteShareToMap:Boolean;
 	public var noteShareToBook:Boolean;
 	public var playerCreateTags:Boolean;
+	public var allowtrading:Boolean;
 	public var playerCreateComments:Boolean;
 	public var playerLikesNotes:Boolean;
 	public var isLocational:Boolean;

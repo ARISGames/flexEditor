@@ -8,6 +8,7 @@ public class Item
     public var iconMediaId:Number;
     public var mediaId:Number;
     public var dropable:Boolean;
+	public var tradeable:Boolean;
     public var destroyable:Boolean;
 	public var isAttribute:Boolean;
 	public var maxQty:Number;
