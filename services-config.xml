@@ -21,10 +21,10 @@
         <!-- DAVEMBP: <endpoint uri="http://davembp.local/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>  DAVEMBP --> 
    		<!-- DEV <endpoint uri="http://dev.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> DEV -->
    		<!-- QA: <endpoint uri="http://qa.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> QA -->
-       	<!-- MAIN: <endpoint uri="http://www.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> STAGING -->
+       	<!-- PROD: <endpoint uri="http://www.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> PROD -->
        	
        	<!-- Copy and paste one of the above lines over the one below, rather than commenting/uncommenting them all the time -->
-       	<endpoint uri="http://dev.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
+		<endpoint uri="http://dev.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>
        	
         </channel-definition>
     </channels>

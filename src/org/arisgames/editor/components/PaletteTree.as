@@ -34,6 +34,8 @@ public class PaletteTree extends Tree
     public function PaletteTree()
     {
         super();
+		editorXOffset = 50;
+		editorWidthOffset = -50;
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
     }
 

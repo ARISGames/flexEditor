@@ -834,7 +834,7 @@ public class GameEditorObjectPaletteView extends VBox
         if (refreshData)
         {
             trace("refreshData is true, so going to refresh the data on the tree.");
-            AppUtils.printPaletteObjectDataModel();
+            //AppUtils.printPaletteObjectDataModel();
             // Refresh Tree on update.
             paletteTree.invalidateList();
             refreshData = false;
