@@ -33,7 +33,7 @@
 
     <mx:ControlBar id="folderControlBar">
         <mx:Spacer width="100%" id="spacer"/>
-		<mx:Button x="200" y="-20" id="duplicate" label="Duplicate Item" click="duplicateObject(event)"/>
+		<mx:Button x="200" y="-20" id="duplicate" label="Duplicate Object" click="duplicateObject(event)"/>
         <mx:Button id="saveButton" label="Save And Close"/>
     </mx:ControlBar>
 
