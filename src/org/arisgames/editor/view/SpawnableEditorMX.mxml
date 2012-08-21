@@ -83,7 +83,7 @@
 				<mx:FormItem label="Wiggle">
 					<mx:CheckBox id="wiggle"/>
 				</mx:FormItem>
-				<mx:FormItem label="Display Annotation">
+				<mx:FormItem label="Display Label On Map">
 					<mx:CheckBox id="displayAnnotation"/>
 				</mx:FormItem>
 			</mx:Form>
