@@ -38,6 +38,7 @@ public class AppConstants
 	public static const DYNAMICEVENT_EDITOBJECTPALETTEITEM:String = "EditObjectPaletteItem";
 	public static const DYNAMICEVENT_OBJECTPALETTEITEMICONSET:String = "ObjectPaletteItemIconSetSoSetItsLocationsIcons";
 	public static const DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM:String = "HighlightObjectPaletteItem";
+	public static const DYNAMICEVENT_HIDEOBJECTPALETTEITEM:String = "HighlightObjectPaletteItem";
     public static const DYNAMICEVENT_CLOSEOBJECTPALETTEITEMEDITOR:String = "CloseObjectPaletteItemEditor";
     public static const DYNAMICEVENT_CLOSEMEDIAPICKER:String = "CloseMediaPicker";
     public static const DYNAMICEVENT_CLOSEMEDIAUPLOADER:String = "CloseMediaUploader";

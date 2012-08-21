@@ -554,8 +554,6 @@ public class AppUtils
 		}
 	}
 
-	
-	
     public function setMainView(mv:MainView):void
     {
         this.mainView = mv;

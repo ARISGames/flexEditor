@@ -25,6 +25,7 @@ public class ObjectPaletteItemBO
     public var media:Media;
 	public var alignMedia:Media;
 	public var isSpawnable:Boolean;
+	public var isHidden:Boolean = false;
 	
     // Relationship Display Information
     //public var children:ObjectPaletteItemChildrenArray;
@@ -56,6 +57,7 @@ public class ObjectPaletteItemBO
     public function ObjectPaletteItemBO(isFolder:Boolean)
     {
         super();
+		this.isHidden = false;
         if (isFolder)
         {
 			//children = new ObjectPaletteItemChildrenArray(this);
@@ -71,18 +73,23 @@ public class ObjectPaletteItemBO
         }
         return true;
     }
-
-
+	
     public function get iconPath():Object
     {
         if (!isFolder() && iconMedia != null)
         {
             var url:String = iconMedia.urlPath + iconMedia.fileName;
             //trace("iconPath being returned = '" + url + "'");
-            return IconUtility.getClass(url, 20, 20);
+			if(!this.isHidden)
+            	return IconUtility.getClass(url, 20, 20);
+			else
+				return IconUtility.getClass("http://dev.arisgames.org/server/gamedata/0/hidden.png", 20, 20);
         }
         trace("iconMedia is null, so returning NULL for iconPath.");
-        return null;
+		if(!this.isHidden)
+			return null;
+		else
+			return IconUtility.getClass("http://dev.arisgames.org/server/gamedata/0/hidden.png", 20, 20);
     }
 
     public function set iconPath(value:Object):void

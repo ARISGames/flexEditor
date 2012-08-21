@@ -109,9 +109,38 @@ public class PaletteTree extends Tree
 		}
 		trace("Just got a single click for '" + evt.currentTarget + "'; Selected Item = '" + this.selectedItem + "'; Selected Data = '" + this.selectedData + "'; Object Name = '" + obj.name + "'");
 		
-		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM);
-		de.objectPaletteItem = this.selectedItem;
-		AppDynamicEventManager.getInstance().dispatchEvent(de);		
+		var de:DynamicEvent;
+		if(evt.stageX > 36 && evt.stageX < 58) //Reeally awful code to detect whether the icon was clicked or not.
+		{
+			de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
+			this.selectedItem.isHidden = !this.selectedItem.isHidden;
+			de.objectPaletteItem = this.selectedItem;
+			AppDynamicEventManager.getInstance().dispatchEvent(de);	
+			
+		}
+		else
+		{
+			de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM);
+			de.objectPaletteItem = this.selectedItem;
+			AppDynamicEventManager.getInstance().dispatchEvent(de);	
+			
+			//Also, unhide when selected
+			if(this.selectedItem.isHidden)
+			{
+				de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
+				this.selectedItem.isHidden = !this.selectedItem.isHidden;
+				de.objectPaletteItem = this.selectedItem;
+				AppDynamicEventManager.getInstance().dispatchEvent(de);
+			}
+			
+			
+		}
+		this.invalidateList();
+		// Validate and update properties
+		// of the Tree and redraw it if necessary.
+		this.validateNow();
+		de = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);
 		
 		//Remove placemark editors...
 		GameModel.getInstance().removeOpenPlaceMarkEditors();	

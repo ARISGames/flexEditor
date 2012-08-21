@@ -9,11 +9,11 @@ import com.google.maps.styles.FillStyle;
 
 import flash.geom.Point;
 
+import mx.collections.ArrayCollection;
 import mx.controls.Alert;
 import mx.events.DynamicEvent;
 import mx.events.FlexMouseEvent;
 import mx.rpc.Responder;
-import mx.collections.ArrayCollection;
 
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Location;
@@ -75,6 +75,7 @@ public class PlaceMarker extends Marker
         addEventListener(MapMouseEvent.CLICK, handleMouseClickedEvent);
         addEventListener(MapMouseEvent.DRAG_END, handleDragEndEvent);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM, highlightMe);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM, hideMe);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OBJECTPALETTEITEMICONSET, setIcon);
     }
 	
@@ -92,10 +93,61 @@ public class PlaceMarker extends Marker
 		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5) || (evt.objectPaletteItem.objectType == "PlayerNote" && placemark.contentType == 6))
 			sameType = true;
 		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
-			icon.highlight();
+			doHighlightMe(true);
 		}
 		else{
+			doHighlightMe(false);
+		}
+	}
+	
+	public function doHighlightMe(yes:Boolean):void
+	{
+		if(yes)
+		{
+			icon.highlight();
+			placemark.highlighted = true;
+		}
+		else
+		{
 			icon.unHighlight();
+			placemark.highlighted = false;
+		}
+	}
+	
+	public function hideMe(evt:DynamicEvent):void {
+		trace("Un/Hiding Stuff");
+		trace("I am placemark: " +placemark.id + " of type: " + placemark.contentType + " of contentId: " + placemark.contentId + " and my name is: '" + placemark.name + "'");
+		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId + " of type: " + evt.objectPaletteItem.objectType);
+		var sameType:Boolean = false;
+		
+		//ISSUE WITH NAMING CONSISTENCY \/ \/ \/
+		//trace(evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_CHARACTER + " & " + placemark.contentType + " = 1?; " + evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_ITEM + " & " + placemark.contentType + " = 2?; " + evt.objectPaletteItem.objectType + " = " + AppConstants.CONTENTTYPE_PAGE + " & " + placemark.contentType + " = 0?; ");
+		//if((evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE && placemark.contentType == 0))
+		
+		//Below "if" logic SHOULD be replaced by commented out logic above/ Naming inconsistencies prevent this. :(
+		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5) || (evt.objectPaletteItem.objectType == "PlayerNote" && placemark.contentType == 6))
+			sameType = true;
+		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
+			if(evt.objectPaletteItem.isHidden){
+				doHideMe(true);
+			} 
+			else 
+			{
+				doHideMe(false);
+			}
+		}
+	}
+	
+	public function doHideMe(yes:Boolean):void
+	{
+		if(yes){
+			this.placemark.hidden = true;
+			icon.hide();
+		} 
+		else 
+		{
+			this.placemark.hidden = false;
+			icon.unHide();
 		}
 	}
 	

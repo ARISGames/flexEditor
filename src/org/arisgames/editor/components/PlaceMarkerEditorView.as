@@ -311,6 +311,7 @@ public class PlaceMarkerEditorView extends Canvas
 			
 			var temp:PlaceMarkerIcon= new PlaceMarkerIcon(placeMark.name);
 			temp.isHighlighted = placeMark.placeMarker.icon.isHighlighted;
+			temp.isHidden = placeMark.placeMarker.icon.isHidden;
 			options.icon  = temp;
 			placeMarker.setOptions(options);
 			placeMarker.icon = options.icon as PlaceMarkerIcon;
