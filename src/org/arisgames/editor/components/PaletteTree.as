@@ -120,11 +120,38 @@ public class PaletteTree extends Tree
 		}
 		if(evt.stageX > ((level*16)+36) && evt.stageX < ((level*16)+58)) //Reeally awful code to detect whether the icon was clicked or not.
 		{
-			de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
-			this.selectedItem.isHidden = !this.selectedItem.isHidden;
-			de.objectPaletteItem = this.selectedItem;
-			AppDynamicEventManager.getInstance().dispatchEvent(de);	
-			
+			if(this.selectedItem.isFolder())
+			{
+				for(var i:int = 0; i < this.selectedItem.children.length; i++)
+				{
+					if(selectedItem.children[i].isFolder())
+					{
+						this.selectedItem.children[i].isHidden = !this.selectedItem.isHidden;
+						for(var j:int = 0; j < selectedItem.children[i].children.length; j++)
+						{
+							de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
+							this.selectedItem.children[i].children[j].isHidden = !this.selectedItem.isHidden;
+							de.objectPaletteItem = this.selectedItem.children[i].children[j];
+							AppDynamicEventManager.getInstance().dispatchEvent(de);	
+						}
+					}
+					else
+					{
+						de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
+						this.selectedItem.children[i].isHidden = !this.selectedItem.isHidden;
+						de.objectPaletteItem = this.selectedItem.children[i];
+						AppDynamicEventManager.getInstance().dispatchEvent(de);	
+					}
+				}
+				this.selectedItem.isHidden = !this.selectedItem.isHidden;
+			}
+			else
+			{
+				de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
+				this.selectedItem.isHidden = !this.selectedItem.isHidden;
+				de.objectPaletteItem = this.selectedItem;
+				AppDynamicEventManager.getInstance().dispatchEvent(de);	
+			}
 		}
 		else
 		{
