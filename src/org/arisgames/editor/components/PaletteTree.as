@@ -110,7 +110,15 @@ public class PaletteTree extends Tree
 		trace("Just got a single click for '" + evt.currentTarget + "'; Selected Item = '" + this.selectedItem + "'; Selected Data = '" + this.selectedData + "'; Object Name = '" + obj.name + "'");
 		
 		var de:DynamicEvent;
-		if(evt.stageX > 36 && evt.stageX < 58) //Reeally awful code to detect whether the icon was clicked or not.
+		//Find Level of folder heirarchy
+		var level:int = 0;
+		var ob:ObjectPaletteItemBO = this.selectedItem as ObjectPaletteItemBO;
+		while(ob.parentContentFolderId != 0)
+		{
+			level++;
+			ob = AppUtils.findParentObjectPaletteItem(ob);
+		}
+		if(evt.stageX > ((level*16)+36) && evt.stageX < ((level*16)+58)) //Reeally awful code to detect whether the icon was clicked or not.
 		{
 			de = new DynamicEvent(AppConstants.DYNAMICEVENT_HIDEOBJECTPALETTEITEM);
 			this.selectedItem.isHidden = !this.selectedItem.isHidden;
