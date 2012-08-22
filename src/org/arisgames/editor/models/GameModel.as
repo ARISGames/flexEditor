@@ -73,7 +73,8 @@ public class GameModel
 			for (var j:Number = 0; j < game.placeMarks.length; j++)
 			{
 				pm = game.placeMarks.getItemAt(j) as PlaceMark;
-				pm.placeMarker.closePME();
+				if(pm.placeMarker) 
+					pm.placeMarker.closePME();
 			}
 		}
 	}

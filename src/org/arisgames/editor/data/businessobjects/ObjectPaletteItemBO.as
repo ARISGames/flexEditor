@@ -72,24 +72,21 @@ public class ObjectPaletteItemBO
             return false;
         }
         return true;
-    }
+    }	
 	
     public function get iconPath():Object
     {
+		if(this.isHidden)
+			return IconUtility.getClass("http://dev.arisgames.org/server/gamedata/0/hidden.png", 20, 20);
+
         if (!isFolder() && iconMedia != null)
         {
             var url:String = iconMedia.urlPath + iconMedia.fileName;
             //trace("iconPath being returned = '" + url + "'");
-			if(!this.isHidden)
-            	return IconUtility.getClass(url, 20, 20);
-			else
-				return IconUtility.getClass("http://dev.arisgames.org/server/gamedata/0/hidden.png", 20, 20);
+            return IconUtility.getClass(url, 20, 20);
         }
         trace("iconMedia is null, so returning NULL for iconPath.");
-		if(!this.isHidden)
-			return null;
-		else
-			return IconUtility.getClass("http://dev.arisgames.org/server/gamedata/0/hidden.png", 20, 20);
+		return null;
     }
 
     public function set iconPath(value:Object):void

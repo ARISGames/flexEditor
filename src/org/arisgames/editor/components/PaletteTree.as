@@ -113,7 +113,7 @@ public class PaletteTree extends Tree
 		//Find Level of folder heirarchy
 		var level:int = 0;
 		var ob:ObjectPaletteItemBO = this.selectedItem as ObjectPaletteItemBO;
-		while(ob.parentContentFolderId != 0)
+		while(ob != null && ob.parentContentFolderId != 0)
 		{
 			level++;
 			ob = AppUtils.findParentObjectPaletteItem(ob);
