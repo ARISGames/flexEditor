@@ -122,7 +122,6 @@ public class GameEditorObjectPaletteView extends VBox
 		}
 	}
 	
-	
 	private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
 	{
 		trace("GameEditorObjectPaletteView: Starting handleLoadFoldersAndContentForObjectPalette()...");

@@ -36,6 +36,8 @@ public class GameEditorMapView extends VBox
     {
         super();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CENTERMAP, onCenterMapButtonClick);
+
     }
 
     private function onComplete(event:FlexEvent): void
@@ -64,10 +66,10 @@ public class GameEditorMapView extends VBox
         }
     }
 
-	private function onCenterMapButtonClick(evt:MouseEvent):void
+	private function onCenterMapButtonClick(evt:Event):void
 	{
 		trace("GameEditorMapView: Center Map Button Clicked!");
-		theMap.centerMapOnData(true);
+		if(theMap && theMap.isSoReady) theMap.centerMapOnData(true);
 	}
 	
 	private function onRefreshButtonClick(evt:MouseEvent):void

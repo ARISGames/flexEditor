@@ -43,6 +43,7 @@ import org.arisgames.editor.util.AppUtils;
 public class NavigationMap extends Map3D
 {
     public var markers:ArrayCollection;
+	public var isSoReady:Boolean = false;
 
     public function NavigationMap()
     {
@@ -96,6 +97,7 @@ public class NavigationMap extends Map3D
         // Add listener to Game model
         AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED, handlePlaceMarkModelChanges);
 		this.centerMapOnData(false);
+		this.isSoReady = true;
     }
 
     private function handlePlaceMarkModelChanges(de:DynamicEvent):void

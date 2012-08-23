@@ -21,6 +21,7 @@ public class GameModel
 {
     // Singleton Pattern
     public static var instance:GameModel;
+	public var shouldCenterOnLoad:Boolean = false;
 
     // Data
     [Bindable] public var game:Game;
@@ -147,7 +148,12 @@ public class GameModel
 		AppDynamicEventManager.getInstance().dispatchEvent(de);
 		
 		trace("Finished with handleLoadLocations.");
-			
+		if(instance.shouldCenterOnLoad)
+		{
+			de = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_CENTERMAP);
+			AppDynamicEventManager.getInstance().dispatchEvent(de);
+			shouldCenterOnLoad = false;
+		}
 	}	
 	
 	public function handleFault(obj:Object):void

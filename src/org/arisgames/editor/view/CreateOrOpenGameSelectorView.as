@@ -135,6 +135,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 	        GameModel.getInstance().game = g;
 	        GameModel.getInstance().game.placeMarks.removeAll();
 	        GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().shouldCenterOnLoad = true;
 			GameModel.getInstance().loadLocations();
 	
 	        StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
@@ -156,6 +157,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			GameModel.getInstance().game = g;
 			GameModel.getInstance().game.placeMarks.removeAll();
 			GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().shouldCenterOnLoad = true;
 			GameModel.getInstance().loadLocations();
 			
 			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
@@ -186,6 +188,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			//Clear everything from previous loads of other games
 			GameModel.getInstance().game.placeMarks.removeAll();
 			GameModel.getInstance().game.gameObjects.removeAll();
+			GameModel.getInstance().shouldCenterOnLoad = true;
 			GameModel.getInstance().loadLocations();
 
 			
