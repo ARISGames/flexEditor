@@ -381,7 +381,7 @@ public class AppUtils
             item.iconMediaId = data.icon_media_id;
             item.mediaId = data.media_id;
             item.dropable = data.dropable;
-			item.tradeable = data.tradeable;
+			item.tradeable = data.tradeable == "1" ? true : false;
             item.destroyable = data.destroyable;
 			item.isAttribute = data.is_attribute;
 			item.maxQty = data.max_qty_in_inventory;
