@@ -18,7 +18,8 @@ public class PlaceMark
 	public var errorText:String;
     public var quantity:Number;
     public var errorRange:Number;
-    public var hidden:Boolean = false;
+	public var hidden:Boolean = false; //data
+	public var isHidden:Boolean = false; //visually
 	public var highlighted:Boolean = false;
     public var forcedView:Boolean = false;
 	public var quickTravel:Boolean = false;	

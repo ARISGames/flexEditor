@@ -141,12 +141,13 @@ public class PlaceMarker extends Marker
 	public function doHideMe(yes:Boolean):void
 	{
 		if(yes){
-			this.placemark.hidden = true;
+
+			this.placemark.isHidden = true;
 			icon.hide();
 		} 
 		else 
 		{
-			this.placemark.hidden = false;
+			this.placemark.isHidden = false;
 			icon.unHide();
 		}
 	}
