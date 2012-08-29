@@ -17,7 +17,7 @@
             <!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
             <mx:DataGridColumn dataField="title" headerText="Title" editable="true"/>
             <mx:DataGridColumn dataField="activeText" 
-							   headerText="Text when Active" 
+							   headerText="Text when Incomplete"
 							   editable="true" 
 							   wordWrap="true"
 							   itemEditor="mx.controls.TextArea"
@@ -34,7 +34,7 @@
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
-							<mx:Button width="95%" label="To Activate" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
+							<mx:Button width="95%" label="To Show" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
 							<mx:Button width="95%" label="To Complete" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
 						</mx:VBox>
 					</mx:Component>
