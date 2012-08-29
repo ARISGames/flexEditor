@@ -32,6 +32,7 @@ import mx.rpc.events.ResultEvent;
 
 import org.arisgames.editor.components.PaletteTree;
 import org.arisgames.editor.data.arisserver.AugBubble;
+import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -434,6 +435,11 @@ public class GameEditorObjectPaletteView extends VBox
 				//trace("Load underlying aug Bubble data...");
 				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (obj.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+			{
+				//trace("Load underlying aug Bubble data...");
+				AppServices.getInstance().getCustomMapById(GameModel.getInstance().game.gameId, obj.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 			else if (obj.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 			{
 				//trace("Load underlying player note data...");
@@ -460,6 +466,7 @@ public class GameEditorObjectPaletteView extends VBox
 		var node:Node = null;
 		var webPage:WebPage = null;
 		var augBubble:AugBubble = null;
+		var customMap:CustomMap = null;
 		var playerNote:PlayerNote = null;
 		
 		var data:Object = retObj.result.data;
@@ -496,9 +503,16 @@ public class GameEditorObjectPaletteView extends VBox
 		else if (data.hasOwnProperty("aug_bubble_id"))
 		{
 			trace("retObj has an aug_bubble_id!  It's value = '" + data.aug_bubble_id + "', its name = '" + data.name + "'.");
-			augBubble = AppUtils.parseResultDataIntoAugBubble(data);
+			customMap = AppUtils.parseResultDataIntoCustomMap(data);
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
+		}
+		else if (data.hasOwnProperty("game_overlay_id"))
+		{
+			trace("retObj has an game_overlay_id!  It's value = '" + data.game_overlay_id + "', its name = '" + data.name + "'.");
+			customMap = AppUtils.parseResultDataIntoCustomMap(data);
+			
+			objType = AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;
 		}
 		else if (data.hasOwnProperty("note_id"))
 		{
@@ -521,7 +535,7 @@ public class GameEditorObjectPaletteView extends VBox
 		{
 			var obj:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(j) as ObjectPaletteItemBO;
 			trace("j = " + j + "; Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + ", and its name = '" + obj.name + "'");
-			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node, webPage, augBubble, playerNote);
+			AppUtils.matchDataWithGameObject(obj, objType, npc, item, node, webPage, augBubble, customMap, playerNote);
 		}
 	}
 
@@ -579,6 +593,14 @@ public class GameEditorObjectPaletteView extends VBox
 			augBubble.name = ti.text;
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, augBubble, new Responder(handleSaveAugBubble, handleFault));
 		}
+		else if (obj.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			trace("It's a custom map...");
+			var customMap:CustomMap = new CustomMap();
+			customMap.customMapId = obj.objectId;
+			customMap.name = ti.text;
+			AppServices.getInstance().saveCustomMap(GameModel.getInstance().game.gameId, customMap, new Responder(handleSaveCustomMap, handleFault));
+		}
 		else if (obj.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{
 			trace("It's a note...");
@@ -627,7 +649,7 @@ public class GameEditorObjectPaletteView extends VBox
         var pt:Point = new Point();
         var myMenu:Menu;
 
-        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}];
+        var myMenuData:Array = [{label: AppConstants.CONTENTTYPE_CHARACTER, type: "normal"}, {label: AppConstants.CONTENTTYPE_ITEM, type: "normal"}, {label: AppConstants.CONTENTTYPE_PAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_WEBPAGE, type: "normal"}, {label: AppConstants.CONTENTTYPE_AUGBUBBLE, type: "normal"}, {label: AppConstants.CONTENTTYPE_CUSTOMMAP, type: "normal"}];
 
         myMenu = Menu.createMenu(objectPalette, myMenuData, false);
         myMenu.addEventListener("itemClick", menuHandler);
@@ -712,6 +734,15 @@ public class GameEditorObjectPaletteView extends VBox
 			a.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_AUGBUBBLE;
 			this.addObjectPaletteItem(a);
 		}
+		else if (AppConstants.CONTENTTYPE_CUSTOMMAP == stuff)
+		{
+			trace("add an custom map to the object palette...");
+			var a:ObjectPaletteItemBO = new ObjectPaletteItemBO(false);
+			a.name = AppConstants.CONTENTTYPE_CUSTOMMAP_DEFAULT_NAME;
+			a.objectType = AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;
+			a.iconMediaId = AppConstants.DEFAULT_ICON_MEDIA_ID_CUSTOMMAP;
+			this.addObjectPaletteItem(a);
+		}
 		else if (AppConstants.CONTENTTYPE_PLAYER_NOTE == stuff)
 		{
 			/* DISABLED- Makes no sense to have a note author with playerId of 0
@@ -778,6 +809,15 @@ public class GameEditorObjectPaletteView extends VBox
 			augBubble.iconMediaId = item.iconMediaId;
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, augBubble, new Responder(handleCreateAugBubble, handleFault));
 			trace("Just finished calling saveAugBubble() for name = '" + item.name + "'.");
+		}
+		else if (item.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			var customMap:CustomMap = new CustomMap();
+			customMap.customMapId = 0;
+			customMap.name = item.name;
+			customMap.iconMediaId = item.iconMediaId;
+			AppServices.getInstance().saveCustomMap(GameModel.getInstance().game.gameId, customMap, new Responder(handleCreateCustomMap, handleFault));
+			trace("Just finished calling saveCustomMap() for name = '" + item.name + "'.");
 		}
 		else if (item.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{
@@ -975,6 +1015,22 @@ public class GameEditorObjectPaletteView extends VBox
 		trace("GameEditorObjectPalletView: Finished with handleSaveAugBubble().");
 	}
 	
+	public function handleSaveCustomMap(obj:Object):void
+	{
+		trace("GameEditorObjectPalletView: In handleSaveCutomMap() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("GameEditorObjectPalletView: Bad save custom map attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Saving Custom Map");
+		}
+		else
+		{
+			trace("GameEditorObjectPalletView: Save Custom Map was successful.");
+		}
+		trace("GameEditorObjectPalletView: Finished with handleSaveCustomMap().");
+	}
+	
 	public function handleSavePlayerNote(obj:Object):void
 	{
 		trace("GameEditorObjectPalletView: In handleSavePlayerNote() Result called with obj = " + obj + "; Result = " + obj.result);
@@ -1110,6 +1166,35 @@ public class GameEditorObjectPaletteView extends VBox
 			}
 		}
 		trace("Finished with handleCreateAugBubble().");
+	}
+	
+	public function handleCreateCustomMap(obj:Object):void
+	{
+		trace("In handleCreateCustomMap() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad create custom map attempt... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Creating CustomMap");
+		}
+		else
+		{
+			trace("Create custom map was successful.");
+			for (var lc:Number = 0; lc < treeModel.length; lc++)
+			{
+				var it:ObjectPaletteItemBO = treeModel.getItemAt(lc) as ObjectPaletteItemBO;
+				trace("LC = " + lc + "; it.id = '" + it.id + "; Object Type = '" + it.objectType + "'; objectId = '" + it.objectId + "'; Return Object Id = '" + obj.result.data + "'");
+				if (it.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE && isNaN(it.objectId))
+				{
+					it.id = 0;
+					it.objectId = obj.result.data;
+					trace("Found an cutsom map with a NULL object Id, so setting it to the data's result: " + obj.result.data);
+					AppServices.getInstance().saveContent(GameModel.getInstance().game.gameId, it, new Responder(handleSaveContent, handleFault));
+					break;
+				}
+			}
+		}
+		trace("Finished with handleCustomMap().");
 	}
 	
 	public function handleCreatePlayerNote(obj:Object):void
@@ -1328,6 +1413,11 @@ public class GameEditorObjectPaletteView extends VBox
 						trace("Object With Id = " + it.id + " is missing it's augBubble data (ID = " + it.objectId + "), so need to load it.");
 						AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfAugBubbleData, handleFault))
 					}
+					else if (it.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE && it.customMap == null)
+					{
+						trace("Object With Id = " + it.id + " is missing it's custom map data (ID = " + it.objectId + "), so need to load it.");
+						AppServices.getInstance().getCustomMapById(GameModel.getInstance().game.gameId, it.objectId, new Responder(handlePairingOfCustomMapData, handleFault))
+					}
                     if (it.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE && it.playerNote == null)
 					{
 						trace("Object With Id = " + it.id + " is missing it's playerNote data (ID = " + it.objectId + "), so need to load it.");
@@ -1358,7 +1448,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null, null, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CHARACTER_DATABASE, npc, null, null, null, null, null, null);
             }
         }
     }
@@ -1380,7 +1470,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null, null, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_ITEM_DATABASE, null, item, null, null, null, null, null);
             }
         }
     }
@@ -1402,7 +1492,7 @@ public class GameEditorObjectPaletteView extends VBox
 			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
 			{
 				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_WEBPAGE_DATABASE, null, null, null, webPage, null, null);
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_WEBPAGE_DATABASE, null, null, null, webPage, null, null, null);
 			}
 		}
 	}
@@ -1424,7 +1514,31 @@ public class GameEditorObjectPaletteView extends VBox
 			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
 			{
 				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE, null, null, null, null, augBubble, null);
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE, null, null, null, null, augBubble, null, null);
+			}
+		}
+	}
+	
+	private function handlePairingOfCustomMapData(obj:Object):void
+	{
+		trace("In handlePairingOfCustomMapData() Result called with obj = " + obj + "; Result = " + obj.result);
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handlePairingOfCustomMapData... let's see what happened.");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Adding CustomMap");
+		}
+		else
+		{
+			var data:Object = obj.result.data;
+			var customMap:CustomMap = AppUtils.parseResultDataIntoCustomMap(data);
+			
+			if (customMap != null) {
+				for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
+				{
+					var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
+					AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE, null, null, null, null, null, customMap, null);
+				}
 			}
 		}
 	}
@@ -1446,7 +1560,7 @@ public class GameEditorObjectPaletteView extends VBox
 			for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
 			{
 				var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE, null, null, null, null, null, playerNote);
+				AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE, null, null, null, null, null, null, playerNote);
 			}
 		}
 	}
@@ -1468,7 +1582,7 @@ public class GameEditorObjectPaletteView extends VBox
             for (var lc:Number = 0; lc < GameModel.getInstance().game.gameObjects.length; lc++)
             {
                 var opi:ObjectPaletteItemBO = GameModel.getInstance().game.gameObjects.getItemAt(lc) as ObjectPaletteItemBO;
-                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node, null, null, null);
+                AppUtils.matchDataWithGameObject(opi, AppConstants.CONTENTTYPE_PAGE_DATABASE, null, null, node, null, null, null, null);
             }
         }
     }

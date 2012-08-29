@@ -7,6 +7,8 @@ import org.arisgames.editor.MainView;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.AugBubbleMedia;
+import org.arisgames.editor.data.arisserver.CustomMap;
+import org.arisgames.editor.data.arisserver.CustomMapMedia;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -66,6 +68,8 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_WEBPAGE;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE;
+			case AppConstants.CONTENTTYPE_CUSTOMMAP_VAL:
+				return AppConstants.CONTENTTYPE_CUSTOMMAP;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE;
 				
@@ -92,6 +96,8 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
+			case AppConstants.CONTENTTYPE_CUSTOMMAP_VAL:
+				return AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;	
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE;
             /*
@@ -127,6 +133,10 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
+			case AppConstants.CONTENTTYPE_CUSTOMMAP:
+				return AppConstants.CONTENTTYPE_CUSTOMMAP_VAL;
+			case AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE:
+				return AppConstants.CONTENTTYPE_CUSTOMMAP_VAL;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE:
@@ -295,7 +305,7 @@ public class AppUtils
         }
     }
 
-    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage, augBubble:AugBubble, playerNote:PlayerNote):void
+    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage, augBubble:AugBubble, customMap:CustomMap, playerNote:PlayerNote):void
     {
         //trace("matchDataWithGameObject() called: Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
 
@@ -340,6 +350,13 @@ public class AppUtils
 						obj.augBubble = augBubble;
 					}
 					break;
+				case AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE:
+					if (obj.objectId == customMap.customMapId)
+					{
+						//trace("Just matched Game Object Id " + obj.id + " with augBubble of ID = " + augBubble.augBubbleId);
+						obj.customMap = customMap;
+					}
+					break;
 				case AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE:
 					if (obj.objectId == playerNote.playerNoteId)
 					{
@@ -355,7 +372,7 @@ public class AppUtils
             for (var lc:Number = 0; lc < obj.children.length; lc++)
             {
                 var childObj:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
-                matchDataWithGameObject(childObj, objType, npc, item, node, webPage, augBubble, playerNote);
+                matchDataWithGameObject(childObj, objType, npc, item, node, webPage, augBubble, customMap, playerNote);
             }
         }
     }
@@ -465,6 +482,31 @@ public class AppUtils
 		else
 		{
 			trace("Data passed in was not an Aug Bubble Result set, returning NULL.");
+			return null;
+		}
+	}
+	
+	public static function parseResultDataIntoCustomMap(data:Object):CustomMap
+	{
+		if (data.hasOwnProperty("game_overlay_id"))
+		{
+			trace("retObj has a overlay_id!  It's value = '" + data.overlay_id + "'.");
+			var customMap:CustomMap = new CustomMap();
+			
+			//customMap.media = new ArrayCollection();
+			//for(var x:Number = 0; x < data.media.length; x++){
+			//	customMap.media.addItem(new CustomMapMedia(data.media[x].media_id, data.media[x].text, data.media[x].index));
+			//}
+			customMap.customMapId = data.game_overlay_id;
+			customMap.name = data.name;
+			customMap.description = data.description;
+			customMap.iconMediaId = data.icon_media_id;
+			
+			return customMap;
+		}
+		else
+		{
+			trace("Data passed in was not a Custom Map Result set, returning NULL.");
 			return null;
 		}
 	}

@@ -28,7 +28,7 @@ public class GameEditorObjectEditorView extends Canvas
     [Bindable] public var plaqueEditor:ItemEditorPlaqueView;
 	[Bindable] public var webPageEditor:ItemEditorWebPageView;
 	[Bindable] public var augBubbleEditor:ItemEditorAugBubbleView;
-
+	[Bindable] public var customMapEditor:ItemEditorCustomMapView;
     
     /**
      * Constructor
@@ -145,6 +145,11 @@ public class GameEditorObjectEditorView extends Canvas
 				//trace("Load underlying AugBubble data...");
 				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (op.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+			{
+				//trace("Load underlying AugBubble data...");
+				AppServices.getInstance().getCustomMapById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 
             this.objectPaletteItem = op;
         }
@@ -158,6 +163,7 @@ public class GameEditorObjectEditorView extends Canvas
         var node:Node = null;
 		var webPage:WebPage = null;
 		var augBubble:AugBubble = null;
+		var customMap:CustomMap = null;
 
         var data:Object = retObj.result.data;
         var objType:String = "";
@@ -197,6 +203,13 @@ public class GameEditorObjectEditorView extends Canvas
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
 		}
+		else if (data.hasOwnProperty("game_overlay_id"))
+		{
+			trace("retObj has an game_overlay_id!  It's value = '" + data.game_overlay_id + "'.");
+			customMap = AppUtils.parseResultDataIntoCustomMap(data);
+			
+			objType = AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;
+		}
         else
         {
             trace("retObj data type couldn't be found, returning.");
@@ -204,7 +217,7 @@ public class GameEditorObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble, customMap);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -226,6 +239,8 @@ public class GameEditorObjectEditorView extends Canvas
 		webPageEditor.includeInLayout = false;
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
+		customMapEditor.setVisible(false);
+		customMapEditor.includeInLayout = false;
 
         if (objectPaletteItem.isFolder())
         {
@@ -269,6 +284,13 @@ public class GameEditorObjectEditorView extends Canvas
 			augBubbleEditor.setObjectPaletteItem(objectPaletteItem);
 			augBubbleEditor.setVisible(true);
 			augBubbleEditor.includeInLayout = true;
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			trace("It's a cutom map, so display the Aug Bubble Editor.")
+			customMapEditor.setObjectPaletteItem(objectPaletteItem);
+			customMapEditor.setVisible(true);
+			customMapEditor.includeInLayout = true;
 		}
     }
 

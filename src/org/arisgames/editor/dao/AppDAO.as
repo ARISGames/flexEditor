@@ -17,6 +17,7 @@ public class AppDAO
     private static var npcServer:RemoteObject;
 	private static var webPageServer:RemoteObject;
 	private static var augBubbleServer:RemoteObject;
+	private static var customMapServer:RemoteObject;
 	private static var conversationServer:RemoteObject;
 	private static var itemServer:RemoteObject;
 	private static var playerNoteServer:RemoteObject;
@@ -156,6 +157,18 @@ public class AppDAO
 			augBubbleServer.showBusyCursor = true;
 		}
 		return augBubbleServer;
+	}
+	
+	public function getCustomMapServer():RemoteObject
+	{
+		if (customMapServer == null)
+		{
+			customMapServer = new RemoteObject();
+			customMapServer.source = AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".overlays";
+			customMapServer.destination = "amfphp";
+			customMapServer.showBusyCursor = true;
+		}
+		return customMapServer;
 	}
 
     public function getItemServer():RemoteObject

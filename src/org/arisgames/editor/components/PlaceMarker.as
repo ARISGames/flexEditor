@@ -90,7 +90,7 @@ public class PlaceMarker extends Marker
 		//if((evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PAGE && placemark.contentType == 0))
 		
 		//Below "if" logic SHOULD be replaced by commented out logic above/ Naming inconsistencies prevent this. :(
-		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5) || (evt.objectPaletteItem.objectType == "PlayerNote" && placemark.contentType == 6))
+		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5) || (evt.objectPaletteItem.objectType == "CustomMap" && placemark.contentType == 6) || (evt.objectPaletteItem.objectType == "PlayerNote" && placemark.contentType == 7))
 			sameType = true;
 		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
 			doHighlightMe(true);
@@ -155,7 +155,7 @@ public class PlaceMarker extends Marker
 	public function setIcon(evt:DynamicEvent):void {
 		trace("Placemarker: setting Icon");
 		var sameType:Boolean = false;
-		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5))
+		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5) || (evt.objectPaletteItem.objectType == "CustomMap" && placemark.contentType == 6))
 			sameType = true;
 		if(sameType && evt.objectPaletteItem.objectId == placemark.contentId){
 			this.placemark.iconURL = evt.iconURL;

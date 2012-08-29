@@ -15,6 +15,7 @@
     <v:ObjectEditorPlaqueMX id="plaqueEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	<v:ObjectEditorWebPageMX id="webPageEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	<v:ObjectEditorAugBubbleMX id="augBubbleEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
+	<v:ObjectEditorCustomMapMX id="customMapEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	<v:ObjectEditorPlayerNoteMX id="playerNoteEditor" width="100%" height="100%" visible="false" includeInLayout="false"/>
 	
 </v:ObjectEditorView>

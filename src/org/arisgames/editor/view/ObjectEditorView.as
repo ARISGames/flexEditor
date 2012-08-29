@@ -11,6 +11,7 @@ import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
 
 import org.arisgames.editor.data.arisserver.AugBubble;
+import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -38,6 +39,7 @@ public class ObjectEditorView extends Canvas
     [Bindable] public var characterEditor:ObjectEditorCharacterView;
     [Bindable] public var plaqueEditor:ObjectEditorPlaqueView;
 	[Bindable] public var augBubbleEditor:ObjectEditorAugBubbleView;
+	[Bindable] public var customMapEditor:ObjectEditorCustomMapView;
 	[Bindable] public var playerNoteEditor:ObjectEditorPlayerNoteView;
 	public var stdHeight:Number;
 
@@ -183,6 +185,11 @@ public class ObjectEditorView extends Canvas
 				//trace("Load underlying augBubble data...");
 				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
+			else if (op.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+			{
+				//trace("Load underlying augBubble data...");
+				AppServices.getInstance().getCustomMapById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
+			}
 			else if (op.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 			{
 				//trace("Load underlying augBubble data...");
@@ -201,6 +208,7 @@ public class ObjectEditorView extends Canvas
         var node:Node = null;
 		var webPage:WebPage = null;
 		var augBubble:AugBubble = null;
+		var customMap:CustomMap = null;
 		var playerNote:PlayerNote = null;
 
         var data:Object = retObj.result.data;
@@ -241,6 +249,13 @@ public class ObjectEditorView extends Canvas
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
 		}
+		else if (data.hasOwnProperty("game_overlay_id"))
+		{
+			trace("retObj has an overlay_id!  It's value = '" + data.overlay_id + "'.");
+			customMap = AppUtils.parseResultDataIntoCustomMap(data);
+			
+			objType = AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;
+		}
 		else if (data.hasOwnProperty("player_note_id"))
 		{
 			trace("retObj has an player_note_id!  It's value = '" + data.player_note_id + "'.");
@@ -255,7 +270,7 @@ public class ObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble, playerNote);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble, customMap, playerNote);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -277,6 +292,8 @@ public class ObjectEditorView extends Canvas
 		webPageEditor.includeInLayout = false;
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
+		customMapEditor.setVisible(false);
+		customMapEditor.includeInLayout = false;
 		playerNoteEditor.setVisible(false);
 		playerNoteEditor.includeInLayout = false;
 		this.width=470;
@@ -333,6 +350,14 @@ public class ObjectEditorView extends Canvas
 			secretText.text = "id="+augBubbleEditor.objectPaletteItem.objectId+"";
 			augBubbleEditor.setVisible(true);
 			augBubbleEditor.includeInLayout = true;
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			trace("It's a custom map, so display the Custom Map Editor.")
+			customMapEditor.setObjectPaletteItem(objectPaletteItem);
+			secretText.text = "id="+customMapEditor.objectPaletteItem.objectId+"";
+			customMapEditor.setVisible(true);
+			customMapEditor.includeInLayout = true;
 		}
 		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{

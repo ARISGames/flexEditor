@@ -192,7 +192,7 @@ public class ItemEditorMediaDisplayView extends HBox
 			return;
 		}
         // Load The Media GUI
-		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
+		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE){
 			mediaPopupMediaPickerButton.setVisible(true);
 			mediaPopupMediaPickerButton.includeInLayout = true;
 	        if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.media.type == AppConstants.MEDIATYPE_VIDEO))
@@ -465,6 +465,30 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
 		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			if (picker.isInIconPickerMode())
+			{
+				objectPaletteItem.customMap.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMediaId = m.mediaId;
+				objectPaletteItem.iconMedia = m;
+				trace("Just set AugBubble with ID = '" + objectPaletteItem.customMap.customMapId + "' Icon Media Id = '" + objectPaletteItem.customMap.iconMediaId + "'");
+			}
+				/*else if (picker.isInAlignmentPickerMode())
+				{
+				objectPaletteItem.augBubble.alignMediaId = m.mediaId;
+				objectPaletteItem.alignMediaId = m.mediaId;
+				objectPaletteItem.alignMedia = m;
+				trace("Just set AugBubble with ID = '" + objectPaletteItem.augBubble.augBubbleId + "' Icon Media Id = '" + objectPaletteItem.augBubble.alignMediaId + "'");
+				}*/
+			else
+			{
+				objectPaletteItem.mediaId = m.mediaId;
+				objectPaletteItem.media = m;
+				trace("Just set Page with ID = '" + objectPaletteItem.customMap.customMapId );
+			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
 		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_ITEM_DATABASE)
 		{
 			if (picker.isInIconPickerMode())
@@ -481,6 +505,15 @@ public class ItemEditorMediaDisplayView extends HBox
 				objectPaletteItem.media = m;
 				trace("Just set Item with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
 			}
+			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			
+			objectPaletteItem.item.mediaId = m.mediaId;
+			objectPaletteItem.mediaId = m.mediaId;
+			objectPaletteItem.media = m;
+			trace("Just set custom map with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
 			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
 		}
 		
@@ -559,6 +592,11 @@ public class ItemEditorMediaDisplayView extends HBox
 			objectPaletteItem.augBubble.iconMediaId = 0;
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
 		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			objectPaletteItem.customMap.iconMediaId = 0;
+			AppServices.getInstance().saveCustomMap(GameModel.getInstance().game.gameId, objectPaletteItem.customMap, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
 		
         // Reload Icon In Object Palette
         var uop:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE);
@@ -590,6 +628,11 @@ public class ItemEditorMediaDisplayView extends HBox
 		{
 			//objectPaletteItem.augBubble.mediaId = 0;            
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
+		}
+		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
+		{
+			//objectPaletteItem.augBubble.mediaId = 0;            
+			AppServices.getInstance().saveCustomMap(GameModel.getInstance().game.gameId, objectPaletteItem.customMap, new Responder(handleSaveObjectAfterRemove, handleFault));
 		}
     }
 	

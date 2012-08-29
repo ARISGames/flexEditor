@@ -3,6 +3,7 @@ package org.arisgames.editor.data.businessobjects
 import mx.collections.ArrayCollection;
 
 import org.arisgames.editor.data.arisserver.AugBubble;
+import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -47,6 +48,7 @@ public class ObjectPaletteItemBO
     public var page:Node;
 	public var webPage:WebPage;
 	public var augBubble:AugBubble;
+	public var customMap:CustomMap;
 	public var playerNote:PlayerNote;
 
 

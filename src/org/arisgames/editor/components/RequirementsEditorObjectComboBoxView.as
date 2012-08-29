@@ -329,6 +329,33 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 		}
 	}
 	
+	private function handleLoadCustomMaps(obj:Object):void
+	{
+		trace("handling load custom maps...");
+		possibleObjects.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible customMaps attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible aug bubbles");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].name;
+				if(obj.result.data[j].description != "")
+					to.label += ": " + obj.result.data[j].description;
+				to.data = obj.result.data[j].aug_bubble_id;
+				possibleObjects.addItem(to);
+			}
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Custom Map Object(s).");
+		}
+	}
+	
     private function handleLoadNodes(obj:Object):void
     {
         trace("handling load Nodes...");

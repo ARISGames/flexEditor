@@ -10,6 +10,7 @@ import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
+import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
@@ -180,6 +181,13 @@ public class AppServices
 		r.addResponder(resp);
 	}
 	
+	public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
+	{
+		var r:Object;
+		r = AppDAO.getInstance().getCustomMapServer().getCustomMaps(gid);
+		r.addResponder(resp);
+	}
+	
 	public function getPlayerNoteById(gid:Number, pnid:Number, resp:IResponder):void
 	{
 		var r:Object;
@@ -274,6 +282,21 @@ public class AppServices
 		r.addResponder(resp);
 	}
 	
+	public function saveCustomMap(gid:Number, customMap:CustomMap, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(customMap.customMapId) || customMap.customMapId == 0)
+		{
+			trace("This Custom Map doesn't have an Id, so call create customMap.");
+			r = AppDAO.getInstance().getCustomMapServer().createOverlay(gid, customMap.name, customMap.description, customMap.iconMediaId);
+		}
+		else
+		{
+			trace("This Custom Map has an Id (" + customMap.customMapId + "), so call update customMap.gameid:" + gid + " name:" + customMap.name);
+			r = AppDAO.getInstance().getCustomMapServer().updateCustomMap(gid, customMap.customMapId, customMap.name, customMap.description, customMap.iconMediaId);
+		}
+		r.addResponder(resp);
+	}
 
     public function savePage(gid:Number, n:Node, resp:IResponder):void
     {
@@ -647,6 +670,15 @@ public class AppServices
 		l = AppDAO.getInstance().getAugBubbleServer().getAugBubble(gid, id);
 		l.addResponder(resp);
 	}
+	
+	public function getCustomMapById(gid:Number, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getAugBubbleById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getCustomMapServer().getOverlay(gid, id);
+		l.addResponder(resp);
+	}
+
 
     public function getMediaForGame(gid:Number, resp:IResponder):void
     {
@@ -732,6 +764,24 @@ public class AppServices
 	public function getAugBubbleMedia(gid:Number, augId:Number, resp:IResponder):void{
 		var l:Object;
 		l = AppDAO.getInstance().getAugBubbleServer().getAugBubbleMedia(gid, augId);
+		l.addResponder(resp);
+	}
+	
+	public function updateCustomMapMediaIndex(mapId:Number, mediaId:Number, name:String, game:Game, index:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().updateCustomMapMediaIndex(mapId, mediaId, name, game.gameId, index);
+		l.addResponder(resp);
+	}
+	
+	public function removeCustomMapMediaIndex(mapId:Number, mediaId:Number, index:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().removeCustomMapMediaIndex(mapId, mediaId, index);
+		l.addResponder(resp);
+	}
+	
+	public function getCustomMapMedia(gid:Number, mapId:Number, resp:IResponder):void{
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().getCustomMapMedia(gid, mapId);
 		l.addResponder(resp);
 	}
 	
