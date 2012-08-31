@@ -308,7 +308,7 @@ public class AppUtils
         }
     }
 
-    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage, augBubble:AugBubble, customMap:CustomMap, playerNote:PlayerNote):void
+    public static function matchDataWithGameObject(obj:ObjectPaletteItemBO, objType:String, npc:NPC, item:Item, node:Node, webPage:WebPage, augBubble:AugBubble, playerNote:PlayerNote):void
     {
         //trace("matchDataWithGameObject() called: Looking at Game Object Id '" + obj.id + ".  It's Object Type = '" + obj.objectType + "', while it's Content Id = '" + obj.objectId + "'; Is Folder? " + obj.isFolder() + "");
 
@@ -353,13 +353,6 @@ public class AppUtils
 						obj.augBubble = augBubble;
 					}
 					break;
-				case AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE:
-					if (obj.objectId == customMap.customMapId)
-					{
-						//trace("Just matched Game Object Id " + obj.id + " with augBubble of ID = " + augBubble.augBubbleId);
-						obj.customMap = customMap;
-					}
-					break;
 				case AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE:
 					if (obj.objectId == playerNote.playerNoteId)
 					{
@@ -375,7 +368,7 @@ public class AppUtils
             for (var lc:Number = 0; lc < obj.children.length; lc++)
             {
                 var childObj:ObjectPaletteItemBO = obj.children.getItemAt(lc) as ObjectPaletteItemBO;
-                matchDataWithGameObject(childObj, objType, npc, item, node, webPage, augBubble, customMap, playerNote);
+                matchDataWithGameObject(childObj, objType, npc, item, node, webPage, augBubble, playerNote);
             }
         }
     }
@@ -491,10 +484,10 @@ public class AppUtils
 	
 	public static function parseResultDataIntoCustomMap(data:Object):CustomMap
 	{
-		if (data.hasOwnProperty("game_overlay_id"))
+		if (data.hasOwnProperty("overlay_id"))
 		{
 			trace("retObj has a overlay_id!  It's value = '" + data.overlay_id + "'.");
-			var customMap:CustomMap = new CustomMap();
+			var customMap:CustomMap = new CustomMap(data.name, data.overlay_id, 0);
 			
 			//customMap.media = new ArrayCollection();
 			//for(var x:Number = 0; x < data.media.length; x++){
@@ -502,8 +495,7 @@ public class AppUtils
 			//}
 			customMap.customMapId = data.game_overlay_id;
 			customMap.name = data.name;
-			customMap.description = data.description;
-			customMap.iconMediaId = data.icon_media_id;
+
 			
 			return customMap;
 		}

@@ -39,7 +39,6 @@ public class ObjectEditorView extends Canvas
     [Bindable] public var characterEditor:ObjectEditorCharacterView;
     [Bindable] public var plaqueEditor:ObjectEditorPlaqueView;
 	[Bindable] public var augBubbleEditor:ObjectEditorAugBubbleView;
-	[Bindable] public var customMapEditor:ObjectEditorCustomMapView;
 	[Bindable] public var playerNoteEditor:ObjectEditorPlayerNoteView;
 	public var stdHeight:Number;
 
@@ -270,7 +269,7 @@ public class ObjectEditorView extends Canvas
         }
 
         trace("Time to look for it's matching Game Object.");
-        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble, customMap, playerNote);
+        AppUtils.matchDataWithGameObject(this.objectPaletteItem, objType, npc, item, node, webPage, augBubble, playerNote);
 
         // Update the Editor
         this.updateTheEditorUI();
@@ -292,8 +291,6 @@ public class ObjectEditorView extends Canvas
 		webPageEditor.includeInLayout = false;
 		augBubbleEditor.setVisible(false);
 		augBubbleEditor.includeInLayout = false;
-		customMapEditor.setVisible(false);
-		customMapEditor.includeInLayout = false;
 		playerNoteEditor.setVisible(false);
 		playerNoteEditor.includeInLayout = false;
 		this.width=470;
@@ -350,14 +347,6 @@ public class ObjectEditorView extends Canvas
 			secretText.text = "id="+augBubbleEditor.objectPaletteItem.objectId+"";
 			augBubbleEditor.setVisible(true);
 			augBubbleEditor.includeInLayout = true;
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
-		{
-			trace("It's a custom map, so display the Custom Map Editor.")
-			customMapEditor.setObjectPaletteItem(objectPaletteItem);
-			secretText.text = "id="+customMapEditor.objectPaletteItem.objectId+"";
-			customMapEditor.setVisible(true);
-			customMapEditor.includeInLayout = true;
 		}
 		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{
