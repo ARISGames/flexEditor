@@ -503,7 +503,8 @@ public class GameEditorObjectPaletteView extends VBox
 		else if (data.hasOwnProperty("aug_bubble_id"))
 		{
 			trace("retObj has an aug_bubble_id!  It's value = '" + data.aug_bubble_id + "', its name = '" + data.name + "'.");
-			customMap = AppUtils.parseResultDataIntoCustomMap(data);
+			augBubble = AppUtils.parseResultDataIntoAugBubble(data);
+			
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
 		}

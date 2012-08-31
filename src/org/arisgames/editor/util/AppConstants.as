@@ -3,9 +3,7 @@ package org.arisgames.editor.util
 public class AppConstants
 {
 	//Server URL
-	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/server"; //For other URL's to append to- Prod
-	//public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://qa.arisgames.org/server"; //For other URL's to append to- QA
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://dev.arisgames.org/server"; //For other URL's to append to- Dev
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/server"; //For other URL's to append to
 	
 	//Server Version
 	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "v1";
