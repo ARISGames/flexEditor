@@ -18,6 +18,8 @@ public class GameEditorContainerView extends Canvas
 	[Bindable] public var questsEditor:QuestsEditorView;
 	[Bindable] public var webHooksEditor:WebHooksEditorView;
 	[Bindable] public var noteTagsEditor:NoteTagsEditorView;
+	[Bindable] public var customMapsEditor:CustomMapsEditorView;
+	
 
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"
     [Bindable] public var panelIn:Move;  // WB "IN" actually means "into the toolbox, no longer displaying"
@@ -28,6 +30,7 @@ public class GameEditorContainerView extends Canvas
 	private var isQuestsEditorVis:Boolean = false;
 	private var isWebHooksEditorVis:Boolean = false;
 	private var isNoteTagsEditorVis:Boolean = false;
+	private var isCustomMapsEditorVis:Boolean = false;
 
     /**
      * Constructor
@@ -48,10 +51,11 @@ public class GameEditorContainerView extends Canvas
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR, handleOpenQuestsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR, handleOpenWebHooksEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR, handleOpenNoteTagsEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENCUSTOMMAPSEDITOR, handleOpenCustomMapsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEWEBHOOKSEDITOR, handleCloseWebHooksEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSENOTETAGSEDITOR, handleCloseNoteTagsEditorRequest);
-		
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSECUSTOMMAPSEDITOR, handleCloseCustomMapsEditorRequest);
     }
 	
 
@@ -180,6 +184,31 @@ public class GameEditorContainerView extends Canvas
 		}
 	}
 	
+	private function handleOpenCustomMapsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleOpenCustomMapsEditorRequest() was called");
+		if (!isNoteTagsEditorVis)
+		{
+			trace("CustomMapsEditor is currently hidden, so show it!");
+			isCustomMapsEditorVis = true;
+			customMapsEditor = new CustomMapsEditorMX();
+			this.parent.addChild(customMapsEditor);
+			
+			// Need to validate the display so that entire component is rendered
+			customMapsEditor.validateNow();
+			
+			PopUpManager.addPopUp(customMapsEditor, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(customMapsEditor);
+			customMapsEditor.setVisible(true);
+			customMapsEditor.includeInLayout = true;			
+		}
+		else 
+		{
+			trace("customMapsEditor is already visible, so clicking the button again should close it!");
+			isCustomMapsEditorVis = false;
+		}
+	}
+	
 	private function handleCloseQuestsEditorRequest(event:DynamicEvent):void 
 	{
 		trace("GameEditorContainer: handleCloseQuestsEditorRequest() was called");
@@ -212,6 +241,23 @@ public class GameEditorContainerView extends Canvas
 			PopUpManager.removePopUp(webHooksEditor);
 			webHooksEditor = null;			
 			isWebHooksEditorVis = false;
+		}
+	}	
+	
+	private function handleCloseCustomMapsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleCloseCustomMapsEditorRequest() was called");
+		
+		if (!isCustomMapsEditorVis)
+		{
+			trace("CustomMaps Editor already hidden, so don't try to close again!");
+		}
+		else
+		{
+			trace("Closing the CustomMapsEditor");
+			PopUpManager.removePopUp(customMapsEditor);
+			customMapsEditor = null;			
+			isCustomMapsEditorVis = false;
 		}
 	}	
 	

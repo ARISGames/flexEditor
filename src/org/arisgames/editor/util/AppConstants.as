@@ -56,6 +56,8 @@ public class AppConstants
 	public static const DYNAMICEVENT_CLOSEFOUNTAINEDITOR:String = "CloseFountainEditor";
 	public static const DYNAMICEVENT_OPENWEBHOOKSEDITOR:String = "OpenWebHooksEditor";
 	public static const DYNAMICEVENT_CLOSEWEBHOOKSEDITOR:String = "CloseWebHooksEditor";
+	public static const DYNAMICEVENT_OPENCUSTOMMAPSEDITOR:String = "OpenCustomMapsEditor";
+	public static const DYNAMICEVENT_CLOSECUSTOMMAPSEDITOR:String = "CloseCustomMapsEditor";
 	public static const DYNAMICEVENT_OPENNOTETAGSEDITOR:String = "OpenNoteTagsEditor";
 	public static const DYNAMICEVENT_CLOSENOTETAGSEDITOR:String = "CloseNoteTagsEditor";
 	public static const DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR:String = "DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR";
@@ -147,6 +149,7 @@ public class AppConstants
 	public static const REQUIREMENTTYPE_QUESTCOMPLETE:String = "QuestComplete";
 	public static const REQUIREMENTTYPE_NODE:String = "Node";
 	public static const REQUIREMENTTYPE_WEBHOOK:String = "OutgoingWebHook";
+	public static const REQUIREMENTTYPE_CUSTOMMAP:String = "CustomMap";
 
     // Requirement Options
 	public static const REQUIREMENT_NOT_OP_TRUE_HUMAN:String = "Player Has";

@@ -24,6 +24,7 @@ import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.Spawnable;
 import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.WebHook;
+import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.SecurityModel;
@@ -181,12 +182,12 @@ public class AppServices
 		r.addResponder(resp);
 	}
 	
-	public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
+	/*public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
 	{
 		var r:Object;
 		r = AppDAO.getInstance().getCustomMapServer().getCustomMaps(gid);
 		r.addResponder(resp);
-	}
+	}*/
 	
 	public function getPlayerNoteById(gid:Number, pnid:Number, resp:IResponder):void
 	{
@@ -282,7 +283,7 @@ public class AppServices
 		r.addResponder(resp);
 	}
 	
-	public function saveCustomMap(gid:Number, customMap:CustomMap, resp:IResponder):void
+	/*public function saveCustomMap(gid:Number, customMap:CustomMap, resp:IResponder):void
 	{
 		var r:Object;
 		if (isNaN(customMap.customMapId) || customMap.customMapId == 0)
@@ -296,7 +297,7 @@ public class AppServices
 			r = AppDAO.getInstance().getCustomMapServer().updateCustomMap(gid, customMap.customMapId, customMap.name, customMap.description, customMap.iconMediaId);
 		}
 		r.addResponder(resp);
-	}
+	}*/
 
     public function savePage(gid:Number, n:Node, resp:IResponder):void
     {
@@ -329,6 +330,24 @@ public class AppServices
 			if(w.incoming) r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, ""); //save url as "" (causes problems with duplicating games... it gets generated non-server side anyways)
 			else r = AppDAO.getInstance().getWebHookServer().updateWebHook(gid, w.webHookId, w.name, w.url);
 
+		}
+		r.addResponder(resp);
+	}
+	
+public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
+	{
+		var r:Object;
+		if (isNaN(cm.customMapId) || cm.customMapId == 0)
+		{
+			trace("This custom map doesn't have an Id, so call create custom map.");
+			r = AppDAO.getInstance().getCustomMapServer().createOverlay(gid, cm.name, cm.index);
+		}
+		else
+		{
+			trace("This custom map has an Id (" + cm.customMapId + "), so call update custom map.");
+			
+			 r = AppDAO.getInstance().getCustomMapServer().updateOverlay(gid, cm.customMapId, cm.name, cm.index);
+			
 		}
 		r.addResponder(resp);
 	}
@@ -611,6 +630,13 @@ public class AppServices
 		l.addResponder(resp);
 	}
 	
+	public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().getOverlaysForEditor(gid);
+		l.addResponder(resp);
+	}
+	
 	public function getNoteTagsByGameId(gid:Number, resp:IResponder):void
 	{
 		var l:Object;
@@ -719,6 +745,15 @@ public class AppServices
 		l = AppDAO.getInstance().getWebHookServer().deleteWebHook(gid, wid);
 		l.addResponder(resp);
 	}
+	
+	public function deleteCustomMap(gid:Number, cid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		trace("deleteCustomMap called with GID = '" + gid + "'; CID = '" + cid + "'");
+		l = AppDAO.getInstance().getCustomMapServer().deleteOverlay(gid, cid);
+		l.addResponder(resp);
+	}
+
 
     public function createMediaForGame(gid:Number, mediaName:String, fileName:String, isIcon:Number, resp:IResponder):void
     {
@@ -942,6 +977,26 @@ public class AppServices
 		trace("AppServices: switchConversationOrder called with GameId:" + gid + " NpcId: " + npcId + " convoA: " + convoAId + " convoB: " + convoBId);
 		var l:Object;
 		l = AppDAO.getInstance().getConversationServer().swapSortIndex(gid, npcId, convoAId, convoBId);
+		l.addResponder(resp);
+	}
+	
+	public function switchCustomMapOrder(gid:Number, customMapIdA:Number, customMapIdB:Number, resp:IResponder):void {
+		trace("AppServices: switchCustomMapOrder called with GameId:" + gid + " customMapIdA: " + customMapIdA + " customMapIdB: " + customMapIdB);
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().swapSortIndex(gid, customMapIdA,customMapIdB);
+		l.addResponder(resp);
+	}
+	
+	public function unzipCustomMapTiles(gid:Number, customMapId:Number, zipFileName:String, resp:IResponder):void {
+		trace("AppServices: unzipCustomMapTiles called with GameId:" + gid + " customMapId: " + customMapId + " zipFileName: " + zipFileName);
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().unzipOverlay(gid, zipFileName);
+		l.addResponder(resp);
+	}
+	public function writeCustomMapTilesToDatabase(gid:Number, customMapId:Number, folderName:String, resp:IResponder):void {
+		trace("AppServices: writeCustomMapTilesToDatabase called with GameId:" + gid + " customMapId: " + customMapId + " folderName: " + folderName);
+		var l:Object;
+		l = AppDAO.getInstance().getCustomMapServer().writeOverlayToDatabase(gid, customMapId, folderName);
 		l.addResponder(resp);
 	}
 	

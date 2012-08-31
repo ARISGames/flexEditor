@@ -21,6 +21,7 @@
 			<mx:Button id="editQuestsButton" label="Quest Editor" width="100%" height="33"/>
 			<mx:Button id="webHooksButton" label="Web Hook Editor" width="100%" height="33"/>
 			<mx:Button id="noteTagsButton" label="Note Tag Editor" width="100%" height="33"/>
+			<mx:Button id="customMapsButton" label="Custom Map Editor" width="100%" height="33"/>
         </mx:VBox>
 
         <c:PaletteTree id="paletteTree" width="100%" showRoot="false" height="95%" dataProvider="{treeModel}"

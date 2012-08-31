@@ -17,7 +17,6 @@ public class AppDAO
     private static var npcServer:RemoteObject;
 	private static var webPageServer:RemoteObject;
 	private static var augBubbleServer:RemoteObject;
-	private static var customMapServer:RemoteObject;
 	private static var conversationServer:RemoteObject;
 	private static var itemServer:RemoteObject;
 	private static var playerNoteServer:RemoteObject;
@@ -26,6 +25,7 @@ public class AppDAO
     private static var mediaServer:RemoteObject;
     private static var requirementsServer:RemoteObject;
 	private static var questsServer:RemoteObject;
+	private static var customMapServer:RemoteObject;
 	private static var playerStateChangeServer:RemoteObject;
 	private static var spawnablesServer:RemoteObject;
 	private static var fountainsServer:RemoteObject;
@@ -86,6 +86,7 @@ public class AppDAO
 		}
 		return webHookServer;
 	}
+	
 
     public function getNodeServer():RemoteObject
     {

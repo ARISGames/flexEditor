@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<v:CustomMapsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+					xmlns:main="org.arisgames.editor.*"
+					xmlns:v="org.arisgames.editor.view.*"
+					xmlns:c="org.arisgames.editor.components.*"
+					paddingTop="10"
+					paddingLeft="10"
+					paddingRight="10"
+					paddingBottom="10"
+					width="800"
+					title="Custom Maps Editor"
+					creationPolicy="all"
+					height="500">
+		
+		
+		
+		<!-- Outgoing Tab -->
+			<mx:Box width="100%">
+				<mx:Text id="customMapsHead" fontSize="15" fontStyle="Bold" htmlText="Custom Maps"/>
+				<mx:DataGrid id="customMapsDg" width="100%" rowCount="8" editable="true" dataProvider="{customMaps}" draggableColumns="false" variableRowHeight="true" height="250">
+					<mx:columns>
+						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
+						<mx:DataGridColumn dataField="zipUploaded" headerText="Zip File Uploaded?" editable="false" width="70"/>
+						<mx:DataGridColumn id="zipFile"
+										   headerText="Upload Zip File" 
+										   editable="false" 
+										   wordWrap="true"
+										   itemEditor="mx.controls.TextArea"
+										   editorUsesEnterKey="true"
+										   width = "90">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="100%" id="uploadZipButton" label="Upload" click="outerDocument.handleZipFileButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+						<mx:DataGridColumn visible="true" headerText="Requirements" editable="false" width="50">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="100%" label="To Show" click="outerDocument.handleRequirementsButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+						<mx:DataGridColumn headerText="Sort" editable="false" width="25">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
+										<mx:LinkButton click="outerDocument.handleUpPressed(event)" label="↑" width="24"/>
+										<mx:LinkButton click="outerDocument.handleDownPressed(event)" label="↓" width="24"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+						<mx:DataGridColumn headerText="Delete" editable="false" width="25">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="50%" label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+					</mx:columns>
+				</mx:DataGrid>
+				
+				<mx:ControlBar width="100%" horizontalAlign="right">
+					<mx:Button id="addCustomMapButton" label="+"/>
+				</mx:ControlBar>
+				<mx:LinkButton label="Custom Map Instructions" id = "instructionsButton" color="#0000D5" textAlign="left" width="25%" click="handleInstructionsButton(event)"/>
+			</mx:Box>
+		
+
+	<mx:ControlBar width="100%" horizontalAlign="right">
+		<mx:Button id="closeButton" label="Save and Close"/>
+	</mx:ControlBar>
+	
+</v:CustomMapsEditorView>

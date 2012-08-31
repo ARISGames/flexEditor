@@ -1,21 +1,19 @@
 package org.arisgames.editor.data.arisserver
 {
-	import mx.collections.ArrayCollection;
-
 	public class CustomMap
 	{
-		public var customMapId:Number;
 		public var name:String;
-		public var description:String;
-		public var iconMediaId:Number;
-		public var media:ArrayCollection;
+		public var customMapId:Number;
+		public var index:Number;
+		public var tileFolder:String;
+		public var zipUploaded:Boolean;
 		
-		/**
-		 * Constructor
-		 */
-		public function CustomMap()
+		public function CustomMap(name:String, id:Number, index:Number):void
 		{
-			super();
+			this.name = name;
+			this.customMapId = id;
+			this.index = index;
+			zipUploaded = false;
 		}
 	}
 }
