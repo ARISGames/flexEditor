@@ -16,7 +16,7 @@
 		<!-- Incoming Tab -->
 		<mx:Canvas label = "Incoming">
 			<mx:Box width="100%">
-				<mx:Text id="inHead" fontSize="15" fontStyle="Bold" htmlText="Incoming Web Hooks"/>
+				<mx:Text id="inHead" fontSize="15" htmlText="Incoming Web Hooks"/>
 				<mx:DataGrid id="inDg" width="100%" rowCount="8" editable="true" dataProvider="{incomingWebHooks}" draggableColumns="false" variableRowHeight="true" height="250">
 					<mx:columns>
 						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
@@ -50,7 +50,7 @@
 		<!-- Outgoing Tab -->
 		<mx:Canvas label = "Outgoing">
 			<mx:Box width="100%">
-				<mx:Text id="outHead" fontSize="15" fontStyle="Bold" htmlText="Incoming Web Hooks"/>
+				<mx:Text id="outHead" fontSize="15" htmlText="Incoming Web Hooks"/>
 				<mx:DataGrid id="outDg" width="100%" rowCount="8" editable="true" dataProvider="{outgoingWebHooks}" draggableColumns="false" variableRowHeight="true" height="250">
 					<mx:columns>
 						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>

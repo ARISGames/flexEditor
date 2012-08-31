@@ -17,7 +17,7 @@
 		<mx:Canvas label = "Note Tags" height="50%" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 			<mx:Box width="100%">
 				<mx:ControlBar width="100%" horizontalAlign="right" paddingLeft="0">
-					<mx:Text id="gtheader" fontSize="15" fontStyle="Bold" htmlText="Note Tags" width="100%" paddingLeft="0"/>
+					<mx:Text id="gtheader" fontSize="15" htmlText="Note Tags" width="100%" paddingLeft="0"/>
 					<mx:TextInput id="addNoteTagText" />
 					<mx:Button id="addNoteTagButton" label="+"/>
 				</mx:ControlBar>
@@ -42,7 +42,7 @@
 	
 		<mx:Canvas label = "Player Created Tags" height="50%" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 			<mx:Box width="100%">
-				<mx:Text id="ptheader" fontSize="15" fontStyle="Bold" htmlText="Player Created Tags"/>
+				<mx:Text id="ptheader" fontSize="15" htmlText="Player Created Tags"/>
 				<mx:DataGrid id="ptdg" width="100%" height="90%" editable="false" dataProvider="{ptNoteTags}" draggableColumns="false" variableRowHeight="true">
 					<mx:columns>
 						<mx:DataGridColumn dataField="tag" headerText="Tag" editable="true"/>

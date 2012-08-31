@@ -16,7 +16,7 @@
 		
 		<!-- Outgoing Tab -->
 			<mx:Box width="100%">
-				<mx:Text id="customMapsHead" fontSize="15" fontStyle="Bold" htmlText="Custom Maps"/>
+				<mx:Text id="customMapsHead" fontSize="15" htmlText="Custom Maps"/>
 				<mx:DataGrid id="customMapsDg" width="100%" rowCount="8" editable="true" dataProvider="{customMaps}" draggableColumns="false" variableRowHeight="true" height="250">
 					<mx:columns>
 						<mx:DataGridColumn dataField="name" headerText="Name" editable="true" width="100"/>
