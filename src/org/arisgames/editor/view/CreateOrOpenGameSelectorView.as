@@ -106,6 +106,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
 			g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
 			g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
+			g.allowtrading = obj.result.data.list.getItemAt(j).allow_trading;
 			
 			usersGames.addItem(g);
         }

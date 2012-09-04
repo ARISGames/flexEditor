@@ -95,12 +95,13 @@ public class AppServices
 			game.playerCreateTags = true;
 			game.playerCreateComments = true;
 			game.playerLikesNotes = true;
+			game.allowtrading = true;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading);
 		}
 		else
 		{
@@ -110,7 +111,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading);
 		}
 		r.addResponder(resp);
 	}
