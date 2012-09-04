@@ -10,7 +10,6 @@ import org.arisgames.editor.data.Game;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
-import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;

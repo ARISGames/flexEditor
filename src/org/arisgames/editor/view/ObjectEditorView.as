@@ -11,7 +11,6 @@ import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
 
 import org.arisgames.editor.data.arisserver.AugBubble;
-import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -184,11 +183,6 @@ public class ObjectEditorView extends Canvas
 				//trace("Load underlying augBubble data...");
 				AppServices.getInstance().getAugBubbleById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
 			}
-			else if (op.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
-			{
-				//trace("Load underlying augBubble data...");
-				AppServices.getInstance().getCustomMapById(GameModel.getInstance().game.gameId, op.objectId, new Responder(handleLoadSpecificData, handleFault));
-			}
 			else if (op.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 			{
 				//trace("Load underlying augBubble data...");
@@ -207,7 +201,6 @@ public class ObjectEditorView extends Canvas
         var node:Node = null;
 		var webPage:WebPage = null;
 		var augBubble:AugBubble = null;
-		var customMap:CustomMap = null;
 		var playerNote:PlayerNote = null;
 
         var data:Object = retObj.result.data;
@@ -247,13 +240,6 @@ public class ObjectEditorView extends Canvas
 			augBubble = AppUtils.parseResultDataIntoAugBubble(data);
 			
 			objType = AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
-		}
-		else if (data.hasOwnProperty("game_overlay_id"))
-		{
-			trace("retObj has an overlay_id!  It's value = '" + data.overlay_id + "'.");
-			customMap = AppUtils.parseResultDataIntoCustomMap(data);
-			
-			objType = AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;
 		}
 		else if (data.hasOwnProperty("player_note_id"))
 		{

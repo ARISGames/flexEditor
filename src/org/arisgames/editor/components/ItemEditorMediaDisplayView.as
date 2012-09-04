@@ -192,7 +192,7 @@ public class ItemEditorMediaDisplayView extends HBox
 			return;
 		}
         // Load The Media GUI
-		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE){
+		if(objectPaletteItem.objectType != AppConstants.CONTENTTYPE_WEBPAGE_DATABASE && objectPaletteItem.objectType != AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
 			mediaPopupMediaPickerButton.setVisible(true);
 			mediaPopupMediaPickerButton.includeInLayout = true;
 	        if (objectPaletteItem.media != null && (objectPaletteItem.media.type == AppConstants.MEDIATYPE_AUDIO || objectPaletteItem.media.type == AppConstants.MEDIATYPE_VIDEO))
@@ -484,15 +484,6 @@ public class ItemEditorMediaDisplayView extends HBox
 			}
 			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
 		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
-		{
-			
-			objectPaletteItem.item.mediaId = m.mediaId;
-			objectPaletteItem.mediaId = m.mediaId;
-			objectPaletteItem.media = m;
-			trace("Just set custom map with ID = '" + objectPaletteItem.item.itemId + "' Media Id = '" + objectPaletteItem.item.mediaId + "'");
-			//AppServices.getInstance().saveItem(GameModel.getInstance().game.gameId, objectPaletteItem.item, new Responder(handleSaveObject, handleFault));
-		}
 		
 		this.pushDataIntoGUI();
 		
@@ -600,11 +591,6 @@ public class ItemEditorMediaDisplayView extends HBox
 		{
 			//objectPaletteItem.augBubble.mediaId = 0;            
 			AppServices.getInstance().saveAugBubble(GameModel.getInstance().game.gameId, objectPaletteItem.augBubble, new Responder(handleSaveObjectAfterRemove, handleFault));
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE)
-		{
-			//objectPaletteItem.augBubble.mediaId = 0;            
-			AppServices.getInstance().saveCustomMap(GameModel.getInstance().game.gameId, objectPaletteItem.customMap, new Responder(handleSaveObjectAfterRemove, handleFault));
 		}
     }
 	

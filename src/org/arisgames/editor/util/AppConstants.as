@@ -70,7 +70,6 @@ public class AppConstants
     public static const CONTENTTYPE_ITEM:String = "Item";
 	public static const CONTENTTYPE_WEBPAGE:String = "WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE:String = "Panoramic";
-	public static const CONTENTTYPE_CUSTOMMAP:String = "Custom Map";
 	public static const CONTENTTYPE_PLAYER_NOTE:String = "PlayerNote";
     public static const CONTENTTYPE_QRCODEGROUP:String = "QR Code Group";
     public static const CONTENTTYPE_PAGE_VAL:Number = 0;
@@ -79,14 +78,12 @@ public class AppConstants
     public static const CONTENTTYPE_QRCODEGROUP_VAL:Number = 3;
 	public static const CONTENTTYPE_WEBPAGE_VAL:Number = 4;
 	public static const CONTENTTYPE_AUGBUBBLE_VAL:Number = 5;
-	public static const CONTENTTYPE_CUSTOMMAP_VAL:Number = 6;
 	public static const CONTENTTYPE_PLAYER_NOTE_VAL:Number = 7;
     public static const CONTENTTYPE_PAGE_DATABASE:String = "Node";
     public static const CONTENTTYPE_CHARACTER_DATABASE:String = "Npc";
 	public static const CONTENTTYPE_ITEM_DATABASE:String = "Item";
 	public static const CONTENTTYPE_WEBPAGE_DATABASE:String = "WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DATABASE:String = "AugBubble";
-	public static const CONTENTTYPE_CUSTOMMAP_DATABASE:String = "CustomMap";
 	public static const CONTENTTYPE_PLAYER_NOTE_DATABASE:String = "PlayerNote";
     public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
 	
@@ -96,7 +93,6 @@ public class AppConstants
 	public static const CONTENTTYPE_ITEM_DEFAULT_NAME:String = "Unnamed Item";
 	public static const CONTENTTYPE_WEBPAGE_DEFAULT_NAME:String = "Unnamed WebPage";
 	public static const CONTENTTYPE_AUGBUBBLE_DEFAULT_NAME:String = "Unnamed Panoramic";
-	public static const CONTENTTYPE_CUSTOMMAP_DEFAULT_NAME:String = "Unnamed Custom Map";
 	public static const CONTENTTYPE_PLAYER_NOTE_DEFAULT_NAME:String = "Unnamed Player Note";
 
     // Label Constants
@@ -219,7 +215,6 @@ public class AppConstants
     public static const DEFAULT_ICON_MEDIA_ID_PLAQUE:Number = 3;
 	public static const DEFAULT_ICON_MEDIA_ID_WEBPAGE:Number = 4;
 	public static const DEFAULT_ICON_MEDIA_ID_AUGBUBBLE:Number = 5;
-	public static const DEFAULT_ICON_MEDIA_ID_CUSTOMMAP:Number = 6;
 	public static const DEFAULT_ICON_MEDIA_ID_PLAYER_NOTE:Number = 5;
 
 	// Palette Tree Stuff

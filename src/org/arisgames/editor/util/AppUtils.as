@@ -68,8 +68,6 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_WEBPAGE;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE;
-			case AppConstants.CONTENTTYPE_CUSTOMMAP_VAL:
-				return AppConstants.CONTENTTYPE_CUSTOMMAP;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE;
 				
@@ -96,8 +94,6 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_WEBPAGE_DATABASE;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_VAL:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE;
-			case AppConstants.CONTENTTYPE_CUSTOMMAP_VAL:
-				return AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE;	
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE;
             /*
@@ -133,10 +129,6 @@ public class AppUtils
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
 			case AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE:
 				return AppConstants.CONTENTTYPE_AUGBUBBLE_VAL;
-			case AppConstants.CONTENTTYPE_CUSTOMMAP:
-				return AppConstants.CONTENTTYPE_CUSTOMMAP_VAL;
-			case AppConstants.CONTENTTYPE_CUSTOMMAP_DATABASE:
-				return AppConstants.CONTENTTYPE_CUSTOMMAP_VAL;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE:
 				return AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL;
 			case AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE:

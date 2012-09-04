@@ -187,7 +187,7 @@ public class GameEditorContainerView extends Canvas
 	private function handleOpenCustomMapsEditorRequest(event:DynamicEvent):void 
 	{
 		trace("GameEditorContainer: handleOpenCustomMapsEditorRequest() was called");
-		if (!isNoteTagsEditorVis)
+		if (!isCustomMapsEditorVis)
 		{
 			trace("CustomMapsEditor is currently hidden, so show it!");
 			isCustomMapsEditorVis = true;
