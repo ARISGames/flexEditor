@@ -17,13 +17,8 @@
     </services>
     <channels>
         <channel-definition id="my-amfphp" class="mx.messaging.channels.AMFChannel">
-        
-        <!-- DAVEMBP: <endpoint uri="http://davembp.local/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>  DAVEMBP --> 
-   		<!-- DEV <endpoint uri="http://dev.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> DEV -->
-   		<!-- QA: <endpoint uri="http://qa.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> QA -->
-       	<!-- PROD: <endpoint uri="http://www.arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/> PROD -->
        	
-       	<!-- Copy and paste one of the above lines over the one below, rather than commenting/uncommenting them all the time -->
+       	<!-- Change uri to gateway of server -->
 		<endpoint uri="http://arisgames.org/server/gateway.php" class="flex.messaging.endpoints.AMFEndpoint"/>    
    	
         </channel-definition>
