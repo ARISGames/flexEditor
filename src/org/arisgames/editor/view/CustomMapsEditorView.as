@@ -447,7 +447,7 @@ package org.arisgames.editor.view
 		
 		protected function handleInstructionsButton(event:MouseEvent):void
 		{
-			var loc:String = "https://docs.google.com/document/d/1A4QvrjyTlzstbWmUDrvI-CpYGYo9zMinIyX1z7EJfhE/"; //GWS: PUT INSTRUCTIONS ON GOOGLE DOC AND LINK TO IT HERE
+			var loc:String = "https://docs.google.com/document/d/1A4QvrjyTlzstbWmUDrvI-CpYGYo9zMinIyX1z7EJfhE/edit"; 
 			navigateToURL(new URLRequest(loc),"_blank");
 		}
 		
