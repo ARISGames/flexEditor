@@ -37,6 +37,7 @@ public class PlaceMarker extends Marker
 	public var iwo:InfoWindowOptions
 	public var icon:PlaceMarkerIcon;
 	public var instanceOfObjectId:Number;
+	public var deleted:Boolean;
 	
 	public var imageMatchMediaIdList:ArrayCollection;
 	public var imageMatchMediaList:ArrayCollection;
@@ -64,6 +65,7 @@ public class PlaceMarker extends Marker
 		options.icon = icon;
 		this.imageMatchMedia = pm.imageMatchMedia;
 		this.imageMatchMediaId = pm.imageMatchMediaId;
+		this.deleted = false;
 		
 		super(latLng, options);
 		pm.placeMarker = this;
@@ -79,7 +81,12 @@ public class PlaceMarker extends Marker
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OBJECTPALETTEITEMICONSET, setIcon);
     }
 	
+	public function deleteMe():void {
+		this.deleted = true;
+	}
+	
 	public function highlightMe(evt:DynamicEvent):void {
+		if(this.deleted) return;
 		trace("Un/Highlighting Stuff");
 		trace("I am placemark: " +placemark.id + " of type: " + placemark.contentType + " of contentId: " + placemark.contentId + " and my name is: '" + placemark.name + "'");
 		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId + " of type: " + evt.objectPaletteItem.objectType);
@@ -102,6 +109,8 @@ public class PlaceMarker extends Marker
 	
 	public function doHighlightMe(yes:Boolean):void
 	{
+		if(this.deleted) return;
+
 		if(yes)
 		{
 			icon.highlight();
@@ -115,6 +124,8 @@ public class PlaceMarker extends Marker
 	}
 	
 	public function hideMe(evt:DynamicEvent):void {
+		if(this.deleted) return;
+
 		trace("Un/Hiding Stuff");
 		trace("I am placemark: " +placemark.id + " of type: " + placemark.contentType + " of contentId: " + placemark.contentId + " and my name is: '" + placemark.name + "'");
 		trace(" and this object was clicked: " + evt.objectPaletteItem.id + " with objectId: " + evt.objectPaletteItem.objectId + " of type: " + evt.objectPaletteItem.objectType);
@@ -140,6 +151,8 @@ public class PlaceMarker extends Marker
 	
 	public function doHideMe(yes:Boolean):void
 	{
+		if(this.deleted) return;
+
 		if(yes){
 
 			this.placemark.isHidden = true;
@@ -153,6 +166,8 @@ public class PlaceMarker extends Marker
 	}
 	
 	public function setIcon(evt:DynamicEvent):void {
+		if(this.deleted) return;
+
 		trace("Placemarker: setting Icon");
 		var sameType:Boolean = false;
 		if((evt.objectPaletteItem.objectType == "Npc" && placemark.contentType == 1) || (evt.objectPaletteItem.objectType == "Item" && placemark.contentType == 2) || (evt.objectPaletteItem.objectType == "Node" && placemark.contentType == 0) || (evt.objectPaletteItem.objectType == "WebPage" && placemark.contentType == 4) || (evt.objectPaletteItem.objectType == "AugBubble" && placemark.contentType == 5))
@@ -165,6 +180,8 @@ public class PlaceMarker extends Marker
 
     public function handleMouseClickedEvent(event:MapMouseEvent):void
     {
+		if(this.deleted) return;
+
         trace("Marker clicked...");
         if (StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
         {
@@ -206,6 +223,8 @@ public class PlaceMarker extends Marker
 	
 	public function closePME():void
 	{
+		if(this.deleted) return;
+
 		trace("PlaceMarker: closing place marker editor");
 		if(pme != null){
 			pme.closeWithoutSaving();
@@ -214,6 +233,8 @@ public class PlaceMarker extends Marker
 
     public function handleDragEndEvent(event:MapMouseEvent):void
     {
+		if(this.deleted) return;
+
         trace("PlaceMarker: Handle Drag End Event called...");
         placemark.latitude = event.latLng.lat();
         placemark.longitude = event.latLng.lng();
@@ -244,6 +265,8 @@ public class PlaceMarker extends Marker
 
     public function handleUpdateLocation(obj:Object):void
     {
+		if(this.deleted) return;
+
         trace("handleUpdateLocation Result called with obj = " + obj + "; Result = " + obj.result);
         if (obj.result.returnCode != 0)
         {

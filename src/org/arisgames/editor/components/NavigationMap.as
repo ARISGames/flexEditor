@@ -116,7 +116,7 @@ public class NavigationMap extends Map3D
         {
             var pm:PlaceMark = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
             trace("j = " + j + "; pm lat = " + pm.latitude + "; pm lng = " + pm.longitude);
-            if(!pm.isHidden)addPlaceMarker(pm);
+            if(!pm.isHidden && !(pm.placeMarker && pm.placeMarker.deleted))addPlaceMarker(pm);
         }
         trace("Done with handlePlaceMarkModelChanges");
 		
@@ -170,6 +170,7 @@ public class NavigationMap extends Map3D
                 ri = lc;
                 m.closeInfoWindow();
                 m.hide();
+				m.deleteMe();
                 break;
             }
         }
