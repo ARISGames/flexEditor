@@ -39,7 +39,7 @@
 								   width="50"/>
 			</mx:FormItem>
 			<mx:FormItem id="maxQtyFI" label="Max Qty Per Player" required="true">
-				<mx:NumericStepper id="maxQty" minimum="1" maximum="500" stepSize="1"
+				<mx:NumericStepper id="maxQty" minimum="1" maximum="5000000000" stepSize="1"
 					width="50"/>
 			</mx:FormItem>
 			<mx:FormItem label="Dropable?" id="dropableFI">

@@ -9,6 +9,8 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.events.FlexEvent;
 import mx.rpc.Responder;
+import mx.collections.Sort; 
+import mx.collections.SortField; 
 
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.models.GameModel;
@@ -180,7 +182,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				to.data = obj.result.data[j].quest_id;
 				possibleObjects.addItem(to);
 			}
-
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible Quest Object(s).");
@@ -212,7 +220,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 					possibleObjects.addItem(to);
 				}
 			}
-			
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible web hook(s).");
@@ -240,7 +254,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				to.data = obj.result.data[j].tag_id;
 				possibleObjects.addItem(to);
 			}
-			
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("RequirementsEditorObjectComboBoxView: Loaded '" + possibleObjects.length + "' Possible game tag(s).");
@@ -269,6 +289,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
                 to.data = obj.result.data[j].item_id;
                 possibleObjects.addItem(to);
             }
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
             possibleObjects.refresh();
             this.updateComboBoxSelectedItem();
             trace("Loaded '" + possibleObjects.length + "' Possible Item Object(s).");
@@ -296,6 +323,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				to.data = obj.result.data[j].web_page_id;
 				possibleObjects.addItem(to);
 			}
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("Loaded '" + possibleObjects.length + "' Possible Web Page Object(s).");
@@ -323,6 +357,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				to.data = obj.result.data[j].aug_bubble_id;
 				possibleObjects.addItem(to);
 			}
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("Loaded '" + possibleObjects.length + "' Possible Aug Bubble Object(s).");
@@ -350,6 +391,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 				to.data = obj.result.data[j].aug_bubble_id;
 				possibleObjects.addItem(to);
 			}
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
 			possibleObjects.refresh();
 			this.updateComboBoxSelectedItem();
 			trace("Loaded '" + possibleObjects.length + "' Possible Custom Map Object(s).");
@@ -378,6 +426,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
                 to.data = obj.result.data[j].node_id;
                 possibleObjects.addItem(to);
             }
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
             possibleObjects.refresh();
             this.updateComboBoxSelectedItem();
             trace("Loaded '" + possibleObjects.length + "' Possible Nodes Object(s).");
@@ -405,6 +460,13 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
                 to.data = obj.result.data[j].npc_id;
                 possibleObjects.addItem(to);
             }
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
             possibleObjects.refresh();
             this.updateComboBoxSelectedItem();
             trace("Loaded '" + possibleObjects.length + "' Possible NPC Object(s).");
