@@ -154,6 +154,7 @@
 		
 		<mx:Canvas label="Game Links"  height="100%" width="100%">
 			<mx:Button x="112" y="50" label="Launch Web Backpack" width="286" id="wbpButton" click="handleWbpButton(event)"/>
+			<mx:Button x="112" y="50" label="Launch Web Notebook" width="286" id="wbpButton" click="handleNbButton(event)"/>
 			<mx:Button x="112" y="80" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>
 			<!--<mx:Button x="112" y="110" label="Download KML of Player Created Media" width="286" id="pcmKMLButton" click="handlePcmKMLButton(event)"/>-->
 			<!--<mx:Button x="112" y="140" label="Download KML of Game Locations and Players" id="gameLocsKMLButton" click="handleGameLocsKMLButton(event)"/>-->
