@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties mainApplicationPath="main.mxml" projectUUID="3f906f0a-8065-4619-89a7-377a1013a1d8" version="6">
-  <compiler additionalCompilerArguments="-locale en_US -services services-config.xml" autoRSLOrdering="true" copyDependentFiles="true" flex3CompatMode="true" flexSDK="Flex 3.5" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+<actionScriptProperties analytics="false" mainApplicationPath="main.mxml" projectUUID="3f906f0a-8065-4619-89a7-377a1013a1d8" version="10">
+  <compiler additionalCompilerArguments="-locale en_US -services services-config.xml" autoRSLOrdering="true" copyDependentFiles="true" flex3CompatMode="false" flexSDK="Flex 3.6" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -17,4 +17,5 @@
   </applications>
   <modules/>
   <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
