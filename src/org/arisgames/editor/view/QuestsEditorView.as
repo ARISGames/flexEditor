@@ -245,7 +245,11 @@ public class QuestsEditorView extends Panel
                 q.title = obj.result.data.list.getItemAt(j).name;
                 q.activeText = obj.result.data.list.getItemAt(j).description;
                 q.completeText = obj.result.data.list.getItemAt(j).text_when_complete;
-                q.iconMediaId = obj.result.data.list.getItemAt(j).icon_media_id;
+				q.activeMediaId = obj.result.data.list.getItemAt(j).active_media_id;
+				q.completeMediaId = obj.result.data.list.getItemAt(j).complete_media_id;
+				q.activeIconMediaId = obj.result.data.list.getItemAt(j).active_icon_media_id;
+				q.completeIconMediaId = obj.result.data.list.getItemAt(j).complete_icon_media_id;
+				q.fullScreenNotification = obj.result.data.list.getItemAt(j).full_screen_notify;
 				q.index = j;
 				if(q.index != obj.result.data.list.getItemAt(j).sort_index) AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
                 quests.addItem(q);

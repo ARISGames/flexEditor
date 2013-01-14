@@ -108,6 +108,11 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
             trace("going to load items - 1");
             AppServices.getInstance().getItemsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadItems, handleFault));
         }
+		else if (req == AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE)
+		{
+			trace("going to load items - 1");
+			AppServices.getInstance().getTagsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadTags, handleFault));
+		}
         else if (req == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
         {
             trace("going to load items - 2");
@@ -268,27 +273,27 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 		
 	}
 	
-    private function handleLoadItems(obj:Object):void
-    {
-        trace("handling load items...");
-        possibleObjects.removeAll();
-        if (obj.result.returnCode != 0)
-        {
-            trace("Bad handle loading possible items attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
-            var msg:String = obj.result.returnCodeDescription;
-            Alert.show("Error Was: " + msg, "Error While Loading Possible Items");
-        }
-        else
-        {
-            for (var j:Number = 0; j < obj.result.data.length; j++)
-            {
-                var to:Object = new Object();
-                to.label = obj.result.data[j].name;
+	private function handleLoadItems(obj:Object):void
+	{
+		trace("handling load items...");
+		possibleObjects.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible items attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible Items");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].name;
 				if(obj.result.data[j].description != "")
 					to.label += ": " + obj.result.data[j].description;
-                to.data = obj.result.data[j].item_id;
-                possibleObjects.addItem(to);
-            }
+				to.data = obj.result.data[j].item_id;
+				possibleObjects.addItem(to);
+			}
 			var dataSortField:SortField = new SortField();
 			dataSortField.name = "label";
 			dataSortField.numeric = false;
@@ -296,11 +301,43 @@ public class RequirementsEditorObjectComboBoxView extends VBox implements IDropI
 			var alphabeticSort:Sort = new Sort();
 			alphabeticSort.fields = [dataSortField];
 			possibleObjects.sort = alphabeticSort;
-            possibleObjects.refresh();
-            this.updateComboBoxSelectedItem();
-            trace("Loaded '" + possibleObjects.length + "' Possible Item Object(s).");
-        }
-    }
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Item Object(s).");
+		}
+	}
+	
+	private function handleLoadTags(obj:Object):void
+	{
+		trace("handling load tags...");
+		possibleObjects.removeAll();
+		if (obj.result.returnCode != 0)
+		{
+			trace("Bad handle loading possible tags attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
+			var msg:String = obj.result.returnCodeDescription;
+			Alert.show("Error Was: " + msg, "Error While Loading Possible tagss");
+		}
+		else
+		{
+			for (var j:Number = 0; j < obj.result.data.length; j++)
+			{
+				var to:Object = new Object();
+				to.label = obj.result.data[j].name;
+				to.data = obj.result.data[j].tag_id;
+				possibleObjects.addItem(to);
+			}
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = "label";
+			dataSortField.numeric = false;
+			dataSortField.caseInsensitive = true;
+			var alphabeticSort:Sort = new Sort();
+			alphabeticSort.fields = [dataSortField];
+			possibleObjects.sort = alphabeticSort;
+			possibleObjects.refresh();
+			this.updateComboBoxSelectedItem();
+			trace("Loaded '" + possibleObjects.length + "' Possible Item Object(s).");
+		}
+	}
 	
 	private function handleLoadWebPages(obj:Object):void
 	{

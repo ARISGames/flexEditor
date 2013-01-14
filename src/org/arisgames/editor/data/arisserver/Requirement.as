@@ -79,6 +79,11 @@ public class Requirement
             trace("going to load an item for item id = '" + new Number(requirementDetail1) + "'");
             AppServices.getInstance().getItemById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
         }
+		else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE)
+		{
+			trace("going to load an item for item id = '" + new Number(requirementDetail1) + "'");
+			AppServices.getInstance().getTagById(GameModel.getInstance().game.gameId, new Number(requirementDetail1), new Responder(handleRequirementDetail1DataLoad, handleFault));
+		}
         else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
         {
             trace("going 2 load an item for item id = '" + new Number(requirementDetail1) + "'");
@@ -159,6 +164,11 @@ public class Requirement
 				if(obj.result.data.description != "")
 					name += ": " + obj.result.data.description;
             }
+			else if (requirement == AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE)
+			{
+				trace("going to load item name - 1");
+				name = obj.result.data.name;
+			}
             else if (requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE)
             {
                 trace("going to load item name - 2");

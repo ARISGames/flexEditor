@@ -573,7 +573,11 @@ public class AppUtils
 			quest.title = data.name;
 			quest.activeText = data.description
 			quest.completeText = data.text_when_complete;
-			quest.iconMediaId = data.icon_media_id;
+			quest.activeMediaId = data.active_media_id;
+			quest.completeMediaId = data.complete_media_id;
+			quest.activeIconMediaId = data.active_icon_media_id;
+			quest.completeIconMediaId = data.complete_icon_media_id;
+			quest.fullScreenNotification = data.full_screen_notify;
 			return quest;
 		}
 		else
@@ -645,6 +649,8 @@ public class AppUtils
         {
             case AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_HUMAN:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE;
 			case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_HUMAN:
@@ -693,6 +699,8 @@ public class AppUtils
         {
             case AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_HUMAN;
+			case AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE:
+				return AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_HUMAN;
             case AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:
                 return AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN;
 			case AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:
@@ -795,7 +803,8 @@ public class AppUtils
 	//Tests whether requirement has a list of objects to chose from
 	public static function isObjectsHavingRequirementType(req:Requirement):Boolean
 	{
-		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || 
+		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE ||
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE ||
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_VIEWED_AUGBUBBLE_DATABASE ||
@@ -815,6 +824,7 @@ public class AppUtils
 	public static function isQtyHavingRequirementType(req:Requirement):Boolean
 	{
 		if (req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_ITEM_DATABASE || 
+			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_IMAGE_DATABASE || 
 			req.requirement == AppConstants.REQUIREMENT_PLAYER_HAS_UPLOADED_MEDIA_ITEM_AUDIO_DATABASE || 

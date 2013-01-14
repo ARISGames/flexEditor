@@ -623,6 +623,21 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
         l.addResponder(resp);
     }
 	
+	public function getTagById(gid:Number, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getItemById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getItemServer().getTag(gid, id);
+		l.addResponder(resp);
+	}
+	
+	public function getTagsByGameId(gid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getItemServer().getTags(gid);
+		l.addResponder(resp);
+	}
+	
 	public function getWebHooksByGameId(gid:Number, resp:IResponder):void
 	{
 		var l:Object;
@@ -922,13 +937,12 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		if (isNaN(quest.questId))
 		{
 			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
-			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.iconMediaId, quest.index);
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
 		}
 		else
 		{
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
-			trace("Updating quest id: " + quest.questId + " title: " + quest.title + " activeText: " + quest.activeText + " completeText: " + quest.completeText + " iconMediaId: " + quest.iconMediaId);
-			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.iconMediaId, quest.index);
+			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
 		}
 		l.addResponder(resp);
 	}

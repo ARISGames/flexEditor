@@ -152,8 +152,10 @@ public class AppConstants
 	public static const REQUIREMENT_NOT_OP_TRUE_DATABASE:String = "DO";
 	public static const REQUIREMENT_NOT_OP_FALSE_HUMAN:String = "Player Has Not";
 	public static const REQUIREMENT_NOT_OP_FALSE_DATABASE:String = "NOT";
-    public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
-    public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "At Least Qty of an Item";
+	public static const REQUIREMENT_PLAYER_HAS_ITEM_DATABASE:String = "PLAYER_HAS_ITEM";
+	public static const REQUIREMENT_PLAYER_HAS_ITEM_HUMAN:String = "At Least Qty of an Item";    
+	public static const REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_DATABASE:String = "PLAYER_HAS_TAGGED_ITEM";
+	public static const REQUIREMENT_PLAYER_HAS_TAGGED_ITEM_HUMAN:String = "At Least Qty of Items With Tag";
 	public static const REQUIREMENT_PLAYER_VIEWED_ITEM_DATABASE:String = "PLAYER_VIEWED_ITEM";
 	public static const REQUIREMENT_PLAYER_VIEWED_ITEM_HUMAN:String = "Viewed Item";
 	public static const REQUIREMENT_PLAYER_VIEWED_WEBPAGE_DATABASE:String = "PLAYER_VIEWED_WEBPAGE";
