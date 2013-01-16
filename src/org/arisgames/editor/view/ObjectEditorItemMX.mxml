@@ -33,6 +33,8 @@
             <mx:TextArea id="description" width="300" height="60"/>
 			</mx:FormItem>
         </mx:Form>
+		<mx:Button id="itemTagsButton" label="Edit Item Tags" width="50%" height="20"/>
+
     	<mx:Form id="checkBoxForm">
 			<mx:FormItem id="weightFI" label="Weight" required="true">
 				<mx:NumericStepper id="weight" minimum="0" maximum="50000" stepSize="1"

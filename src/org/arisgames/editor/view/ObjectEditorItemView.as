@@ -57,6 +57,8 @@ public class ObjectEditorItemView extends Panel
     [Bindable] public var mediaDisplay:ItemEditorMediaDisplayMX;
 	[Bindable] public var descLabel:FormItem;
 	[Bindable] public var spawnablePopupButton:Button;
+	
+	[Bindable] public var itemTagsButton:Button;
 
     [Bindable] public var v1:Validator;
     [Bindable] public var v2:Validator;
@@ -82,10 +84,17 @@ public class ObjectEditorItemView extends Panel
 		handleTypeChange(null);
 		
         trace("ItemEditorItemView: handleInit");
+		itemTagsButton.addEventListener(MouseEvent.CLICK, itemTagsButtonOnClick);
         saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
 		type.addEventListener(flash.events.Event.CHANGE, handleTypeChange);
 		spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
     }
+	
+	private function itemTagsButtonOnClick(evt:MouseEvent):void{
+		trace("itemTagsButtonOnClick() started... ");
+		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENITEMTAGSEDITOR);
+		AppDynamicEventManager.getInstance().dispatchEvent(de);	
+	}
 	
 	private function handleSpawnableButton(evt:MouseEvent):void
 	{

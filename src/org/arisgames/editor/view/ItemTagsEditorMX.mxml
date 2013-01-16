@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<v:ItemTagsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+					xmlns:main="org.arisgames.editor.*"
+					xmlns:v="org.arisgames.editor.view.*"
+					xmlns:c="org.arisgames.editor.components.*"
+					paddingTop="10"
+					paddingLeft="10"
+					paddingRight="10"
+					paddingBottom="10"
+					width="400"
+					title="Item Tag Editor"
+					creationPolicy="all"
+					height="500">
+
+		<mx:Canvas label = "Item Tags" height="100%" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:Box width="100%" height="100%">
+				<mx:ControlBar width="100%" horizontalAlign="right" paddingLeft="0">
+					<mx:Text id="header" fontSize="15" htmlText="Item Tags" width="100%" paddingLeft="0"/>
+					<mx:TextInput id="addItemTagText" />
+					<mx:Button id="addItemTagButton" label="+"/>
+				</mx:ControlBar>
+				<mx:DataGrid id="dg" width="100%" height="100%" editable="false" dataProvider="{gameItemTags}" draggableColumns="false" variableRowHeight="true" click="handleTagClick(event)">
+					<mx:columns>
+						<mx:DataGridColumn dataField="tagged" headerText="Tagged" editable="false" width="50" sortable="false"/>
+						<mx:DataGridColumn dataField="tag" headerText="Tag" editable="true" sortable="false"/>
+						<mx:DataGridColumn headerText="Delete" editable="false" width="50" sortable="false">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+										<mx:Button width="50%" label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:DataGridColumn>
+					</mx:columns>
+				</mx:DataGrid>
+			</mx:Box>
+		</mx:Canvas>
+	
+	<mx:ControlBar width="100%" horizontalAlign="right">
+		<mx:Button id="closeButton" label="Save and Close"/>
+	</mx:ControlBar>
+	
+</v:ItemTagsEditorView>

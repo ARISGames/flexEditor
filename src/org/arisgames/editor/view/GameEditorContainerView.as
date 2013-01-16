@@ -18,8 +18,8 @@ public class GameEditorContainerView extends Canvas
 	[Bindable] public var questsEditor:QuestsEditorView;
 	[Bindable] public var webHooksEditor:WebHooksEditorView;
 	[Bindable] public var noteTagsEditor:NoteTagsEditorView;
+	[Bindable] public var itemTagsEditor:ItemTagsEditorView;
 	[Bindable] public var customMapsEditor:CustomMapsEditorView;
-	
 
     [Bindable] public var panelOut:Move; // WB" "OUT" actually means "out onto display"
     [Bindable] public var panelIn:Move;  // WB "IN" actually means "into the toolbox, no longer displaying"
@@ -30,6 +30,7 @@ public class GameEditorContainerView extends Canvas
 	private var isQuestsEditorVis:Boolean = false;
 	private var isWebHooksEditorVis:Boolean = false;
 	private var isNoteTagsEditorVis:Boolean = false;
+	private var isItemTagsEditorVis:Boolean = false;
 	private var isCustomMapsEditorVis:Boolean = false;
 
     /**
@@ -51,10 +52,12 @@ public class GameEditorContainerView extends Canvas
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENQUESTSEDITOR, handleOpenQuestsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR, handleOpenWebHooksEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR, handleOpenNoteTagsEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENITEMTAGSEDITOR, handleOpenItemTagsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_OPENCUSTOMMAPSEDITOR, handleOpenCustomMapsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR, handleCloseQuestsEditorRequest);		
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEWEBHOOKSEDITOR, handleCloseWebHooksEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSENOTETAGSEDITOR, handleCloseNoteTagsEditorRequest);
+		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEITEMTAGSEDITOR, handleCloseItemTagsEditorRequest);
 		AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSECUSTOMMAPSEDITOR, handleCloseCustomMapsEditorRequest);
     }
 	
@@ -184,6 +187,32 @@ public class GameEditorContainerView extends Canvas
 		}
 	}
 	
+	private function handleOpenItemTagsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleOpenItemTagsEditorRequest() was called");
+		if (!isItemTagsEditorVis)
+		{
+			trace("ItemTagsEditor is currently hidden, so show it!");
+			isItemTagsEditorVis = true;
+			itemTagsEditor = new ItemTagsEditorMX();
+			itemTagsEditor.item = gameEditorObjectEditor.getObjectPaletteItem().item;
+			this.parent.addChild(itemTagsEditor);
+			
+			// Need to validate the display so that entire component is rendered
+			itemTagsEditor.validateNow();
+			
+			PopUpManager.addPopUp(itemTagsEditor, AppUtils.getInstance().getMainView(), true);
+			PopUpManager.centerPopUp(itemTagsEditor);
+			itemTagsEditor.setVisible(true);
+			itemTagsEditor.includeInLayout = true;			
+		}
+		else 
+		{
+			trace("ItemTagsEditor is already visible, so clicking the button again should close it!");
+			isItemTagsEditorVis = false;
+		}
+	}
+	
 	private function handleOpenCustomMapsEditorRequest(event:DynamicEvent):void 
 	{
 		trace("GameEditorContainer: handleOpenCustomMapsEditorRequest() was called");
@@ -275,6 +304,23 @@ public class GameEditorContainerView extends Canvas
 			PopUpManager.removePopUp(noteTagsEditor);
 			noteTagsEditor = null;			
 			isNoteTagsEditorVis = false;
+		}
+	}	
+	
+	private function handleCloseItemTagsEditorRequest(event:DynamicEvent):void 
+	{
+		trace("GameEditorContainer: handleCloseItemTagsEditorRequest() was called");
+		
+		if (!isItemTagsEditorVis)
+		{
+			trace("ItemTags Editor already hidden, so don't try to close again!");
+		}
+		else
+		{
+			trace("Closing the ItemTagsEditor");
+			PopUpManager.removePopUp(itemTagsEditor);
+			itemTagsEditor = null;			
+			isItemTagsEditorVis = false;
 		}
 	}	
 	

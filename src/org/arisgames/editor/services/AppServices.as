@@ -11,19 +11,20 @@ import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
+import org.arisgames.editor.data.arisserver.CustomMap;
+import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.NoteTag;
+import org.arisgames.editor.data.arisserver.ItemTag;
 import org.arisgames.editor.data.arisserver.PlayerNote;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
 import org.arisgames.editor.data.arisserver.Requirement;
 import org.arisgames.editor.data.arisserver.Spawnable;
-import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.WebHook;
-import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.WebPage;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.SecurityModel;
@@ -635,6 +636,45 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 	{
 		var l:Object;
 		l = AppDAO.getInstance().getItemServer().getTags(gid);
+		l.addResponder(resp);
+	}
+	
+	public function getTagsByItemId(iid:Number, resp:IResponder):void
+	{
+		var l:Object;
+		l = AppDAO.getInstance().getItemServer().getItemTags(iid);
+		l.addResponder(resp);
+	}
+	
+	public function deleteTagById(gid:Number, id:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getItemById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getItemServer().deleteTag(gid, id);
+		l.addResponder(resp);
+	}
+	
+	public function addItemTag(gid:Number, i:ItemTag, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getItemById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getItemServer().addItemTag(gid, i.tag);
+		l.addResponder(resp);
+	}
+	
+	public function tagItem(gid:Number, ii:Number, ti:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getItemById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getItemServer().tagItem(gid, ii, ti);
+		l.addResponder(resp);
+	}
+	
+	public function untagItem(gid:Number, ii:Number, ti:Number, resp:IResponder):void
+	{
+		var l:Object;
+		//trace("getItemById called with GID = '" + gid + "', and ID = '" + id + "'");
+		l = AppDAO.getInstance().getItemServer().untagItem(gid, ii, ti);
 		l.addResponder(resp);
 	}
 	

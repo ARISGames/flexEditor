@@ -3,7 +3,7 @@ package org.arisgames.editor.util
 public class AppConstants
 {
 	//Server URL
-	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/server"; //For other URL's to append to
+	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://dev.arisgames.org/server"; //For other URL's to append to
 	
 	//Server Version
 	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "v1";
@@ -60,6 +60,8 @@ public class AppConstants
 	public static const DYNAMICEVENT_CLOSECUSTOMMAPSEDITOR:String = "CloseCustomMapsEditor";
 	public static const DYNAMICEVENT_OPENNOTETAGSEDITOR:String = "OpenNoteTagsEditor";
 	public static const DYNAMICEVENT_CLOSENOTETAGSEDITOR:String = "CloseNoteTagsEditor";
+	public static const DYNAMICEVENT_OPENITEMTAGSEDITOR:String = "OpenItemTagsEditor";
+	public static const DYNAMICEVENT_CLOSEITEMTAGSEDITOR:String = "CloseItemTagsEditor";
 	public static const DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR:String = "DYNAMICEVENT_REFRESHDATAINPLAYERSTATECHANGESEDITOR";
 	public static const DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR:String = "DYNAMICEVENT_CLOSEPLAYERSTATECHANGEEDITOR";
 	public static const DYNAMICEVENT_REFRESHDATAINCONVERSATIONS:String = "DYNAMICEVENT_DYNAMICEVENT_REFRESHDATAINCONVERSATIONS";
