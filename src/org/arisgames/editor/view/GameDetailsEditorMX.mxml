@@ -1,108 +1,129 @@
 <?xml version="1.0" ?>
 <v:GameDetailsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
-                                xmlns:v="org.arisgames.editor.view.*"
-								xmlns:c="org.arisgames.editor.components.*"
-                                title="Game Settings" xmlns:components="org.arisgames.editor.components.*"
-								width="560"
-								height="600"
-								>	
-	<mx:TabNavigator height="100%" width="100%">
-		<mx:Canvas label="General Settings" height="100%" width="100%">
+						 xmlns:v="org.arisgames.editor.view.*"
+						 xmlns:c="org.arisgames.editor.components.*"
+						 xmlns:components="org.arisgames.editor.components.*"
+						 width="560" height="600" title="Game Settings">	
+	<mx:TabNavigator width="100%" height="100%">
+		<mx:Canvas width="100%" height="100%" label="General Settings">
 				<mx:Form width="100%">
-					<mx:FormItem label="Name" width="100%">
+					<mx:FormItem width="100%" label="Name">
 						<mx:TextInput id="gameName"/>
 					</mx:FormItem>
 					<mx:FormItem width="100%">
 						<!-- Media -->
 						<mx:Tile horizontalAlign="left">
 							<mx:VBox id="iconBox" horizontalAlign="center">
-								<mx:Canvas id="iconImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
-									<mx:Image id="iconPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+								<mx:Canvas id="iconImageCanvas" visible="false" width="90"
+										   height="80" borderStyle="solid" includeInLayout="true">
+									<mx:Image id="iconPreviewImage" visible="false" width="100%"
+											  height="100%" horizontalAlign="center"
+											  includeInLayout="false" maintainAspectRatio="true"
+											  scaleContent="true"/>
 								</mx:Canvas>
 								
-								<mx:LinkButton id="iconAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+								<mx:LinkButton id="iconAVLinkButton" visible="false"
+											   label="View Media" includeInLayout="false"/>
 								
-								<mx:Button id="iconRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+								<mx:Button id="iconRemoveButton" visible="false" label="Remove"
+										   includeInLayout="false"/>
 								
-								<mx:Label id="iconNoMediaLabel" text="Choose Icon" visible="false" includeInLayout="false"/>
+								<mx:Label id="iconNoMediaLabel" visible="false"
+										  includeInLayout="false" text="Choose Icon"/>
 								
 								<mx:Button id="iconPopupMediaPickerButton" label="Icon Picker"/>
 							</mx:VBox>
 							<mx:VBox id="mediaBox" horizontalAlign="center">
-								<mx:Canvas id="mediaImageCanvas" borderStyle="solid" width="90" height="80" visible="false" includeInLayout="true">
-									<mx:Image id="mediaPreviewImage" width="100%" height="100%" horizontalAlign="center" maintainAspectRatio="true" scaleContent="true" visible="false" includeInLayout="false"/>
+								<mx:Canvas id="mediaImageCanvas" visible="false" width="90"
+										   height="80" borderStyle="solid" includeInLayout="true">
+									<mx:Image id="mediaPreviewImage" visible="false" width="100%"
+											  height="100%" horizontalAlign="center"
+											  includeInLayout="false" maintainAspectRatio="true"
+											  scaleContent="true"/>
 								</mx:Canvas>
 								
-								<mx:LinkButton id="mediaAVLinkButton" label="View Media" visible="false" includeInLayout="false"/>
+								<mx:LinkButton id="mediaAVLinkButton" visible="false"
+											   label="View Media" includeInLayout="false"/>
 								
-								<mx:Button id="mediaRemoveButton" label="Remove" visible="false" includeInLayout="false"/>
+								<mx:Button id="mediaRemoveButton" visible="false" label="Remove"
+										   includeInLayout="false"/>
 								
-								<mx:Label id="mediaNoMediaLabel" text="Choose Splash Screen" visible="false" includeInLayout="false"/>
+								<mx:Label id="mediaNoMediaLabel" visible="false"
+										  includeInLayout="false" text="Choose Splash Screen"/>
 								
-								<mx:Button id="mediaPopupMediaPickerButton" label="Splash Screen Picker"/>
+								<mx:Button id="mediaPopupMediaPickerButton"
+										   label="Splash Screen Picker"/>
 							</mx:VBox>
 						</mx:Tile>
 					</mx:FormItem>
-					<mx:FormItem label="Description" width="100%">
+					<mx:FormItem width="100%" label="Description">
 						<mx:TextArea id="description" width="100%"/>
 					</mx:FormItem>
-					<mx:FormItem label="Introduction Plaque" width="100%">
+					<mx:FormItem width="100%" label="Introduction Plaque">
 						<mx:ComboBox id="introNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem label="Ending Plaque" width="80%">
+					<mx:FormItem width="80%" label="Ending Plaque">
 						<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem id="invWeightFI" label="Inventory Weight Cap" width="100%">
-						<mx:NumericStepper id="inventoryCap" minimum="0" maximum="500000" stepSize="1"
-										   width="50"/>
+					<mx:FormItem id="invWeightFI" width="100%" label="Inventory Weight Cap">
+						<mx:NumericStepper id="inventoryCap" width="50" maximum="500000" minimum="0"
+										   stepSize="1"/>
 					</mx:FormItem>
-					<!-- Check Boxes -->
-					<mx:Tile direction="horizontal" height="96">
-						<mx:Tile direction="vertical" horizontalAlign="right" width="235" height="96">
-							<mx:FormItem label="Allow notes to be shared to map">
-								<mx:CheckBox id="noteShareToMapCb"/>
-							</mx:FormItem>
-							<mx:FormItem label="Allow Notes to be shared to book">
-								<mx:CheckBox id="noteShareToBookCb"/>
-							</mx:FormItem>
-							<mx:FormItem label="Allow player created note tags">
-								<mx:CheckBox id="playerCreateTagsCb"/>
-							</mx:FormItem>
-							<mx:FormItem label="Allow trading items">
-								<mx:CheckBox id="allowtradingCb"/>
-							</mx:FormItem>
-						</mx:Tile>
-						<mx:Tile direction="vertical" horizontalAlign="right" height="96">
-							<mx:FormItem label="Game requires play in specific locations">
-								<mx:CheckBox id="isLocationalCb"/>
-							</mx:FormItem>
-							<mx:FormItem label="Game ready to be published/ rated">
-								<mx:CheckBox id="readyForPublicCb"/>
-							</mx:FormItem>	
-							<mx:FormItem label="Allow player created comments">
-								<mx:CheckBox id="playerCreateCommentsCb"/>
-							</mx:FormItem>
-							<mx:FormItem label="Allow note likes">
-								<mx:CheckBox id="playerLikesNotesCb"/>
-							</mx:FormItem>
-						</mx:Tile>
-					</mx:Tile>
-					<mx:Spacer height="10" />
+					
+					<mx:Spacer height="10"/>
 					<mx:Tile direction="horizontal">					
-						<mx:LinkButton label="Duplicate This Game" id = "duplicateButton" color="#0000D5" textAlign="right" width="100%"/>		
-						<mx:LinkButton label="Permanantly Delete This Game" id = "deleteButton" color="#D50000" textAlign="left" width="100%"/>		
+						<mx:LinkButton id="duplicateButton" width="100%" label="Duplicate This Game"
+									   color="#0000D5" textAlign="right"/>		
+						<mx:LinkButton id="deleteButton" width="100%"
+									   label="Permanantly Delete This Game" color="#D50000"
+									   textAlign="left"/>		
 					</mx:Tile>
 				</mx:Form>
 		</mx:Canvas>
 		
+		<mx:Canvas width="100%" height="100%" label="Game Configs">
+			<mx:Tile width="235" height="96" direction="vertical" horizontalAlign="right">
+				<mx:Form width="100%">
+					<mx:FormItem label="Allow notes to be shared to map">
+						<mx:CheckBox id="noteShareToMapCb"/>
+					</mx:FormItem>	
+					<mx:FormItem label="Allow Notes to be shared to book">
+						<mx:CheckBox id="noteShareToBookCb"/>
+					</mx:FormItem>
+					<mx:FormItem label="Allow player created note tags">
+						<mx:CheckBox id="playerCreateTagsCb"/>
+					</mx:FormItem>
+					<mx:FormItem label="Allow trading items">
+						<mx:CheckBox id="allowtradingCb"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:Tile>
+			<mx:Tile height="96" direction="vertical" horizontalAlign="right">
+				<mx:Form width="100%">
+					<mx:FormItem label="Game requires play in specific locations">
+						<mx:CheckBox id="isLocationalCb"/>
+					</mx:FormItem>
+					<mx:FormItem label="Game ready to be published/ rated">
+						<mx:CheckBox id="readyForPublicCb"/>
+					</mx:FormItem>	
+					<mx:FormItem label="Allow player created comments">
+						<mx:CheckBox id="playerCreateCommentsCb"/>
+					</mx:FormItem>
+					<mx:FormItem label="Allow note likes">
+						<mx:CheckBox id="playerLikesNotesCb"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:Tile>
+		</mx:Canvas>
+	
 		<!-- Add and Remove Editor Tab -->
-		<mx:Canvas label="Add/Remove Editor"  height="100%" width="100%">
+		<mx:Canvas width="100%" height="100%" label="Add/Remove Editor">
 			<mx:Form>
 				<mx:Label text="Add User As Editor Of This Game"/>
 				<mx:FormItem label="User's Email">
-					<mx:TextInput id="addEditorEmail" width = "250"/>
+					<mx:TextInput id="addEditorEmail" width="250"/>
 				</mx:FormItem>
 				<mx:FormItem>
 					<mx:Button id="addEditor" label="Add Editor" click="handleAddEditor(event)"/>
@@ -112,38 +133,29 @@
 				<mx:FormItem label="Current Editors">
 					<mx:DataGrid id="removeEditorDG" width="250" dataProvider="{editors}">
 						<mx:columns>
-							<mx:DataGridColumn headerText="Current Editors" dataField="name"/>
+							<mx:DataGridColumn dataField="name" headerText="Current Editors"/>
 						</mx:columns>
 					</mx:DataGrid>
 				</mx:FormItem>
 				<mx:FormItem>
-					<mx:Button id="removeEditor" label="Remove Editor" click="handleRemoveEditor(event)"/>
+					<mx:Button id="removeEditor" label="Remove Editor"
+							   click="handleRemoveEditor(event)"/>
 				</mx:FormItem>
 			</mx:Form>
 		</mx:Canvas>
 		
 		<!-- Tab Config -->
-		<mx:Canvas label="Configure Tabs"  height="100%" width="100%">
-			<mx:HorizontalList id="tabView"
-							   dataProvider="{tabList}"
-							   top="20"
-							   left="20"
-							   height="90%"
-							   width="90%"
-							   rowHeight="80"
-							   columnWidth="53"
-							   dragEnabled="true" 
-							   dropEnabled="true"
-							   dragMoveEnabled="true"
-							   dragDrop="handleTabReorder(event)"
-							   click="handleIconClick(event)"
-							   rollOverColor="#FFFFFF"
-							   selectionColor="#FFFFFF"
-							>
+		<mx:Canvas width="100%" height="100%" label="Configure Tabs">
+			<mx:HorizontalList id="tabView" left="20" top="20" width="90%" height="90%"
+							   click="handleIconClick(event)" columnWidth="53"
+							   dataProvider="{tabList}" dragDrop="handleTabReorder(event)"
+							   dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
+							   rollOverColor="#FFFFFF" rowHeight="80" selectionColor="#FFFFFF">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off">
-							<mx:Image source="{'assets/img/' + data.type + data.append + '.png'}" height="30" width="30" />
+							<mx:Image width="30" height="30"
+									  source="{'assets/img/' + data.type + data.append + '.png'}"/>
 							<mx:Label fontSize="8" htmlText="{data.human}"/>
 						</mx:VBox>
 					</mx:Component>
@@ -152,17 +164,21 @@
 		</mx:Canvas>
 		
 		
-		<mx:Canvas label="Game Links"  height="100%" width="100%">
-			<mx:Button x="112" y="50" label="Launch Web Backpack" width="286" id="wbpButton" click="handleWbpButton(event)"/>
-			<mx:Button x="112" y="80" label="Launch Web Notebook" width="286" id="nbButton" click="handleNbButton(event)"/>
+		<mx:Canvas width="100%" height="100%" label="Game Links">
+			<mx:Button id="wbpButton" x="112" y="50" width="286" label="Launch Web Backpack"
+					   click="handleWbpButton(event)"/>
+			<mx:Button id="nbButton" x="112" y="80" width="286" label="Launch Web Notebook"
+					   click="handleNbButton(event)"/>
 			<!--<mx:Button x="112" y="80" label="Launch Map of Player Created Media" width="286" id="pcmMapButton" click="handlePcmMapButton(event)"/>-->
 			<!--<mx:Button x="112" y="110" label="Download KML of Player Created Media" width="286" id="pcmKMLButton" click="handlePcmKMLButton(event)"/>-->
 			<!--<mx:Button x="112" y="140" label="Download KML of Game Locations and Players" id="gameLocsKMLButton" click="handleGameLocsKMLButton(event)"/>-->
 		</mx:Canvas>
 		
-		<mx:Canvas label="Need Help?"  height="100%" width="100%">
-			<mx:Button x="112" y="50" label="Read the Manual" width="286" id="rtmButton" click="handleRtmButton(event)"/>
-			<mx:Button x="112" y="80" label="Join the Community" width="286" id="jtcButton" click="handleJtcButton(event)"/>
+		<mx:Canvas width="100%" height="100%" label="Need Help?">
+			<mx:Button id="rtmButton" x="112" y="50" width="286" label="Read the Manual"
+					   click="handleRtmButton(event)"/>
+			<mx:Button id="jtcButton" x="112" y="80" width="286" label="Join the Community"
+					   click="handleJtcButton(event)"/>
 		</mx:Canvas>
 	</mx:TabNavigator>
 	
