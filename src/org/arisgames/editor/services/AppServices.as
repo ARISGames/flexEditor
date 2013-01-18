@@ -101,7 +101,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap);
 		}
 		else
 		{
@@ -111,7 +111,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap);
 		}
 		r.addResponder(resp);
 	}

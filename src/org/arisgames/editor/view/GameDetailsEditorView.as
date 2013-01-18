@@ -65,6 +65,7 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var readyForPublicCb:mx.controls.CheckBox;
 	[Bindable] public var playerCreateCommentsCb:mx.controls.CheckBox;
 	[Bindable] public var playerLikesNotesCb:mx.controls.CheckBox;
+	[Bindable] public var showPlayerOnMapCb:mx.controls.CheckBox;
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;
@@ -129,15 +130,6 @@ public class GameDetailsEditorView extends Panel{
 		inventoryCap.value = GameModel.getInstance().game.inventoryCap;
 		description.text = GameModel.getInstance().game.description;
 		
-		noteShareToMapCb.selected = GameModel.getInstance().game.noteShareToMap;
-		noteShareToBookCb.selected = GameModel.getInstance().game.noteShareToBook;
-		playerCreateTagsCb.selected = GameModel.getInstance().game.playerCreateTags;
-		allowtradingCb.selected = GameModel.getInstance().game.allowtrading;
-		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
-		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
-		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
-		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
-		
 		populateEditors();
 		
 		//ComboBoxes will load after their data loads
@@ -156,6 +148,19 @@ public class GameDetailsEditorView extends Panel{
 		mediaPopupMediaPickerButton.addEventListener(MouseEvent.CLICK, handleMediaPickerButton);
 	
 		pushDataIntoGUI();
+	}
+	
+	public function loadCheckboxes(evt:Event):void
+	{
+		noteShareToMapCb.selected = GameModel.getInstance().game.noteShareToMap;
+		noteShareToBookCb.selected = GameModel.getInstance().game.noteShareToBook;
+		playerCreateTagsCb.selected = GameModel.getInstance().game.playerCreateTags;
+		allowtradingCb.selected = GameModel.getInstance().game.allowtrading;
+		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
+		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
+		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
+		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
+		showPlayerOnMapCb.selected = GameModel.getInstance().game.showPlayerOnMap;
 	}
 	
 	public function handleIconClick(evt:Event):void {
@@ -286,7 +291,6 @@ public class GameDetailsEditorView extends Panel{
 		AppServices.getInstance().saveGame(GameModel.getInstance().game, new Responder(handleSaveGameAfterRemove, handleFault));
 	}
 
-	
 	private function handleLoadNodes(obj:Object):void
 	{
 		trace("GameDetailsEditorView: handleLoadNodes");
@@ -435,6 +439,7 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
 		GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
 		GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
+		GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
 
 		var introNode:Node = introNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.introNodeId = introNode.nodeId;

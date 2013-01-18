@@ -4,8 +4,8 @@
 						 xmlns:c="org.arisgames.editor.components.*"
 						 xmlns:components="org.arisgames.editor.components.*"
 						 width="560" height="600" title="Game Settings">	
-	<mx:TabNavigator width="100%" height="100%">
-		<mx:Canvas width="100%" height="100%" label="General Settings">
+	<mx:TabNavigator width="100%" height="100%" change="loadCheckboxes(event)">
+		<mx:Canvas width="100%" height="100%" label="Settings">
 				<mx:Form width="100%">
 					<mx:FormItem width="100%" label="Name">
 						<mx:TextInput id="gameName"/>
@@ -83,8 +83,7 @@
 				</mx:Form>
 		</mx:Canvas>
 		
-		<mx:Canvas width="100%" height="100%" label="Game Configs">
-			<mx:Tile width="235" height="96" direction="vertical" horizontalAlign="right">
+		<mx:Canvas width="100%" height="100%" label="Config">
 				<mx:Form width="100%">
 					<mx:FormItem label="Allow notes to be shared to map">
 						<mx:CheckBox id="noteShareToMapCb"/>
@@ -98,10 +97,6 @@
 					<mx:FormItem label="Allow trading items">
 						<mx:CheckBox id="allowtradingCb"/>
 					</mx:FormItem>
-				</mx:Form>
-			</mx:Tile>
-			<mx:Tile height="96" direction="vertical" horizontalAlign="right">
-				<mx:Form width="100%">
 					<mx:FormItem label="Game requires play in specific locations">
 						<mx:CheckBox id="isLocationalCb"/>
 					</mx:FormItem>
@@ -114,10 +109,12 @@
 					<mx:FormItem label="Allow note likes">
 						<mx:CheckBox id="playerLikesNotesCb"/>
 					</mx:FormItem>
+					<mx:FormItem label="Show player on map">
+						<mx:CheckBox id="showPlayerOnMapCb"/>
+					</mx:FormItem>
 				</mx:Form>
-			</mx:Tile>
 		</mx:Canvas>
-	
+		
 		<!-- Add and Remove Editor Tab -->
 		<mx:Canvas width="100%" height="100%" label="Add/Remove Editor">
 			<mx:Form>
@@ -145,7 +142,7 @@
 		</mx:Canvas>
 		
 		<!-- Tab Config -->
-		<mx:Canvas width="100%" height="100%" label="Configure Tabs">
+		<mx:Canvas width="100%" height="100%" label="Tabs">
 			<mx:HorizontalList id="tabView" left="20" top="20" width="90%" height="90%"
 							   click="handleIconClick(event)" columnWidth="53"
 							   dataProvider="{tabList}" dragDrop="handleTabReorder(event)"
@@ -164,7 +161,7 @@
 		</mx:Canvas>
 		
 		
-		<mx:Canvas width="100%" height="100%" label="Game Links">
+		<mx:Canvas width="100%" height="100%" label="Links">
 			<mx:Button id="wbpButton" x="112" y="50" width="286" label="Launch Web Backpack"
 					   click="handleWbpButton(event)"/>
 			<mx:Button id="nbButton" x="112" y="80" width="286" label="Launch Web Notebook"
@@ -174,7 +171,7 @@
 			<!--<mx:Button x="112" y="140" label="Download KML of Game Locations and Players" id="gameLocsKMLButton" click="handleGameLocsKMLButton(event)"/>-->
 		</mx:Canvas>
 		
-		<mx:Canvas width="100%" height="100%" label="Need Help?">
+		<mx:Canvas width="100%" height="100%" label="Help">
 			<mx:Button id="rtmButton" x="112" y="50" width="286" label="Read the Manual"
 					   click="handleRtmButton(event)"/>
 			<mx:Button id="jtcButton" x="112" y="80" width="286" label="Join the Community"

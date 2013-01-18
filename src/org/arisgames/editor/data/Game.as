@@ -29,6 +29,7 @@ public class Game
 	public var playerLikesNotes:Boolean;
 	public var isLocational:Boolean;
 	public var readyForPublic:Boolean;
+	public var showPlayerOnMap:Boolean;
 	
 	public var iconMediaId:int;
 	public var pcMediaId:int;
