@@ -431,16 +431,19 @@ public class GameDetailsEditorView extends Panel{
 		GameModel.getInstance().game.inventoryCap = inventoryCap.value;
 		GameModel.getInstance().game.description = description.text;
 		
-		GameModel.getInstance().game.noteShareToMap = noteShareToMapCb.selected;
-		GameModel.getInstance().game.noteShareToBook = noteShareToBookCb.selected;
-		GameModel.getInstance().game.playerCreateTags = playerCreateTagsCb.selected;
-		GameModel.getInstance().game.allowtrading = allowtradingCb.selected;
-		GameModel.getInstance().game.isLocational = isLocationalCb.selected;
-		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
-		GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
-		GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
-		GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
-
+		if(noteShareToMapCb) //if the checkbox page has loaded
+		{
+			GameModel.getInstance().game.noteShareToMap = noteShareToMapCb.selected;
+			GameModel.getInstance().game.noteShareToBook = noteShareToBookCb.selected;
+			GameModel.getInstance().game.playerCreateTags = playerCreateTagsCb.selected;
+			GameModel.getInstance().game.allowtrading = allowtradingCb.selected;
+			GameModel.getInstance().game.isLocational = isLocationalCb.selected;
+			GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
+			GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
+			GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
+			GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
+		}
+			
 		var introNode:Node = introNodeCbo.selectedItem as Node;
 		GameModel.getInstance().game.introNodeId = introNode.nodeId;
 		var selectedNode:Node = completeNodeCbo.selectedItem as Node;
