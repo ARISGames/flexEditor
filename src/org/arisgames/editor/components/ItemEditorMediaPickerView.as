@@ -151,10 +151,11 @@ public class ItemEditorMediaPickerView extends Panel
 	
     private function handleLoadingOfMediaIntoXML(obj:Object):void
     {
-		if(this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE || this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE){
+		trace("WHUTTHEHECK");
+		if(this.objectPaletteItem && (this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_CHARACTER_DATABASE || this.objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)){
 			//NOTE: This also gets set true if the object is an augbubble, so the name should REALLY be
 			//something more along the lines of "isNPCorAugBubble", but the concept of augbubbles was not
-			//yet introduced at the time of creation of this variable. Just a bit of ARIS history for ya...
+			//yet introduced at the time of creation of this variable.
 			this.isNPC = true;
 			trace("This is an NPC, so disallow Audio/Visual media");
 		}
@@ -267,7 +268,7 @@ public class ItemEditorMediaPickerView extends Panel
         trace("ItemEditorMediaPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
         this.printXMLData();
    
-        trace("Finished with handleLoadingOfMediaIntoXML().");
+        trace("Fninished with handleLoadingOfMediaIntoXML().");
     }
 
     public function handleFault(obj:Object):void

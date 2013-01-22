@@ -20,7 +20,7 @@ import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
 import org.arisgames.editor.data.arisserver.Media;
-
+import org.arisgames.editor.components.ItemEditorMediaPickerMX;
 
 public class QuestsEditorView extends Panel
 {
@@ -93,7 +93,6 @@ public class QuestsEditorView extends Panel
 	{
 		trace("QuestsEditorView: handleActiveIconMediaButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
 		activeIconMediaPicker = new ItemEditorMediaPickerMX();
-		//iconMediaPicker.setObjectPaletteItem(quests[dg.selectedIndex]);
 		activeIconMediaPicker.setIsIconPicker(true);
 		activeIconMediaPicker.delegate = this;
 		
