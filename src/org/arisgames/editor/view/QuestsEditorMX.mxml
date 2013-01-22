@@ -22,39 +22,60 @@
 							   wordWrap="true"
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
-							   width = "225"/>
+							   width = "200"/>
+			<mx:DataGridColumn headerText="Incomplete Media" editable="false" width="125">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+							<mx:Button width="100" label="Icon Media" click="outerDocument.handleActiveIconMediaButtonClick(event)"/>
+							<mx:Button width="100" label="Media" click="outerDocument.handleActiveMediaButtonClick(event)"/>
+						</mx:VBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 			<mx:DataGridColumn dataField="completeText" 
 							   headerText="Text when Complete" 
 							   editable="true" 
 							   wordWrap="true"
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
-							   width = "225"/>
-			<mx:DataGridColumn headerText="Requirements" editable="false" width = "175">
+							   width = "200"/>
+			<mx:DataGridColumn headerText="Complete Media" editable="false" width="125">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
-							<mx:Button width="95%" label="To Show" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
-							<mx:Button width="95%" label="To Complete" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
+							<mx:Button width="100" label="Icon Media" click="outerDocument.handleCompleteIconMediaButtonClick(event)"/>
+							<mx:Button width="100" label="Media" click="outerDocument.handleCompleteMediaButtonClick(event)"/>
 						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Sort" editable="false" width="50">
+			<mx:DataGridColumn headerText="Requirements" editable="false" width = "125">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:HBox paddingLeft="0" paddingRight="0" horizontalGap="0">
-							<mx:LinkButton click="outerDocument.handleUpPressed(event)" label="↑" width="24"/>
-							<mx:LinkButton click="outerDocument.handleDownPressed(event)" label="↓" width="24"/>
-						</mx:HBox>
+						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+							<mx:Button width="100" label="To Show" click="outerDocument.handleRequiementsForVisableButtonClick(event)"/>
+							<mx:Button width="100" label="To Complete" click="outerDocument.handleRequirementsForCompleteButtonClick(event)"/>
+						</mx:VBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Delete" editable="false" width="60">
+			
+			<mx:DataGridColumn headerText="Sort" editable="false" width="50">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:VBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
+							<mx:Button width="30" label="↑" click="outerDocument.handleUpPressed(event)"/>
+							<mx:Button width="30" label="↓" click="outerDocument.handleDownPressed(event)"/>
+						</mx:VBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Delete" editable="false" width="50">
                 <mx:itemRenderer>
 	                <mx:Component>
 						<mx:HBox  textAlign="center" horizontalAlign="center" verticalAlign="top">
-	                    <mx:Button width="95%" label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
+	                    <mx:Button width="35" label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
 						</mx:HBox>
 	                </mx:Component>
 	            </mx:itemRenderer>

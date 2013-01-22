@@ -127,12 +127,13 @@ public class GameDetailsEditorView extends Panel{
 		
 		//Load up the data from the current Game
 		gameName.text = GameModel.getInstance().game.name;
-		inventoryCap.value = GameModel.getInstance().game.inventoryCap;
 		description.text = GameModel.getInstance().game.description;
 		
 		populateEditors();
 		
 		//ComboBoxes will load after their data loads
+		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
+		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
 		
 		//Fetch the nodes
 		AppServices.getInstance().getPagesByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadNodes, handleFault));
@@ -152,12 +153,12 @@ public class GameDetailsEditorView extends Panel{
 	
 	public function loadCheckboxes(evt:Event):void
 	{
+		inventoryCap.value = GameModel.getInstance().game.inventoryCap;
 		noteShareToMapCb.selected = GameModel.getInstance().game.noteShareToMap;
 		noteShareToBookCb.selected = GameModel.getInstance().game.noteShareToBook;
 		playerCreateTagsCb.selected = GameModel.getInstance().game.playerCreateTags;
 		allowtradingCb.selected = GameModel.getInstance().game.allowtrading;
-		isLocationalCb.selected = GameModel.getInstance().game.isLocational;
-		readyForPublicCb.selected = GameModel.getInstance().game.readyForPublic;
+		
 		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
 		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
 		showPlayerOnMapCb.selected = GameModel.getInstance().game.showPlayerOnMap;
@@ -428,20 +429,22 @@ public class GameDetailsEditorView extends Panel{
 	{
 		trace("GameDetailsEditorView: handleSaveAndCloseButton");
 		GameModel.getInstance().game.name = gameName.text;
-		GameModel.getInstance().game.inventoryCap = inventoryCap.value;
 		GameModel.getInstance().game.description = description.text;
 		
+		GameModel.getInstance().game.isLocational = isLocationalCb.selected;
+		GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
+
+
 		if(noteShareToMapCb) //if the checkbox page has loaded
 		{
 			GameModel.getInstance().game.noteShareToMap = noteShareToMapCb.selected;
 			GameModel.getInstance().game.noteShareToBook = noteShareToBookCb.selected;
 			GameModel.getInstance().game.playerCreateTags = playerCreateTagsCb.selected;
 			GameModel.getInstance().game.allowtrading = allowtradingCb.selected;
-			GameModel.getInstance().game.isLocational = isLocationalCb.selected;
-			GameModel.getInstance().game.readyForPublic = readyForPublicCb.selected;
 			GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
 			GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
 			GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
+			GameModel.getInstance().game.inventoryCap = inventoryCap.value;
 		}
 			
 		var introNode:Node = introNodeCbo.selectedItem as Node;

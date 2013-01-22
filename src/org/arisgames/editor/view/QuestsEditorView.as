@@ -19,6 +19,8 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.data.arisserver.Media;
+
 
 public class QuestsEditorView extends Panel
 {
@@ -32,6 +34,11 @@ public class QuestsEditorView extends Panel
 	
 	[Bindable] public var up:Button;
 	[Bindable] public var down:Button;
+	
+	private var activeIconMediaPicker:ItemEditorMediaPickerMX;
+	private var activeMediaPicker:ItemEditorMediaPickerMX;
+	private var completeIconMediaPicker:ItemEditorMediaPickerMX;
+	private var completeMediaPicker:ItemEditorMediaPickerMX;
 
 	private var requirementsEditor:RequirementsEditorMX;
 
@@ -82,6 +89,51 @@ public class QuestsEditorView extends Panel
         AppServices.getInstance().getQuestsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadQuests, handleFault));
     }
 
+	public function handleActiveIconMediaButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleActiveIconMediaButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		activeIconMediaPicker = new ItemEditorMediaPickerMX();
+		//iconMediaPicker.setObjectPaletteItem(quests[dg.selectedIndex]);
+		activeIconMediaPicker.setIsIconPicker(true);
+		activeIconMediaPicker.delegate = this;
+		
+		PopUpManager.addPopUp(activeIconMediaPicker, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(activeIconMediaPicker);
+	}
+	
+	public function handleActiveMediaButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleActiveMediaButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		activeMediaPicker = new ItemEditorMediaPickerMX();
+		activeMediaPicker.setIsIconPicker(false);
+		activeMediaPicker.delegate = this;
+
+		PopUpManager.addPopUp(activeMediaPicker, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(activeMediaPicker);
+	}	
+	
+	public function handleCompleteIconMediaButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleCompleteIconMediaButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		completeIconMediaPicker = new ItemEditorMediaPickerMX();
+		completeIconMediaPicker.setIsIconPicker(true);
+		completeIconMediaPicker.delegate = this;
+		
+		PopUpManager.addPopUp(completeIconMediaPicker, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(completeIconMediaPicker);
+	}
+	
+	public function handleCompleteMediaButtonClick(evt:MouseEvent):void
+	{
+		trace("QuestsEditorView: handleCompleteMediaButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
+		completeMediaPicker = new ItemEditorMediaPickerMX();
+		completeMediaPicker.setIsIconPicker(false);
+		completeMediaPicker.delegate = this;
+		
+		PopUpManager.addPopUp(completeMediaPicker, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(completeMediaPicker);
+	}	
+	
 	public function handleRequiementsForVisableButtonClick(evt:MouseEvent):void
 	{
 		trace("QuestsEditorView: handleRequirementsForActiveButtonClick() called with Selected Index = '" + dg.selectedIndex + "'");
@@ -296,10 +348,22 @@ public class QuestsEditorView extends Panel
 		}
 	}
 	
+	public function didSelectMediaItem(picker:ItemEditorMediaPickerMX, m:Media):void
+	{
+		trace("QuestEditorView:  didSelectMediaItem()");
+		if(picker == activeIconMediaPicker)
+			quests[dg.selectedIndex].activeIconMediaId = m.mediaId;
+		else if(picker == activeMediaPicker)
+			quests[dg.selectedIndex].activeMediaId = m.mediaId;
+		else if(picker == completeIconMediaPicker)
+			quests[dg.selectedIndex].completeIconMediaId = m.mediaId;
+		else if(picker == completeMediaPicker)
+			quests[dg.selectedIndex].completeMediaId = m.mediaId;
+	}
+	
     public function handleFault(obj:Object):void
     {
         trace("Fault called: " + obj.message);
-
 		Alert.show("Error occurred: " + obj.message, "Problems In Quests Editor");
     }
 

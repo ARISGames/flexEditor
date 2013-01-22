@@ -48,7 +48,7 @@ package org.arisgames.editor.components
 		
 		private function handleInit(event:FlexEvent):void
 		{
-			trace("In ItemEditorMediaPickerCustomEditorView's handleInit");
+			trace("In ImageMatchEditorMediaPickerCustomEditorView's handleInit");
 			saveButton.addEventListener(MouseEvent.CLICK, handleSaveButtonClick);
 			deleteButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
 		}

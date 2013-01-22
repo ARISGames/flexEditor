@@ -67,12 +67,22 @@
 						<mx:ComboBox id="completeNodeCbo" dataProvider="{nodes}" labelField="title">
 						</mx:ComboBox>
 					</mx:FormItem>
-					<mx:FormItem id="invWeightFI" width="100%" label="Inventory Weight Cap">
-						<mx:NumericStepper id="inventoryCap" width="50" maximum="500000" minimum="0"
-										   stepSize="1"/>
+										
+					<mx:FormItem>
+						<mx:Tile direction="vertical">	
+							<mx:Form>
+								<mx:FormItem label="Game requires play in specific locations">
+									<mx:CheckBox id="isLocationalCb"/>
+								</mx:FormItem>
+								<mx:FormItem label="Game ready to be published/ rated">
+									<mx:CheckBox id="readyForPublicCb"/>
+								</mx:FormItem>	
+							</mx:Form>
+						</mx:Tile>	
 					</mx:FormItem>
 					
-					<mx:Spacer height="10"/>
+					<mx:Spacer height="20"/>
+
 					<mx:Tile direction="horizontal">					
 						<mx:LinkButton id="duplicateButton" width="100%" label="Duplicate This Game"
 									   color="#0000D5" textAlign="right"/>		
@@ -80,11 +90,14 @@
 									   label="Permanantly Delete This Game" color="#D50000"
 									   textAlign="left"/>		
 					</mx:Tile>
+				
 				</mx:Form>
 		</mx:Canvas>
 		
 		<mx:Canvas width="100%" height="100%" label="Config">
 				<mx:Form width="100%">
+					<mx:FormItem label="Notebook" fontWeight="bold">
+					</mx:FormItem>
 					<mx:FormItem label="Allow notes to be shared to map">
 						<mx:CheckBox id="noteShareToMapCb"/>
 					</mx:FormItem>	
@@ -94,20 +107,27 @@
 					<mx:FormItem label="Allow player created note tags">
 						<mx:CheckBox id="playerCreateTagsCb"/>
 					</mx:FormItem>
-					<mx:FormItem label="Allow trading items">
-						<mx:CheckBox id="allowtradingCb"/>
-					</mx:FormItem>
-					<mx:FormItem label="Game requires play in specific locations">
-						<mx:CheckBox id="isLocationalCb"/>
-					</mx:FormItem>
-					<mx:FormItem label="Game ready to be published/ rated">
-						<mx:CheckBox id="readyForPublicCb"/>
-					</mx:FormItem>	
 					<mx:FormItem label="Allow player created comments">
 						<mx:CheckBox id="playerCreateCommentsCb"/>
 					</mx:FormItem>
 					<mx:FormItem label="Allow note likes">
 						<mx:CheckBox id="playerLikesNotesCb"/>
+					</mx:FormItem>
+					
+					<mx:Spacer height="20"/>
+					
+					<mx:FormItem label="Inventory" fontWeight="bold">
+					</mx:FormItem>
+					<mx:FormItem id="invWeightFI" width="100%" label="Inventory Weight Cap">
+						<mx:NumericStepper id="inventoryCap" width="50" maximum="500000" minimum="0" stepSize="1"/>
+					</mx:FormItem>
+					<mx:FormItem label="Allow trading items">
+						<mx:CheckBox id="allowtradingCb"/>
+					</mx:FormItem>
+					
+					<mx:Spacer height="20"/>
+					
+					<mx:FormItem label="Map" fontWeight="bold">
 					</mx:FormItem>
 					<mx:FormItem label="Show player on map">
 						<mx:CheckBox id="showPlayerOnMapCb"/>
