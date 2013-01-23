@@ -129,6 +129,16 @@
 					
 					<mx:FormItem label="Map" fontWeight="bold">
 					</mx:FormItem>
+					<mx:FormItem label="Default Map Type">
+						<mx:ComboBox id="mapType">
+							<mx:ArrayCollection>
+								<mx:String>Street</mx:String>
+								<mx:String>Satellite</mx:String>
+								<mx:String>Hybrid</mx:String>
+							</mx:ArrayCollection>
+						</mx:ComboBox>
+					</mx:FormItem>
+
 					<mx:FormItem label="Show player on map">
 						<mx:CheckBox id="showPlayerOnMapCb"/>
 					</mx:FormItem>

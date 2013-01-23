@@ -97,12 +97,13 @@ public class AppServices
 			game.playerLikesNotes = true;
 			game.allowtrading = true;
 			game.showPlayerOnMap = true;
+			game.mapType = "STREET";
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap, game.mapType);
 		}
 		else
 		{
@@ -112,7 +113,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap, game.mapType);
 		}
 		r.addResponder(resp);
 	}

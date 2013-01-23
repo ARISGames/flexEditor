@@ -66,6 +66,8 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var playerCreateCommentsCb:mx.controls.CheckBox;
 	[Bindable] public var playerLikesNotesCb:mx.controls.CheckBox;
 	[Bindable] public var showPlayerOnMapCb:mx.controls.CheckBox;
+	[Bindable] public var mapType:ComboBox;
+
 	
 	[Bindable] public var saveAndCloseButton:Button;
 	[Bindable] public var deleteButton:LinkButton;
@@ -162,6 +164,20 @@ public class GameDetailsEditorView extends Panel{
 		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
 		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
 		showPlayerOnMapCb.selected = GameModel.getInstance().game.showPlayerOnMap;
+		
+		mapType.addEventListener(flash.events.Event.CHANGE, handleMapTypeChange);
+		if(GameModel.getInstance().game.mapType == "STREET") mapType.selectedIndex = 0;
+		else if(GameModel.getInstance().game.mapType == "SATELLITE") mapType.selectedIndex = 1;
+		else if(GameModel.getInstance().game.mapType == "HYBRID") mapType.selectedIndex = 2;
+	}
+	
+	public function handleMapTypeChange(evt:Event):void {
+		if(mapType.selectedIndex == 0) //Street
+			GameModel.getInstance().game.mapType = "STREET";
+		else if(mapType.selectedIndex == 1) //Street
+			GameModel.getInstance().game.mapType = "SATELLITE";
+		else if(mapType.selectedIndex == 2) //Street
+			GameModel.getInstance().game.mapType = "HYBRID";
 	}
 	
 	public function handleIconClick(evt:Event):void {
@@ -445,6 +461,7 @@ public class GameDetailsEditorView extends Panel{
 			GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
 			GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
 			GameModel.getInstance().game.inventoryCap = inventoryCap.value;
+			this.handleMapTypeChange(null);
 		}
 			
 		var introNode:Node = introNodeCbo.selectedItem as Node;

@@ -30,6 +30,7 @@ public class Game
 	public var isLocational:Boolean;
 	public var readyForPublic:Boolean;
 	public var showPlayerOnMap:Boolean;
+	public var mapType:String;
 	
 	public var iconMediaId:int;
 	public var pcMediaId:int;
