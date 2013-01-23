@@ -96,6 +96,7 @@ public class AppServices
 			game.playerCreateComments = true;
 			game.playerLikesNotes = true;
 			game.allowtrading = true;
+			game.showPlayerOnMap = true;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
