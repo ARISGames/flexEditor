@@ -578,6 +578,7 @@ public class AppUtils
 			quest.activeIconMediaId = data.active_icon_media_id;
 			quest.completeIconMediaId = data.complete_icon_media_id;
 			quest.fullScreenNotification = data.full_screen_notify;
+			quest.notificationStyle = quest.fullScreenNotification ? "Full Screen" : "Top Bar";
 			return quest;
 		}
 		else

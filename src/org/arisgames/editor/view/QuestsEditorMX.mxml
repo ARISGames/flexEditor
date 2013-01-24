@@ -12,7 +12,7 @@
                                   creationPolicy="all"
                                    height="500">
 
-    <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false" variableRowHeight="true" height="100%" useRollOver="false">
+    <mx:DataGrid id="dg" width="100%" rowCount="10" editable="true" dataProvider="{quests}" draggableColumns="false" variableRowHeight="true" height="100%" useRollOver="false" itemClick="handleDataGridClicked(event)">
         <mx:columns>
             <!--<mx:DataGridColumn dataField="questId" headerText="Id" editable="false" width="50"/>-->
             <mx:DataGridColumn dataField="title" headerText="Title" editable="true"/>
@@ -22,7 +22,7 @@
 							   wordWrap="true"
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
-							   width = "200"/>
+							   width = "135"/>
 			<mx:DataGridColumn headerText="Incomplete Media" editable="false" width="125">
 				<mx:itemRenderer>
 					<mx:Component>
@@ -39,7 +39,7 @@
 							   wordWrap="true"
 							   itemEditor="mx.controls.TextArea"
 							   editorUsesEnterKey="true"
-							   width = "200"/>
+							   width = "135"/>
 			<mx:DataGridColumn headerText="Complete Media" editable="false" width="125">
 				<mx:itemRenderer>
 					<mx:Component>
@@ -50,6 +50,13 @@
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
+			<mx:DataGridColumn dataField="notificationStyle" 
+							   headerText="Notif Style" 
+							   editable="false"
+							   wordWrap="true"
+							   itemEditor="mx.controls.TextArea"
+							   editorUsesEnterKey="true"
+							   width = "80"/>
 			<mx:DataGridColumn headerText="Requirements" editable="false" width = "125">
 				<mx:itemRenderer>
 					<mx:Component>

@@ -108,6 +108,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
 			g.allowtrading = obj.result.data.list.getItemAt(j).allow_trading;
 			g.showPlayerOnMap = obj.result.data.list.getItemAt(j).show_player_location;
+			g.allLocQT = obj.result.data.list.getItemAt(j).full_quick_travel;
 			g.mapType = obj.result.data.list.getItemAt(j).map_type;
 			
 			usersGames.addItem(g);

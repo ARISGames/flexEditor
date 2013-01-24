@@ -9,6 +9,7 @@ import mx.controls.Button;
 import mx.controls.DataGrid;
 import mx.events.DataGridEvent;
 import mx.events.DynamicEvent;
+import mx.events.ListEvent;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 import mx.rpc.Responder;
@@ -204,6 +205,8 @@ public class QuestsEditorView extends Panel
         var q:Quest = new Quest();
         q.title = "New Quest";
 		q.index = quests.length;
+		q.fullScreenNotification = true;
+		q.notificationStyle = "Full Screen";
         quests.addItem(q);
         AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleAddQuestSave, handleFault));
     }
@@ -229,7 +232,6 @@ public class QuestsEditorView extends Panel
             Alert.show("Error Was: " + msg, "Error While Updating Quest");
         }
         else trace("Update Quest was successful.");
-          
     }
 
 	
@@ -301,6 +303,7 @@ public class QuestsEditorView extends Panel
 				q.activeIconMediaId = obj.result.data.list.getItemAt(j).active_icon_media_id;
 				q.completeIconMediaId = obj.result.data.list.getItemAt(j).complete_icon_media_id;
 				q.fullScreenNotification = obj.result.data.list.getItemAt(j).full_screen_notify;
+				q.notificationStyle = q.fullScreenNotification ? "Full Screen" : "Top Bar";
 				q.index = j;
 				if(q.index != obj.result.data.list.getItemAt(j).sort_index) AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
                 quests.addItem(q);
@@ -308,6 +311,25 @@ public class QuestsEditorView extends Panel
             trace("Loaded '" + quests.length + "' Quest(s).");
         }
     }
+	
+	public function handleDataGridClicked(evt:ListEvent):void
+	{
+		if(evt.columnIndex == 5)
+		{
+			if(quests.getItemAt(evt.rowIndex).fullScreenNotification)
+			{
+				quests.getItemAt(evt.rowIndex).fullScreenNotification = false;
+				quests.getItemAt(evt.rowIndex).notificationStyle = "Top Bar";
+			}
+			else
+			{
+				quests.getItemAt(evt.rowIndex).fullScreenNotification = true;
+				quests.getItemAt(evt.rowIndex).notificationStyle = "Full Screen";
+			}
+			AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quests.getItemAt(evt.rowIndex) as Quest, new Responder(handleUpdateQuestSave, handleFault));
+			quests.refresh();
+		}
+	}
 
 	private function handleSwitchedSortPosUp(obj:Object):void {
 		trace("QuestsEditorView: In handleSwitchedSortPosUp() Result called with obj = " + obj + "; Result = " + obj.result);

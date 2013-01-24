@@ -138,9 +138,11 @@
 							</mx:ArrayCollection>
 						</mx:ComboBox>
 					</mx:FormItem>
-
 					<mx:FormItem label="Show player on map">
 						<mx:CheckBox id="showPlayerOnMapCb"/>
+					</mx:FormItem>
+					<mx:FormItem label="All Locations QuickTravel">
+						<mx:CheckBox id="allLocQTCb"/>
 					</mx:FormItem>
 				</mx:Form>
 		</mx:Canvas>

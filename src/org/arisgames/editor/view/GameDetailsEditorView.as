@@ -67,6 +67,8 @@ public class GameDetailsEditorView extends Panel{
 	[Bindable] public var playerLikesNotesCb:mx.controls.CheckBox;
 	[Bindable] public var showPlayerOnMapCb:mx.controls.CheckBox;
 	[Bindable] public var mapType:ComboBox;
+	[Bindable] public var allLocQTCb:mx.controls.CheckBox;
+
 
 	
 	[Bindable] public var saveAndCloseButton:Button;
@@ -164,6 +166,7 @@ public class GameDetailsEditorView extends Panel{
 		playerCreateCommentsCb.selected = GameModel.getInstance().game.playerCreateComments;
 		playerLikesNotesCb.selected = GameModel.getInstance().game.playerLikesNotes;
 		showPlayerOnMapCb.selected = GameModel.getInstance().game.showPlayerOnMap;
+		allLocQTCb.selected = GameModel.getInstance().game.allLocQT;
 		
 		mapType.addEventListener(flash.events.Event.CHANGE, handleMapTypeChange);
 		if(GameModel.getInstance().game.mapType == "STREET") mapType.selectedIndex = 0;
@@ -460,6 +463,7 @@ public class GameDetailsEditorView extends Panel{
 			GameModel.getInstance().game.playerCreateComments = playerCreateCommentsCb.selected;
 			GameModel.getInstance().game.playerLikesNotes = playerLikesNotesCb.selected;
 			GameModel.getInstance().game.showPlayerOnMap = showPlayerOnMapCb.selected;
+			GameModel.getInstance().game.allLocQT = allLocQTCb.selected;
 			GameModel.getInstance().game.inventoryCap = inventoryCap.value;
 			this.handleMapTypeChange(null);
 		}

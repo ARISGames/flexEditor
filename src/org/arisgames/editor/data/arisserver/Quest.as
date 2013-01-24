@@ -12,6 +12,7 @@ package org.arisgames.editor.data.arisserver
 		public var activeIconMediaId:Number;
 		public var completeIconMediaId:Number;
 		public var exitToTab:String;
+		public var notificationStyle:String; //Just an english representation of 'fullScreenNotification'
 		
 		public var index:Number;
 		

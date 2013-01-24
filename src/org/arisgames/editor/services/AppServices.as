@@ -98,6 +98,7 @@ public class AppServices
 			game.allowtrading = true;
 			game.showPlayerOnMap = true;
 			game.mapType = "STREET";
+			game.allLocQT = false;
 			r = AppDAO.getInstance().getGameServer().createGame(SecurityModel.getInstance().getUserId(),
 																game.name, game.description,
 																game.pcMediaId, game.iconMediaId, game.mediaId,
@@ -979,12 +980,12 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		if (isNaN(quest.questId))
 		{
 			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
-			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification ? 1 : 0, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
 		}
 		else
 		{
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
-			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
+			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.fullScreenNotification ? 1 : 0, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.exitToTab, quest.index);
 		}
 		l.addResponder(resp);
 	}
