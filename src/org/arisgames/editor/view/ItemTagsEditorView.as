@@ -86,6 +86,7 @@ package org.arisgames.editor.view
 		public function handleTagClick(evt:MouseEvent):void
 		{
 			trace("ItemTagsEditorView: handleTagClick() called with Selected Index = '" + dg.selectedIndex + "'");
+			if(dg.selectedIndex < 0 || dg.selectedIndex > gameItemTags.length-1) return;
 			if((gameItemTags.getItemAt(dg.selectedIndex) as ItemTag).tagged == "x")
 				AppServices.getInstance().untagItem(GameModel.getInstance().game.gameId, item.itemId, (gameItemTags.getItemAt(dg.selectedIndex) as ItemTag).tag_id, new Responder(handleTagItemTag, handleFault));
 			else
@@ -103,12 +104,13 @@ package org.arisgames.editor.view
 			else
 			{
 				trace("tagging of ItemTag went well in the database, so now update it from UI datamodel and UI.");
+				if(dg.selectedIndex < 0 || dg.selectedIndex > gameItemTags.length-1) return;
+/*
 				if((gameItemTags.getItemAt(dg.selectedIndex) as ItemTag).tagged == "x")
 					(gameItemTags.getItemAt(dg.selectedIndex) as ItemTag).tagged = "";
 				else
 					(gameItemTags.getItemAt(dg.selectedIndex) as ItemTag).tagged = "x";
-
-				gameItemTagsData.refresh();
+*/
 				this.reloadTheItemTags();
 			}
 		}
