@@ -19,6 +19,7 @@
         </mx:FormItem>
     </mx:Form>
 	<mx:Label id="secretText"/>
+	<mx:TextInput id="moreSecretText" width="100"/>
 
     <mx:Button id="saveButton" label="Save Name Change" visible="false" includeInLayout="false"/>
     <mx:Button id="deleteButton" label="Delete" visible="false" includeInLayout="false"/>

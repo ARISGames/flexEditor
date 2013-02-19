@@ -37,6 +37,7 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
     [Bindable] public var mediaName:TextInput;
 	
 	[Bindable] public var secretText:Label;
+	[Bindable] public var moreSecretText:TextInput;
 
     [Bindable] public var saveButton:Button;
     [Bindable] public var deleteButton:Button;
@@ -63,6 +64,7 @@ public class ItemEditorMediaPickerCustomEditorView extends VBox
         super.data = value;
         dataChanged = true;
 		secretText.text = data.@mediaId+"";
+		moreSecretText.text = data.@urlPath.toString() + data.@fileName.toString()+"";
         invalidateProperties();
     }
 
