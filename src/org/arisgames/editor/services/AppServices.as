@@ -114,7 +114,7 @@ public class AppServices
 																game.pcMediaId, game.iconMediaId, game.mediaId,
 																game.isLocational, game.readyForPublic,
 																game.noteShareToMap, game.noteShareToBook, game.playerCreateTags, game.playerCreateComments, game.playerLikesNotes,
-																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap, game.mapType);
+																game.introNodeId, game.completeNodeId, game.inventoryCap, game.allowtrading, game.showPlayerOnMap, game.mapType, game.allLocQT);
 		}
 		r.addResponder(resp);
 	}
