@@ -58,7 +58,7 @@ public class AppServices
     public function login(user:String, pwd:String, resp:IResponder):void
     {
         var r:Object;
-        r = AppDAO.getInstance().getLoginServer().login(user, pwd);
+        r = AppDAO.getInstance().getLoginServer().getToken(user, pwd, "read_write");
         r.addResponder(resp);
     }
 
@@ -123,9 +123,8 @@ public class AppServices
 	{
 		trace("Appservices: deleteGame: This game has an Id (" + game.gameId + ")");
 		var r:Object;
-		r = AppDAO.getInstance().getGameServer().deleteGame(game.gameId);
+		r = AppDAO.getInstance().getGameServer().deleteGame(game.gameId, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		r.addResponder(resp);
-
 	}
 
 	public function duplicateObject(game:Game, obId:int, resp:IResponder):void

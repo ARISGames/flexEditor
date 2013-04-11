@@ -4,7 +4,8 @@ public class SecurityModel
 {
     private static var instance:SecurityModel;
 
-    private var userId:Number;
+	private var userId:Number;
+	private var rwToken:String;
     
     /**
      * Singleton Constructor
@@ -31,13 +32,19 @@ public class SecurityModel
     {
         return userId;
     }
+	
+	public function getRWToken():String
+	{
+		return rwToken;
+	}
 
-    public function login(uid:Number):void
+    public function login(uid:Number, token:String):void
     {
-        trace("Logging in user with Id = " + uid);
+        trace("Logging in user with Id = " + uid + ", Token = " + token);
         if (!isNaN(uid))
         {
             userId = uid;
+			rwToken = token;
         }
         else
         {

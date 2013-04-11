@@ -138,9 +138,8 @@ public class LoginFormView extends Panel
 				clientData.data.password = "";
 			}
 			clientData.flush();
-            trace("Login was successfull");
-            SecurityModel.getInstance().login(obj.result.data);
-//            Alert.show("Welcome to the ARIS Game Editor!", "Successfully Logged In");
+            trace("Login was successful");
+            SecurityModel.getInstance().login(obj.result.data.editor_id, obj.result.data.read_write_token);
             StateModel.getInstance().currentState = StateModel.VIEWCREATEOROPENGAMEWINDOW;
         }
     }
@@ -157,7 +156,7 @@ public class LoginFormView extends Panel
         else
         {
             trace("Registration was successfull");
-            SecurityModel.getInstance().login(obj.result.data);
+            SecurityModel.getInstance().login(obj.result.data.editor_id, obj.result.data.read_write_token);
             Alert.show("Welcome to the ARIS Game Editor!", "Successfully Registered");
             StateModel.getInstance().currentState = StateModel.VIEWCREATEOROPENGAMEWINDOW;
         }
