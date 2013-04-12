@@ -376,7 +376,7 @@ public class GameEditorObjectPaletteView extends VBox
 	}
 	
 	//A folder is passed in to this function (parent) along with an ObjectPaletteItemBO (which can be either another
-	//folder, OR a normal Item... IE NPC, plaque, item) those ParentID is not a value at root (orphan). This function
+	//folder, OR a normal Item... IE NPC, plaque, item) whose ParentID is not a value at root (orphan). This function
 	//recursively searches all of the folders children for folders with the correct parent ID, and searches all of those
 	//folders children.
 	private function recursiveFindParentOfFolder(parent:ObjectPaletteItemBO, orphan:ObjectPaletteItemBO):void{
@@ -839,7 +839,7 @@ public class GameEditorObjectPaletteView extends VBox
 
     public function renderTree():void
     {
-        if (refreshData)
+        if(refreshData)
         {
             trace("refreshData is true, so going to refresh the data on the tree.");
             //AppUtils.printPaletteObjectDataModel();
