@@ -6,7 +6,7 @@ public class AppConstants
 	public static const APPLICATION_ENVIRONMENT_ROOT_URL:String = "http://arisgames.org/server"; //For other URL's to append to
 	
 	//Server Version
-	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "v2";
+	public static const APPLICATION_ENVIRONMENT_SERVER_VERSION:String = "v1";
 	
 	public static const APPLICATION_ENVIRONMENT_JSON_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/json.php/" + APPLICATION_ENVIRONMENT_SERVER_VERSION + ".";
 	public static const APPLICATION_ENVIRONMENT_SERVICES_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/" + APPLICATION_ENVIRONMENT_SERVER_VERSION + "/"; //staging		
