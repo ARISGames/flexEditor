@@ -165,7 +165,7 @@ public class LoginFormView extends Panel
     public function handleFault(obj:Object):void
     {
         trace("Fault called...");
-        Alert.show("Error occurred", "More problems..");
+        Alert.show("Error occurred", "More problems..: "+obj.fault.faultString);
     }  
 }
 }

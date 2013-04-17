@@ -706,10 +706,10 @@ public class GameDetailsEditorView extends Panel{
 	}
 	private function findUserIdFromEmail(email:String, add:Boolean):void{
 		if(add){
-			AppServices.getInstance().getEditors(new Responder(handleFindIdToAdd, handleFault));
+			AppServices.getInstance().getEditorsWithEmail(email, new Responder(handleFindIdToAdd, handleFault));
 		}
 		else{
-			AppServices.getInstance().getEditors(new Responder(handleFindIdToRemove, handleFault));
+			AppServices.getInstance().getEditorsWithEmail(email, new Responder(handleFindIdToRemove, handleFault));
 		}
 	}
 	private function handleFindIdToAdd(obj:Object):void
@@ -725,7 +725,6 @@ public class GameDetailsEditorView extends Panel{
 		}
 		
 		if(found){
-			trace("Found ID for " + addEditorEmail.text + "; Id=" + editorId);
 			AppServices.getInstance().addEditor(GameModel.getInstance().game.gameId, editorId, new Responder(handleAddedEditor, handleFault));
 		}
 		else

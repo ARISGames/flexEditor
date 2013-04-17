@@ -14,11 +14,11 @@ import org.arisgames.editor.data.arisserver.Conversation;
 import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.Item;
+import org.arisgames.editor.data.arisserver.ItemTag;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
 import org.arisgames.editor.data.arisserver.Node;
 import org.arisgames.editor.data.arisserver.NoteTag;
-import org.arisgames.editor.data.arisserver.ItemTag;
 import org.arisgames.editor.data.arisserver.PlayerNote;
 import org.arisgames.editor.data.arisserver.PlayerStateChange;
 import org.arisgames.editor.data.arisserver.Quest;
@@ -1099,11 +1099,11 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		r.addResponder(resp);
 	}
 	
-	public function getEditors(resp:IResponder):void
+	public function getEditorsWithEmail(email:String, resp:IResponder):void
 	{
 		trace("Retreiving all Editors");
 		var r:Object;
-		r = AppDAO.getInstance().getGameServer().getEditors();
+		r = AppDAO.getInstance().getLoginServer().getEditorsWithEmail(email);
 		r.addResponder(resp);
 	}
 	
