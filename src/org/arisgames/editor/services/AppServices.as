@@ -1118,7 +1118,7 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 	public function duplicateGame(gid:Number, resp:IResponder):void {
 		trace("Duplicating Game");
 		var r:Object;
-		r = AppDAO.getInstance().getGameServer().duplicateGame(gid, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
+		r = AppDAO.getInstance().getGameServer().duplicateGame(gid, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		r.addResponder(resp);
 	}
 }
