@@ -90,7 +90,8 @@ public class ObjectEditorItemView extends Panel
 		spawnablePopupButton.addEventListener(MouseEvent.CLICK, handleSpawnableButton);
     }
 	
-	private function itemTagsButtonOnClick(evt:MouseEvent):void{
+	private function itemTagsButtonOnClick(evt:MouseEvent):void
+	{
 		trace("itemTagsButtonOnClick() started... ");
 		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENITEMTAGSEDITOR);
 		AppDynamicEventManager.getInstance().dispatchEvent(de);	

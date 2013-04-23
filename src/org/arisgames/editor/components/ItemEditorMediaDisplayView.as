@@ -102,7 +102,8 @@ public class ItemEditorMediaDisplayView extends HBox
     public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
     {
         trace("ItemEditorMediaDisplayView: setting objectPaletteItem with name = '" + opi.name + "' in ItemEditorPlaqueView");
-        objectPaletteItem = opi;
+        Alert.show("Icon:"+opi.iconMediaId+" Media:"+opi.mediaId);
+		objectPaletteItem = opi;
         this.pushDataIntoGUI();
     }
 
