@@ -2,36 +2,34 @@ package org.arisgames.editor.view
 {
   import flash.events.Event;
   import flash.events.MouseEvent;
-  
-  import mx.collections.ArrayCollection;
+
   import mx.containers.Panel;
   import mx.controls.Alert;
   import mx.controls.Button;
   import mx.controls.DataGrid;
   import mx.events.DataGridEvent;
   import mx.events.DynamicEvent;
-  import mx.events.FlexEvent;
   import mx.events.ListEvent;
+  import mx.events.FlexEvent;
   import mx.managers.PopUpManager;
   import mx.rpc.Responder;
-  
+  import mx.collections.ArrayCollection;
+
   import org.arisgames.editor.data.arisserver.Quest;
   import org.arisgames.editor.models.GameModel;
   import org.arisgames.editor.services.AppServices;
   import org.arisgames.editor.util.AppConstants;
-  import org.arisgames.editor.util.AppUtils;
   import org.arisgames.editor.util.AppDynamicEventManager;
-  import org.arisgames.editor.view.QuestEditorMX;
 
-  public class QuestsEditorView extends Panel
+  public class QuestEditorView extends Panel
   {
-    [Bindable] public var quests:ArrayCollection;
+    [Bindable] public var quest:ArrayCollection;
 
     [Bindable] public var dg:DataGrid;
     [Bindable] public var addQuestButton:Button;
     [Bindable] public var closeButton:Button;
 
-    public function QuestsEditorView()
+    public function QuestEditorView()
     {
       super();
       this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit);
@@ -39,7 +37,7 @@ package org.arisgames.editor.view
 
     private function handleInit(event:FlexEvent):void
     {
-      quests = new ArrayCollection();
+      quest = new ArrayCollection();
 
       closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
       addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
@@ -56,7 +54,7 @@ package org.arisgames.editor.view
     {
       if(obj.result.returnCode != 0) { Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Loading Quests"); return; }
 
-      quests.removeAll();
+      quest.removeAll();
       for(var i:Number = 0; i < obj.result.data.list.length; i++)
       {
         var q:Quest = new Quest();
@@ -73,30 +71,17 @@ package org.arisgames.editor.view
         if(q.index != obj.result.data.list.getItemAt(i).sort_index)
           AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
 
-        quests.addItem(q);
+        quest.addItem(q);
       }
-      quests.refresh();
-    }
-
-    public function handleQuestSelected(evt:Event):void
-    {
-      var questEditor:QuestEditorMX = new QuestEditorMX();
-      this.parent.addChild(questEditor);
-      questEditor.validateNow();
-	  Alert.show("WOW","HUZZAH");
-
-      PopUpManager.addPopUp(questEditor, AppUtils.getInstance().getMainView(), true);
-      PopUpManager.centerPopUp(questEditor);
-      questEditor.setVisible(true);
-      questEditor.includeInLayout = true;  
+      quest.refresh();
     }
 
     public function handleQuestSortUp(evt:Event):void
     {
-      if(dg.selectedIndex > 0 && dg.selectedIndex < quests.length)
+      if(dg.selectedIndex > 0 && dg.selectedIndex < quest.length)
       {
-        var q1:Quest = (quests.getItemAt(dg.selectedIndex)   as Quest);
-        var q2:Quest = (quests.getItemAt(dg.selectedIndex-1) as Quest);
+        var q1:Quest = (quest.getItemAt(dg.selectedIndex)   as Quest);
+        var q2:Quest = (quest.getItemAt(dg.selectedIndex-1) as Quest);
         AppServices.getInstance().switchQuestOrder(GameModel.getInstance().game.gameId, q1.questId, q2.questId, new Responder(handleSwitchedSortPosUp, handleFault));
       }
     }
@@ -106,18 +91,18 @@ package org.arisgames.editor.view
       if(obj.result.returnCode != 0) { Alert.show("QuestsEditorView: Error Was: " + obj.result.returnCodeDescription, "Error While Saving Quest"); return; }
 
       var sel:Number = dg.selectedIndex;
-      quests.getItemAt(sel).index = sel-1;
-      quests.getItemAt(sel-1).index = sel;
-      quests.addItemAt(quests.removeItemAt(sel), sel-1);
-      quests.refresh();
+      quest.getItemAt(sel).index = sel-1;
+      quest.getItemAt(sel-1).index = sel;
+      quest.addItemAt(quest.removeItemAt(sel), sel-1);
+      quest.refresh();
     }
 
     public function handleQuestSortDown(evt:Event):void
     {
-      if(dg.selectedIndex >= 0 && dg.selectedIndex < quests.length-1)
+      if(dg.selectedIndex >= 0 && dg.selectedIndex < quest.length-1)
       {
-        var q1:Quest = (quests.getItemAt(dg.selectedIndex)   as Quest);
-        var q2:Quest = (quests.getItemAt(dg.selectedIndex+1) as Quest);
+        var q1:Quest = (quest.getItemAt(dg.selectedIndex)   as Quest);
+        var q2:Quest = (quest.getItemAt(dg.selectedIndex+1) as Quest);
         AppServices.getInstance().switchQuestOrder(GameModel.getInstance().game.gameId, q1.questId, q2.questId, new Responder(handleSwitchedSortPosDown, handleFault));
       }
     }
@@ -127,15 +112,15 @@ package org.arisgames.editor.view
       if(obj.result.returnCode != 0) { Alert.show("QuestsEditorView: Error Was: " + obj.result.returnCodeDescription, "Error While Saving Quest"); return; }
 
       var sel:Number = dg.selectedIndex;
-      quests.getItemAt(sel).index = sel+1;
-      quests.getItemAt(sel+1).index = sel;
-      quests.addItemAt(quests.removeItemAt(sel), sel+1);
-      quests.refresh();
+      quest.getItemAt(sel).index = sel+1;
+      quest.getItemAt(sel+1).index = sel;
+      quest.addItemAt(quest.removeItemAt(sel), sel+1);
+      quest.refresh();
     }
 
     public function handleDeleteButtonClick(evt:MouseEvent):void
     {
-      AppServices.getInstance().deleteQuest(GameModel.getInstance().game.gameId, (quests.getItemAt(dg.selectedIndex) as Quest), new Responder(handleDeleteQuest, handleFault));
+      AppServices.getInstance().deleteQuest(GameModel.getInstance().game.gameId, (quest.getItemAt(dg.selectedIndex) as Quest), new Responder(handleDeleteQuest, handleFault));
     }
 
     private function handleDeleteQuest(obj:Object):void
@@ -143,14 +128,14 @@ package org.arisgames.editor.view
       if(obj.result.returnCode != 0) { Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Deleting Quest"); return; }
 
       var sel:Number = dg.selectedIndex;
-      quests.removeItemAt(sel);
-      for(var x:Number = sel; x < quests.length; x++)
+      quest.removeItemAt(sel);
+      for(var x:Number = sel; x < quest.length; x++)
       {
-        var q:Quest = quests.getItemAt(x) as Quest;
+        var q:Quest = quest.getItemAt(x) as Quest;
         q.index = x;
         AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
       }
-      quests.refresh();
+      quest.refresh();
     }
 
     private function handleUpdateQuestSave(obj:Object):void
@@ -161,7 +146,7 @@ package org.arisgames.editor.view
     private function handleAddQuestButton(evt:MouseEvent):void
     {
       var q:Quest = new Quest();
-      q.index = quests.length;
+      q.index = quest.length;
       AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleAddQuestSave, handleFault));
     }
 
@@ -173,8 +158,8 @@ package org.arisgames.editor.view
 
       var q:Quest = new Quest();
       q.questId = qid;
-      q.index = quests.length;
-      quests.addItem(q);
+      q.index = quest.length;
+      quest.addItem(q);
     }
 
     private function handleCloseButton(evt:MouseEvent):void

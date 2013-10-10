@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<v:QuestsEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
+<v:QuestEditorView xmlns:mx="http://www.adobe.com/2006/mxml"
   xmlns:main="org.arisgames.editor.*"
   xmlns:v="org.arisgames.editor.view.*"
   xmlns:c="org.arisgames.editor.components.*"
@@ -9,11 +9,11 @@
   paddingBottom="10"
   width="500"
   height="500"
-  title="Quests Editor"
+  title="Quest Editor"
   creationPolicy="all"
   >
 
-<mx:DataGrid id="dg" width="100%" height="100%" rowCount="10" dataProvider="{quests}" doubleClickEnabled="true" itemDoubleClick="handleQuestSelected(event)">
+<mx:DataGrid id="dg" width="100%" height="100%" rowCount="10" dataProvider="{quest}">
   <mx:columns>
     <mx:DataGridColumn headerText="Quest" dataField="title" />
     <mx:DataGridColumn headerText="Sort" editable="false" width="70">
@@ -44,5 +44,4 @@
   <mx:Button id="closeButton" label="Save and Close"/>
 </mx:ControlBar>
 
-</v:QuestsEditorView>
-
+</v:QuestEditorView>
