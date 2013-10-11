@@ -7,41 +7,147 @@
   paddingLeft="10"
   paddingRight="10"
   paddingBottom="10"
-  width="500"
-  height="500"
+  width="430"
+  height="700"
   title="Quest Editor"
   creationPolicy="all"
+  horizontalScrollPolicy="off"
   >
 
-<mx:DataGrid id="dg" width="100%" height="100%" rowCount="10" dataProvider="{quest}">
-  <mx:columns>
-    <mx:DataGridColumn headerText="Quest" dataField="title" />
-    <mx:DataGridColumn headerText="Sort" editable="false" width="70">
-      <mx:itemRenderer>
-        <mx:Component>
-          <mx:HBox textAlign="center" horizontalAlign="center" verticalAlign="top">
-            <mx:LinkButton width="25" label="↑" click="outerDocument.handleQuestSortUp(event)"/>
-            <mx:LinkButton width="25" label="↓" click="outerDocument.handleQuestSortDown(event)"/>
-          </mx:HBox>
-        </mx:Component>
-      </mx:itemRenderer>
-    </mx:DataGridColumn>
-    <mx:DataGridColumn headerText="Delete" width="50">
-      <mx:itemRenderer>
-        <mx:Component>
-          <mx:LinkButton width="20" label="X" click="outerDocument.handleDeleteButtonClick(event)"/>
-        </mx:Component>
-      </mx:itemRenderer>
-    </mx:DataGridColumn>
-  </mx:columns>
-</mx:DataGrid>
+  <mx:Form id="theForm">
 
-<mx:ControlBar width="100%" horizontalAlign="right">
-  <mx:Button id="addQuestButton" label="+"/>
-</mx:ControlBar>
+    <mx:VBox>
+      <mx:Label text="Quest Name" />
+      <mx:TextInput id="questname" width="350"/>
+    </mx:VBox>
 
-<mx:ControlBar width="100%" horizontalAlign="right">
-  <mx:Button id="closeButton" label="Save and Close"/>
-</mx:ControlBar>
+    <mx:HBox>
+      <mx:VBox><mx:Label text="Active Media" /><c:MediaPickerMX id="activeMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Active Icon Media" /><c:MediaPickerMX id="activeIconMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Active Notif Media" /><c:MediaPickerMX id="activeNotifMedia"/></mx:VBox>
+    </mx:HBox>
+    <mx:HBox>
+      <mx:VBox><mx:Label text="Complete Media" /><c:MediaPickerMX id="completeMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Icon Media" /><c:MediaPickerMX id="completIconMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Notif Media" /><c:MediaPickerMX id="completeNotifMedia"/></mx:VBox>
+    </mx:HBox>
+
+    <mx:VBox>
+      <mx:Label text="Active Description:" />
+      <mx:TextArea id="activedesc" width="350" height="60"/>
+    </mx:VBox>
+    <mx:VBox>
+      <mx:Label text="Complete Description:" />
+      <mx:TextArea id="completedesc" width="350" height="60"/>
+    </mx:VBox>
+    <mx:VBox>
+      <mx:Label text="Active Notification Description:" />
+      <mx:TextArea id="activenotifdesc" width="350" height="60"/>
+    </mx:VBox>
+    <mx:VBox>
+      <mx:Label text="Complete Notification Description:" />
+      <mx:TextArea id="completenotifdesc" width="350" height="60"/>
+    </mx:VBox>
+
+    <mx:FormItem label="New Notif Type">
+      <mx:ComboBox id="newnotiftype">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Full Screen</mx:String>
+          <mx:String>Drop Down</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Complete Notif Type">
+      <mx:ComboBox id="completenotiftype">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Full Screen</mx:String>
+          <mx:String>Drop Down</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Active Go Function">
+      <mx:ComboBox id="activegofunc">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Map</mx:String>
+          <mx:String>Quests</mx:String>
+          <mx:String>Inventory</mx:String>
+          <mx:String>Player</mx:String>
+          <mx:String>Decoder</mx:String>
+          <mx:String>Notebook</mx:String>
+          <mx:String>Javascript</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Complete Go Function">
+      <mx:ComboBox id="completegofunc">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Map</mx:String>
+          <mx:String>Quests</mx:String>
+          <mx:String>Inventory</mx:String>
+          <mx:String>Player</mx:String>
+          <mx:String>Decoder</mx:String>
+          <mx:String>Notebook</mx:String>
+          <mx:String>Javascript</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Active Notif Go Function">
+      <mx:ComboBox id="activenotifgofunc">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Map</mx:String>
+          <mx:String>Quests</mx:String>
+          <mx:String>Inventory</mx:String>
+          <mx:String>Player</mx:String>
+          <mx:String>Decoder</mx:String>
+          <mx:String>Notebook</mx:String>
+          <mx:String>Javascript</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Complete Notif Go Function">
+      <mx:ComboBox id="completenotifgofunc">
+        <mx:ArrayCollection>
+          <mx:String>None</mx:String>
+          <mx:String>Map</mx:String>
+          <mx:String>Quests</mx:String>
+          <mx:String>Inventory</mx:String>
+          <mx:String>Player</mx:String>
+          <mx:String>Decoder</mx:String>
+          <mx:String>Notebook</mx:String>
+          <mx:String>Javascript</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Active Notif Show Dismiss">
+      <mx:ComboBox id="activenotifshowdismiss">
+        <mx:ArrayCollection>
+          <mx:String>Yes</mx:String>
+          <mx:String>No</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+    <mx:FormItem label="Complete Notif Show Dismiss">
+      <mx:ComboBox id="completenotifshowdismiss">
+        <mx:ArrayCollection>
+          <mx:String>Yes</mx:String>
+          <mx:String>No</mx:String>
+        </mx:ArrayCollection>
+      </mx:ComboBox>
+    </mx:FormItem>
+
+  </mx:Form>
 
 </v:QuestEditorView>
+
