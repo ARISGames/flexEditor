@@ -22,14 +22,14 @@
     </mx:VBox>
 
     <mx:HBox>
-      <mx:VBox><mx:Label text="Active Media" /><c:MediaPickerMX id="activeMedia"/></mx:VBox>
-      <mx:VBox><mx:Label text="Active Icon Media" /><c:MediaPickerMX id="activeIconMedia"/></mx:VBox>
-      <mx:VBox><mx:Label text="Active Notif Media" /><c:MediaPickerMX id="activeNotifMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Active Media" /><c:MediaPickerMX id="activeMedia" delegate="{this}"/></mx:VBox>
+      <mx:VBox><mx:Label text="Active Icon Media" /><c:MediaPickerMX id="activeIconMedia" delegate="{this}"/></mx:VBox>
+      <mx:VBox><mx:Label text="Active Notif Media" /><c:MediaPickerMX id="activeNotifMedia" delegate="{this}"/></mx:VBox>
     </mx:HBox>
     <mx:HBox>
-      <mx:VBox><mx:Label text="Complete Media" /><c:MediaPickerMX id="completeMedia"/></mx:VBox>
-      <mx:VBox><mx:Label text="Complete Icon Media" /><c:MediaPickerMX id="completIconMedia"/></mx:VBox>
-      <mx:VBox><mx:Label text="Complete Notif Media" /><c:MediaPickerMX id="completeNotifMedia"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Media" /><c:MediaPickerMX id="completeMedia" delegate="{this}"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Icon Media" /><c:MediaPickerMX id="completIconMedia" delegate="{this}"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Notif Media" /><c:MediaPickerMX id="completeNotifMedia" delegate="{this}"/></mx:VBox>
     </mx:HBox>
 
     <mx:VBox>

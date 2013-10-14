@@ -25,6 +25,7 @@ package org.arisgames.editor.components
 
   public class MediaPickerView extends HBox
   {
+	public var delegate:Object;
     public var media:Media;
 
     [Bindable] public var imageCanvas:Canvas;
@@ -100,9 +101,11 @@ package org.arisgames.editor.components
       PopUpManager.centerPopUp(mediaPicker);
     }
 
-    public function didSelectMediaItem(picker:ItemEditorMediaPickerMX, m:Media):void
+    public function didSelectMediaItem(picker:MediaPickerFileListMX, m:Media):void
     {
       media = m;
+	  if(delegate.hasOwnProperty("didSelectMediaItem"))
+		  delegate.didSelectMediaItem(this, m);
       this.updateView();
     }
 
