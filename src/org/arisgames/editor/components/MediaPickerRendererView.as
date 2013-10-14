@@ -10,7 +10,6 @@ package org.arisgames.editor.components
   import mx.controls.Button;
   import mx.controls.Image;
   import mx.controls.Label;
-  import mx.controls.LinkButton;
   import mx.controls.TextInput;
   import mx.events.DynamicEvent;
   import mx.events.FlexEvent;
@@ -26,7 +25,7 @@ package org.arisgames.editor.components
   {
     [Bindable] public var imageCanvas:Canvas;
     [Bindable] public var image:Image;
-    [Bindable] public var avLinkButton:LinkButton;
+    [Bindable] public var avButton:Button;
     [Bindable] public var mediaName:TextInput;
 
     [Bindable] public var secretText:Label;
@@ -43,7 +42,7 @@ package org.arisgames.editor.components
 
     private function handleInit(event:FlexEvent):void
     {
-      avLinkButton.addEventListener(MouseEvent.CLICK, handleAVButtonClick);
+      avButton.addEventListener(MouseEvent.CLICK, handleAVButtonClick);
       saveButton.addEventListener(MouseEvent.CLICK, handleSaveButtonClick);
       deleteButton.addEventListener(MouseEvent.CLICK, handleDeleteButtonClick);
     }
@@ -51,25 +50,26 @@ package org.arisgames.editor.components
     override public function set data(value:Object):void
     {
       super.data = value;
-      secretText.text = data.@mediaId+"";
-      moreSecretText.text = data.@urlPath.toString() + data.@fileName.toString()+"";
       invalidateProperties();
     }
 
     private function renderData():void
     {
+      secretText.text = data.@mediaId+"";
+      moreSecretText.text = data.@urlPath.toString() + data.@fileName.toString()+"";
+
       if(data.@type && (data.@type.toString() == AppConstants.MEDIATYPE_IMAGE || data.@type.toString() == AppConstants.MEDIATYPE_ICON))
       {
         if(data.@urlPath && data.@urlPath.toString() != "" && data.@fileName && data.@fileName.toString() != "")
         {
-          var url:String = data.@urlPath.toString() + data.@fileName.toString();
+          var url:String = data.@urlPath.toString() + data.@fileName.toString()+"";
           image.source = url;
           imageCanvas.visible = true;
           imageCanvas.includeInLayout = true;
           image.visible = true;
           image.includeInLayout = true;
-          avLinkButton.visible = false;
-          avLinkButton.includeInLayout = false;
+          avButton.visible = false;
+          avButton.includeInLayout = false;
         }
       }
       else
@@ -80,34 +80,34 @@ package org.arisgames.editor.components
         image.includeInLayout = false;
         if(data.@type && data.@type.toString() == AppConstants.MEDIATYPE_AUDIO)
         {
-          avLinkButton.label = "Listen To Audio";
-          avLinkButton.visible = true;
-          avLinkButton.includeInLayout = true;
+          avButton.label = "Listen To Audio";
+          avButton.visible = true;
+          avButton.includeInLayout = true;
         }
         else if(data.@type && data.@type.toString() == AppConstants.MEDIATYPE_VIDEO)
         {
-          avLinkButton.label = "View Video";
-          avLinkButton.visible = true;
-          avLinkButton.includeInLayout = true;
+          avButton.label = "View Video";
+          avButton.visible = true;
+          avButton.includeInLayout = true;
         }
       }
 
       mediaName.text = data.@label;
-      if(data.@isDefault && data.@isDefault == false)
+      if(data.@isDefault && data.@isDefault.toString() == "true")
+      {
+        mediaName.editable = false;
+        saveButton.visible = false;
+        saveButton.includeInLayout = false;
+        deleteButton.visible = false;
+        deleteButton.includeInLayout = false;
+      }
+      else
       {
         mediaName.editable = true;
         saveButton.visible = true;
         saveButton.includeInLayout = true;
         deleteButton.visible = true;
         deleteButton.includeInLayout = true;
-      }
-      else if(data.@isDefault)
-      {
-        mediaName.editable = mediaName.editable = true;
-        saveButton.visible = false;
-        saveButton.includeInLayout = false;
-        deleteButton.visible = false;
-        deleteButton.includeInLayout = false;
       }
     }
 

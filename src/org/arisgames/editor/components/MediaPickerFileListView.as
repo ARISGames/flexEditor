@@ -85,10 +85,10 @@ package org.arisgames.editor.components
       var videoXML:XML = new XML('<node label="Video"/>');
       var iconXML:XML  = new XML('<node label="Icon"/>');
 
-      imageXML.appendChild('<node id="uploadButton" label="" icon="uploadIcon"/>');
-      audioXML.appendChild('<node id="uploadButton" label="" icon="uploadIcon"/>');
-      videoXML.appendChild('<node id="uploadButton" label="" icon="uploadIcon"/>');
-      iconXML.appendChild( '<node id="uploadButton" label="" icon="uploadIcon"/>');
+      imageXML.appendChild('<node type="uploadButton" label="" icon="uploadIcon"/>');
+      audioXML.appendChild('<node type="uploadButton" label="" icon="uploadIcon"/>');
+      videoXML.appendChild('<node type="uploadButton" label="" icon="uploadIcon"/>');
+      iconXML.appendChild( '<node type="uploadButton" label="" icon="uploadIcon"/>');
 
       var media:Array = obj.result.data as Array;
 
@@ -110,12 +110,12 @@ package org.arisgames.editor.components
             }
           }
         }
-        if(!defaultM)
+        if(!defaultM) //add separators in between non-defaults and defaults
         {
-          imageXML.appendChild('<node id="separator" label="" icon="separatorIcon"/>');
-          audioXML.appendChild('<node id="separator" label="" icon="separatorIcon"/>');
-          videoXML.appendChild('<node id="separator" label="" icon="separatorIcon"/>');
-          iconXML.appendChild( '<node id="separator" label="" icon="separatorIcon"/>');
+          imageXML.appendChild('<node type="separator" label="" icon="separatorIcon"/>');
+          audioXML.appendChild('<node type="separator" label="" icon="separatorIcon"/>');
+          videoXML.appendChild('<node type="separator" label="" icon="separatorIcon"/>');
+          iconXML.appendChild( '<node type="separator" label="" icon="separatorIcon"/>');
         }
       }
 
@@ -124,13 +124,13 @@ package org.arisgames.editor.components
       rootXML.appendChild(audioXML);
       rootXML.appendChild(videoXML);
       rootXML.appendChild(iconXML);
-    }
+	}
 
     private function onNodeSelected(event:TreeBrowserEvent):void
-    {
+	{		
       if(event.isBranch) selectButton.enabled = false;	
-      else if(event.item.@id == "separator") selectButton.enabled = false;
-      else if(event.item.@id == "uploadButton")
+      else if(event.item.@type == "separator") selectButton.enabled = false;
+      else if(event.item.@type == "uploadButton")
       {
         selectButton.enabled = false;
         this.displayMediaUploader();
