@@ -47,7 +47,19 @@ package org.arisgames.editor.components
       viewAVButton.addEventListener(MouseEvent.CLICK, handleViewAVButtonClick);
       updateView();
     }
-
+	
+	public function setMedia(m:Media):void
+	{
+		media = m;
+		this.updateView();
+	}
+	
+	public function setMediaId(mid:Number):void
+	{
+		if(media && media.mediaId != mid)
+			AppServices.getInstance().getMediaByGameIdAndMediaId(GameModel.getInstance().game.gameId, mid, new Responder(handleLoadingOfMedia, handleFault));
+	}
+	
     private function updateView():void
     {
       if(media != null && (media.type == AppConstants.MEDIATYPE_AUDIO || media.type == AppConstants.MEDIATYPE_VIDEO))
@@ -120,5 +132,27 @@ package org.arisgames.editor.components
       var req:URLRequest = new URLRequest(media.urlPath + media.fileName);
       navigateToURL(req,"to_blank");
     }
+	
+	private function handleLoadingOfMedia(obj:Object):void
+	{
+		if(obj.result.returnCode != 0) { Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Fetching Media"); return; }
+		
+		media = new Media();
+		if(obj.result.data != null)
+		{
+			media.mediaId = obj.result.data.media_id;
+			media.name = obj.result.data.name;
+			media.type = obj.result.data.type;
+			media.urlPath = obj.result.data.url_path;
+			media.fileName = obj.result.data.file_name;
+			media.isDefault = obj.result.data.is_default;
+		}
+		this.updateView();
+	}
+	
+	public function handleFault(obj:Object):void
+	{
+		Alert.show("Error occurred: " + obj.fault.faultString, "More problems..");
+	}
   }
 }

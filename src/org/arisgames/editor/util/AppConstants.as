@@ -51,7 +51,8 @@ package org.arisgames.editor.util
     public static const DYNAMICEVENT_CLOSEQUESTSMAP:String = "CloseQuestsMap";
     public static const DYNAMICEVENT_REFRESHDATAINQUESTSEDITOR:String = "RefreshDataInQuestsEditor";
     public static const DYNAMICEVENT_OPENQUESTSEDITOR:String = "OpenQuestsEditor";
-    public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
+	public static const DYNAMICEVENT_CLOSEQUESTSEDITOR:String = "CloseQuestsEditor";
+	public static const DYNAMICEVENT_CLOSEQUESTEDITOR:String = "CloseQuestEditor";
     public static const DYNAMICEVENT_CLOSESPAWNABLESEDITOR:String = "CloseSpawnablesEditor";
     public static const DYNAMICEVENT_CLOSEFOUNTAINEDITOR:String = "CloseFountainEditor";
     public static const DYNAMICEVENT_OPENWEBHOOKSEDITOR:String = "OpenWebHooksEditor";

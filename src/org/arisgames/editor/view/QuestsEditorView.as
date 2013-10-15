@@ -68,7 +68,7 @@ package org.arisgames.editor.view
         q.completeMediaId        = obj.result.data.list.getItemAt(i).complete_media_id;
         q.activeIconMediaId      = obj.result.data.list.getItemAt(i).active_icon_media_id;
         q.completeIconMediaId    = obj.result.data.list.getItemAt(i).complete_icon_media_id;
-        q.fullScreenNotification = obj.result.data.list.getItemAt(i).full_screen_notify;
+        q.activeNotifFullScreen  = obj.result.data.list.getItemAt(i).full_screen_notify;
         q.index = i;
         if(q.index != obj.result.data.list.getItemAt(i).sort_index)
           AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
@@ -81,9 +81,8 @@ package org.arisgames.editor.view
     public function handleQuestSelected(evt:Event):void
     {
       var questEditor:QuestEditorMX = new QuestEditorMX();
-      this.parent.addChild(questEditor);
-      questEditor.validateNow();
-	  Alert.show("WOW","HUZZAH");
+	  questEditor.setQuest(quests.getItemAt(dg.selectedIndex) as Quest);
+	  questEditor.validateNow();
 
       PopUpManager.addPopUp(questEditor, AppUtils.getInstance().getMainView(), true);
       PopUpManager.centerPopUp(questEditor);

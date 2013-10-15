@@ -5,9 +5,10 @@ package org.arisgames.editor.view
 
   import mx.containers.Panel;
   import mx.controls.Alert;
+  import mx.controls.TextInput;
+  import mx.controls.TextArea;
   import mx.controls.Button;
-  import mx.controls.DataGrid;
-  import mx.events.DataGridEvent;
+  import mx.controls.ComboBox;
   import mx.events.DynamicEvent;
   import mx.events.ListEvent;
   import mx.events.FlexEvent;
@@ -25,11 +26,33 @@ package org.arisgames.editor.view
 
   public class QuestEditorView extends Panel
   {
-    [Bindable] public var quest:Quest;
+    public var quest:Quest;
+	
+	[Bindable] public var questname:TextInput;
 
-    [Bindable] public var dg:DataGrid;
-    [Bindable] public var addQuestButton:Button;
-    [Bindable] public var closeButton:Button;
+	[Bindable] public var activeMedia:MediaPickerMX;
+	[Bindable] public var activeIconMedia:MediaPickerMX;
+	[Bindable] public var activeNotifMedia:MediaPickerMX;
+	[Bindable] public var completeMedia:MediaPickerMX;
+	[Bindable] public var completeIconMedia:MediaPickerMX;
+	[Bindable] public var completeNotifMedia:MediaPickerMX;
+	
+	[Bindable] public var activedesc:TextArea;
+	[Bindable] public var completedesc:TextArea;
+	[Bindable] public var activenotifdesc:TextArea;
+	[Bindable] public var completenotifdesc:TextArea;
+
+	[Bindable] public var newnotiftype:ComboBox;
+	[Bindable] public var completenotiftype:ComboBox;
+	[Bindable] public var activegofunc:ComboBox;
+	[Bindable] public var completegofunc:ComboBox;
+	[Bindable] public var activenotifgofunc:ComboBox;
+	[Bindable] public var completenotifgofunc:ComboBox;
+	[Bindable] public var activenotifshowdismiss:ComboBox;
+	[Bindable] public var completenotifshowdismiss:ComboBox;
+	
+	[Bindable] public var saveButton:Button;
+	[Bindable] public var closeButton:Button;
 
     public function QuestEditorView()
     {
@@ -39,24 +62,99 @@ package org.arisgames.editor.view
 
     private function handleInit(event:FlexEvent):void
     {
-      closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
+		closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
+		saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
     }
+	
+	public function setQuest(q:Quest):void
+	{
+		quest = q;
+		this.renderData();
+	}
+	
+	private function renderData():void
+	{
+		Alert.show("HI");
+		//questname.text = quest.title;
+		
+		/*
+		activeMedia.setMediaId(quest.activeMediaId);
+		activeIconMedia.setMediaId(quest.activeIconMediaId);
+		activeNotifMedia.setMediaId(quest.activeNotifMediaId);
+		completeMedia.setMediaId(quest.completeMediaId);
+		completeIconMedia.setMediaId(quest.completeIconMediaId);
+		completeNotifMedia.setMediaId(quest.completeNotifMediaId);
+		
+		activedesc.text = quest.activeText;
+		completedesc.text = quest.completeText;
+		activenotifdesc.text = quest.activeNotifText;
+		completenotifdesc.text = quest.completeNotifText;
+		*/
+		
+		/*
+		newnotiftype.selectedIndex = quest.activeNotifFullScreen as int;
+		completenotiftype.selectedIndex = quest.completeNotifFullScreen as int;
+		
+		activegofunc.selectedItem = quest.activeGoFunc;
+		completegofunc.selectedItem = quest.completeGoFunc;
+		activenotifgofunc.selectedItem = quest.activeNotifGoFunc;
+		completenotifgofunc.selectedItem = quest.completeNotifGoFunc;
+		
+		activenotifshowdismiss.selectedIndex = quest.activeNotifShowDismiss as int;
+		completenotifshowdismiss.selectedIndex = quest.completeNotifShowDismiss as int;
+		*/
+	}
 
 	public function didSelectMediaItem(picker:MediaPickerMX, m:Media):void
 	{
+		//Don't immediately do anything
+	}
+	
+	private function saveQuest():void
+	{
+		quest.title = questname.text;
+
+		quest.activeMediaId = activeMedia.media.mediaId;
+		quest.activeIconMediaId = activeIconMedia.media.mediaId;
+		quest.activeNotifMediaId = activeNotifMedia.media.mediaId;
+		quest.completeMediaId = completeMedia.media.mediaId;
+		quest.completeIconMediaId = completeIconMedia.media.mediaId;
+		quest.completeNotifMediaId = completeNotifMedia.media.mediaId;
 		
+		quest.activeText = activedesc.text;
+		quest.completeText = completedesc.text;
+		quest.activeNotifText = activenotifdesc.text;
+		quest.completeNotifText = completenotifdesc.text;
+		
+		quest.activeNotifFullScreen = newnotiftype.value;
+		quest.completeNotifFullScreen = completenotiftype.value;
+		
+		quest.activeGoFunc = activegofunc.value as String;
+		quest.completeGoFunc = completegofunc.value as String;
+		quest.activeNotifGoFunc = activenotifgofunc.value as String;
+		quest.completeNotifGoFunc = completenotifgofunc.value as String;
+		
+		quest.activeNotifShowDismiss = activenotifshowdismiss.value;
+		quest.completeNotifShowDismiss = completenotifshowdismiss.value;
+		
+		AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quest, new Responder(handleUpdateQuestSave, handleFault));
 	}
 
     private function handleUpdateQuestSave(obj:Object):void
     {
       if(obj.result.returnCode != 0) Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Updating Quest");
+	  PopUpManager.removePopUp(this);
     }
 
+	private function handleSaveButton(evt:MouseEvent):void
+	{
+		this.saveQuest();
+	}
+	
     private function handleCloseButton(evt:MouseEvent):void
     {
-      var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR);
-      AppDynamicEventManager.getInstance().dispatchEvent(de);
-    }
+		PopUpManager.removePopUp(this);
+	}
 
     public function handleFault(obj:Object):void
     {

@@ -18,7 +18,7 @@
 
     <mx:VBox>
       <mx:Label text="Quest Name" />
-      <mx:TextInput id="questname" width="350"/>
+      <mx:TextInput id="questname" width="350" />
     </mx:VBox>
 
     <mx:HBox>
@@ -148,6 +148,13 @@
     </mx:FormItem>
 
   </mx:Form>
+	
+	<mx:HBox>
+		<mx:Button id="saveButton" label="Save"/>
+		<mx:Button id="closeButton" label="Close"/>
+	</mx:HBox>
+
+
 
 </v:QuestEditorView>
 

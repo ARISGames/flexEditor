@@ -577,7 +577,7 @@ public class AppUtils
 			quest.completeMediaId = data.complete_media_id;
 			quest.activeIconMediaId = data.active_icon_media_id;
 			quest.completeIconMediaId = data.complete_icon_media_id;
-			quest.fullScreenNotification = data.full_screen_notify;
+			quest.activeNotifFullScreen = data.full_screen_notify;
 			return quest;
 		}
 		else
