@@ -972,7 +972,7 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 	public function saveQuest(gid:Number, quest:Quest, resp:IResponder):void
 	{
 		var l:Object;
-		if (isNaN(quest.questId))
+		if(!quest.questId)
 		{
 			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
 			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.activeNotifFullScreen ? 1 : 0, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.activeGoFunc, quest.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());

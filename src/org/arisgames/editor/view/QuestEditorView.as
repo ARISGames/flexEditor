@@ -2,23 +2,23 @@ package org.arisgames.editor.view
 {
   import flash.events.Event;
   import flash.events.MouseEvent;
-
+  
+  import mx.collections.ArrayCollection;
   import mx.containers.Panel;
   import mx.controls.Alert;
-  import mx.controls.TextInput;
-  import mx.controls.TextArea;
   import mx.controls.Button;
   import mx.controls.ComboBox;
+  import mx.controls.TextArea;
+  import mx.controls.TextInput;
   import mx.events.DynamicEvent;
-  import mx.events.ListEvent;
   import mx.events.FlexEvent;
+  import mx.events.ListEvent;
   import mx.managers.PopUpManager;
   import mx.rpc.Responder;
-  import mx.collections.ArrayCollection;
-
-  import org.arisgames.editor.data.arisserver.Quest;
-  import org.arisgames.editor.data.arisserver.Media;
+  
   import org.arisgames.editor.components.MediaPickerMX;
+  import org.arisgames.editor.data.arisserver.Media;
+  import org.arisgames.editor.data.arisserver.Quest;
   import org.arisgames.editor.models.GameModel;
   import org.arisgames.editor.services.AppServices;
   import org.arisgames.editor.util.AppConstants;
@@ -72,6 +72,10 @@ package org.arisgames.editor.view
 		this.renderData();
 	}
 	
+	private function firstUpperCase(str:String):String //small helper func
+	{
+		return str.substr(0, 1).toUpperCase()+str.substr(1, str.length).toLowerCase();
+	}
 	private function renderData():void
 	{
 		questname.text = quest.title;
@@ -83,21 +87,21 @@ package org.arisgames.editor.view
 		completeIconMedia.setMediaId(quest.completeIconMediaId);
 		completeNotifMedia.setMediaId(quest.completeNotifMediaId);
 		
-		activedesc.text = quest.activeText;
-		completedesc.text = quest.completeText;
-		activenotifdesc.text = quest.activeNotifText;
+		activedesc.text        = quest.activeText;
+		completedesc.text      = quest.completeText;
+		activenotifdesc.text   = quest.activeNotifText;
 		completenotifdesc.text = quest.completeNotifText;
 		
-		newnotiftype.selectedIndex = quest.activeNotifFullScreen as int;
-		completenotiftype.selectedIndex = quest.completeNotifFullScreen as int;
+		newnotiftype.selectedIndex      = quest.activeNotifFullScreen + 0;
+		completenotiftype.selectedIndex = quest.completeNotifFullScreen + 0;
 		
-		activegofunc.selectedItem = quest.activeGoFunc;
-		completegofunc.selectedItem = quest.completeGoFunc;
-		activenotifgofunc.selectedItem = quest.activeNotifGoFunc;
-		completenotifgofunc.selectedItem = quest.completeNotifGoFunc;
+		activegofunc.selectedItem        = firstUpperCase(quest.activeGoFunc);
+		completegofunc.selectedItem      = firstUpperCase(quest.completeGoFunc);
+		activenotifgofunc.selectedItem   = firstUpperCase(quest.activeNotifGoFunc);
+		completenotifgofunc.selectedItem = firstUpperCase(quest.completeNotifGoFunc);
 		
-		activenotifshowdismiss.selectedIndex = quest.activeNotifShowDismiss as int;
-		completenotifshowdismiss.selectedIndex = quest.completeNotifShowDismiss as int;
+		activenotifshowdismiss.selectedIndex   = !quest.activeNotifShowDismiss + 0;
+		completenotifshowdismiss.selectedIndex = !quest.completeNotifShowDismiss + 0;
 	}
 
 	public function didSelectMediaItem(picker:MediaPickerMX, m:Media):void
@@ -121,16 +125,16 @@ package org.arisgames.editor.view
 		quest.activeNotifText   = activenotifdesc.text;
 		quest.completeNotifText = completenotifdesc.text;
 		
-		quest.activeNotifFullScreen   = newnotiftype.value;
-		quest.completeNotifFullScreen = completenotiftype.value;
+		quest.activeNotifFullScreen   = newnotiftype.selectedIndex && true;
+		quest.completeNotifFullScreen = completenotiftype.selectedIndex && true;
 		
-		quest.activeGoFunc        = activegofunc.value as String;
-		quest.completeGoFunc      = completegofunc.value as String;
-		quest.activeNotifGoFunc   = activenotifgofunc.value as String;
-		quest.completeNotifGoFunc = completenotifgofunc.value as String;
+		quest.activeGoFunc        = (activegofunc.value as String).toUpperCase();
+		quest.completeGoFunc      = (completegofunc.value as String).toUpperCase();
+		quest.activeNotifGoFunc   = (activenotifgofunc.value as String).toUpperCase();
+		quest.completeNotifGoFunc = (completenotifgofunc.value as String).toUpperCase();
 		
-		quest.activeNotifShowDismiss   = activenotifshowdismiss.value;
-		quest.completeNotifShowDismiss = completenotifshowdismiss.value;
+		quest.activeNotifShowDismiss   = !(activenotifshowdismiss.selectedIndex && true);   //(inverse because 'yes' is first)
+		quest.completeNotifShowDismiss = !(completenotifshowdismiss.selectedIndex && true); //(inverse because 'yes' is first)
 		
 		AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quest, new Responder(handleUpdateQuestSave, handleFault));
 	}

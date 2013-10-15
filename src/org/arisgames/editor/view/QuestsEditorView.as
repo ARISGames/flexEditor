@@ -168,18 +168,15 @@ package org.arisgames.editor.view
     {
       if(obj.result.returnCode != 0) { Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Adding / Save Quest"); return; }
 
-      var qid:Number = obj.result.data;
-
       var q:Quest = new Quest();
-      q.questId = qid;
+      q.questId = obj.result.data;
       q.index = quests.length;
       quests.addItem(q);
     }
 
     private function handleCloseButton(evt:MouseEvent):void
     {
-      var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR);
-      AppDynamicEventManager.getInstance().dispatchEvent(de);
+      AppDynamicEventManager.getInstance().dispatchEvent(new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEQUESTSEDITOR));
     }
 
     public function handleFault(obj:Object):void
