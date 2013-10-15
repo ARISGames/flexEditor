@@ -331,6 +331,8 @@ public class RequirementsEditorView extends Panel
     private function handleCloseButton(evt:MouseEvent):void
     {
         trace("Close button clicked...");
+		PopUpManager.removePopUp(this);
+
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR);
         AppDynamicEventManager.getInstance().dispatchEvent(de);
     }

@@ -150,11 +150,14 @@
   </mx:Form>
 	
 	<mx:HBox>
+		<mx:Button id="showRequirementsButton" label="Requirements To Show"/>
+		<mx:Button id="completeRequirementsButton" label="Requirements To Complete"/>
+	</mx:HBox>
+	
+	<mx:ControlBar width="100%" horizontalAlign="right">
 		<mx:Button id="saveButton" label="Save"/>
 		<mx:Button id="closeButton" label="Close"/>
-	</mx:HBox>
-
-
+	</mx:ControlBar>
 
 </v:QuestEditorView>
 

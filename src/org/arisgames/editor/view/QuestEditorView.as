@@ -21,6 +21,7 @@ package org.arisgames.editor.view
   import org.arisgames.editor.data.arisserver.Quest;
   import org.arisgames.editor.models.GameModel;
   import org.arisgames.editor.services.AppServices;
+  import org.arisgames.editor.util.AppUtils;
   import org.arisgames.editor.util.AppConstants;
   import org.arisgames.editor.util.AppDynamicEventManager;
 
@@ -51,6 +52,9 @@ package org.arisgames.editor.view
 	[Bindable] public var activenotifshowdismiss:ComboBox;
 	[Bindable] public var completenotifshowdismiss:ComboBox;
 	
+	[Bindable] public var showRequirementsButton:Button;
+	[Bindable] public var completeRequirementsButton:Button;
+	
 	[Bindable] public var saveButton:Button;
 	[Bindable] public var closeButton:Button;
 
@@ -64,6 +68,8 @@ package org.arisgames.editor.view
     {
 		closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
 		saveButton.addEventListener(MouseEvent.CLICK, handleSaveButton);
+		showRequirementsButton.addEventListener(MouseEvent.CLICK, handleShowRequirementsButton);
+		completeRequirementsButton.addEventListener(MouseEvent.CLICK, handleCompleteRequirementsButton);
     }
 	
 	public function setQuest(q:Quest):void
@@ -109,6 +115,28 @@ package org.arisgames.editor.view
 		//Don't immediately do anything
 	}
 	
+	public function handleShowRequirementsButton(evt:MouseEvent):void
+	{
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTDISPLAY);
+	}
+	
+	public function handleCompleteRequirementsButton(evt:MouseEvent):void
+	{
+		this.openRequirementsEditor(AppConstants.REQUIREMENTTYPE_QUESTCOMPLETE);
+	}
+	
+	private function openRequirementsEditor(requirementType:String):void
+	{
+		var requirementsEditor:RequirementsEditorMX = new RequirementsEditorMX();
+		requirementsEditor.validateNow();
+		
+		PopUpManager.addPopUp(requirementsEditor, AppUtils.getInstance().getMainView(), true);
+		PopUpManager.centerPopUp(requirementsEditor);
+		requirementsEditor.setVisible(true);
+		requirementsEditor.includeInLayout = true;
+		requirementsEditor.setRequirementTypeAndId(requirementType, quest.questId);
+	}
+
 	private function saveQuest():void
 	{
 		quest.title = questname.text;
