@@ -40,6 +40,9 @@ package org.arisgames.editor.view
     private function handleInit(event:FlexEvent):void
     {
       quests = new ArrayCollection();
+	  
+	  AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEQUESTEDITOR, handleQuestClosed);
+
 
       closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
       addQuestButton.addEventListener(MouseEvent.CLICK, handleAddQuestButton);
@@ -131,6 +134,11 @@ package org.arisgames.editor.view
       quests.addItemAt(quests.removeItemAt(sel), sel+1);
       quests.refresh();
     }
+	
+	private function handleQuestClosed(evt:Event):void
+	{		
+		this.reloadTheQuests();
+	}
 
     public function handleDeleteButtonClick(evt:MouseEvent):void
     {
