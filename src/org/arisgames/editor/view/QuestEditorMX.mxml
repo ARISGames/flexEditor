@@ -28,7 +28,7 @@
     </mx:HBox>
     <mx:HBox>
       <mx:VBox><mx:Label text="Complete Media" /><c:MediaPickerMX id="completeMedia" delegate="{this}"/></mx:VBox>
-      <mx:VBox><mx:Label text="Complete Icon Media" /><c:MediaPickerMX id="completIconMedia" delegate="{this}"/></mx:VBox>
+      <mx:VBox><mx:Label text="Complete Icon Media" /><c:MediaPickerMX id="completeIconMedia" delegate="{this}"/></mx:VBox>
       <mx:VBox><mx:Label text="Complete Notif Media" /><c:MediaPickerMX id="completeNotifMedia" delegate="{this}"/></mx:VBox>
     </mx:HBox>
 

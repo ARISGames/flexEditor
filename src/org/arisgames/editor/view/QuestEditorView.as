@@ -74,10 +74,8 @@ package org.arisgames.editor.view
 	
 	private function renderData():void
 	{
-		Alert.show("HI");
-		//questname.text = quest.title;
+		questname.text = quest.title;
 		
-		/*
 		activeMedia.setMediaId(quest.activeMediaId);
 		activeIconMedia.setMediaId(quest.activeIconMediaId);
 		activeNotifMedia.setMediaId(quest.activeNotifMediaId);
@@ -89,9 +87,7 @@ package org.arisgames.editor.view
 		completedesc.text = quest.completeText;
 		activenotifdesc.text = quest.activeNotifText;
 		completenotifdesc.text = quest.completeNotifText;
-		*/
 		
-		/*
 		newnotiftype.selectedIndex = quest.activeNotifFullScreen as int;
 		completenotiftype.selectedIndex = quest.completeNotifFullScreen as int;
 		
@@ -102,7 +98,6 @@ package org.arisgames.editor.view
 		
 		activenotifshowdismiss.selectedIndex = quest.activeNotifShowDismiss as int;
 		completenotifshowdismiss.selectedIndex = quest.completeNotifShowDismiss as int;
-		*/
 	}
 
 	public function didSelectMediaItem(picker:MediaPickerMX, m:Media):void
@@ -114,36 +109,42 @@ package org.arisgames.editor.view
 	{
 		quest.title = questname.text;
 
-		quest.activeMediaId = activeMedia.media.mediaId;
-		quest.activeIconMediaId = activeIconMedia.media.mediaId;
-		quest.activeNotifMediaId = activeNotifMedia.media.mediaId;
-		quest.completeMediaId = completeMedia.media.mediaId;
-		quest.completeIconMediaId = completeIconMedia.media.mediaId;
-		quest.completeNotifMediaId = completeNotifMedia.media.mediaId;
+		if(activeMedia.media)        quest.activeMediaId        = activeMedia.media.mediaId;        else quest.activeMediaId        = 0;
+		if(activeIconMedia.media)    quest.activeIconMediaId    = activeIconMedia.media.mediaId;    else quest.activeIconMediaId    = 0;
+		if(activeNotifMedia.media)   quest.activeNotifMediaId   = activeNotifMedia.media.mediaId;   else quest.activeNotifMediaId   = 0;
+		if(completeMedia.media)      quest.completeMediaId      = completeMedia.media.mediaId;      else quest.completeMediaId      = 0;
+		if(completeIconMedia.media)  quest.completeIconMediaId  = completeIconMedia.media.mediaId;  else quest.completeIconMediaId  = 0;
+		if(completeNotifMedia.media) quest.completeNotifMediaId = completeNotifMedia.media.mediaId; else quest.completeNotifMediaId = 0;
 		
-		quest.activeText = activedesc.text;
-		quest.completeText = completedesc.text;
-		quest.activeNotifText = activenotifdesc.text;
+		quest.activeText        = activedesc.text;
+		quest.completeText      = completedesc.text;
+		quest.activeNotifText   = activenotifdesc.text;
 		quest.completeNotifText = completenotifdesc.text;
 		
-		quest.activeNotifFullScreen = newnotiftype.value;
+		quest.activeNotifFullScreen   = newnotiftype.value;
 		quest.completeNotifFullScreen = completenotiftype.value;
 		
-		quest.activeGoFunc = activegofunc.value as String;
-		quest.completeGoFunc = completegofunc.value as String;
-		quest.activeNotifGoFunc = activenotifgofunc.value as String;
+		quest.activeGoFunc        = activegofunc.value as String;
+		quest.completeGoFunc      = completegofunc.value as String;
+		quest.activeNotifGoFunc   = activenotifgofunc.value as String;
 		quest.completeNotifGoFunc = completenotifgofunc.value as String;
 		
-		quest.activeNotifShowDismiss = activenotifshowdismiss.value;
+		quest.activeNotifShowDismiss   = activenotifshowdismiss.value;
 		quest.completeNotifShowDismiss = completenotifshowdismiss.value;
 		
 		AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quest, new Responder(handleUpdateQuestSave, handleFault));
+	}
+	
+	private function closeSelf():void
+	{
+		AppDynamicEventManager.getInstance().dispatchEvent(new DynamicEvent(AppConstants.DYNAMICEVENT_CLOSEQUESTEDITOR));
+		PopUpManager.removePopUp(this);
 	}
 
     private function handleUpdateQuestSave(obj:Object):void
     {
       if(obj.result.returnCode != 0) Alert.show("Error Was: " + obj.result.returnCodeDescription, "Error While Updating Quest");
-	  PopUpManager.removePopUp(this);
+	  this.closeSelf();
     }
 
 	private function handleSaveButton(evt:MouseEvent):void
@@ -153,7 +154,7 @@ package org.arisgames.editor.view
 	
     private function handleCloseButton(evt:MouseEvent):void
     {
-		PopUpManager.removePopUp(this);
+		this.closeSelf();
 	}
 
     public function handleFault(obj:Object):void

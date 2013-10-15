@@ -81,13 +81,13 @@ package org.arisgames.editor.view
     public function handleQuestSelected(evt:Event):void
     {
       var questEditor:QuestEditorMX = new QuestEditorMX();
-	  questEditor.setQuest(quests.getItemAt(dg.selectedIndex) as Quest);
 	  questEditor.validateNow();
 
       PopUpManager.addPopUp(questEditor, AppUtils.getInstance().getMainView(), true);
       PopUpManager.centerPopUp(questEditor);
       questEditor.setVisible(true);
       questEditor.includeInLayout = true;  
+	  questEditor.setQuest(quests.getItemAt(dg.selectedIndex) as Quest);
     }
 
     public function handleQuestSortUp(evt:Event):void
