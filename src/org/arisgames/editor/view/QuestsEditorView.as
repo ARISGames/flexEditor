@@ -63,16 +63,34 @@ package org.arisgames.editor.view
       for(var i:Number = 0; i < obj.result.data.list.length; i++)
       {
         var q:Quest = new Quest();
-        q.questId                = obj.result.data.list.getItemAt(i).quest_id;
-        q.title                  = obj.result.data.list.getItemAt(i).name;
-        q.activeText             = obj.result.data.list.getItemAt(i).description;
-        q.completeText           = obj.result.data.list.getItemAt(i).text_when_complete;
-        q.activeMediaId          = obj.result.data.list.getItemAt(i).active_media_id;
-        q.completeMediaId        = obj.result.data.list.getItemAt(i).complete_media_id;
-        q.activeIconMediaId      = obj.result.data.list.getItemAt(i).active_icon_media_id;
-        q.completeIconMediaId    = obj.result.data.list.getItemAt(i).complete_icon_media_id;
-        q.activeNotifFullScreen  = obj.result.data.list.getItemAt(i).full_screen_notify;
-        q.index = i;
+		
+		q.questId = obj.result.data.list.getItemAt(i).quest_id;
+		q.title = obj.result.data.list.getItemAt(i).name;
+		
+		q.activeMediaId = obj.result.data.list.getItemAt(i).active_media_id;
+		q.activeIconMediaId = obj.result.data.list.getItemAt(i).active_icon_media_id;
+		q.activeNotifMediaId = obj.result.data.list.getItemAt(i).active_notification_media_id;
+		q.completeMediaId = obj.result.data.list.getItemAt(i).complete_media_id;
+		q.completeIconMediaId = obj.result.data.list.getItemAt(i).complete_icon_media_id;
+		q.completeNotifMediaId = obj.result.data.list.getItemAt(i).complete_notification_media_id;
+		
+		q.activeText = obj.result.data.list.getItemAt(i).description;
+		q.completeText = obj.result.data.list.getItemAt(i).text_when_complete;
+		q.activeNotifText = obj.result.data.list.getItemAt(i).description_notification;
+		q.completeNotifText = obj.result.data.list.getItemAt(i).text_when_complete_notification;
+		
+		q.activeNotifFullScreen = obj.result.data.list.getItemAt(i).full_screen_notify;
+		q.completeNotifFullScreen = obj.result.data.list.getItemAt(i).complete_full_screen_notify
+		
+		q.activeGoFunc = obj.result.data.list.getItemAt(i).go_function;
+		q.completeGoFunc = obj.result.data.list.getItemAt(i).complete_go_function;
+		q.activeNotifGoFunc = obj.result.data.list.getItemAt(i).notif_go_function;
+		q.completeNotifGoFunc = obj.result.data.list.getItemAt(i).complete_notif_go_function;
+		
+		q.activeNotifShowDismiss = obj.result.data.list.getItemAt(i).active_notif_show_dismiss;
+		q.completeNotifShowDismiss = obj.result.data.list.getItemAt(i).complete_notif_show_dismiss;
+		
+		q.index = i;
         if(q.index != obj.result.data.list.getItemAt(i).sort_index)
           AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, q, new Responder(handleUpdateQuestSave, handleFault));
 

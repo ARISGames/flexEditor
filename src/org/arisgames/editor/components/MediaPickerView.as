@@ -56,8 +56,8 @@ package org.arisgames.editor.components
 	
 	public function setMediaId(mid:Number):void
 	{
-		if(mid = 0) setMedia(null);
-		if(media && media.mediaId != mid)
+		if(mid == 0) setMedia(null);
+		if(!media || media.mediaId != mid)
 			AppServices.getInstance().getMediaByGameIdAndMediaId(GameModel.getInstance().game.gameId, mid, new Responder(handleLoadingOfMedia, handleFault));
 	}
 	

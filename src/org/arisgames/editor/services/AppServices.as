@@ -975,12 +975,24 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		if(!quest.questId)
 		{
 			trace("This Quest doesn't have an Id, so call Create Quest function On Remote Server..");
-			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.activeText, quest.completeText, quest.activeNotifFullScreen ? 1 : 0, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.activeGoFunc, quest.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
+			l = AppDAO.getInstance().getQuestsServer().createQuest(gid, quest.title, quest.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		}
 		else
 		{
 			trace("This Quest has an Id (" + quest.questId + "), so call Update Quest function on Remote Server.");
-			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, quest.title, quest.activeText, quest.completeText, quest.activeNotifFullScreen ? 1 : 0, quest.activeMediaId, quest.completeMediaId, quest.activeIconMediaId, quest.completeIconMediaId, quest.activeGoFunc, quest.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
+			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, 
+				quest.title, 
+				quest.activeText,                     quest.completeText, 
+				quest.activeNotifText,                quest.completeNotifText, 
+				quest.activeMediaId,                  quest.completeMediaId, 
+				quest.activeIconMediaId,              quest.completeIconMediaId, 
+				quest.activeNotifMediaId,             quest.completeNotifMediaId,
+				quest.activeGoFunc,                   quest.completeGoFunc,
+				quest.activeNotifGoFunc,              quest.completeNotifGoFunc,
+				quest.activeNotifFullScreen  ? 1 : 0, quest.completeNotifFullScreen  ? 1 : 0,
+				quest.activeNotifShowDismiss ? 1 : 0, quest.completeNotifShowDismiss ? 1 : 0,
+				quest.index,
+				SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		}
 		l.addResponder(resp);
 	}
