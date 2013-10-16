@@ -68,7 +68,7 @@ package org.arisgames.editor.components
       PopUpManager.removePopUp(this);
     }
 
-    public function didUploadMedia(uploader:ItemEditorMediaPickerUploadFormMX, m:Media):void
+    public function didUploadMedia(uploader:MediaPickerUploadFormMX, m:Media):void
     {
       if(delegate.hasOwnProperty("didSelectMediaItem"))
         delegate.didSelectMediaItem(this, m);
@@ -126,15 +126,20 @@ package org.arisgames.editor.components
       rootXML.appendChild(iconXML);
 	}
 
+		private var uploadselectcount:int = 0;//HACK
     private function onNodeSelected(event:TreeBrowserEvent):void
 	{		
       if(event.isBranch) selectButton.enabled = false;	
       else if(event.item.@type == "separator") selectButton.enabled = false;
       else if(event.item.@type == "uploadButton")
       {
+		  uploadselectcount++;//HACK
+		  if(uploadselectcount%2 == 0)//HACK
+		  {//HACK
         selectButton.enabled = false;
         this.displayMediaUploader();
         PopUpManager.removePopUp(this);
+		  }//HACK
       }
       else selectButton.enabled = true;
     }

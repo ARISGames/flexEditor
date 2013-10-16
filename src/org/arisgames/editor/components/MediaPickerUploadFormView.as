@@ -228,13 +228,13 @@ package org.arisgames.editor.components
 
       m.mediaId = obj.result.data.media_id;
       m.name = obj.result.data.name;
-      m.type = obj.result.data.type;
+	m.type = obj.result.data.type;
       m.urlPath = obj.result.data.url_path;
-      m.fileName = obj.result.data.file_name;
+		m.fileName = obj.result.data.file_name;
       m.isDefault = obj.result.data.is_default;
 
       if(delegate.hasOwnProperty("didUploadMedia"))
-        delegate.didUploadMedia(this, m);
+		delegate.didUploadMedia(this, m);
 
       PopUpManager.removePopUp(this);
     }

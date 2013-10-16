@@ -110,6 +110,9 @@ public class GameModel
 		if(obj.result.data != null){
 			for (var j:Number = 0; j < obj.result.data.list.length; j++)
 			{
+				//HACK FOR FAST EDITOR
+				//if(AppUtils.getContentTypeValueByName(obj.result.data.list.getItemAt(j).type) == AppConstants.CONTENTTYPE_PLAYER_NOTE_VAL) continue;
+
 				dup = false;
 				var pm:PlaceMark = new PlaceMark();
 				pm.id = obj.result.data.list.getItemAt(j).location_id;
