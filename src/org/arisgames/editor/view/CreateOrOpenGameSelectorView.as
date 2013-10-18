@@ -89,37 +89,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 
 		var g:Game;
 		var j:Number;
-		if(obj.result.data.list)
-		{
-        	for (j = 0; j < obj.result.data.list.length; j++)
-        	{
-            	g = new Game();
-            	g.gameId = obj.result.data.list.getItemAt(j).game_id;
-            	g.name = obj.result.data.list.getItemAt(j).name;
-            	g.description = obj.result.data.list.getItemAt(j).description;
-				g.iconMediaId = obj.result.data.list.getItemAt(j).icon_media_id;
-				g.mediaId = obj.result.data.list.getItemAt(j).media_id;
-				g.pcMediaId = obj.result.data.list.getItemAt(j).pc_media_id;
-				g.introNodeId = obj.result.data.list.getItemAt(j).on_launch_node_id;
-				g.completeNodeId = obj.result.data.list.getItemAt(j).game_complete_node_id;
-				g.noteShareToMap = obj.result.data.list.getItemAt(j).allow_share_note_to_map;
-				g.noteShareToBook = obj.result.data.list.getItemAt(j).allow_share_note_to_book;
-				g.playerCreateComments = obj.result.data.list.getItemAt(j).allow_note_comments;
-				g.playerLikesNotes = obj.result.data.list.getItemAt(j).allow_note_likes;
-				g.playerCreateTags = obj.result.data.list.getItemAt(j).allow_player_tags;
-				g.isLocational = obj.result.data.list.getItemAt(j).is_locational;
-				g.readyForPublic = obj.result.data.list.getItemAt(j).ready_for_public;
-				g.inventoryCap = obj.result.data.list.getItemAt(j).inventory_weight_cap;
-				g.allowtrading = obj.result.data.list.getItemAt(j).allow_trading;
-				g.showPlayerOnMap = obj.result.data.list.getItemAt(j).show_player_location;
-				g.allLocQT = obj.result.data.list.getItemAt(j).full_quick_travel;
-				g.mapType = obj.result.data.list.getItemAt(j).map_type;
-				
-				usersGames.addItem(g);
-        	}
-		}
-		else
-		{
+
 			for (j = 0; j < obj.result.data.length; j++)
 			{
 				g = new Game();
@@ -131,23 +101,21 @@ public class CreateOrOpenGameSelectorView extends Panel
 				g.pcMediaId = obj.result.data[j].pc_media_id;
 				g.introNodeId = obj.result.data[j].on_launch_node_id;
 				g.completeNodeId = obj.result.data[j].game_complete_node_id;
-				g.noteShareToMap = obj.result.data[j].allow_share_note_to_map;
-				g.noteShareToBook = obj.result.data[j].allow_share_note_to_book;
-				g.playerCreateComments = obj.result.data[j].allow_note_comments;
-				g.playerLikesNotes = obj.result.data[j].allow_note_likes;
-				g.playerCreateTags = obj.result.data[j].allow_player_tags;
-				g.isLocational = obj.result.data[j].is_locational;
-				g.readyForPublic = obj.result.data[j].ready_for_public;
+				g.noteShareToMap = obj.result.data[j].allow_share_note_to_map == 1;
+				g.noteShareToBook = obj.result.data[j].allow_share_note_to_book == 1;
+				g.playerCreateComments = obj.result.data[j].allow_note_comments == 1;
+				g.playerLikesNotes = obj.result.data[j].allow_note_likes == 1;
+				g.playerCreateTags = obj.result.data[j].allow_player_tags == 1;
+				g.isLocational = obj.result.data[j].is_locational == 1;
+				g.readyForPublic = obj.result.data[j].ready_for_public == 1;
 				g.inventoryCap = obj.result.data[j].inventory_weight_cap;
-				g.allowtrading = obj.result.data[j].allow_trading;
-				g.showPlayerOnMap = obj.result.data[j].show_player_location;
-				g.allLocQT = obj.result.data[j].full_quick_travel;
+				g.allowtrading = obj.result.data[j].allow_trading == 1;
+				g.showPlayerOnMap = obj.result.data[j].show_player_location == 1;
+				g.allLocQT = obj.result.data[j].full_quick_travel == 1;
 				g.mapType = obj.result.data[j].map_type;
-				
 				usersGames.addItem(g);
 			}	
      	   trace("done loading UsersGames.");
-		}
 	}
 
     private function onCreateButtonClick(evt:MouseEvent):void
