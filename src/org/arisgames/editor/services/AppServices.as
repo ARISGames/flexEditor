@@ -97,7 +97,6 @@ public class AppServices
 			game.playerCreateTags = true;
 			game.playerCreateComments = true;
 			game.playerLikesNotes = true;
-			game.allowtrading = true;
 			game.showPlayerOnMap = true;
 			game.mapType = "STREET";
 			game.allLocQT = false;
@@ -109,7 +108,7 @@ public class AppServices
 																game.pcMediaId, true, //use player pic
 																game.mapType, game.showPlayerOnMap,
 																game.allLocQT,
-																game.inventoryCap, game.allowtrading, 
+																game.inventoryCap, false, 
 																SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		}
 		else
@@ -123,7 +122,7 @@ public class AppServices
 																game.pcMediaId, true, //use player pic
 																game.mapType, game.showPlayerOnMap,
 																(game.allLocQT ? 1 : 0),
-																game.inventoryCap, game.allowtrading, 
+																game.inventoryCap, false, 
 																SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		}
 		r.addResponder(resp);
@@ -238,12 +237,12 @@ public class AppServices
         if (isNaN(item.itemId) || item.itemId == 0)
         {
             trace("This item doesn't have an itemId, so call create Item.");
-			r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.tradeable, item.isAttribute, item.maxQty, item.weight, item.url, item.type, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
+			r = AppDAO.getInstance().getItemServer().createItem(gid, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, false, item.isAttribute, item.maxQty, item.weight, item.url, item.type, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
         }
         else
         {
             trace("This item has an itemId (" + item.itemId + "), so call update Item.");
-			r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, item.tradeable, item.isAttribute, item.maxQty, item.weight, item.url, item.type, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
+			r = AppDAO.getInstance().getItemServer().updateItem(gid, item.itemId, item.name, item.description, item.iconMediaId, item.mediaId, item.dropable, item.destroyable, false, item.isAttribute, item.maxQty, item.weight, item.url, item.type, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
         }
         r.addResponder(resp);
     }

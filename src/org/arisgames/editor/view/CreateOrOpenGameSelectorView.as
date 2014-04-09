@@ -109,7 +109,6 @@ public class CreateOrOpenGameSelectorView extends Panel
 				g.isLocational = obj.result.data[j].is_locational == 1;
 				g.readyForPublic = obj.result.data[j].ready_for_public == 1;
 				g.inventoryCap = obj.result.data[j].inventory_weight_cap;
-				g.allowtrading = obj.result.data[j].allow_trading == 1;
 				g.showPlayerOnMap = obj.result.data[j].show_player_location == 1;
 				g.allLocQT = obj.result.data[j].full_quick_travel == 1;
 				g.mapType = obj.result.data[j].map_type;

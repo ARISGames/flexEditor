@@ -121,10 +121,7 @@
 					<mx:FormItem id="invWeightFI" width="100%" label="Inventory Weight Cap">
 						<mx:NumericStepper id="inventoryCap" width="50" maximum="500000" minimum="0" stepSize="1"/>
 					</mx:FormItem>
-					<mx:FormItem label="Allow trading items">
-						<mx:CheckBox id="allowtradingCb"/>
-					</mx:FormItem>
-					
+
 					<mx:Spacer height="20"/>
 					
 					<mx:FormItem label="Map" fontWeight="bold">
