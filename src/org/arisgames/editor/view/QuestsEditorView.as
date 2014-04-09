@@ -76,19 +76,12 @@ package org.arisgames.editor.view
 		
 		q.activeText = obj.result.data.list.getItemAt(i).description;
 		q.completeText = obj.result.data.list.getItemAt(i).text_when_complete;
-		q.activeNotifText = obj.result.data.list.getItemAt(i).description_notification;
-		q.completeNotifText = obj.result.data.list.getItemAt(i).text_when_complete_notification;
 		
 		q.activeNotifFullScreen = obj.result.data.list.getItemAt(i).full_screen_notify;
 		q.completeNotifFullScreen = obj.result.data.list.getItemAt(i).complete_full_screen_notify
 		
 		q.activeGoFunc = obj.result.data.list.getItemAt(i).go_function;
 		q.completeGoFunc = obj.result.data.list.getItemAt(i).complete_go_function;
-		q.activeNotifGoFunc = obj.result.data.list.getItemAt(i).notif_go_function;
-		q.completeNotifGoFunc = obj.result.data.list.getItemAt(i).complete_notif_go_function;
-		
-		q.activeNotifShowDismiss = obj.result.data.list.getItemAt(i).active_notif_show_dismiss;
-		q.completeNotifShowDismiss = obj.result.data.list.getItemAt(i).complete_notif_show_dismiss;
 		
 		q.index = i;
         if(q.index != obj.result.data.list.getItemAt(i).sort_index)

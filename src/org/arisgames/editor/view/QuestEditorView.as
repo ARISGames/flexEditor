@@ -40,17 +40,11 @@ package org.arisgames.editor.view
 	
 	[Bindable] public var activedesc:TextArea;
 	[Bindable] public var completedesc:TextArea;
-	[Bindable] public var activenotifdesc:TextArea;
-	[Bindable] public var completenotifdesc:TextArea;
 
 	[Bindable] public var newnotiftype:ComboBox;
 	[Bindable] public var completenotiftype:ComboBox;
 	[Bindable] public var activegofunc:ComboBox;
 	[Bindable] public var completegofunc:ComboBox;
-	[Bindable] public var activenotifgofunc:ComboBox;
-	[Bindable] public var completenotifgofunc:ComboBox;
-	[Bindable] public var activenotifshowdismiss:ComboBox;
-	[Bindable] public var completenotifshowdismiss:ComboBox;
 	
 	[Bindable] public var showRequirementsButton:Button;
 	[Bindable] public var completeRequirementsButton:Button;
@@ -95,19 +89,12 @@ package org.arisgames.editor.view
 		
 		activedesc.text        = quest.activeText;
 		completedesc.text      = quest.completeText;
-		activenotifdesc.text   = quest.activeNotifText;
-		completenotifdesc.text = quest.completeNotifText;
 		
 		newnotiftype.selectedIndex      = quest.activeNotifFullScreen + 0;
 		completenotiftype.selectedIndex = quest.completeNotifFullScreen + 0;
 		
 		activegofunc.selectedItem        = firstUpperCase(quest.activeGoFunc);
 		completegofunc.selectedItem      = firstUpperCase(quest.completeGoFunc);
-		activenotifgofunc.selectedItem   = firstUpperCase(quest.activeNotifGoFunc);
-		completenotifgofunc.selectedItem = firstUpperCase(quest.completeNotifGoFunc);
-		
-		activenotifshowdismiss.selectedIndex   = !quest.activeNotifShowDismiss + 0;
-		completenotifshowdismiss.selectedIndex = !quest.completeNotifShowDismiss + 0;
 	}
 
 	public function didSelectMediaItem(picker:MediaPickerMX, m:Media):void
@@ -150,19 +137,12 @@ package org.arisgames.editor.view
 		
 		quest.activeText        = activedesc.text;
 		quest.completeText      = completedesc.text;
-		quest.activeNotifText   = activenotifdesc.text;
-		quest.completeNotifText = completenotifdesc.text;
 		
 		quest.activeNotifFullScreen   = newnotiftype.selectedIndex && true;
 		quest.completeNotifFullScreen = completenotiftype.selectedIndex && true;
 		
 		quest.activeGoFunc        = (activegofunc.value as String).toUpperCase();
 		quest.completeGoFunc      = (completegofunc.value as String).toUpperCase();
-		quest.activeNotifGoFunc   = (activenotifgofunc.value as String).toUpperCase();
-		quest.completeNotifGoFunc = (completenotifgofunc.value as String).toUpperCase();
-		
-		quest.activeNotifShowDismiss   = !(activenotifshowdismiss.selectedIndex && true);   //(inverse because 'yes' is first)
-		quest.completeNotifShowDismiss = !(completenotifshowdismiss.selectedIndex && true); //(inverse because 'yes' is first)
 		
 		AppServices.getInstance().saveQuest(GameModel.getInstance().game.gameId, quest, new Responder(handleUpdateQuestSave, handleFault));
 	}

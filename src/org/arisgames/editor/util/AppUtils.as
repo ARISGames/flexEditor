@@ -7,8 +7,6 @@ import org.arisgames.editor.MainView;
 import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.AugBubbleMedia;
-import org.arisgames.editor.data.arisserver.CustomMap;
-import org.arisgames.editor.data.arisserver.CustomMapMedia;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -469,30 +467,6 @@ public class AppUtils
 		else
 		{
 			trace("Data passed in was not an Aug Bubble Result set, returning NULL.");
-			return null;
-		}
-	}
-	
-	public static function parseResultDataIntoCustomMap(data:Object):CustomMap
-	{
-		if (data.hasOwnProperty("overlay_id"))
-		{
-			trace("retObj has a overlay_id!  It's value = '" + data.overlay_id + "'.");
-			var customMap:CustomMap = new CustomMap(data.name, data.overlay_id, 0);
-			
-			//customMap.media = new ArrayCollection();
-			//for(var x:Number = 0; x < data.media.length; x++){
-			//	customMap.media.addItem(new CustomMapMedia(data.media[x].media_id, data.media[x].text, data.media[x].index));
-			//}
-			customMap.customMapId = data.game_overlay_id;
-			customMap.name = data.name;
-
-			
-			return customMap;
-		}
-		else
-		{
-			trace("Data passed in was not a Custom Map Result set, returning NULL.");
 			return null;
 		}
 	}

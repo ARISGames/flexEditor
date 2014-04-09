@@ -13,7 +13,6 @@ import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
-import org.arisgames.editor.data.arisserver.CustomMap;
 import org.arisgames.editor.data.arisserver.Fountain;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.ItemTag;
@@ -194,13 +193,6 @@ public class AppServices
 		r.addResponder(resp);
 	}
 	
-	/*public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
-	{
-		var r:Object;
-		r = AppDAO.getInstance().getCustomMapServer().getCustomMaps(gid);
-		r.addResponder(resp);
-	}*/
-	
 	public function getPlayerNoteById(gid:Number, pnid:Number, resp:IResponder):void
 	{
 		var r:Object;
@@ -294,22 +286,6 @@ public class AppServices
 		}
 		r.addResponder(resp);
 	}
-	
-	/*public function saveCustomMap(gid:Number, customMap:CustomMap, resp:IResponder):void
-	{
-		var r:Object;
-		if (isNaN(customMap.customMapId) || customMap.customMapId == 0)
-		{
-			trace("This Custom Map doesn't have an Id, so call create customMap.");
-			r = AppDAO.getInstance().getCustomMapServer().createOverlay(gid, customMap.name, customMap.description, customMap.iconMediaId);
-		}
-		else
-		{
-			trace("This Custom Map has an Id (" + customMap.customMapId + "), so call update customMap.gameid:" + gid + " name:" + customMap.name);
-			r = AppDAO.getInstance().getCustomMapServer().updateCustomMap(gid, customMap.customMapId, customMap.name, customMap.description, customMap.iconMediaId);
-		}
-		r.addResponder(resp);
-	}*/
 
     public function savePage(gid:Number, n:Node, resp:IResponder):void
     {
@@ -345,25 +321,6 @@ public class AppServices
 		}
 		r.addResponder(resp);
 	}
-	
-public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
-	{
-		var r:Object;
-		if (isNaN(cm.customMapId) || cm.customMapId == 0)
-		{
-			trace("This custom map doesn't have an Id, so call create custom map.");
-			r = AppDAO.getInstance().getCustomMapServer().createOverlay(gid, cm.name, cm.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		}
-		else
-		{
-			trace("This custom map has an Id (" + cm.customMapId + "), so call update custom map.");
-			
-			 r = AppDAO.getInstance().getCustomMapServer().updateOverlay(gid, cm.customMapId, cm.name, cm.index, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-			
-		}
-		r.addResponder(resp);
-	}
-	
 
     public function saveLocation(gid:Number, loc:Location, imageMatchMediaId:Number, resp:IResponder):void
     {
@@ -696,13 +653,6 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		l.addResponder(resp);
 	}
 	
-	public function getCustomMapsByGameId(gid:Number, resp:IResponder):void
-	{
-		var l:Object;
-		l = AppDAO.getInstance().getCustomMapServer().getOverlaysForEditor(gid);
-		l.addResponder(resp);
-	}
-	
 	public function getNoteTagsByGameId(gid:Number, resp:IResponder):void
 	{
 		var l:Object;
@@ -762,15 +712,6 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		l = AppDAO.getInstance().getAugBubbleServer().getAugBubble(gid, id);
 		l.addResponder(resp);
 	}
-	
-	public function getCustomMapById(gid:Number, id:Number, resp:IResponder):void
-	{
-		var l:Object;
-		//trace("getAugBubbleById called with GID = '" + gid + "', and ID = '" + id + "'");
-		l = AppDAO.getInstance().getCustomMapServer().getOverlay(gid, id);
-		l.addResponder(resp);
-	}
-
 
     public function getMediaForGame(gid:Number, resp:IResponder):void
     {
@@ -812,15 +753,6 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		l.addResponder(resp);
 	}
 	
-	public function deleteCustomMap(gid:Number, cid:Number, resp:IResponder):void
-	{
-		var l:Object;
-		trace("deleteCustomMap called with GID = '" + gid + "'; CID = '" + cid + "'");
-		l = AppDAO.getInstance().getCustomMapServer().deleteOverlay(gid, cid, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		l.addResponder(resp);
-	}
-
-
     public function createMediaForGame(gid:Number, mediaName:String, fileName:String, isIcon:Number, resp:IResponder):void
     {
         var l:Object;
@@ -865,12 +797,6 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 	public function getAugBubbleMedia(gid:Number, augId:Number, resp:IResponder):void{
 		var l:Object;
 		l = AppDAO.getInstance().getAugBubbleServer().getAugBubbleMedia(gid, augId);
-		l.addResponder(resp);
-	}
-	
-	public function getCustomMapMedia(gid:Number, mapId:Number, resp:IResponder):void{
-		var l:Object;
-		l = AppDAO.getInstance().getCustomMapServer().getCustomMapMedia(gid, mapId);
 		l.addResponder(resp);
 	}
 	
@@ -984,14 +910,14 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 			l = AppDAO.getInstance().getQuestsServer().updateQuest(gid, quest.questId, 
 				quest.title, 
 				quest.activeText,                     quest.completeText, 
-				quest.activeNotifText,                quest.completeNotifText, 
-				quest.activeMediaId,                  quest.completeMediaId, 
+                "",                                   "",
+                quest.activeMediaId,                  quest.completeMediaId, 
 				quest.activeIconMediaId,              quest.completeIconMediaId, 
 				quest.activeNotifMediaId,             quest.completeNotifMediaId,
 				quest.activeGoFunc,                   quest.completeGoFunc,
-				quest.activeNotifGoFunc,              quest.completeNotifGoFunc,
+				"NONE",                               "NONE",
 				quest.activeNotifFullScreen  ? 1 : 0, quest.completeNotifFullScreen  ? 1 : 0,
-				quest.activeNotifShowDismiss ? 1 : 0, quest.completeNotifShowDismiss ? 1 : 0,
+				0,                                    0,
 				quest.index,
 				SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		}
@@ -1042,26 +968,6 @@ public function saveCustomMap(gid:Number, cm:CustomMap, resp:IResponder):void
 		trace("AppServices: switchConversationOrder called with GameId:" + gid + " NpcId: " + npcId + " convoA: " + convoAId + " convoB: " + convoBId);
 		var l:Object;
 		l = AppDAO.getInstance().getConversationServer().swapSortIndex(gid, npcId, convoAId, convoBId, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		l.addResponder(resp);
-	}
-	
-	public function switchCustomMapOrder(gid:Number, customMapIdA:Number, customMapIdB:Number, resp:IResponder):void {
-		trace("AppServices: switchCustomMapOrder called with GameId:" + gid + " customMapIdA: " + customMapIdA + " customMapIdB: " + customMapIdB);
-		var l:Object;
-		l = AppDAO.getInstance().getCustomMapServer().swapSortIndex(gid, customMapIdA,customMapIdB, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		l.addResponder(resp);
-	}
-	
-	public function unzipCustomMapTiles(gid:Number, customMapId:Number, zipFileName:String, resp:IResponder):void {
-		trace("AppServices: unzipCustomMapTiles called with GameId:" + gid + " customMapId: " + customMapId + " zipFileName: " + zipFileName);
-		var l:Object;
-		l = AppDAO.getInstance().getCustomMapServer().unzipOverlay(gid, zipFileName);
-		l.addResponder(resp);
-	}
-	public function writeCustomMapTilesToDatabase(gid:Number, customMapId:Number, folderName:String, resp:IResponder):void {
-		trace("AppServices: writeCustomMapTilesToDatabase called with GameId:" + gid + " customMapId: " + customMapId + " folderName: " + folderName);
-		var l:Object;
-		l = AppDAO.getInstance().getCustomMapServer().writeOverlayToDatabase(gid, customMapId, folderName, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
 		l.addResponder(resp);
 	}
 	

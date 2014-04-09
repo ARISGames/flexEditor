@@ -14,19 +14,12 @@ package org.arisgames.editor.data.arisserver
 	
     public var activeText:String;
     public var completeText:String;
-	public var activeNotifText:String;
-	public var completeNotifText:String;
 	
 	public var activeNotifFullScreen:Boolean;
 	public var completeNotifFullScreen:Boolean;
    
 	public var activeGoFunc:String;
 	public var completeGoFunc:String;
-	public var activeNotifGoFunc:String;
-	public var completeNotifGoFunc:String;
-	
-	public var activeNotifShowDismiss:Boolean;
-	public var completeNotifShowDismiss:Boolean;	
 	
     public var index:Number;
 
@@ -44,19 +37,12 @@ package org.arisgames.editor.data.arisserver
 		
 		this.activeText = "";
 		this.completeText = "";
-		this.activeNotifText = "";
-		this.completeNotifText = "";
 		
 		this.activeNotifFullScreen = false;
 		this.completeNotifFullScreen = false;
 		
 		this.activeGoFunc = "NONE";
-		this.completeGoFunc = "NONE";
-		this.activeNotifGoFunc = "NONE";
-		this.completeNotifGoFunc = "NONE";
-		
-		this.activeNotifShowDismiss = true;
-		this.completeNotifShowDismiss = true;	
+		this.completeGoFunc = "NONE";	
 		
 		this.index = 9999999;
 

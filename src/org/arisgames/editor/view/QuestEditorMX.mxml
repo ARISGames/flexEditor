@@ -8,7 +8,7 @@
   paddingRight="10"
   paddingBottom="10"
   width="430"
-  height="700"
+  height="500"
   title="Quest Editor"
   creationPolicy="all"
   horizontalScrollPolicy="off"
@@ -39,14 +39,6 @@
     <mx:VBox>
       <mx:Label text="Complete Description:" />
       <mx:TextArea id="completedesc" width="350" height="60"/>
-    </mx:VBox>
-    <mx:VBox>
-      <mx:Label text="Active Notification Description:" />
-      <mx:TextArea id="activenotifdesc" width="350" height="60"/>
-    </mx:VBox>
-    <mx:VBox>
-      <mx:Label text="Complete Notification Description:" />
-      <mx:TextArea id="completenotifdesc" width="350" height="60"/>
     </mx:VBox>
 
     <mx:FormItem label="New Notif Type">
@@ -95,54 +87,6 @@
           <mx:String>Decoder</mx:String>
           <mx:String>Notebook</mx:String>
           <mx:String>Javascript</mx:String>
-        </mx:ArrayCollection>
-      </mx:ComboBox>
-    </mx:FormItem>
-
-    <mx:FormItem label="Active Notif Go Function">
-      <mx:ComboBox id="activenotifgofunc">
-        <mx:ArrayCollection>
-          <mx:String>None</mx:String>
-          <mx:String>Map</mx:String>
-          <mx:String>Quests</mx:String>
-          <mx:String>Inventory</mx:String>
-          <mx:String>Player</mx:String>
-          <mx:String>Decoder</mx:String>
-          <mx:String>Notebook</mx:String>
-          <mx:String>Javascript</mx:String>
-        </mx:ArrayCollection>
-      </mx:ComboBox>
-    </mx:FormItem>
-
-    <mx:FormItem label="Complete Notif Go Function">
-      <mx:ComboBox id="completenotifgofunc">
-        <mx:ArrayCollection>
-          <mx:String>None</mx:String>
-          <mx:String>Map</mx:String>
-          <mx:String>Quests</mx:String>
-          <mx:String>Inventory</mx:String>
-          <mx:String>Player</mx:String>
-          <mx:String>Decoder</mx:String>
-          <mx:String>Notebook</mx:String>
-          <mx:String>Javascript</mx:String>
-        </mx:ArrayCollection>
-      </mx:ComboBox>
-    </mx:FormItem>
-
-    <mx:FormItem label="Active Notif Show Dismiss">
-      <mx:ComboBox id="activenotifshowdismiss">
-        <mx:ArrayCollection>
-          <mx:String>Yes</mx:String>
-          <mx:String>No</mx:String>
-        </mx:ArrayCollection>
-      </mx:ComboBox>
-    </mx:FormItem>
-
-    <mx:FormItem label="Complete Notif Show Dismiss">
-      <mx:ComboBox id="completenotifshowdismiss">
-        <mx:ArrayCollection>
-          <mx:String>Yes</mx:String>
-          <mx:String>No</mx:String>
         </mx:ArrayCollection>
       </mx:ComboBox>
     </mx:FormItem>

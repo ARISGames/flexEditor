@@ -25,7 +25,6 @@ public class AppDAO
     private static var mediaServer:RemoteObject;
     private static var requirementsServer:RemoteObject;
 	private static var questsServer:RemoteObject;
-	private static var customMapServer:RemoteObject;
 	private static var playerStateChangeServer:RemoteObject;
 	private static var spawnablesServer:RemoteObject;
 	private static var fountainsServer:RemoteObject;
@@ -158,18 +157,6 @@ public class AppDAO
 			augBubbleServer.showBusyCursor = true;
 		}
 		return augBubbleServer;
-	}
-	
-	public function getCustomMapServer():RemoteObject
-	{
-		if (customMapServer == null)
-		{
-			customMapServer = new RemoteObject();
-			customMapServer.source = AppConstants.APPLICATION_ENVIRONMENT_SERVER_VERSION + ".overlays";
-			customMapServer.destination = "amfphp";
-			customMapServer.showBusyCursor = true;
-		}
-		return customMapServer;
 	}
 
     public function getItemServer():RemoteObject

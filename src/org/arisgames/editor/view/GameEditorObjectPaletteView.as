@@ -54,7 +54,6 @@ public class GameEditorObjectPaletteView extends VBox
 	[Bindable] public var editQuestsButton:Button;
 	[Bindable] public var webHooksButton:Button;
 	[Bindable] public var noteTagsButton:Button;
-	[Bindable] public var customMapsButton:Button;
 	[Bindable] public var editGameButton:Button;
 	[Bindable] public var returnToGameListButton:Button;
 
@@ -91,7 +90,6 @@ public class GameEditorObjectPaletteView extends VBox
 		editGameButton.addEventListener(MouseEvent.CLICK, editGameButtonOnClick);
 		webHooksButton.addEventListener(MouseEvent.CLICK, webHooksButtonOnClick);
 		noteTagsButton.addEventListener(MouseEvent.CLICK, noteTagsButtonOnClick);
-		customMapsButton.addEventListener(MouseEvent.CLICK, customMapsButtonOnClick);
 		returnToGameListButton.addEventListener(MouseEvent.CLICK, returnToGameListButtonOnClick);
 
         paletteTree.addEventListener(ListEvent.ITEM_EDIT_END, handlePaletteObjectDataEditFinished);
@@ -110,12 +108,6 @@ public class GameEditorObjectPaletteView extends VBox
 	private function noteTagsButtonOnClick(evt:MouseEvent):void{
 		trace("noteTagsButtonOnClick() started... ");
 		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR);
-		AppDynamicEventManager.getInstance().dispatchEvent(de);	
-	}
-	
-	private function customMapsButtonOnClick(evt:MouseEvent):void{
-		trace("customMapsButtonOnClick() started... ");
-		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENCUSTOMMAPSEDITOR);
 		AppDynamicEventManager.getInstance().dispatchEvent(de);	
 	}
 	
