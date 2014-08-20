@@ -81,7 +81,7 @@ public class GameEditorMapView extends VBox
   }
   public function handleFault(obj:Object):void { Alert.show("Error occurred: " + obj.message, "Problems In Requirements Editor"); }
 
-  private function handleRefreshButtonClick(evt:DynamicEvent):void
+  public function handleRefreshButtonClick(evt:DynamicEvent):void
   {
     this.loadLocations(null);
   }
