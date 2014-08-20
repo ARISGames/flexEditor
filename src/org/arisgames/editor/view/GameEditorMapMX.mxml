@@ -35,14 +35,14 @@
 			<mx:DataGridColumn dataField="displayAnnotation" width="50"  headerText="Show Label"/>
 			<mx:DataGridColumn dataField="qrCode"            width="50"  headerText="QR Code"/>
 			<mx:DataGridColumn dataField="errorText"         width="150" headerText="Error Text"/>
-			<mx:DataGridColumn                               width="50"  headerText="Save">
+			<mx:DataGridColumn                               width="50"  headerText="Save" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:LinkButton label="O" click="parentDocument.handleSaveButtonClick(event)"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn                               width="50"  headerText="Delete">
+			<mx:DataGridColumn                               width="50"  headerText="Delete" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
 						<mx:LinkButton label="X" click="parentDocument.handleDeleteButtonClick(event)"/>

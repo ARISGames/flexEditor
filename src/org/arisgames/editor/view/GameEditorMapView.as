@@ -43,8 +43,6 @@ public class GameEditorMapView extends VBox
 
   private function handleInit(event:FlexEvent):void
   {
-    locs.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleEditStart);
-    locs.addEventListener(DataGridEvent.ITEM_EDIT_END,       handleEditEnd);
 	this.loadLocations(null);
   }
 
@@ -83,23 +81,18 @@ public class GameEditorMapView extends VBox
   }
   public function handleFault(obj:Object):void { Alert.show("Error occurred: " + obj.message, "Problems In Requirements Editor"); }
 
-  private function handleEditStart(evt:DynamicEvent):void
-  {
-
-  }
-  private function handleEditEnd(evt:DynamicEvent):void
-  {
-
-  }
-
   private function handleRefreshButtonClick(evt:DynamicEvent):void
   {
     this.loadLocations(null);
   }
  
-  private function handleDeleteButtonClick(evt:MouseEvent):void
+  public function handleSaveButtonClick(evt:MouseEvent):void
   {
-
+	  AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId,(locations.getItemAt(locs.selectedIndex) as Location),0,new Responder(loadLocations, handleFault));
+  }
+  public function handleDeleteButtonClick(evt:MouseEvent):void
+  {
+	  AppServices.getInstance().deleteLocation(GameModel.getInstance().game.gameId, (locations.getItemAt(locs.selectedIndex) as Location).locationId, new Responder(loadLocations, handleFault));
   }
   
   public function dragEnter(evt:DragEvent):void
@@ -116,7 +109,6 @@ public class GameEditorMapView extends VBox
 	  l.typeId = it.objectId;
 	 
 	  AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId,l,0,new Responder(loadLocations, handleFault));
-
   }
 }
 }
