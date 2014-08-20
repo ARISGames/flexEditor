@@ -16,7 +16,6 @@ public class StateModel extends EventDispatcher
     public static var REGISTERFORACCOUNT:String = "RegisterForAccount";
     public static var VIEWLOGIN:String = "ViewLogin";
     public static var VIEWGAMEEDITOR:String = "ViewGameEditor";
-    public static var VIEWGAMEEDITORPLACEMARKEDITOR:String = "ViewGameEditorPlaceMarkEditor";
     public static var VIEWCREATEOROPENGAMEWINDOW:String = "ViewCreateOrOpenGameWindow";
 
     // State Persistence
@@ -56,12 +55,6 @@ public class StateModel extends EventDispatcher
         _currentState = value;
 		var evt:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED);
 		AppDynamicEventManager.getInstance().dispatchEvent(evt);
-
-		if (value == StateModel.VIEWGAMEEDITORPLACEMARKEDITOR)
-        {
-			trace("current state was changed to view placemark editor, so firing an app dynamic event so that the editor will update itself");
-            dispatchEvent(evt);
-        }
     }
 }
 }

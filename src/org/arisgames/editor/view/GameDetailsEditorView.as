@@ -34,7 +34,6 @@ import mx.rpc.events.ResultEvent;
 
 import org.arisgames.editor.components.GameEditorMediaPickerMX;
 import org.arisgames.editor.data.Game;
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;

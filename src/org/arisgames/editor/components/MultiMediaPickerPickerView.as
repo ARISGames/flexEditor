@@ -14,9 +14,7 @@ package org.arisgames.editor.components
 	import mx.events.FlexEvent;
 	import mx.managers.PopUpManager;
 	import mx.rpc.Responder;
-	
-	import org.arisgames.editor.components.ImageMatchEditorMediaPickerCustomEditorMX;
-	import org.arisgames.editor.components.PlaceMarker;
+
 	import org.arisgames.editor.data.arisserver.Media;
 	import org.arisgames.editor.models.GameModel;
 	import org.arisgames.editor.services.AppServices;
@@ -28,7 +26,6 @@ package org.arisgames.editor.components
 	{
 		// Data Object
 		public var delegate:Object;
-		private var placeMarker:PlaceMarker;
 		private var uploadFormVisable:Boolean = false;
 		public var allowAllMediaTypes:Boolean = false;
 		
@@ -62,11 +59,6 @@ package org.arisgames.editor.components
 		
 		private function handleInit(event:FlexEvent):void
 		{
-			title = "Image Matching Media Picker";
-			trace("in PlaceMarkerEditorMediaPickerView's handleInit");
-			var cf:ClassFactory = new ClassFactory(ImageMatchEditorMediaPickerCustomEditorMX);
-			cf.properties = {placeMarker: this.placeMarker};
-			treeBrowser.detailRenderer = cf;
 			treeBrowser.addEventListener(TreeBrowserEvent.NODE_SELECTED, onNodeSelected);
 			closeButton.addEventListener(MouseEvent.CLICK, handleCloseButton);
 			selectButton.addEventListener(MouseEvent.CLICK, handleSelectButton);
@@ -78,28 +70,15 @@ package org.arisgames.editor.components
 		{
 			trace("XML Data = '" + xmlData.toXMLString() + "'");
 		}
-		
-		public function setPlaceMarker(pm:PlaceMarker):void
-		{
-			trace("setting placeMarker with name = '" + pm.placemark.name + "' in ItemEditorPlaqueView");
-			placeMarker = pm;
-		}
-		
+
 		private function handleCloseButton(evt:MouseEvent):void
 		{
-			trace("PlaceMarkerEditorMediaPickerView: handleCloseButton()");
 			PopUpManager.removePopUp(this);
-			
-			if (delegate.hasOwnProperty("didCloseWindow")){
-				delegate.didCloseWindow(this);
-			}	
+			if(delegate.hasOwnProperty("didCloseWindow")) delegate.didCloseWindow(this);
 		}
-		
 		
 		private function handleSelectButton(evt:MouseEvent):void
 		{
-			trace("Select Button clicked...");
-			
 			var obj:TreeBrowser = treeBrowser;
 			var m:Media = new Media();
 			m.mediaId = treeBrowser.selectedItem.@mediaId;
@@ -109,20 +88,14 @@ package org.arisgames.editor.components
 			m.fileName = treeBrowser.selectedItem.@fileName;
 			m.isDefault = treeBrowser.selectedItem.@isDefault;
 			
-			if (delegate.hasOwnProperty("didSelectMediaItem")){
-				delegate.didSelectMediaItem(this, m);
-			}		
-			
+			if(delegate.hasOwnProperty("didSelectMediaItem")) delegate.didSelectMediaItem(this, m);
 			PopUpManager.removePopUp(this);
 		}
 		
-	
 		private function handleLoadingOfMediaIntoXML(obj:Object):void
 		{
-			trace("In handleLoadingOfMediaIntoXML() Result called with obj = " + obj + "; Result = " + obj.result);
-			if (obj.result.returnCode != 0)
+			if(obj.result.returnCode != 0)
 			{
-				trace("Bad loading of media attempt... let's see what happened.  Error = '" + obj.result.returnCodeDescription + "'");
 				var msg:String = obj.result.returnCodeDescription;
 				Alert.show("Error Was: " + msg, "Error While Loading Media");
 				return;
@@ -201,7 +174,6 @@ package org.arisgames.editor.components
 								case AppConstants.MEDIATYPE_ICON:
 									break;
 								default:
-									trace("Default statement reached in load media.  This SHOULD NOT HAPPEN.  The offending mediaId = '" + m.mediaId + "' and type = '" + m.type + "'");
 									break;
 							}
 						}
@@ -213,53 +185,36 @@ package org.arisgames.editor.components
 					}
 				}
 			}
-			trace("MultiMediaPickerPickerView: handleLoadingOfMediaIntoXML: Just finished loading Media Objects into XML.  Here's what the new XML looks like:");
 			this.printXMLData();
-			
-			trace("Finished with handleLoadingOfMediaIntoXML().");
 		}
 		
 		public function handleFault(obj:Object):void
 		{
-			trace("Fault called: " + obj.message);
 			Alert.show("Error occurred: " + obj.message, "Problems Loading Media");
 		}
 		
 		private function onNodeSelected(event:TreeBrowserEvent):void
 		{
-			if (!event.isBranch)
+			if(!event.isBranch)
 			{
 				if (event.item.@label == AppConstants.MEDIATYPE_UPLOADNEW)
 				{
-					if (uploadFormVisable == false) {
-						trace("PlaceMarkerEditorMediaPickerView: onNodeSelected label == MEDIATYPE_UPLOADNEW, display form");
+					if (uploadFormVisable == false)
+					{
 						selectButton.enabled = false;
 						uploadFormVisable = true;
 						this.displayMediaUploader();
 						PopUpManager.removePopUp(this);
-					}
-					else trace("PlaceMarkerEditorMediaPickerView: ignored second TreeBrowserEvent == MEDIATYPE_UPLOADNEW");
-					
+					}					
 				}
-				else if(event.item.@label == AppConstants.MEDIATYPE_SEPARATOR){
-					//Do Nothing
-					trace("Separator Selected");
-					selectButton.enabled = false;
-				}
-				else
-				{
-					trace("PlaceMarkerEditorMediaPickerView: onNodeSelected is a media item");
-					selectButton.enabled = true;
-				}
+				else if(event.item.@label == AppConstants.MEDIATYPE_SEPARATOR) selectButton.enabled = false;
+				else selectButton.enabled = true;
 			}
-			else {
-				selectButton.enabled = false;	
-			}
+			else selectButton.enabled = false;	
 		}
 		
 		private function displayMediaUploader():void
 		{
-			trace("PlaceMarkerEditorMediaPickerPickerView: displayMediaUploader");
 			mediaUploader = new ItemEditorMediaPickerUploadFormMX();
 			mediaUploader.isIconPicker = false;
 			mediaUploader.delegate = this;
@@ -267,18 +222,11 @@ package org.arisgames.editor.components
 			PopUpManager.centerPopUp(mediaUploader);
 		}
 		
-		
-		public function didUploadMedia(uploader:ItemEditorMediaPickerUploadFormMX, m:Media):void{
-			trace("PlaceMarkerEditorMediaPicker: didUploadMedia");
-			
+		public function didUploadMedia(uploader:ItemEditorMediaPickerUploadFormMX, m:Media):void
+		{
 			uploadFormVisable = false;
-			
-			if (delegate.hasOwnProperty("didSelectMediaItem")){
-				delegate.didSelectMediaItem(this, m);
-			}		
-			
+			if (delegate.hasOwnProperty("didSelectMediaItem")) delegate.didSelectMediaItem(this, m);
 			PopUpManager.removePopUp(uploader);
 		}
-		
 	}
 }

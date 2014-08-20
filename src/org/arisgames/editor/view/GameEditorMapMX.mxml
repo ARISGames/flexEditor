@@ -12,19 +12,45 @@
                   verticalGap="0"
                   creationPolicy="all"
                 >
-
-    <c:NavigationMap id="theMap" width="100%" height="100%"
-                     dragEnter="theMap.paletteObjectDragEnterHandler(event);" dragExit="theMap.paletteObjectDragExitHandler(event);"
-                     dragDrop="theMap.paletteObjectDropHandler(event);"/>
-
-    <mx:ApplicationControlBar id="mapControlBar" width="100%" defaultButton="{mapGoButton}" creationPolicy="all">
-        <mx:Label text="Map Controls" color="#FFFFFF"/>
-        <mx:Label text="Location Search:"/>
-        <mx:TextInput id="mapSearchText" width="200" />
-        <mx:Button id="mapGoButton" label="Go"/>
-		<mx:Box id="emptySpace" width='100%'/>
-		<mx:Button id="centerMapButton" label="Center Map"/>
-		<mx:Button id="refreshButton" icon="@Embed(source='assets/img/refresh-icon-dark.png')"/>
+	<mx:DataGrid id="locs" width="100%" height="100%" dataProvider="{locations}" editable="true">
+		<mx:columns>
+			<!--
+			<mx:DataGridColumn dataField="locationId"        width="150" headerText="Id"/>
+			-->
+			<mx:DataGridColumn dataField="name"              width="150" headerText="Label"/>
+			<mx:DataGridColumn dataField="latitude"          width="150" headerText="Lat"/>
+			<mx:DataGridColumn dataField="longitude"         width="150" headerText="Lon"/>
+			<!--
+			<mx:DataGridColumn dataField="type"              width="250" headerText="Object Type"/>
+			<mx:DataGridColumn dataField="typeId"            width="250" headerText="Object Id"/>
+			-->
+			<mx:DataGridColumn dataField="error"             width="100" headerText="Radius"/>
+			<mx:DataGridColumn dataField="quantity"          width="50"  headerText="Qty"/>
+			<mx:DataGridColumn dataField="hidden"            width="50"  headerText="Hidden"/>
+			<mx:DataGridColumn dataField="forceView"         width="50"  headerText="Auto Display"/>
+			<mx:DataGridColumn dataField="quickTravel"       width="50"  headerText="Quick Travel"/>
+			<mx:DataGridColumn dataField="wiggle"            width="50"  headerText="Wiggle"/>
+			<mx:DataGridColumn dataField="displayAnnotation" width="50"  headerText="Show Label"/>
+			<mx:DataGridColumn dataField="qrCode"            width="50"  headerText="QR Code"/>
+			<mx:DataGridColumn dataField="errorText"         width="150" headerText="Error Text"/>
+			<mx:DataGridColumn                               width="50"  headerText="Save">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:LinkButton label="O" click="parentDocument.handleSaveButtonClick(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn                               width="50"  headerText="Delete">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:LinkButton label="X" click="parentDocument.handleDeleteButtonClick(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+		</mx:columns>
+	</mx:DataGrid>
+    <mx:ApplicationControlBar id="mapControlBar" width="100%">
+		<mx:Button id="refreshButton"        label="\>" click="parentDocument.handleRefreshButtonClick(event)"/>
+		<mx:Button id="addRequirementButton" label="+"  click="parentDocument.handleAddButtonClick(event)"/>
     </mx:ApplicationControlBar>
-
 </v:GameEditorMapView>

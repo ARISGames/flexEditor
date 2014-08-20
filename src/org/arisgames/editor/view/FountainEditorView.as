@@ -20,7 +20,6 @@ package org.arisgames.editor.view
 	import mx.managers.PopUpManager;
 	import mx.rpc.Responder;
 	
-	import org.arisgames.editor.data.PlaceMark;
 	import org.arisgames.editor.data.arisserver.Fountain;
 	import org.arisgames.editor.data.arisserver.Location;
 	import org.arisgames.editor.models.GameModel;
@@ -35,8 +34,6 @@ package org.arisgames.editor.view
 		public var delegate:Object;
 		
 		private var fountain:Fountain;
-		//private var location:Location;
-		private var location:PlaceMark;
 		
 		// Params
 		[Bindable] public var maxAmount:NumericStepper;

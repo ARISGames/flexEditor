@@ -3,89 +3,104 @@ package org.arisgames.editor.view
 
 import flash.events.MouseEvent;
 
+import mx.collections.ArrayCollection;
+import mx.controls.DataGrid;
 import mx.containers.ApplicationControlBar;
 import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.TextInput;
+import mx.events.DataGridEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 
-import org.arisgames.editor.components.NavigationMap;
 import org.arisgames.editor.models.GameModel;
+import org.arisgames.editor.data.arisserver.Location;
+import org.arisgames.editor.services.AppServices;
+import mx.rpc.Responder;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 
-
-// WB: Handles GeoSearch Events for The Map, passes them along to NavigationMap for FlyTo. 
 public class GameEditorMapView extends VBox
 {
-    // Map and Control Pane
-    [Bindable] public var theMap:NavigationMap;
 
-    [Bindable] public var mapControlBar:ApplicationControlBar;
-    [Bindable] public var mapSearchText:TextInput;
-    [Bindable] public var mapGoButton:Button;
-	[Bindable] public var centerMapButton:Button;
-	[Bindable] public var refreshButton:Button;
+  [Bindable] public var locations:ArrayCollection;
+  [Bindable] public var locs:DataGrid;
+  [Bindable] public var addLocationButton:Button;
+  [Bindable] public var mapControlBar:ApplicationControlBar;
+  [Bindable] public var refreshButton:Button;
 
-    /**
-     * Constructor
-     */
-    public function GameEditorMapView()
+  public function GameEditorMapView()
+  {
+    super();
+    locations = new ArrayCollection();
+    this.addEventListener(FlexEvent.CREATION_COMPLETE, handleInit);
+  }
+
+  private function handleInit(event:FlexEvent):void
+  {
+    locs.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleEditStart);
+    locs.addEventListener(DataGridEvent.ITEM_EDIT_END,       handleEditEnd);
+	this.loadLocations();
+  }
+
+  private function loadLocations():void
+  {
+    AppServices.getInstance().getLocationsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadLocations, handleFault));
+  }
+
+  private function handleLoadLocations(obj:Object):void
+  {
+    locations.removeAll();
+    for(var i:Number = 0; i < obj.result.data.list.length; i++)
     {
-        super();
-        this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
-		AppDynamicEventManager.getInstance().addEventListener(AppConstants.APPLICATIONDYNAMICEVENT_CENTERMAP, onCenterMapButtonClick);
+      var l:Location = new Location();
+      l.locationId        = obj.result.data.list.getItemAt(i).location_id;
+      l.latitude          = obj.result.data.list.getItemAt(i).latitude;
+      l.longitude         = obj.result.data.list.getItemAt(i).longitude;
+      l.name              = obj.result.data.list.getItemAt(i).name;
+      l.errorText         = obj.result.data.list.getItemAt(i).fail_text;
+      l.type              = obj.result.data.list.getItemAt(i).type;
+      l.typeId            = obj.result.data.list.getItemAt(i).type_id;
+      l.iconMediaId       = obj.result.data.list.getItemAt(i).icon_media_id;
+      l.error             = obj.result.data.list.getItemAt(i).error;
+      l.quantity          = obj.result.data.list.getItemAt(i).item_qty;
+      l.hidden            = obj.result.data.list.getItemAt(i).hidden;
+      l.forceView         = obj.result.data.list.getItemAt(i).force_view;
+      l.quickTravel       = obj.result.data.list.getItemAt(i).allow_quick_travel;
+      l.wiggle            = obj.result.data.list.getItemAt(i).wiggle;
+      l.displayAnnotation = obj.result.data.list.getItemAt(i).show_title;
+      l.qrId              = obj.result.data.list.getItemAt(i).qrcode_id;
+      l.qrCode            = obj.result.data.list.getItemAt(i).code;
 
+      locations.addItem(l);
     }
+	locations.refresh();
+  }
+  public function handleFault(obj:Object):void { Alert.show("Error occurred: " + obj.message, "Problems In Requirements Editor"); }
 
-    private function onComplete(event:FlexEvent): void
-    {
-        mapGoButton.addEventListener(MouseEvent.CLICK, onMapGoButtonClick);
-		centerMapButton.addEventListener(MouseEvent.CLICK, onCenterMapButtonClick);
-		refreshButton.addEventListener(MouseEvent.CLICK, onRefreshButtonClick);
+  private function handleEditStart(evt:DynamicEvent):void
+  {
 
-        addEventListener(AppConstants.DYNAMICEVENT_GEOSEARCH, handleGeoSearchEvent);
-    }
+  }
+  private function handleEditEnd(evt:DynamicEvent):void
+  {
 
-    private function onMapGoButtonClick(evt:Event):void
-    {
-        trace("process map search...");
-        if (mapSearchText.text == null || mapSearchText.text.length < 1)
-        {
-            Alert.show("Nothing was entered into the search box.  Please enter a geographic term to search form.", "No Text Entered");
-        }
-        else
-        {
-            trace("Going to try to lookup: '" + mapSearchText.text + "'");
+  }
 
-            var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_GEOSEARCH);
-            de.geoSearchText = mapSearchText.text;
-            dispatchEvent(de);
-        }
-    }
+  private function handleRefreshButtonClick(evt:DynamicEvent):void
+  {
+    this.loadLocations();
+    var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE); //Refresh Side Palette
+    AppDynamicEventManager.getInstance().dispatchEvent(de);
+  }
+  private function handleAddButtonClick(evt:DynamicEvent):void
+  {
 
-	private function onCenterMapButtonClick(evt:Event):void
-	{
-		trace("GameEditorMapView: Center Map Button Clicked!");
-		if(theMap && theMap.isSoReady) theMap.centerMapOnData(true);
-	}
-	
-	private function onRefreshButtonClick(evt:MouseEvent):void
-	{
-		trace("GameEditorMapView: Refresh Button Clicked!");
-		GameModel.getInstance().loadLocations(); //Refresh Map Locations
-		//theMap.centerMapOnData(false); //Center Map
-		var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE); //Refresh Side Palette
-		AppDynamicEventManager.getInstance().dispatchEvent(de);
-	}
+  }
+  private function handleDeleteButtonClick(evt:MouseEvent):void
+  {
 
-	
-    public function handleGeoSearchEvent(evt:DynamicEvent):void
-    {
-        trace("GameEditorView is going to try a doFlyTo()");
-        theMap.doFlyTo(evt.geoSearchText);
-    }
+  }
 }
 }

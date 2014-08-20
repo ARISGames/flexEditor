@@ -57,8 +57,6 @@ public class GameEditorObjectPaletteView extends VBox
 	[Bindable] public var editGameButton:Button;
 	[Bindable] public var returnToGameListButton:Button;
 
-	//[Bindable] public var editDialogButton:Button;
-	//[Bindable] public var editGoogleMapButton:Button;
     [Bindable] public var trashIcon:Image;
     [Bindable] public var glowImage:Glow;
 
@@ -1493,27 +1491,16 @@ public class GameEditorObjectPaletteView extends VBox
 
     public function handleDeleteContent(obj:Object):void
     {
-        trace("GameEditorObjectPalletView: handleDeleteContent() Result called with obj = " + obj + "; Result = " + obj.result);
-		
-		//close open placemark editors...
-		GameModel.getInstance().removeOpenPlaceMarkEditors();		
-		
         if (obj.result.returnCode != 0)
         {
-            trace("GameEditorObjectPalletView: Bad delete content attempt... let's see what happened.");
             var msg:String = obj.result.returnCodeDescription;
             Alert.show("Error Was: " + msg, "Error While Deleting Content");
         }
         else
         {
-            trace("GameEditorObjectPalletView: Delete content was successful. Refresh Object Pallet and Locations");
             this.sortAndSavePaletteObjects();
-			GameModel.getInstance().loadLocations();
-
         }
-		
-        trace("Finished with handleDeleteContent().");
-    }
+	}
 
     public function handleFault(obj:Object):void
     {

@@ -17,6 +17,7 @@ public class Location
 	public var quickTravel:Boolean;
 	public var wiggle:Boolean;
 	public var displayAnnotation:Boolean;
+	public var qrId:Number;
 	public var qrCode:String;
 	public var isFountain:Boolean;
 

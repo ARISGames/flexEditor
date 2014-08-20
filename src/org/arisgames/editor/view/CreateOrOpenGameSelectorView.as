@@ -16,7 +16,6 @@ import mx.rpc.Responder;
 import mx.rpc.events.ResultEvent;
 
 import org.arisgames.editor.data.Game;
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.Item;
 import org.arisgames.editor.data.arisserver.Media;
 import org.arisgames.editor.data.arisserver.NPC;
@@ -138,10 +137,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 	
 	        // Load the game into the app's models
 	        GameModel.getInstance().game = g;
-	        GameModel.getInstance().game.placeMarks.removeAll();
 	        GameModel.getInstance().game.gameObjects.removeAll();
-			GameModel.getInstance().shouldCenterOnLoad = true;
-			GameModel.getInstance().loadLocations();
 	
 	        StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
 			
@@ -160,10 +156,7 @@ public class CreateOrOpenGameSelectorView extends Panel
 			
 			// Load the game into the app's models
 			GameModel.getInstance().game = g;
-			GameModel.getInstance().game.placeMarks.removeAll();
 			GameModel.getInstance().game.gameObjects.removeAll();
-			GameModel.getInstance().shouldCenterOnLoad = true;
-			GameModel.getInstance().loadLocations();
 			
 			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
 			
@@ -191,12 +184,8 @@ public class CreateOrOpenGameSelectorView extends Panel
             Alert.show("Your game was succesfully created.  Please use the editor to start building it.", "Successfully Created Game");
             
 			//Clear everything from previous loads of other games
-			GameModel.getInstance().game.placeMarks.removeAll();
 			GameModel.getInstance().game.gameObjects.removeAll();
-			GameModel.getInstance().shouldCenterOnLoad = true;
-			GameModel.getInstance().loadLocations();
 
-			
 			StateModel.getInstance().currentState = StateModel.VIEWGAMEEDITOR;
         }
     }

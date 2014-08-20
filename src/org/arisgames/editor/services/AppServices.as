@@ -9,7 +9,6 @@ import org.arisgames.editor.dao.AppDAO;
 import mx.controls.Alert;
 
 import org.arisgames.editor.data.Game;
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.TabBarItem;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.Conversation;
@@ -339,70 +338,6 @@ public class AppServices
         l.addResponder(resp);
     }
 	
-	public function getFountainForLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
-	{				
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to get fountain for location ID:"+ loc.id);
-			l = AppDAO.getInstance().getFountainsServer().getFountainForLocation(gid, loc.id);
-		}
-		l.addResponder(resp);
-	}
-	
-	public function createFountainForLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Location doesn't have an Id- the Object should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to get fountain for object ID:"+ loc.id);
-			l = AppDAO.getInstance().getFountainsServer().createFountainForLocation(gid, loc.id, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		}
-		l.addResponder(resp);	
-	}
-	
-	public function deleteFountainFromLocation(gid:Number, loc:PlaceMark, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Object doesn't have an Id- the Object should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to get spawnable for object ID:"+ loc.id);
-			l = AppDAO.getInstance().getFountainsServer().deleteFountainOfLocation(gid, loc.id, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		}
-		l.addResponder(resp);	
-	}
-	
-	public function saveFountainForLocation(gid:Number, loc:PlaceMark, fountain:Fountain, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id) || isNaN(fountain.fountainId))
-		{
-			trace("AppServices.as: This Location/Fountain doesn't have an Id- the Location/Fountain should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to save fountain ID:"+ fountain.fountainId);
-			l = AppDAO.getInstance().getFountainsServer().updateFountain(fountain.fountainId, gid, loc.id, 'Location', fountain.spawnProbability, fountain.spawnRate, fountain.maxAmount, 1, SecurityModel.getInstance().getUserId(), SecurityModel.getInstance().getRWToken());
-		}
-		l.addResponder(resp);
-	}
-	
 	public function getSpawnableForObject(gid:Number, obj:ObjectPaletteItemBO, resp:IResponder):void
 	{
 		var l:Object;
@@ -467,54 +402,6 @@ public class AppServices
 		l.addResponder(resp);
 	}
 	
-	public function getAllImageMatchMedia(gid:Number, loc:PlaceMark, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to get image match media for location ID:"+ loc.id);
-			l = AppDAO.getInstance().getLocationServer().getAllImageMatchEntriesForLocation(gid, loc.id);
-		}
-		l.addResponder(resp);
-	}
-	
-	public function addImageMatchMediaIdToLocation(gid:Number, loc:PlaceMark, id:Number, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to add image match media to location ID:"+ loc.id);
-			l = AppDAO.getInstance().getLocationServer().addImageMatchEntryForLocation(gid, loc.id, id);
-		}
-		l.addResponder(resp);
-	}
-	
-	public function removeImageMatchMediaIdFromLocation(gid:Number, loc:PlaceMark, id:Number, resp:IResponder):void
-	{
-		var l:Object;
-		if (isNaN(loc.id))
-		{
-			trace("AppServices.as: This Location doesn't have an Id- the Location should have been saved to the database previously. :(");
-			l = null;
-		}
-		else
-		{
-			trace("AppServices.as: Going to add image match media to location ID:"+ loc.id);
-			l = AppDAO.getInstance().getLocationServer().removeImageMatchEntryForLocation(gid, loc.id, id);
-		}
-		l.addResponder(resp);
-	}
-
     public function deleteLocation(gid:Number, locId:Number, resp:IResponder):void
     {
         var l:Object;

@@ -20,7 +20,6 @@ package org.arisgames.editor.view
 	import mx.managers.PopUpManager;
 	import mx.rpc.Responder;
 	
-	import org.arisgames.editor.data.PlaceMark;
 	import org.arisgames.editor.data.arisserver.Spawnable;
 	import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 	import org.arisgames.editor.models.GameModel;
@@ -28,7 +27,6 @@ package org.arisgames.editor.view
 	import org.arisgames.editor.util.AppConstants;
 	import org.arisgames.editor.util.AppDynamicEventManager;
 	import org.arisgames.editor.util.AppUtils;
-	import org.arisgames.editor.view.LocationPickerMX;
 	import org.arisgames.editor.view.RequirementsEditorMX;
 	
 	public class SpawnableEditorView extends Panel
@@ -67,12 +65,7 @@ package org.arisgames.editor.view
 		[Bindable] public var deleteButton:Button;
 		[Bindable] public var closeButton:Button;
 		[Bindable] public var selectButton:Button;
-		
-		public var locationEditorMap:LocationPickerMX;
-		
-		/**
-		 * Constructor
-		 */
+				
 		public function SpawnableEditorView()
 		{
 			super();
@@ -89,7 +82,6 @@ package org.arisgames.editor.view
 			AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSESPAWNABLESEDITOR, handleCloseButton);
 			openRequirementsEditorButton.addEventListener(MouseEvent.CLICK, handleOpenRequirementsButtonClick);
 			AppDynamicEventManager.getInstance().addEventListener(AppConstants.DYNAMICEVENT_CLOSEREQUIREMENTSEDITOR, closeRequirementsEditor);	
-			mapButton.addEventListener(MouseEvent.CLICK, handleMapClick);
 		}
 		
 		public function setObjectPaletteItem(opi:ObjectPaletteItemBO):void
@@ -245,106 +237,6 @@ package org.arisgames.editor.view
 			this.spawnable.timeToLive = this.timeToLive.value;
 			this.spawnable.wiggle = this.wiggle.selected;
 			this.spawnable.displayAnnotation = this.displayAnnotation.selected;
-		}
-		
-		public function handleMapClick(evt:Event):void
-		{
-			trace("handleMapClick called, will send event to open Spawnable Editor Map now...");
-			locationEditorMap = new LocationPickerMX();
-			locationEditorMap.delegate = this;
-			
-			var pm:PlaceMark = new PlaceMark();
-			if(this.spawnable.latitude == 0 && this.spawnable.longitude == 0)
-			{
-				//Set zoom to map
-				//Sets first datapoint as furthest point in all directions as a base to set boundaries of zoom			
-				var furthestNorth:Number = pm.latitude;
-				var furthestSouth:Number = pm.latitude;
-				var furthestWest:Number = pm.longitude;
-				var furthestEast:Number = pm.longitude;
-				var avLat:Number = pm.latitude;
-				var avLong:Number = pm.longitude;
-				
-				//Go through all datapoints, finding average lat and long, and furthest distance between points
-				for (var j:Number = 1; j < GameModel.getInstance().game.placeMarks.length; j++)
-				{
-					pm = GameModel.getInstance().game.placeMarks.getItemAt(j) as PlaceMark;
-					
-					if(pm.latitude > furthestNorth)
-						furthestNorth = pm.latitude;
-					if(pm.latitude < furthestSouth)
-						furthestSouth = pm.latitude;
-					if(pm.longitude > furthestEast)
-						furthestEast = pm.longitude;
-					if(pm.longitude < furthestWest)
-						furthestWest = pm.longitude;
-					avLat+=pm.latitude;
-					avLong+=pm.longitude;
-				}
-				avLat/=j;
-				avLong/=j;
-				
-				var distance:Number = Math.abs(furthestNorth - furthestSouth);
-				distance = Math.max(distance, Math.abs(furthestEast - furthestWest));
-				var zoom:Number = 15;
-				
-				if(distance > 100){
-					zoom = 2;
-				}
-				else if(distance > 50){
-					zoom = 3;
-				}
-				else if(distance > 25){
-					zoom = 4;
-				}
-				else if(distance > 10){
-					zoom = 5;
-				}
-				else if(distance > 5){
-					zoom = 6;
-				}
-				else if(distance > 2){
-					zoom = 7;
-				}
-				else if(distance > 1){
-					zoom = 8;
-				}
-				else if(distance > .5){
-					zoom = 9;
-				}
-				else if(distance > .25){
-					zoom = 10;
-				}
-				else if(distance > .125){
-					zoom = 11;
-				}
-				else if(distance > .075){
-					zoom = 12;
-				}
-				else if(distance > .0375){
-					zoom = 13;
-				}
-				else if(distance > .018525){
-					zoom = 14;
-				}
-				trace("zoom="+zoom+"!");
-				
-				locationEditorMap.setPlacemarkLocation(avLat, avLong, zoom);
-			}
-			else
-			{
-				locationEditorMap.setPlacemarkLocation(this.spawnable.latitude, this.spawnable.longitude, 0);
-			}
-			
-			this.parent.addChild(locationEditorMap);
-			
-			// Need to validate the display so that entire component is rendered
-			locationEditorMap.validateNow();
-			
-			PopUpManager.addPopUp(locationEditorMap, AppUtils.getInstance().getMainView(), true);
-			PopUpManager.centerPopUp(locationEditorMap);
-			locationEditorMap.includeInLayout = true;
-			locationEditorMap.setVisible(true);
 		}
 		
 		public function setLatLon(lat:Number, lon:Number):void

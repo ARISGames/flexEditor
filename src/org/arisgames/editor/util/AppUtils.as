@@ -4,7 +4,6 @@ import mx.collections.ArrayCollection;
 import mx.utils.ArrayUtil;
 
 import org.arisgames.editor.MainView;
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.arisserver.AugBubble;
 import org.arisgames.editor.data.arisserver.AugBubbleMedia;
 import org.arisgames.editor.data.arisserver.Item;
@@ -139,29 +138,6 @@ public class AppUtils
                 trace("getContentTypeValueByName() returning a -1 for name passed in = '" + ct + "'");
                 return -1;
         }
-    }
-
-    public static function convertPlaceMarkToLocation(pm:PlaceMark):Location
-    {
-        var loc:Location = new Location();
-
-        loc.locationId = pm.id;
-        loc.latitude = pm.latitude;
-        loc.longitude = pm.longitude;
-        loc.name = pm.name;
-		loc.errorText = pm.errorText;
-		loc.qrCode = pm.qrCode;
-        loc.type = AppUtils.getContentTypeForDatabaseAsString(pm.contentType);
-        loc.typeId = pm.contentId;
-        loc.iconMediaId = 0;
-        loc.error = 0;
-        loc.quantity = pm.quantity;
-        loc.hidden = pm.hidden;
-        loc.forceView = pm.forcedView;
-		loc.quickTravel = pm.quickTravel;
-		loc.wiggle = pm.wiggle;
-		loc.displayAnnotation = pm.displayAnnotation;
-        return loc;
     }
 
 	public static function findParentObjectPaletteItem(child:ObjectPaletteItemBO):ObjectPaletteItemBO

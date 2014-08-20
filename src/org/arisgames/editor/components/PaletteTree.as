@@ -14,7 +14,6 @@ import mx.events.TreeEvent;
 import mx.rpc.Responder;
 import mx.utils.ObjectUtil;
 
-import org.arisgames.editor.data.PlaceMark;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
 import org.arisgames.editor.models.GameModel;
 import org.arisgames.editor.services.AppServices;
@@ -173,12 +172,7 @@ public class PaletteTree extends Tree
 		this.invalidateList();
 		// Validate and update properties
 		// of the Tree and redraw it if necessary.
-		this.validateNow();
-		de = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED);
-		AppDynamicEventManager.getInstance().dispatchEvent(de);
-		
-		//Remove placemark editors...
-		GameModel.getInstance().removeOpenPlaceMarkEditors();	
+		this.validateNow();	
 	}
 	
     private function listenForMouseDoubleClicks(evt:MouseEvent):void
@@ -195,10 +189,7 @@ public class PaletteTree extends Tree
 		}
         var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_EDITOBJECTPALETTEITEM);
         de.objectPaletteItem = this.selectedItem;
-        AppDynamicEventManager.getInstance().dispatchEvent(de);
-		
-		//Remove placemark editors...
-		GameModel.getInstance().removeOpenPlaceMarkEditors();		
+        AppDynamicEventManager.getInstance().dispatchEvent(de);		
     }
 
     /**

@@ -13,11 +13,6 @@ package org.arisgames.editor.util
     public static const APPLICATION_ENVIRONMENT_UPLOAD_SERVER_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/services/" + APPLICATION_ENVIRONMENT_SERVER_VERSION + "/uploadHandler.php";
     public static const APPLICATION_ENVIRONMENT_GATEWAY_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gateway.php"; //services-config.xml
 
-    //Google API
-    public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBRloMOfjiI7F4SM41AgXh_4cb6l9xTHRyPNO3mgDcJkTIE742EL8ZoQ_Q"; //arisgames.org
-    //public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAArdp0t4v0pcA_JogLZhjrjBTf4EykMftsP7dwAfDsLsFl_zB7rBTq5-3Hy0k3tU1tgyomozB1YmIfNg"; //davembp
-    //public static const APPLICATION_ENVIRONMENT_GOOGLEMAP_KEY:String = "ABQIAAAA-Z69V9McvCh02XYNV5UHBBQsvlSBtAWfm4N2P3iTGfWOp-UrmRRTU3pFPQwMJB92SZ3plLjvRpMIIw"; //atsosxdev
-
     //Image Reference URL's
     public static const IMG_DEFAULT_ICON_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_48x48.png";
     public static const IMG_DEFAULT_IMAGE_SIZE_REFERENCE_URL:String = APPLICATION_ENVIRONMENT_ROOT_URL+"/gamedata/img_size/img_size_gt320x416.png";
@@ -29,11 +24,8 @@ package org.arisgames.editor.util
     // Dynamic Events
     public static const APPLICATIONDYNAMICEVENT_CURRENTSTATECHANGED:String = "ApplicationDynamicEventCurrentStateChanged";
     public static const APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE:String = "ApplicationDynamicEventRedrawObjectPalette";
-    public static const APPLICATIONDYNAMICEVENT_GAMEPLACEMARKSLOADED:String = "ApplicationDynamicEventGamePlacemarksLoaded";
     public static const APPLICATIONDYNAMICEVENT_CENTERMAP:String = "DYNAMICEVENT_CENTERMAP";
     public static const DYNAMICEVENT_GEOSEARCH:String = "DynamicEventGeoSearch";
-    public static const DYNAMICEVENT_PLACEMARKSELECTED:String = "DynamicEventPlaceMarkSelected";
-    public static const DYNAMICEVENT_PLACEMARKREQUESTSDELETION:String = "DynamicEventPlaceMarkRequestsDeletion";
     public static const DYNAMICEVENT_EDITOBJECTPALETTEITEM:String = "EditObjectPaletteItem";
     public static const DYNAMICEVENT_OBJECTPALETTEITEMICONSET:String = "ObjectPaletteItemIconSetSoSetItsLocationsIcons";
     public static const DYNAMICEVENT_HIGHLIGHTOBJECTPALETTEITEM:String = "HighlightObjectPaletteItem";
@@ -86,7 +78,6 @@ package org.arisgames.editor.util
     public static const CONTENTTYPE_WEBPAGE_DATABASE:String = "WebPage";
     public static const CONTENTTYPE_AUGBUBBLE_DATABASE:String = "AugBubble";
     public static const CONTENTTYPE_PLAYER_NOTE_DATABASE:String = "PlayerNote";
-    public static const PLACEMARK_DEFAULT_ERROR_RANGE:Number = 30;
 
     // Default Names (Name of new objects as they are created)
     public static const CONTENTTYPE_CHARACTER_DEFAULT_NAME:String = "Unnamed Character";
