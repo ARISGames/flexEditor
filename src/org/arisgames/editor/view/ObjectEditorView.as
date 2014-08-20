@@ -37,7 +37,6 @@ public class ObjectEditorView extends Canvas
 	[Bindable] public var webPageEditor:ObjectEditorWebPageView;
     [Bindable] public var characterEditor:ObjectEditorCharacterView;
     [Bindable] public var plaqueEditor:ObjectEditorPlaqueView;
-	[Bindable] public var augBubbleEditor:ObjectEditorAugBubbleView;
 	[Bindable] public var playerNoteEditor:ObjectEditorPlayerNoteView;
 	public var stdHeight:Number;
 
@@ -275,8 +274,6 @@ public class ObjectEditorView extends Canvas
         plaqueEditor.includeInLayout = false;
 		webPageEditor.setVisible(false);
 		webPageEditor.includeInLayout = false;
-		augBubbleEditor.setVisible(false);
-		augBubbleEditor.includeInLayout = false;
 		playerNoteEditor.setVisible(false);
 		playerNoteEditor.includeInLayout = false;
 		this.width=470;
@@ -325,14 +322,6 @@ public class ObjectEditorView extends Canvas
 			secretText.text = "id="+webPageEditor.objectPaletteItem.objectId+"";
 			webPageEditor.setVisible(true);
 			webPageEditor.includeInLayout = true;
-		}
-		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_AUGBUBBLE_DATABASE)
-		{
-			trace("It's an AugBubble, so display the AugBubble Editor.")
-			augBubbleEditor.setObjectPaletteItem(objectPaletteItem);
-			secretText.text = "id="+augBubbleEditor.objectPaletteItem.objectId+"";
-			augBubbleEditor.setVisible(true);
-			augBubbleEditor.includeInLayout = true;
 		}
 		else if (objectPaletteItem.objectType == AppConstants.CONTENTTYPE_PLAYER_NOTE_DATABASE)
 		{

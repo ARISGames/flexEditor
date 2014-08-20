@@ -4,20 +4,24 @@ package org.arisgames.editor.view
 import flash.events.MouseEvent;
 
 import mx.collections.ArrayCollection;
-import mx.controls.DataGrid;
 import mx.containers.ApplicationControlBar;
 import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Button;
+import mx.controls.DataGrid;
 import mx.controls.TextInput;
+import mx.core.IUIComponent;
 import mx.events.DataGridEvent;
+import mx.events.DragEvent;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
-
-import org.arisgames.editor.models.GameModel;
-import org.arisgames.editor.data.arisserver.Location;
-import org.arisgames.editor.services.AppServices;
+import mx.managers.DragManager;
 import mx.rpc.Responder;
+
+import org.arisgames.editor.data.arisserver.Location;
+import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
+import org.arisgames.editor.models.GameModel;
+import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 
@@ -41,10 +45,10 @@ public class GameEditorMapView extends VBox
   {
     locs.addEventListener(DataGridEvent.ITEM_EDIT_BEGINNING, handleEditStart);
     locs.addEventListener(DataGridEvent.ITEM_EDIT_END,       handleEditEnd);
-	this.loadLocations();
+	this.loadLocations(null);
   }
 
-  private function loadLocations():void
+  private function loadLocations(obj:Object):void
   {
     AppServices.getInstance().getLocationsByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadLocations, handleFault));
   }
@@ -90,16 +94,28 @@ public class GameEditorMapView extends VBox
 
   private function handleRefreshButtonClick(evt:DynamicEvent):void
   {
-    this.loadLocations();
-    var de:DynamicEvent = new DynamicEvent(AppConstants.APPLICATIONDYNAMICEVENT_REDRAWOBJECTPALETTE); //Refresh Side Palette
-    AppDynamicEventManager.getInstance().dispatchEvent(de);
+    this.loadLocations(null);
   }
-  private function handleAddButtonClick(evt:DynamicEvent):void
+ 
+  private function handleDeleteButtonClick(evt:MouseEvent):void
   {
 
   }
-  private function handleDeleteButtonClick(evt:MouseEvent):void
+  
+  public function dragEnter(evt:DragEvent):void
   {
+	  var dropTarget:IUIComponent = evt.currentTarget as IUIComponent;
+	  DragManager.acceptDragDrop(dropTarget);
+  }
+  public function dragDrop(evt:DragEvent):void
+  {
+	  var it:ObjectPaletteItemBO = (evt.dragSource.dataForFormat('treeItems') as Array)[0];
+	  var l:Location = new Location();
+	  l.name = it.name;
+	  l.type = it.objectType;
+	  l.typeId = it.objectId;
+	 
+	  AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId,l,0,new Responder(loadLocations, handleFault));
 
   }
 }

@@ -74,9 +74,6 @@ public class GameEditorObjectPaletteView extends VBox
     {
         super();
         this.addEventListener(FlexEvent.CREATION_COMPLETE, onComplete);
-
-        // Setup Tree Data
-        trace("This is the treeModel being glued to the GameModel.  The size is currently: '" + GameModel.getInstance().game.gameObjects.length + "'");
         treeModel = GameModel.getInstance().game.gameObjects;
     }
 
@@ -98,23 +95,19 @@ public class GameEditorObjectPaletteView extends VBox
     }
 	
 	private function webHooksButtonOnClick(evt:MouseEvent):void{
-		trace("webHooksButtonOnClick() started... ");
 		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENWEBHOOKSEDITOR);
 		AppDynamicEventManager.getInstance().dispatchEvent(de);	
 	}
 
 	private function noteTagsButtonOnClick(evt:MouseEvent):void{
-		trace("noteTagsButtonOnClick() started... ");
 		var de:DynamicEvent = new DynamicEvent(AppConstants.DYNAMICEVENT_OPENNOTETAGSEDITOR);
 		AppDynamicEventManager.getInstance().dispatchEvent(de);	
 	}
 	
 	private function handleCurrentStateChangedEvent(obj:Object):void
 	{
-		trace("GameEditorObjectPalletView: handleCurrentStateChangedEvent");
-		
-		if (StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITOR){
-			trace("GameEditorObjectPalletView: handleCurrentStateChangedEvent: Refreshing");
+		if(StateModel.getInstance().currentState == StateModel.VIEWGAMEEDITOR)
+		{
 			this.refreshData = true;
 			AppServices.getInstance().getFoldersAndContentByGameId(GameModel.getInstance().game.gameId, new Responder(handleLoadFoldersAndContentForObjectPalette, handleFault));
 		}
@@ -122,13 +115,10 @@ public class GameEditorObjectPaletteView extends VBox
 	
 	private function handleLoadFoldersAndContentForObjectPalette(obj:Object):void
 	{
-		trace("GameEditorObjectPaletteView: Starting handleLoadFoldersAndContentForObjectPalette()...");
 		var ops:ArrayCollection = new ArrayCollection();
 		ops.removeAll();
 		var op:ObjectPaletteItemBO;
 		
-		trace("Starting to load the folders.");
-		// Load Folders
 		if(obj.result.data != null){
 			for (var j:Number = 0; j < obj.result.data.folders.list.length; j++)
 			{
@@ -140,10 +130,8 @@ public class GameEditorObjectPaletteView extends VBox
 				op.previousFolderId = obj.result.data.folders.list.getItemAt(j).previous_id;
 				op.previousContentId = obj.result.data.folders.list.getItemAt(j).previous_id;
 				op.isOpen = obj.result.data.folders.list.getItemAt(j).is_open;
-				trace("Folder Loaded: Id-"+op.id+" Name-"+op.name+" parentFolderId-"+op.previousFolderId+" previousFolderId-"+op.previousFolderId+" isOpen-"+op.isOpen);
 				ops.addItem(op);
 			}
-			trace("Folders loaded, number of object palette BOs = '" + ops.length + "'");
 		}
 		
 		var dataSortField:SortField = new SortField();

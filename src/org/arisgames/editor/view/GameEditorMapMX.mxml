@@ -11,6 +11,8 @@
                   paddingRight="0"
                   verticalGap="0"
                   creationPolicy="all"
+				  dragEnter="dragEnter(event);"
+				  dragDrop="dragDrop(event);"
                 >
 	<mx:DataGrid id="locs" width="100%" height="100%" dataProvider="{locations}" editable="true">
 		<mx:columns>
@@ -50,7 +52,6 @@
 		</mx:columns>
 	</mx:DataGrid>
     <mx:ApplicationControlBar id="mapControlBar" width="100%">
-		<mx:Button id="refreshButton"        label="\>" click="parentDocument.handleRefreshButtonClick(event)"/>
-		<mx:Button id="addRequirementButton" label="+"  click="parentDocument.handleAddButtonClick(event)"/>
+		<mx:Button id="refreshButton"        label="refresh" click="parentDocument.handleRefreshButtonClick(event)"/>
     </mx:ApplicationControlBar>
 </v:GameEditorMapView>

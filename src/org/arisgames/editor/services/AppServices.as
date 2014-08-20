@@ -325,7 +325,7 @@ public class AppServices
     {
         var l:Object;
 		if(loc.type == "PlayerNote") loc.iconMediaId = 94; //Set it to notebook- can't reference 'notes' table because notes have no custom icon media
-        if (isNaN(loc.locationId))
+        if (isNaN(loc.locationId) || loc.locationId == 0)
         {
             trace("AppServices.as: This Location doesn't have an Id, so call create Location. Qr Code = " + loc.qrCode + " QuickTravel = " + loc.quickTravel);
             l = AppDAO.getInstance().getLocationServer().createLocationWithQrCode(gid, loc.name, loc.iconMediaId, loc.latitude, loc.longitude, loc.error, loc.type, loc.typeId, loc.quantity, loc.hidden, loc.forceView, loc.quickTravel , loc.wiggle, loc.displayAnnotation, loc.qrCode, imageMatchMediaId, loc.errorText);
