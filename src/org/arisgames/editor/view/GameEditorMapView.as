@@ -17,6 +17,8 @@ import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.DragManager;
 import mx.rpc.Responder;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
 
 import org.arisgames.editor.data.arisserver.Location;
 import org.arisgames.editor.data.businessobjects.ObjectPaletteItemBO;
@@ -86,6 +88,43 @@ public class GameEditorMapView extends VBox
     this.loadLocations(null);
   }
  
+  public function handleLocationButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  var loc:String = AppConstants.APPLICATION_ENVIRONMENT_SERVICES_URL + 
+		  "location-edit.html?locationId=" + l.locationId;
+	  navigateToURL(new URLRequest(loc),"_blank");
+  }
+  public function handleHiddenButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  l.hidden = !l.hidden;
+	  locations.refresh();
+  }
+  public function handleAutoDisplayButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  l.forceView = !l.forceView;
+	  locations.refresh();
+  }
+  public function handleQuickTravelButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  l.quickTravel = !l.quickTravel;
+	  locations.refresh();
+  }
+  public function handleWiggleButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  l.wiggle = !l.wiggle;
+	  locations.refresh();
+  }
+  public function handleShowLabelButtonClick(evt:MouseEvent):void
+  {
+	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	  l.displayAnnotation = !l.displayAnnotation;
+	  locations.refresh();
+  }
   public function handleSaveButtonClick(evt:MouseEvent):void
   {
 	  AppServices.getInstance().saveLocation(GameModel.getInstance().game.gameId,(locations.getItemAt(locs.selectedIndex) as Location),0,new Responder(loadLocations, handleFault));
