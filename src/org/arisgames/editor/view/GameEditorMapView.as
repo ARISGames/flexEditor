@@ -77,7 +77,7 @@ public class GameEditorMapView extends VBox
       l.qrId              = obj.result.data.list.getItemAt(i).qrcode_id;
       l.qrCode            = obj.result.data.list.getItemAt(i).code;
 
-      locations.addItem(l);
+	  if(l.type != "PlayerNote") locations.addItem(l);
     }
 	locations.refresh();
   }
@@ -95,35 +95,11 @@ public class GameEditorMapView extends VBox
 		  "location-edit.html?locationId=" + l.locationId;
 	  navigateToURL(new URLRequest(loc),"_blank");
   }
-  public function handleHiddenButtonClick(evt:MouseEvent):void
+
+  public function handleRequirementsButtonClick(evt:MouseEvent):void
   {
 	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-	  l.hidden = !l.hidden;
-	  locations.refresh();
-  }
-  public function handleAutoDisplayButtonClick(evt:MouseEvent):void
-  {
-	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-	  l.forceView = !l.forceView;
-	  locations.refresh();
-  }
-  public function handleQuickTravelButtonClick(evt:MouseEvent):void
-  {
-	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-	  l.quickTravel = !l.quickTravel;
-	  locations.refresh();
-  }
-  public function handleWiggleButtonClick(evt:MouseEvent):void
-  {
-	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-	  l.wiggle = !l.wiggle;
-	  locations.refresh();
-  }
-  public function handleShowLabelButtonClick(evt:MouseEvent):void
-  {
-	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-	  l.displayAnnotation = !l.displayAnnotation;
-	  locations.refresh();
+
   }
   public function handleSaveButtonClick(evt:MouseEvent):void
   {

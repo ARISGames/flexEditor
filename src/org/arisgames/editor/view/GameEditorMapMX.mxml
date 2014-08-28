@@ -39,53 +39,58 @@
 			<mx:DataGridColumn dataField="error"             width="50" headerText="Radius"/>
 			<mx:DataGridColumn dataField="quantity"          width="50" headerText="Qty"/>
 			
-			<mx:DataGridColumn                               width="25" editable="false">
-				<mx:itemRenderer>
+	
+			<mx:DataGridColumn dataField="hidden"            width="50"  headerText="Hidden"           editable="false">
+				<mx:itemRenderer >
 					<mx:Component>
-						<mx:LinkButton label=">" click="outerDocument.handleHiddenButtonClick(event)"/>
+						<mx:CheckBox click="{data.hidden = !data.hidden}" textAlign="center"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn dataField="hidden"            width="50"  headerText="Hidden" editable="false" />
-			
-			<mx:DataGridColumn                               width="25" editable="false">
-				<mx:itemRenderer>
-					<mx:Component>
-						<mx:LinkButton label=">" click="outerDocument.handleAutoDisplayButtonClick(event)"/>
-					</mx:Component>
-				</mx:itemRenderer>
-			</mx:DataGridColumn>
-			<mx:DataGridColumn dataField="forceView"         width="50"  headerText="Auto Display" editable="false"/>
 
-			<mx:DataGridColumn                               width="25" editable="false">
-				<mx:itemRenderer>
+			<mx:DataGridColumn dataField="forceView"         width="50"  headerText="Auto Display"           editable="false">
+				<mx:itemRenderer >
 					<mx:Component>
-						<mx:LinkButton label=">" click="outerDocument.handleQuickTravelButtonClick(event)"/>
+						<mx:CheckBox click="{data.forceView = !data.forceView}" textAlign="center"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn dataField="quickTravel"       width="50"  headerText="Quick Travel" editable="false"/>
 
-			<mx:DataGridColumn                               width="25" editable="false">
-				<mx:itemRenderer>
+			<mx:DataGridColumn dataField="quickTravel"       width="50"  headerText="Quick Travel"           editable="false">
+				<mx:itemRenderer >
 					<mx:Component>
-						<mx:LinkButton label=">" click="outerDocument.handleWiggleButtonClick(event)"/>
+						<mx:CheckBox click="{data.quickTravel = !data.quickTravel}" textAlign="center"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn dataField="wiggle"            width="50"  headerText="Wiggle" editable="false"/>
 
-			<mx:DataGridColumn                               width="25" editable="false">
-				<mx:itemRenderer>
+			<mx:DataGridColumn dataField="wiggle"            width="50"  headerText="Wiggle"           editable="false">
+				<mx:itemRenderer >
 					<mx:Component>
-						<mx:LinkButton label=">" click="outerDocument.handleShowLabelButtonClick(event)"/>
+						<mx:CheckBox click="{data.wiggle = !data.wiggle}" textAlign="center"/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn dataField="displayAnnotation" width="50"  headerText="Show Label" editable="false"/>
+
+			<mx:DataGridColumn dataField="displayAnnotation" width="50"  headerText="Show Label"           editable="false">
+				<mx:itemRenderer >
+					<mx:Component>
+						<mx:CheckBox click="{data.displayAnnotation = !data.displayAnnotation}" textAlign="center"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 
 			<mx:DataGridColumn dataField="qrCode"            width="50"  headerText="QR Code"/>
 			<mx:DataGridColumn dataField="errorText"         width="150" headerText="Error Text"/>
+			
+			<mx:DataGridColumn                               width="50"  headerText="Requirements" editable="false">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:LinkButton label="Edit" click="outerDocument.handleRequirementsButtonClick(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			
 			<mx:DataGridColumn                               width="50"  headerText="Save" editable="false">
 				<mx:itemRenderer>
 					<mx:Component>
