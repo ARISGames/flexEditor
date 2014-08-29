@@ -27,6 +27,18 @@ import org.arisgames.editor.services.AppServices;
 import org.arisgames.editor.util.AppConstants;
 import org.arisgames.editor.util.AppDynamicEventManager;
 
+import mx.managers.PopUpManager;
+import mx.rpc.Responder;
+
+import org.arisgames.editor.components.MediaPickerMX;
+import org.arisgames.editor.data.arisserver.Media;
+import org.arisgames.editor.data.arisserver.Quest;
+import org.arisgames.editor.models.GameModel;
+import org.arisgames.editor.services.AppServices;
+import org.arisgames.editor.util.AppUtils;
+import org.arisgames.editor.util.AppConstants;
+import org.arisgames.editor.util.AppDynamicEventManager;
+
 public class GameEditorMapView extends VBox
 {
 
@@ -98,8 +110,14 @@ public class GameEditorMapView extends VBox
 
   public function handleRequirementsButtonClick(evt:MouseEvent):void
   {
-	  var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
-
+	var l:Location = (locations.getItemAt(locs.selectedIndex) as Location);
+	var requirementsEditor:RequirementsEditorMX = new RequirementsEditorMX();
+	requirementsEditor.validateNow();	  
+	PopUpManager.addPopUp(requirementsEditor, AppUtils.getInstance().getMainView(), true);
+	PopUpManager.centerPopUp(requirementsEditor);
+	requirementsEditor.setVisible(true);
+	requirementsEditor.includeInLayout = true;
+	requirementsEditor.setRequirementTypeAndId("Location", l.locationId);
   }
   public function handleSaveButtonClick(evt:MouseEvent):void
   {
